@@ -1,0 +1,90 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/laravel-cloud-openapi.json, openapi/laravel-forge-openapi.json
+docs: https://forge.laravel.com/docs/api-reference/introduction, https://cloud.laravel.com/docs/api/authentication,
+  https://forge.laravel.com/docs/api, https://envoyer.io/api-documentation
+notes: Baseline derived mechanically from both OpenAPI files, then upgraded from the provider's auth
+  documentation. Every Laravel commercial API is bearer-token authenticated. Forge additionally declares
+  a full OAuth 2.0 authorization-code flow with 62 scopes for third-party applications. Laravel account
+  sign-in itself runs through a separate OIDC identity provider at id.laravel.com, which is not the
+  resource-API auth path.
+summary:
+  types:
+  - http
+  - oauth2
+  api_key_in: []
+  oauth2_flows:
+  - authorizationCode
+  transport: 'Authorization: Bearer <token> header'
+  required_headers:
+  - 'Accept: application/json'
+  - 'Content-Type: application/json'
+schemes:
+- name: http
+  type: http
+  scheme: bearer
+  bearerFormat: bearer
+  description: The Bearer Token generated on the Cloud UI.
+  sources:
+  - openapi/laravel-cloud-openapi.json
+  - openapi/laravel-forge-openapi.json
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://forge.laravel.com/oauth/authorize
+    tokenUrl: https://forge.laravel.com/oauth/token
+    scopes: 62
+  sources:
+  - openapi/laravel-forge-openapi.json
+per_api:
+- api: laravel:forge-api
+  primary: bearer token (personal API token)
+  token_management:
+    dashboard: https://forge.laravel.com/profile/api
+    docs: https://forge.laravel.com/docs/api
+    create: 'Account dashboard > API > Create token: provide a name, an optional expiration date, and
+      select the scopes to assign.'
+    expiration: optional per-token expiration date
+    scoped: true
+    revocation: Deleting a token is permanent and immediately breaks any integration using it.
+  oauth2:
+    flow: authorizationCode
+    authorization_url: https://forge.laravel.com/oauth/authorize
+    token_url: https://forge.laravel.com/oauth/token
+    scope_count: 62
+    scopes_artifact: scopes/laravel-scopes.yml
+  ci: Set FORGE_API_TOKEN in the CI environment for the Forge CLI.
+  authorization_model: Organization-scoped. Every v2 resource path is nested under /orgs/{organization},
+    and roles/permissions resources exist in the API (Roles, Teams, Permissions tags).
+- api: laravel:cloud-api
+  primary: bearer token generated in the Laravel Cloud UI
+  docs: https://cloud.laravel.com/docs/api/authentication
+  oauth2: not offered
+  scoped: not declared in the OpenAPI
+  authorization_model: Token is bound to an organization; resource paths are flat.
+- api: laravel:forge-api-legacy
+  primary: bearer API key
+  docs: https://forge.laravel.com/api-documentation
+  note: Same Authorization Bearer transport as v2; deprecated with discontinuation announced for
+    2026-07-31.
+- api: laravel:envoyer-api
+  primary: bearer API key
+  docs: https://envoyer.io/api-documentation
+  scoped: coarse — all GET endpoints are readable with any token; *:create scopes govern writes.
+identity_provider:
+  issuer: https://id.laravel.com
+  role: End-user SSO for Laravel Cloud sign-in/sign-up. Not used to authenticate resource-API calls.
+  discovery: well-known/laravel-openid-configuration.json
+  grant_types:
+  - authorization_code
+  - client_credentials
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:device_code
+  pkce: S256
+  id_token_signing: RS256
+gaps:
+- Neither API documents token rotation guidance, token introspection, or a machine-to-machine
+  client-credentials path for the resource APIs.
+- The Cloud API declares no scopes, so a Cloud token is all-or-nothing against the organization.
+- No mutualTLS or proof-of-possession option is offered on any Laravel API.
