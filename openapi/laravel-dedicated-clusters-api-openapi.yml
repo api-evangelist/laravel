@@ -1,0 +1,219 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Dedicated Clusters API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Dedicated Clusters
+paths:
+  /dedicated-clusters:
+    get:
+      operationId: public.dedicated-clusters.index
+      description: Get a list of all dedicated clusters for the authenticated organization.
+      summary: List dedicated clusters
+      tags:
+      - Dedicated Clusters
+      parameters:
+      - name: filter[region]
+        in: query
+        schema:
+          type: string
+      - name: filter[type]
+        in: query
+        schema:
+          type: string
+      - name: filter[status]
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ClusterResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ClusterResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      last_page:
+                        type: integer
+                        minimum: 1
+                      links:
+                        type: array
+                        description: Generated paginator links.
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type:
+                              - string
+                              - 'null'
+                            label:
+                              type: string
+                            active:
+                              type: boolean
+                          required:
+                          - url
+                          - label
+                          - active
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                      total:
+                        type: integer
+                        description: Total number of items being paginated.
+                        minimum: 0
+                    required:
+                    - current_page
+                    - from
+                    - last_page
+                    - links
+                    - path
+                    - per_page
+                    - to
+                    - total
+                required:
+                - data
+                - links
+                - meta
+        '401':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - ''
+                required:
+                - message
+components:
+  schemas:
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    ClusterStatus:
+      type: string
+      enum:
+      - draft
+      - active
+      - maintenance
+      - inactive
+      title: ClusterStatus
+    TenancyType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      title: TenancyType
+    ClusterType:
+      type: string
+      description: 'When implementing a new cluster type, make sure to: - Adjust the different is{...} methods - Adjust the needsItsCNAMERecordsSynced method - Check if Zone@toSyncClusterVanityDomainTo() needs to be adjusted
+
+        '
+      enum:
+      - applications
+      - mysql-databases
+      - rds-databases
+      - redis-caches
+      - elasticache-clusters
+      - reverb-websocket-servers
+      title: ClusterType
+    ClusterResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - clusters
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            type:
+              $ref: '#/components/schemas/ClusterType'
+            tenancy_type:
+              $ref: '#/components/schemas/TenancyType'
+            status:
+              $ref: '#/components/schemas/ClusterStatus'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - region
+          - type
+          - tenancy_type
+          - status
+          - created_at
+      required:
+      - id
+      - type
+      title: ClusterResource
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

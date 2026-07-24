@@ -1,0 +1,1104 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Backups API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Backups
+paths:
+  /orgs/{organization}/servers/{server}/database/backups:
+    get:
+      operationId: organizations.servers.database.backups.index
+      description: 'List all backup configurations for the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List backup configurations
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        description: The name of the backup configuration.
+        schema:
+          type: string
+          examples:
+          - daily-backup
+      - name: filter[status]
+        in: query
+        description: The status of the backup configuration.
+        schema:
+          type: string
+          examples:
+          - installed
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - name
+            - -name
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `BackupConfigurationResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackupConfigurationResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.database.backups.store
+      description: 'Create a new backup configuration for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create backup configuration
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBackupConfigurationRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-backups
+      x-permissions:
+      - server:create-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/database/backups/{backupConfiguration}:
+    get:
+      operationId: organizations.servers.database.backups.show
+      description: 'Get a specific backup configuration for the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get backup configuration
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`BackupConfigurationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackupConfigurationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.database.backups.update
+      description: 'Update an existing backup configuration for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update backup configuration
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBackupConfigurationRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-backups
+      x-permissions:
+      - server:create-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.database.backups.destroy
+      description: 'Delete a backup configuration from the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete backup configuration
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-backups
+      x-permissions:
+      - server:delete-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/database/backups/{backupConfiguration}/instances:
+    get:
+      operationId: organizations.servers.database.backups.instances.index
+      description: 'List all backup instances for the backup configuration.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List backups
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[status]
+        in: query
+        description: The status of the backup.
+        schema:
+          type: string
+          examples:
+          - finished
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `BackupResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackupResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-backups
+      x-permissions:
+      - server:create-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.database.backups.instances.store
+      description: 'Manually create a backup for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create backup
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-backups
+      x-permissions:
+      - server:create-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/database/backups/{backupConfiguration}/instances/{backup}:
+    get:
+      operationId: organizations.servers.database.backups.instances.show
+      description: 'Get a specific backup instance associated with the backup configuration.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get backup
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      - name: backup
+        in: path
+        required: true
+        description: The backup ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`BackupResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackupResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-backups
+      x-permissions:
+      - server:create-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.database.backups.instances.destroy
+      description: 'Delete a backup instance from the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete backup
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      - name: backup
+        in: path
+        required: true
+        description: The backup ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-backups
+      x-permissions:
+      - server:delete-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/database/backups/{backupConfiguration}/instances/{backup}/restores:
+    post:
+      operationId: organizations.servers.database.backups.instances.restores.store
+      description: 'Restore the given database from the backup.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create a database restore from backup
+      tags:
+      - Backups
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backupConfiguration
+        in: path
+        required: true
+        description: The backup configuration ID
+        schema:
+          type: integer
+      - name: backup
+        in: path
+        required: true
+        description: The backup ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestoreBackupRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-backups
+      x-permissions:
+      - server:create-backups
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    BackupFrequency:
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - custom
+      title: BackupFrequency
+    BackupConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backupConfigurations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            storage_provider_id:
+              type:
+              - integer
+              - 'null'
+            provider:
+              type: string
+            bucket:
+              type:
+              - string
+              - 'null'
+            directory:
+              type: string
+            schedule:
+              type: string
+            displayable_schedule:
+              type: string
+            next_run_time:
+              type: string
+            status:
+              type: string
+            day_of_week:
+              type:
+              - integer
+              - 'null'
+            time:
+              type:
+              - string
+              - 'null'
+            cron_schedule:
+              type:
+              - string
+              - 'null'
+            database_ids:
+              type: array
+              items: {}
+            include_new_databases:
+              type: boolean
+            retention:
+              type: integer
+            notify_email:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - storage_provider_id
+          - provider
+          - bucket
+          - directory
+          - schedule
+          - displayable_schedule
+          - next_run_time
+          - status
+          - day_of_week
+          - time
+          - cron_schedule
+          - database_ids
+          - include_new_databases
+          - retention
+          - notify_email
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackupConfigurationResource
+    RestoreBackupRequest:
+      type: object
+      properties:
+        database_id:
+          type: integer
+      required:
+      - database_id
+      title: RestoreBackupRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    CreateBackupConfigurationRequest:
+      type: object
+      properties:
+        storage_provider_id:
+          type: integer
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+        bucket:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        frequency:
+          $ref: '#/components/schemas/BackupFrequency'
+        day:
+          type: string
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+        time:
+          type: string
+          enum:
+          - 00:00
+          - 00:30
+          - 01:00
+          - 01:30
+          - 02:00
+          - 02:30
+          - 03:00
+          - 03:30
+          - 04:00
+          - 04:30
+          - 05:00
+          - 05:30
+          - 06:00
+          - 06:30
+          - 07:00
+          - 07:30
+          - 08:00
+          - 08:30
+          - 09:00
+          - 09:30
+          - '10:00'
+          - '10:30'
+          - '11:00'
+          - '11:30'
+          - '12:00'
+          - '12:30'
+          - '13:00'
+          - '13:30'
+          - '14:00'
+          - '14:30'
+          - '15:00'
+          - '15:30'
+          - '16:00'
+          - '16:30'
+          - '17:00'
+          - '17:30'
+          - '18:00'
+          - '18:30'
+          - '19:00'
+          - '19:30'
+          - '20:00'
+          - '20:30'
+          - '21:00'
+          - '21:30'
+          - '22:00'
+          - '22:30'
+          - '23:00'
+          - '23:30'
+        cron:
+          type: string
+        include_new_databases:
+          type: boolean
+        retention:
+          type: integer
+          minimum: 1
+          maximum: 8760
+        notification_email:
+          type:
+          - string
+          - 'null'
+          format: email
+        database_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+      required:
+      - storage_provider_id
+      - frequency
+      - retention
+      - database_ids
+      title: CreateBackupConfigurationRequest
+    UpdateBackupConfigurationRequest:
+      type: object
+      properties:
+        storage_provider_id:
+          type: integer
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+        bucket:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        frequency:
+          $ref: '#/components/schemas/BackupFrequency'
+        day:
+          type: string
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+        time:
+          type: string
+          enum:
+          - 00:00
+          - 00:30
+          - 01:00
+          - 01:30
+          - 02:00
+          - 02:30
+          - 03:00
+          - 03:30
+          - 04:00
+          - 04:30
+          - 05:00
+          - 05:30
+          - 06:00
+          - 06:30
+          - 07:00
+          - 07:30
+          - 08:00
+          - 08:30
+          - 09:00
+          - 09:30
+          - '10:00'
+          - '10:30'
+          - '11:00'
+          - '11:30'
+          - '12:00'
+          - '12:30'
+          - '13:00'
+          - '13:30'
+          - '14:00'
+          - '14:30'
+          - '15:00'
+          - '15:30'
+          - '16:00'
+          - '16:30'
+          - '17:00'
+          - '17:30'
+          - '18:00'
+          - '18:30'
+          - '19:00'
+          - '19:30'
+          - '20:00'
+          - '20:30'
+          - '21:00'
+          - '21:30'
+          - '22:00'
+          - '22:30'
+          - '23:00'
+          - '23:30'
+        cron:
+          type: string
+        include_new_databases:
+          type: boolean
+        retention:
+          type: integer
+          minimum: 1
+          maximum: 8760
+        notification_email:
+          type:
+          - string
+          - 'null'
+          format: email
+        database_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+      required:
+      - storage_provider_id
+      - frequency
+      - retention
+      - database_ids
+      title: UpdateBackupConfigurationRequest
+    BackupResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backups
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+            is_partial:
+              type: string
+            size:
+              type: integer
+            finished_at:
+              type:
+              - integer
+              - 'null'
+          required:
+          - status
+          - is_partial
+          - size
+          - finished_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackupResource
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

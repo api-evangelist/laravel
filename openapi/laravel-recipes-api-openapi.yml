@@ -1,0 +1,1199 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Recipes API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Recipes
+paths:
+  /orgs/{organization}/recipes:
+    get:
+      operationId: organizations.recipes.index
+      description: 'Show all recipes for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List organization recipes
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `RecipeResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RecipeResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organization.recipes.store
+      description: 'Create a new recipe for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Create recipe
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecipeRequest'
+      responses:
+        '200':
+          description: '`RecipeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RecipeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - recipe:manage
+      x-permissions:
+      - recipe:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/recipes/{recipe}:
+    get:
+      operationId: organizations.recipes.show
+      description: 'Show the recipe for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get recipe
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`RecipeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RecipeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.recipes.update
+      description: 'Update a recipe in the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update recipe
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRecipeRequest'
+      responses:
+        '200':
+          description: '`RecipeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RecipeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - recipe:manage
+      x-permissions:
+      - recipe:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.recipes.destroy
+      description: 'Delete a recipe from the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete recipe
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Successfully deleted recipe
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:manage
+      x-permissions:
+      - recipe:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/recipes/{recipe}/runs:
+    get:
+      operationId: organizations.recipes.runs.index
+      description: 'Show all runs for the recipe.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List recipe runs
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `RecipeLogResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RecipeLogResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.recipes.runs.store
+      description: 'Run a given recipe on a list of servers.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create recipe run
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRecipeRequest'
+      responses:
+        '202':
+          description: Recipe run accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions:
+      - recipe:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/recipes/{recipe}/runs/{log}:
+    get:
+      operationId: organizations.recipes.runs.show
+      description: 'Show a specific run for the recipe.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get recipe run
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      - name: log
+        in: path
+        required: true
+        description: The log ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`RecipeLogResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RecipeLogResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/recipes:
+    get:
+      operationId: organizations.teams.recipes.index
+      description: 'Show all recipes for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List team recipes
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `RecipeResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RecipeResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.teams.recipes.store
+      description: 'Shares a recipe with a team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Share recipe with the team
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareRecipeRequest'
+      responses:
+        '201':
+          description: 'Recipe shared successfully
+
+
+
+
+            `RecipeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RecipeResource'
+                required:
+                - data
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - recipe:manage
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      - recipe:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/recipes/{recipe}:
+    delete:
+      operationId: organizations.teams.recipes.destroy
+      description: 'Unshare a recipe with a team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete a recipe share
+      tags:
+      - Recipes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: recipe
+        in: path
+        required: true
+        description: The recipe ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Recipe unshared successfully
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:manage
+        - recipe:view
+      x-permissions:
+      - recipe:view
+      - recipe:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /forge-recipes:
+    get:
+      operationId: forge-recipes.index
+      description: 'Show all Forge provided recipes.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List Forge's recipes
+      tags:
+      - Recipes
+      parameters:
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ForgeRecipeResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ForgeRecipeResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /forge-recipes/{forgeRecipe}:
+    get:
+      operationId: forge-recipes.show
+      description: 'Show the Forge recipe.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Forge recipe
+      tags:
+      - Recipes
+      parameters:
+      - name: forgeRecipe
+        in: path
+        required: true
+        description: The forge recipe ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ForgeRecipeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ForgeRecipeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /forge-recipes/{forgeRecipe}/runs:
+    post:
+      operationId: forge-recipes.runs.store
+      description: 'Run a Forge recipe on specified servers.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Forge recipe run
+      tags:
+      - Recipes
+      parameters:
+      - name: forgeRecipe
+        in: path
+        required: true
+        description: The forge recipe ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunRecipeRequest'
+      responses:
+        '202':
+          description: Recipe run accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - recipe:view
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    ForgeRecipeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - forgeRecipes
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            user:
+              type: string
+            info:
+              type: string
+            script:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - user
+          - info
+          - script
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ForgeRecipeResource
+    RecipeStatus:
+      type: string
+      enum:
+      - waiting
+      - running
+      - finished
+      - failed
+      title: RecipeStatus
+    RunRecipeRequest:
+      type: object
+      properties:
+        email:
+          type: boolean
+          description: Whether to send an email notification when the recipe has completed.
+          examples:
+          - true
+        servers:
+          type: array
+          description: The servers on which to run the recipe on.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
+      required:
+      - servers
+      title: RunRecipeRequest
+    RecipeLogResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - recipeLogs
+        attributes:
+          type: object
+          properties:
+            server_id:
+              type: integer
+            executed_by:
+              type:
+              - integer
+              - 'null'
+            recipe_id:
+              type: integer
+            status:
+              $ref: '#/components/schemas/RecipeStatus'
+            output:
+              type:
+              - string
+              - 'null'
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            finished_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - server_id
+          - executed_by
+          - recipe_id
+          - status
+          - output
+          - started_at
+          - finished_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: RecipeLogResource
+    UpdateRecipeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        user:
+          type: string
+          enum:
+          - root
+          - forge
+        script:
+          type: string
+      title: UpdateRecipeRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    RecipeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - recipes
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the Recipe.
+              examples:
+              - Install Security tooling
+            script:
+              type: string
+              description: The script that should be executed.
+              examples:
+              - apt-get install -y my-custom-tooling
+            user:
+              type: string
+              description: The user that the Recipe should be executed as.
+              examples:
+              - root
+            created_at:
+              type: string
+              format: date-time
+              description: The date the Recipe was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date the Recipe was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - script
+          - user
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: RecipeResource
+    ShareRecipeRequest:
+      type: object
+      properties:
+        recipe_id:
+          type: integer
+          description: The ID of the recipe to share with the team.
+          examples:
+          - 3
+      required:
+      - recipe_id
+      title: ShareRecipeRequest
+    CreateRecipeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        user:
+          type: string
+          enum:
+          - root
+          - forge
+        script:
+          type: string
+        team_id:
+          type: integer
+      required:
+      - name
+      - user
+      - script
+      title: CreateRecipeRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

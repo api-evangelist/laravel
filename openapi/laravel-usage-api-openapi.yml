@@ -1,0 +1,300 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Usage API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Usage
+paths:
+  /usage:
+    get:
+      operationId: public.usage
+      description: Get billing and usage data for the authenticated organization.
+      summary: Get usage
+      tags:
+      - Usage
+      parameters:
+      - name: period
+        in: query
+        description: The billing period offset. 0 returns the current billing period, 1 returns the previous period, and so on. Periods are not necessarily month-long — they match your billing cycle. Must be between 0 and 3.
+        schema:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+          maximum: 3
+        example: 0
+      - name: environment
+        in: query
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      summary:
+                        type: object
+                        properties:
+                          current_spend_cents:
+                            type: integer
+                          bandwidth:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              cost_cents:
+                                type: integer
+                              usage_percentage:
+                                type: integer
+                              allowance_bytes:
+                                type: integer
+                            required:
+                            - cost_cents
+                            - usage_percentage
+                            - allowance_bytes
+                          credits:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              used_cents:
+                                type: integer
+                              total_cents:
+                                type: integer
+                            required:
+                            - used_cents
+                            - total_cents
+                          alert:
+                            type:
+                            - object
+                            - 'null'
+                            properties:
+                              threshold_cents:
+                                type: integer
+                              remaining_percentage:
+                                type: integer
+                            required:
+                            - threshold_cents
+                            - remaining_percentage
+                        required:
+                        - current_spend_cents
+                        - bandwidth
+                        - credits
+                        - alert
+                      resources:
+                        type: object
+                        properties:
+                          total_cost_cents:
+                            type: integer
+                          databases:
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: {}
+                          caches:
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: {}
+                          buckets:
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: {}
+                          websockets:
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: {}
+                        required:
+                        - total_cost_cents
+                        - databases
+                        - caches
+                        - buckets
+                        - websockets
+                      addons:
+                        type: object
+                        properties:
+                          total_cost_cents:
+                            type: integer
+                          items:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                total_cents:
+                                  type: integer
+                              required:
+                              - name
+                              - total_cents
+                        required:
+                        - total_cost_cents
+                        - items
+                      application_totals:
+                        type: object
+                        properties:
+                          total_cost_cents:
+                            type: integer
+                          application_count:
+                            type: integer
+                          applications:
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: {}
+                        required:
+                        - total_cost_cents
+                        - application_count
+                        - applications
+                      environment_usage:
+                        type:
+                        - object
+                        - 'null'
+                        properties:
+                          total_cost_cents:
+                            type: integer
+                          items:
+                            type: array
+                            items:
+                              type: object
+                              additionalProperties: {}
+                        required:
+                        - total_cost_cents
+                        - items
+                      private_cloud:
+                        type:
+                        - object
+                        - 'null'
+                        properties:
+                          total_cost_cents:
+                            type: integer
+                          sections:
+                            type: object
+                            additionalProperties:
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: {}
+                          instances:
+                            type: object
+                            additionalProperties:
+                              type: array
+                              items:
+                                type: object
+                                additionalProperties: {}
+                        required:
+                        - total_cost_cents
+                        - sections
+                        - instances
+                    required:
+                    - summary
+                    - resources
+                    - addons
+                    - application_totals
+                    - environment_usage
+                    - private_cloud
+                  meta:
+                    type: object
+                    properties:
+                      currency:
+                        type: string
+                      period:
+                        type: integer
+                      available_periods:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            from:
+                              type:
+                              - string
+                              - 'null'
+                            to:
+                              type:
+                              - string
+                              - 'null'
+                          required:
+                          - from
+                          - to
+                      last_updated_at:
+                        type: string
+                    required:
+                    - currency
+                    - period
+                    - available_periods
+                    - last_updated_at
+                required:
+                - data
+                - meta
+        '401':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - ''
+                required:
+                - message
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

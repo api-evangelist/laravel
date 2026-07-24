@@ -1,0 +1,2530 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Deployments API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Deployments
+paths:
+  /environments/{environment}/deployments:
+    get:
+      operationId: public.environments.deployments.index
+      description: Get a list of all deployments for the given environment.
+      summary: List deployments
+      tags:
+      - Deployments
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      - name: filter[status]
+        in: query
+        schema:
+          type: string
+      - name: filter[branch_name]
+        in: query
+        schema:
+          type: string
+      - name: filter[commit_hash]
+        in: query
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - environment
+            - initiator
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `DeploymentResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DeploymentResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      last_page:
+                        type: integer
+                        minimum: 1
+                      links:
+                        type: array
+                        description: Generated paginator links.
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type:
+                              - string
+                              - 'null'
+                            label:
+                              type: string
+                            active:
+                              type: boolean
+                          required:
+                          - url
+                          - label
+                          - active
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                      total:
+                        type: integer
+                        description: Total number of items being paginated.
+                        minimum: 0
+                    required:
+                    - current_page
+                    - from
+                    - last_page
+                    - links
+                    - path
+                    - per_page
+                    - to
+                    - total
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/EnvironmentResource'
+                      - $ref: '#/components/schemas/UserResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+    post:
+      operationId: public.environments.deployments.store
+      description: Initiate a deployment for the given environment.
+      summary: Initiate deployment
+      tags:
+      - Deployments
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`DeploymentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/EnvironmentResource'
+                      - $ref: '#/components/schemas/UserResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+  /deployments/{deployment}:
+    get:
+      operationId: public.deployments.show
+      description: Get the details of a specific deployment.
+      summary: Get deployment
+      tags:
+      - Deployments
+      parameters:
+      - name: deployment
+        in: path
+        required: true
+        description: The deployment identifier
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - environment
+            - initiator
+        explode: false
+      responses:
+        '200':
+          description: '`DeploymentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/EnvironmentResource'
+                      - $ref: '#/components/schemas/UserResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+  /deployments/{deployment}/logs:
+    get:
+      operationId: public.deployments.logs
+      description: Get the build and deploy logs for a specific deployment.
+      summary: Get deployment logs
+      tags:
+      - Deployments
+      parameters:
+      - name: deployment
+        in: path
+        required: true
+        description: The deployment identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      build:
+                        type: object
+                        properties:
+                          available:
+                            type: boolean
+                          steps:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                step:
+                                  type: string
+                                status:
+                                  type: string
+                                description:
+                                  type: string
+                                output:
+                                  type: string
+                                duration_ms:
+                                  type: integer
+                                time:
+                                  type: string
+                              required:
+                              - step
+                              - status
+                              - description
+                        required:
+                        - available
+                        - steps
+                      deploy:
+                        type: object
+                        properties:
+                          available:
+                            type: boolean
+                          steps:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                step:
+                                  type: string
+                                status:
+                                  type: string
+                                description:
+                                  type: string
+                                output:
+                                  type: string
+                                duration_ms:
+                                  type: integer
+                                time:
+                                  type: string
+                              required:
+                              - step
+                              - status
+                              - description
+                        required:
+                        - available
+                        - steps
+                    required:
+                    - build
+                    - deploy
+                  meta:
+                    type: object
+                    properties:
+                      deployment_status:
+                        type: string
+                    required:
+                    - deployment_status
+                required:
+                - data
+                - meta
+        '422':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - Deployment logs are only available for deployments created within the last year.
+                required:
+                - message
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+  /orgs/{organization}/servers/{server}/sites/{site}/webhooks:
+    get:
+      operationId: organizations.servers.sites.webhooks.index
+      description: 'List all webhooks for the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List site webhooks
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `DeploymentWebhookResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DeploymentWebhookResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-notifications
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.webhooks.store
+      description: 'Create a new webhook for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create site webhook
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentWebhookRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - site:manage-notifications
+      x-permissions:
+      - site:manage-notifications
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/webhooks/{deploymentWebhook}:
+    get:
+      operationId: organizations.servers.sites.webhooks.show
+      description: 'Get a specific webhook associated with the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get site webhook
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: deploymentWebhook
+        in: path
+        required: true
+        description: The deployment webhook ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeploymentWebhookResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentWebhookResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-notifications
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.sites.webhooks.destroy
+      description: 'Delete a specific webhook from the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete site webhook
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: deploymentWebhook
+        in: path
+        required: true
+        description: The deployment webhook ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-notifications
+      x-permissions:
+      - site:manage-notifications
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments:
+    get:
+      operationId: organizations.servers.sites.deployments.index
+      description: 'Show all recent deployments for the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List deployments
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[commit_hash]
+        in: query
+        description: The commit hash of the deployment.
+        schema:
+          type: string
+          examples:
+          - 011118f
+      - name: filter[commit_message]
+        in: query
+        description: The commit message of the deployment.
+        schema:
+          type: string
+          examples:
+          - WIP
+      - name: filter[commit_author]
+        in: query
+        description: The commit author of the deployment.
+        schema:
+          type: string
+          examples:
+          - Taylor Otwell
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `DeploymentResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DeploymentResource_2'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.deployments.store
+      description: 'Trigger a new deployment for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create deployment
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: '`DeploymentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentResource_2'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments/status:
+    get:
+      operationId: organizations.servers.sites.deployments.status.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get deployment status
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeploymentStatusResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentStatusResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.sites.deployments.status.destroy
+      description: 'Reset the deployment state for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update deployment state
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments/script:
+    get:
+      operationId: organizations.servers.sites.deployments.script.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get deployment script
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeploymentScriptResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentScriptResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.sites.deployments.script.update
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update deployment script
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentScriptRequest'
+      responses:
+        '200':
+          description: '`DeploymentScriptResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentScriptResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments/deploy-hook:
+    get:
+      operationId: organizations.servers.sites.deployments.deploy-hook.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get the deployment trigger URL
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeployHookResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeployHookResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.sites.deployments.deploy-hook.update
+      description: 'Regenerate the deployment hook token used for triggering deployment on the deployment URL.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update deployment trigger URL
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeployHookResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeployHookResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments/push-to-deploy:
+    post:
+      operationId: organizations.servers.sites.deployments.push-to-deploy.store
+      description: 'Enable push to deploy for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create push to deploy configuration
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.deployments.push-to-deploy.destroy
+      description: 'Disable push to deploy for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete push to deploy configuration
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments/{deployment}:
+    get:
+      operationId: organizations.servers.sites.deployments.show
+      description: 'Show a specific deployment.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get deployment
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: deployment
+        in: path
+        required: true
+        description: The deployment ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeploymentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentResource_2'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/sites/{site}/deployments/{deployment}/log:
+    get:
+      operationId: organizations.servers.sites.deployments.log.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get deployment output
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: deployment
+        in: path
+        required: true
+        description: The deployment ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeploymentOutputResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeploymentOutputResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/sites/{site}/deploy-key:
+    get:
+      operationId: organizations.servers.sites.deploy-key.show
+      description: 'Get the deploy key for the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get deploy key
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeployKeyResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeployKeyResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.deploy-key.store
+      description: 'Create a new deploy key for the site. If the site already has a deploy key, the existing key is returned.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create deploy key
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`DeployKeyResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DeployKeyResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.deploy-key.destroy
+      description: 'Remove the deploy key for the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete deploy key
+      tags:
+      - Deployments
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No content
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-deploys
+      x-permissions:
+      - site:manage-deploys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    DeploymentStatusResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deploymentStatuses
+        attributes:
+          type: object
+          properties:
+            status:
+              anyOf:
+              - $ref: '#/components/schemas/DeploymentStatus_2'
+              - type: 'null'
+            started_at:
+              type: string
+              format: date-time
+              description: The time the deployment started.
+              examples:
+              - '2025-07-29T09:00:00Z'
+          required:
+          - status
+          - started_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeploymentStatusResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    BranchResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    CreateDeploymentWebhookRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+      required:
+      - url
+      title: CreateDeploymentWebhookRequest
+    UpdateDeploymentScriptRequest:
+      type: object
+      properties:
+        content:
+          type: string
+        auto_source:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - content
+      title: UpdateDeploymentScriptRequest
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    EnvironmentResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - environments
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            status:
+              $ref: '#/components/schemas/EnvironmentStatus'
+            created_from_automation:
+              type: boolean
+            vanity_domain:
+              type: string
+            php_major_version:
+              type: string
+              enum:
+              - '8.2'
+              - '8.3'
+              - '8.4'
+              - '8.5'
+            build_command:
+              type:
+              - string
+              - 'null'
+            node_version:
+              $ref: '#/components/schemas/NodeVersion'
+            deploy_command:
+              type:
+              - string
+              - 'null'
+            uses_octane:
+              type: boolean
+            uses_hibernation:
+              type: boolean
+            hibernation_wake_up_interval:
+              type:
+              - integer
+              - 'null'
+            uses_push_to_deploy:
+              type: boolean
+            uses_deploy_hook:
+              type: boolean
+            ? ''
+            : anyOf:
+              - type: object
+                properties:
+                  environment_variables:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                      - key
+                      - value
+                required:
+                - environment_variables
+              - type: array
+                items:
+                  type: string
+                minItems: 0
+                maxItems: 0
+                additionalItems: false
+            network_settings:
+              type: object
+              properties:
+                cache:
+                  type: object
+                  properties:
+                    strategy:
+                      type: string
+                  required:
+                  - strategy
+                response_headers:
+                  type: object
+                  properties:
+                    frame:
+                      type: string
+                    content_type:
+                      type: string
+                    hsts:
+                      type: object
+                      properties:
+                        max_age:
+                          type: integer
+                        include_subdomains:
+                          type: boolean
+                        preload:
+                          type: boolean
+                      required:
+                      - max_age
+                      - include_subdomains
+                      - preload
+                  required:
+                  - frame
+                  - content_type
+                  - hsts
+                firewall:
+                  type: object
+                  properties:
+                    bot_categories:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/BotControlCategory'
+                    rate_limit:
+                      type: object
+                      properties:
+                        level:
+                          $ref: '#/components/schemas/RateLimitLevel'
+                        per_minute:
+                          $ref: '#/components/schemas/RateLimitPerMinute'
+                        4xx:
+                          type: boolean
+                        '429':
+                          type: boolean
+                      required:
+                      - level
+                      - per_minute
+                      - 4xx
+                      - '429'
+                    under_attack_mode_started_at:
+                      type: string
+                    block_path:
+                      type: boolean
+                  required:
+                  - bot_categories
+                  - rate_limit
+                  - under_attack_mode_started_at
+                  - block_path
+                content_converter:
+                  type: boolean
+              required:
+              - cache
+              - response_headers
+              - firewall
+              - content_converter
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - slug
+          - status
+          - created_from_automation
+          - vanity_domain
+          - php_major_version
+          - build_command
+          - node_version
+          - deploy_command
+          - uses_octane
+          - uses_hibernation
+          - hibernation_wake_up_interval
+          - uses_push_to_deploy
+          - uses_deploy_hook
+          - null
+          - network_settings
+          - created_at
+        relationships:
+          type: object
+          properties:
+            application:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/ApplicationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            branch:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BranchResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            deployments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DeploymentResourceIdentifier'
+              required:
+              - data
+            currentDeployment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DeploymentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            domains:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DomainResourceIdentifier'
+              required:
+              - data
+            primaryDomain:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DomainResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            instances:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InstanceResourceIdentifier'
+              required:
+              - data
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            cache:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/CacheResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            buckets:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FilesystemResourceIdentifier'
+              required:
+              - data
+            websocketApplication:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/WebsocketApplicationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: EnvironmentResource
+    UserResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - users
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            avatar_url:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - avatar_url
+          - created_at
+      required:
+      - id
+      - type
+      title: UserResource
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    DeploymentScriptResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deploymentScripts
+        attributes:
+          type: object
+          properties:
+            content:
+              type:
+              - string
+              - 'null'
+              description: The content of the deployment script.
+            auto_source:
+              type: boolean
+              description: Make .env variables available to deployment script
+          required:
+          - content
+          - auto_source
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeploymentScriptResource
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    DeploymentOutputResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deploymentOutputs
+        attributes:
+          type: object
+          properties:
+            output:
+              type: string
+              description: The output of the deployment.
+          required:
+          - output
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeploymentOutputResource
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    DeploymentStatus_2:
+      type: string
+      enum:
+      - cancelled
+      - deploying
+      - failed
+      - failed-build
+      - finished
+      - pending
+      - queued
+      title: DeploymentStatus
+    DeploymentResource_2:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deployments
+        attributes:
+          type: object
+          properties:
+            commit:
+              type: object
+              description: The commit information for the deployment.
+              properties:
+                hash:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit hash.
+                author:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit author.
+                message:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit message.
+                branch:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit branch.
+              required:
+              - hash
+              - author
+              - message
+              - branch
+            type:
+              type: string
+            status:
+              $ref: '#/components/schemas/DeploymentStatus_2'
+            started_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment started.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            ended_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment ended.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment was last updated.
+              examples:
+              - '2025-07-29T09:00:00Z'
+          required:
+          - commit
+          - type
+          - status
+          - started_at
+          - ended_at
+          - created_at
+          - updated_at
+      required:
+      - id
+      - type
+      title: DeploymentResource
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    DeploymentStatus:
+      type: string
+      enum:
+      - pending
+      - build.pending
+      - build.created
+      - build.queued
+      - build.running
+      - build.succeeded
+      - build.failed
+      - cancelled
+      - failed
+      - deployment.pending
+      - deployment.created
+      - deployment.queued
+      - deployment.running
+      - deployment.succeeded
+      - deployment.failed
+      title: DeploymentStatus
+    DeployHookResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deploymentHooks
+        attributes:
+          type: object
+          properties:
+            url:
+              type: string
+              description: The URL to use for the deployment hook.
+          required:
+          - url
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeployHookResource
+    DeploymentWebhookResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deploymentWebhooks
+        attributes:
+          type: object
+          properties:
+            url:
+              type: string
+              description: The URL of the deployment webhook.
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment webhook was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment webhook was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - url
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeploymentWebhookResource
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DeployKeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deployKeys
+        attributes:
+          type: object
+          properties:
+            key:
+              type:
+              - string
+              - 'null'
+              description: The public deploy key for the site.
+          required:
+          - key
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeployKeyResource
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DeploymentResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - deployments
+        attributes:
+          type: object
+          properties:
+            status:
+              $ref: '#/components/schemas/DeploymentStatus'
+            branch_name:
+              type: string
+            commit_hash:
+              type: string
+            commit_message:
+              type: string
+            commit_author:
+              type:
+              - string
+              - 'null'
+            failure_reason:
+              type:
+              - string
+              - 'null'
+            php_major_version:
+              type: string
+              enum:
+              - '8.2'
+              - '8.3'
+              - '8.4'
+              - '8.5'
+            build_command:
+              type:
+              - string
+              - 'null'
+            node_version:
+              $ref: '#/components/schemas/NodeVersion'
+            uses_octane:
+              type: boolean
+            uses_hibernation:
+              type: boolean
+            hibernation_wake_up_interval:
+              type:
+              - integer
+              - 'null'
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            finished_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - status
+          - branch_name
+          - commit_hash
+          - commit_message
+          - commit_author
+          - failure_reason
+          - php_major_version
+          - build_command
+          - node_version
+          - uses_octane
+          - uses_hibernation
+          - hibernation_wake_up_interval
+          - started_at
+          - finished_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            initiator:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/UserResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeploymentResource
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Meta API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Meta
+paths:
+  /meta/organization:
+    get:
+      operationId: public.meta.organization
+      description: Get details about the currently authenticated organization.
+      summary: Get organization
+      tags:
+      - Meta
+      responses:
+        '200':
+          description: '`OrganizationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OrganizationResource'
+                required:
+                - data
+        '401':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - ''
+                required:
+                - message
+  /meta/regions:
+    get:
+      operationId: public.meta.regions
+      description: List all available cloud regions.
+      summary: List regions
+      tags:
+      - Meta
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        region:
+                          $ref: '#/components/schemas/CloudRegion'
+                        label:
+                          type: string
+                        flag:
+                          type: string
+                      required:
+                      - region
+                      - label
+                      - flag
+                required:
+                - data
+components:
+  schemas:
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - organizations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+          required:
+          - name
+          - slug
+      required:
+      - id
+      - type
+      title: OrganizationResource
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

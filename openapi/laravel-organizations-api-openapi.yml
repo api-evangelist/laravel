@@ -1,0 +1,735 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Organizations API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Organizations
+paths:
+  /orgs:
+    get:
+      operationId: organizations.index
+      description: 'Show all organizations the user has access to.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List organizations
+      tags:
+      - Organizations
+      parameters:
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `OrganizationResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OrganizationResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - organization:view
+      x-permissions:
+      - organization:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}:
+    get:
+      operationId: organizations.show
+      description: 'Show a specific organization for the user.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get organization
+      tags:
+      - Organizations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`OrganizationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OrganizationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions:
+      - organization:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/server-credentials:
+    get:
+      operationId: organizations.server-credentials.index
+      description: 'Show all server credentials for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List server credentials
+      tags:
+      - Organizations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ServerCredentialResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServerCredentialResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - credential:view
+      x-permissions:
+      - credential:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/server-credentials/{credential}:
+    get:
+      operationId: organizations.server-credentials.show
+      description: 'Show a specific server credential for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server credential
+      tags:
+      - Organizations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: credential
+        in: path
+        required: true
+        description: The credential ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ServerCredentialResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerCredentialResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - credential:view
+      x-permissions:
+      - credential:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/server-credentials/{credential}/regions/{region}/vpcs:
+    post:
+      operationId: organizations.server-credentials.vpcs.store
+      description: 'Create a private network for the provider.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Create a new VPC
+      tags:
+      - Organizations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: credential
+        in: path
+        required: true
+        description: The credential ID
+        schema:
+          type: integer
+      - name: region
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateServerProviderNetworkRequest'
+      responses:
+        '201':
+          description: '`VpcResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/VpcResource'
+                required:
+                - data
+        '500':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create
+      x-permissions:
+      - server:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    get:
+      operationId: organizations.server-credentials.vpcs.index
+      description: 'List VPCs for the provider.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List VPCs
+      tags:
+      - Organizations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: credential
+        in: path
+        required: true
+        description: The credential ID
+        schema:
+          type: integer
+      - name: region
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `VpcResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/VpcResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                    required:
+                    - current_page
+                    - from
+                    - path
+                    - per_page
+                    - to
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - credential:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/server-credentials/{credential}/regions/{region}/vpcs/{vpcId}:
+    get:
+      operationId: organizations.server-credentials.vpcs.show
+      description: 'Get a VPC for the provider.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get VPC
+      tags:
+      - Organizations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: credential
+        in: path
+        required: true
+        description: The credential ID
+        schema:
+          type: integer
+      - name: region
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: vpcId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`VpcResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/VpcResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - credential:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    ServerCredentialResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - serverCredentials
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            provider:
+              type: string
+            in_use:
+              type: boolean
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - provider
+          - in_use
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ServerCredentialResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - organizations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - slug
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: OrganizationResource
+    VpcResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the vpc
+              examples:
+              - my-vpc
+            cidrBlock:
+              type: string
+            subnets:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  cidrBlock:
+                    type: string
+                required:
+                - id
+                - name
+                - cidrBlock
+            region:
+              type: string
+          required:
+          - name
+          - cidrBlock
+          - subnets
+          - region
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: VpcResource
+    CreateServerProviderNetworkRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+      title: CreateServerProviderNetworkRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

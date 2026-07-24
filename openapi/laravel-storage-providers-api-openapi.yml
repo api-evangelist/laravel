@@ -1,0 +1,575 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Storage Providers API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Storage Providers
+paths:
+  /orgs/{organization}/storage-providers:
+    get:
+      operationId: organizations.storage-providers.index
+      description: 'Show all storage providers for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List storage providers
+      tags:
+      - Storage Providers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[provider]
+        in: query
+        description: The storage provider type.
+        schema:
+          type: string
+          examples:
+          - s3
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - name
+            - -name
+            - provider
+            - -provider
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `StorageProviderResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/StorageProviderResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - storage:manage
+      x-permissions:
+      - storage:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.storage-providers.store
+      description: 'Create a new storage provider for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Create storage provider
+      tags:
+      - Storage Providers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStorageConfigurationRequest'
+      responses:
+        '201':
+          description: '`StorageProviderResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/StorageProviderResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - storage:manage
+      x-permissions:
+      - storage:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/storage-providers/{storageConfiguration}:
+    get:
+      operationId: organizations.storage-providers.show
+      description: 'Show a specific storage provider for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get storage provider
+      tags:
+      - Storage Providers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: storageConfiguration
+        in: path
+        required: true
+        description: The storage configuration ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`StorageProviderResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/StorageProviderResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - storage:manage
+      x-permissions:
+      - storage:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.storage-providers.update
+      description: 'Update a storage provider for the organization.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update storage provider
+      tags:
+      - Storage Providers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: storageConfiguration
+        in: path
+        required: true
+        description: The storage configuration ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateStorageConfigurationRequest'
+              - type: object
+                properties:
+                  assume_role:
+                    type: boolean
+                    default: false
+      responses:
+        '202':
+          description: '`StorageProviderResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/StorageProviderResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - storage:manage
+      x-permissions:
+      - storage:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.storage-providers.destroy
+      description: 'Delete a storage provider from the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete storage provider
+      tags:
+      - Storage Providers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: storageConfiguration
+        in: path
+        required: true
+        description: The storage configuration ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: No content
+        '409':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    const: This storage provider is currently in use by one or more backup configurations and cannot be deleted.
+                required:
+                - message
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - storage:manage
+      x-permissions:
+      - storage:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    StorageProviderResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - storageProviders
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            provider:
+              $ref: '#/components/schemas/BackupProvider'
+            provider_name:
+              type: string
+              enum:
+              - Amazon S3
+              - DigitalOcean Spaces
+              - Hetzner
+              - OVH
+              - Scaleway
+              - Custom (S3 Compatible)
+            region:
+              type:
+              - string
+              - 'null'
+            bucket:
+              type:
+              - string
+              - 'null'
+            directory:
+              type:
+              - string
+              - 'null'
+            endpoint:
+              type:
+              - string
+              - 'null'
+            assume_role:
+              type:
+              - boolean
+              - 'null'
+            in_use:
+              type: boolean
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - provider
+          - provider_name
+          - region
+          - bucket
+          - directory
+          - endpoint
+          - assume_role
+          - in_use
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: StorageProviderResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    BackupProvider:
+      type: string
+      enum:
+      - s3
+      - spaces
+      - hetzner
+      - ovh
+      - scaleway
+      - custom
+      title: BackupProvider
+    UpdateStorageConfigurationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        provider:
+          $ref: '#/components/schemas/BackupProvider'
+        region:
+          type: string
+        bucket:
+          type:
+          - string
+          - 'null'
+        endpoint:
+          type: string
+          format: uri
+        access_key:
+          type:
+          - string
+          - 'null'
+        secret_key:
+          type:
+          - string
+          - 'null'
+        use_ec2_assumed_role:
+          type: boolean
+        directory:
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      - provider
+      title: UpdateStorageConfigurationRequest
+    CreateStorageConfigurationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        provider:
+          $ref: '#/components/schemas/BackupProvider'
+        region:
+          type: string
+        bucket:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        endpoint:
+          type: string
+          format: uri
+        access_key:
+          type:
+          - string
+          - 'null'
+        secret_key:
+          type:
+          - string
+          - 'null'
+        assume_role:
+          type: boolean
+      required:
+      - name
+      - provider
+      title: CreateStorageConfigurationRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

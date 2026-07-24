@@ -1,0 +1,1381 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Teams API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Teams
+paths:
+  /orgs/{organization}/teams:
+    get:
+      operationId: organizations.teams.index
+      description: 'Show all teams for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List teams
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `TeamResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:view
+      x-permissions:
+      - team:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.teams.store
+      description: 'Create a new team for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Create team
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeamRequest'
+      responses:
+        '200':
+          description: '`TeamResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - team:create
+      x-permissions:
+      - team:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}:
+    get:
+      operationId: organizations.teams.show
+      description: 'Show a specific team for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get team
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`TeamResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:view
+      x-permissions:
+      - team:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.teams.update
+      description: 'Update a team for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update team
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTeamRequest'
+      responses:
+        '200':
+          description: '`TeamResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - team:create
+      x-permissions:
+      - team:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.teams.destroy
+      description: 'Delete a team for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete team
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Team deleted successfully''
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:delete
+      x-permissions:
+      - team:delete
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/members:
+    get:
+      operationId: organizations.teams.members.index
+      description: 'Show all members for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List team members
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `MembershipResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MembershipResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/RoleResource'
+                      - $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:view
+      x-permissions:
+      - team:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/members/{user}:
+    get:
+      operationId: organizations.teams.members.show
+      description: 'Show the team member for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get team member
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: user
+        in: path
+        required: true
+        description: The user ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`MembershipResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MembershipResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/RoleResource'
+                      - $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:view
+      x-permissions:
+      - team:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.teams.members.destroy
+      description: 'Remove a member from the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete team member
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: user
+        in: path
+        required: true
+        description: The user ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Member removed from team
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:delete
+      x-permissions:
+      - team:delete
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.teams.members.update
+      description: 'Update the team member for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update team member
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: user
+        in: path
+        required: true
+        description: The user ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTeamMemberRequest'
+      responses:
+        '200':
+          description: '`MembershipResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MembershipResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/RoleResource'
+                      - $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - team:create
+      x-permissions:
+      - team:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/invites:
+    post:
+      operationId: organizations.teams.invites.store
+      description: 'Invite a new member to the team.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create team invite
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTeamInviteRequest'
+      responses:
+        '200':
+          description: '`TeamInvitationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamInvitationResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/RoleResource'
+                      - $ref: '#/components/schemas/TeamResource'
+                      - $ref: '#/components/schemas/OrganizationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - team:create
+      x-permissions:
+      - team:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    get:
+      operationId: organizations.teams.invites.index
+      description: 'Show all pending invitations for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List team invitations
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - role
+            - roleCount
+            - roleExists
+            - team
+            - teamCount
+            - teamExists
+            - organization
+            - organizationCount
+            - organizationExists
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `TeamInvitationResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamInvitationResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/RoleResource'
+                      - $ref: '#/components/schemas/TeamResource'
+                      - $ref: '#/components/schemas/OrganizationResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:view
+      x-permissions:
+      - team:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/invites/{invitation}:
+    get:
+      operationId: organizations.teams.invites.show
+      description: 'Show a pending invitation for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get team invitation
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: invitation
+        in: path
+        required: true
+        description: The invitation ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`TeamInvitationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamInvitationResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/RoleResource'
+                      - $ref: '#/components/schemas/TeamResource'
+                      - $ref: '#/components/schemas/OrganizationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:view
+      x-permissions:
+      - team:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.teams.invites.destroy
+      description: 'Cancel a pending invitation for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete team invitation
+      tags:
+      - Teams
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: invitation
+        in: path
+        required: true
+        description: The invitation ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Invitation deleted
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - team:delete
+      x-permissions:
+      - team:delete
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    TeamInvitationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - teamInvitations
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - email
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            role:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/RoleResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            team:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/TeamResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            organization:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/OrganizationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: TeamInvitationResource
+    PermissionResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - permissions
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PermissionResource
+    PermissionResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - permissions
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: PermissionResourceIdentifier
+    OrganizationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - organizations
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: OrganizationResourceIdentifier
+    UpdateTeamMemberRequest:
+      type: object
+      properties:
+        role_id:
+          type: integer
+          description: The ID of the role to assign to the team member.
+          examples:
+          - 3
+      required:
+      - role_id
+      title: UpdateTeamMemberRequest
+    UpdateTeamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              role:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                - id
+            required:
+            - id
+      required:
+      - name
+      title: UpdateTeamRequest
+    TeamResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - teams
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: TeamResource
+    MembershipResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - memberships
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            role:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/RoleResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: MembershipResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - organizations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - slug
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: OrganizationResource
+    CreateTeamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              role:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                - id
+            required:
+            - id
+        invites:
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              role:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                - id
+            required:
+            - email
+      required:
+      - name
+      title: CreateTeamRequest
+    RoleResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - predefinedRoles
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: RoleResourceIdentifier
+    RoleResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - predefinedRoles
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            permissions:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PermissionResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: RoleResource
+    CreateTeamInviteRequest:
+      type: object
+      properties:
+        role_id:
+          type: integer
+        email:
+          type: string
+          format: email
+      required:
+      - role_id
+      - email
+      title: CreateTeamInviteRequest
+    TeamResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - teams
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: TeamResourceIdentifier
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

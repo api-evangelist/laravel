@@ -1,0 +1,1341 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Background Processes API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Background Processes
+paths:
+  /instances/{instance}/background-processes:
+    get:
+      operationId: public.instances.background-processes.index
+      description: Get a list of all background processes for the given instance.
+      summary: List background processes
+      tags:
+      - Background Processes
+      parameters:
+      - name: instance
+        in: path
+        required: true
+        description: The instance identifier
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - instance
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `BackgroundProcessResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      last_page:
+                        type: integer
+                        minimum: 1
+                      links:
+                        type: array
+                        description: Generated paginator links.
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type:
+                              - string
+                              - 'null'
+                            label:
+                              type: string
+                            active:
+                              type: boolean
+                          required:
+                          - url
+                          - label
+                          - active
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                      total:
+                        type: integer
+                        description: Total number of items being paginated.
+                        minimum: 0
+                    required:
+                    - current_page
+                    - from
+                    - last_page
+                    - links
+                    - path
+                    - per_page
+                    - to
+                    - total
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InstanceResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+    post:
+      operationId: public.instances.background-processes.store
+      description: Create a new background process for an instance.
+      summary: Create background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: instance
+        in: path
+        required: true
+        description: The instance identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBackgroundProcessRequest'
+      responses:
+        '201':
+          description: '`BackgroundProcessResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackgroundProcessResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InstanceResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+  /background-processes/{backgroundProcess}:
+    get:
+      operationId: public.background-processes.show
+      description: Get the details of a specific background process.
+      summary: Get background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - instance
+        explode: false
+      responses:
+        '200':
+          description: '`BackgroundProcessResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackgroundProcessResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InstanceResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+    patch:
+      operationId: public.background-processes.update
+      description: Update a background process.
+      summary: Update background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBackgroundProcessRequest'
+      responses:
+        '200':
+          description: '`BackgroundProcessResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackgroundProcessResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InstanceResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+    delete:
+      operationId: public.background-processes.destroy
+      description: Delete a background process.
+      summary: Delete background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        '204':
+          description: No content
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+  /orgs/{organization}/servers/{server}/background-processes:
+    get:
+      operationId: organizations.servers.background-processes.index
+      description: 'List all background processes on the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List background processes
+      tags:
+      - Background Processes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[user]
+        in: query
+        description: The user that the process is running as.
+        schema:
+          type: string
+          examples:
+          - forge
+      - name: filter[site_id]
+        in: query
+        description: The site ID that the process is running for.
+        schema:
+          type: string
+          examples:
+          - 1
+      - name: filter[directory]
+        in: query
+        description: The directory that the process is running in.
+        schema:
+          type: string
+          examples:
+          - /home/forge/forge.laravel.com
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - user
+            - -user
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `BackgroundProcessResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource_2'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.background-processes.store
+      description: 'Create a new background process from a template.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBackgroundProcessRequest_2'
+      responses:
+        '202':
+          description: '`BackgroundProcessResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackgroundProcessResource_2'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/background-processes/{backgroundProcess}:
+    get:
+      operationId: organizations.servers.background-processes.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`BackgroundProcessResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackgroundProcessResource_2'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.background-processes.update
+      description: 'Update the supervisor configuration for a background process.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBackgroundProcessRequest_2'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.background-processes.destroy
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete background process
+      tags:
+      - Background Processes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-daemons
+      x-permissions:
+      - server:delete-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/background-processes/{backgroundProcess}/log:
+    get:
+      operationId: organizations.servers.background-processes.log.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get background process log
+      tags:
+      - Background Processes
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`BackgroundProcessLogResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BackgroundProcessLogResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    UpdateBackgroundProcessRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/DaemonType'
+        processes:
+          type: integer
+          minimum: 1
+          maximum: 10
+        command:
+          type: string
+          description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
+          examples:
+          - php artisan my:command
+        config:
+          type: object
+          properties:
+            connection:
+              type: string
+              description: The queue connection name. Only applicable for 'worker' type background processes.
+              examples:
+              - redis
+            queue:
+              type: string
+              description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
+              examples:
+              - default,emails
+            tries:
+              type: integer
+              description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            backoff:
+              type: integer
+              description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
+              examples:
+              - 30
+            sleep:
+              type: integer
+              description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            rest:
+              type: integer
+              description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
+              examples:
+              - 0
+            timeout:
+              type: integer
+              description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
+              examples:
+              - 60
+            force:
+              type: boolean
+              description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
+              examples:
+              - false
+      title: UpdateBackgroundProcessRequest
+    InstanceType:
+      type: string
+      enum:
+      - app
+      - service
+      - queue
+      - managed_queue
+      title: InstanceType
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    DaemonStrategyType:
+      type: string
+      enum:
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
+    CreateBackgroundProcessRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/DaemonType'
+        processes:
+          type: integer
+          minimum: 1
+          maximum: 10
+        command:
+          type: string
+          description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
+          examples:
+          - php artisan my:command
+        config:
+          type: object
+          properties:
+            connection:
+              type: string
+              description: The queue connection name. Only applicable for 'worker' type background processes.
+              examples:
+              - redis
+            queue:
+              type: string
+              description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
+              examples:
+              - default,emails
+            tries:
+              type: integer
+              description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            backoff:
+              type: integer
+              description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
+              examples:
+              - 30
+            sleep:
+              type: integer
+              description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            rest:
+              type: integer
+              description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
+              examples:
+              - 0
+            timeout:
+              type: integer
+              description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
+              examples:
+              - 60
+            force:
+              type: boolean
+              description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
+              examples:
+              - false
+      required:
+      - type
+      - processes
+      title: CreateBackgroundProcessRequest
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    BackgroundProcessResource_2:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backgroundProcesses
+        attributes:
+          type: object
+          properties:
+            command:
+              type: string
+              description: The command that the background process is running.
+              examples:
+              - php artisan queue:work database
+            user:
+              type: string
+              description: The user that the background process is running as.
+              examples:
+              - forge
+            directory:
+              type:
+              - string
+              - 'null'
+              description: The directory that the background process is running in.
+              examples:
+              - /home/forge/forge.laravel.com
+            processes:
+              type: integer
+              description: The number of processes that the background process is running.
+              examples:
+              - 3
+            status:
+              type: string
+              description: The status of the background process.
+              enum:
+              - installing
+              - installed
+              - removing
+              - restarting
+              - starting
+              - stopping
+              examples:
+              - running
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the background process was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+          required:
+          - command
+          - user
+          - directory
+          - processes
+          - status
+          - created_at
+      required:
+      - id
+      - type
+      title: BackgroundProcessResource
+    BackgroundProcessResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - background_processes
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BackgroundProcessResourceIdentifier
+    DaemonType:
+      type: string
+      enum:
+      - worker
+      - custom
+      title: DaemonType
+    CreateBackgroundProcessRequest_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the background process.
+          examples:
+          - Custom command runner
+        site_id:
+          type: integer
+          description: The site to associate the background process with.
+          examples:
+          - 12345
+        command:
+          type: string
+          description: The command to run.
+          examples:
+          - php artisan custom:command
+        user:
+          type: string
+          description: The user to run the background process as.
+          enum:
+          - root
+          - forge
+          examples:
+          - forge
+        directory:
+          type:
+          - string
+          - 'null'
+          description: The directory to run the background process from.
+          examples:
+          - /home/forge/my-site.com/current/
+        processes:
+          type: integer
+          description: The number of processes to run.
+          examples:
+          - 1
+          minimum: 1
+        startsecs:
+          type: integer
+          description: The number of seconds to wait before starting the process.
+          examples:
+          - 10
+          minimum: 0
+        stopwaitsecs:
+          type: integer
+          description: The number of seconds to wait before stopping the process.
+          examples:
+          - 10
+          minimum: 0
+        stopsignal:
+          type:
+          - string
+          - 'null'
+          description: The signal to send to stop the process.
+          examples:
+          - SIGTERM
+      required:
+      - name
+      - command
+      - user
+      - processes
+      title: CreateBackgroundProcessRequest
+    BackgroundProcessResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - background_processes
+        attributes:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/DaemonType'
+            processes:
+              type: integer
+            command:
+              type: string
+            config:
+              type: array
+              items: {}
+            strategy_type:
+              $ref: '#/components/schemas/DaemonStrategyType'
+            strategy_threshold:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - type
+          - processes
+          - command
+          - config
+          - strategy_type
+          - strategy_threshold
+          - created_at
+        relationships:
+          type: object
+          properties:
+            instance:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: BackgroundProcessResource
+    InstanceScalingType:
+      type: string
+      enum:
+      - none
+      - custom
+      - auto
+      title: InstanceScalingType
+    UpdateBackgroundProcessRequest_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the background process.
+        config:
+          type: string
+          description: The supervisor configuration of the background process.
+      required:
+      - name
+      title: UpdateBackgroundProcessRequest
+    InstanceResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - instances
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/InstanceType'
+            size:
+              $ref: '#/components/schemas/InstanceSize'
+            scaling_type:
+              $ref: '#/components/schemas/InstanceScalingType'
+            min_replicas:
+              type: integer
+            max_replicas:
+              type: integer
+            queue_status:
+              anyOf:
+              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
+                $ref: '#/components/schemas/SqsQueueStatus'
+              - type: 'null'
+            paused:
+              type:
+              - boolean
+              - 'null'
+              description: Whether the managed queue is currently paused. Null for non-queue instances.
+            is_default:
+              type:
+              - boolean
+              - 'null'
+              description: Whether this is the environment's default managed queue. Null for non-queue instances.
+            visibility_timeout:
+              type:
+              - integer
+              - 'null'
+              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
+            polling_interval:
+              type:
+              - integer
+              - 'null'
+              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
+            shutdown_timeout:
+              type:
+              - integer
+              - 'null'
+            uses_scheduler:
+              type: boolean
+            sleep_with_app:
+              type:
+              - boolean
+              - 'null'
+            scaling_cpu_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            scaling_memory_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - size
+          - scaling_type
+          - min_replicas
+          - max_replicas
+          - queue_status
+          - paused
+          - is_default
+          - visibility_timeout
+          - polling_interval
+          - shutdown_timeout
+          - uses_scheduler
+          - sleep_with_app
+          - scaling_cpu_threshold_percentage
+          - scaling_memory_threshold_percentage
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            backgroundProcesses:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: InstanceResource
+    InstanceSize:
+      type: string
+      enum:
+      - flex-512mb
+      - flex-1gb
+      - flex-2gb
+      - flex.c-1vcpu-256mb
+      - flex.g-1vcpu-512mb
+      - flex.m-1vcpu-1gb
+      - flex.c-2vcpu-512mb
+      - flex.g-2vcpu-1gb
+      - flex.m-2vcpu-2gb
+      - flex.c-4vcpu-1gb
+      - flex.g-4vcpu-2gb
+      - flex.m-4vcpu-4gb
+      - flex.c-8vcpu-2gb
+      - flex.g-8vcpu-4gb
+      - flex.m-8vcpu-8gb
+      - pro.c-1vcpu-1gb
+      - pro.g-1vcpu-2gb
+      - pro.m-1vcpu-4gb
+      - pro.c-2vcpu-2gb
+      - pro.g-2vcpu-4gb
+      - pro.m-2vcpu-8gb
+      - pro.c-4vcpu-4gb
+      - pro.g-4vcpu-8gb
+      - pro.m-4vcpu-16gb
+      - pro.c-8vcpu-8gb
+      - pro.g-8vcpu-16gb
+      - pro.m-8vcpu-32gb
+      - dedicated.c-1vcpu-2gb
+      - dedicated.g-1vcpu-4gb
+      - dedicated.m-1vcpu-8gb
+      - dedicated.c-2vcpu-4gb
+      - dedicated.g-2vcpu-8gb
+      - dedicated.m-2vcpu-16gb
+      - dedicated.c-4vcpu-8gb
+      - dedicated.g-4vcpu-16gb
+      - dedicated.m-4vcpu-32gb
+      - dedicated.c-8vcpu-16gb
+      - dedicated.g-8vcpu-32gb
+      - dedicated.m-8vcpu-64gb
+      - mq-pro-256mb
+      - mq-pro-512mb
+      - mq-pro-1gb
+      - mq-pro-2gb
+      - mq-pro-4gb
+      - mq-pro-8gb
+      - mq-dedicated-256mb
+      - mq-dedicated-512mb
+      - mq-dedicated-1gb
+      - mq-dedicated-2gb
+      - mq-dedicated-4gb
+      - mq-dedicated-8gb
+      title: InstanceSize
+    BackgroundProcessLogResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backgroundProcessLogs
+        attributes:
+          type: object
+          properties:
+            content:
+              type: string
+              description: The content of the log.
+          required:
+          - content
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackgroundProcessLogResource
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

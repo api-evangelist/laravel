@@ -1,0 +1,1283 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Domains API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Domains
+paths:
+  /environments/{environment}/domains:
+    get:
+      operationId: public.environments.domains.index
+      description: List all domains for the given environment.
+      summary: List domains
+      tags:
+      - Domains
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      - name: filter[hostname_status]
+        in: query
+        schema:
+          type: string
+      - name: filter[ssl_status]
+        in: query
+        schema:
+          type: string
+      - name: filter[origin_status]
+        in: query
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - environment
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `SimplifiedDomainResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SimplifiedDomainResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      last_page:
+                        type: integer
+                        minimum: 1
+                      links:
+                        type: array
+                        description: Generated paginator links.
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type:
+                              - string
+                              - 'null'
+                            label:
+                              type: string
+                            active:
+                              type: boolean
+                          required:
+                          - url
+                          - label
+                          - active
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                      total:
+                        type: integer
+                        description: Total number of items being paginated.
+                        minimum: 0
+                    required:
+                    - current_page
+                    - from
+                    - last_page
+                    - links
+                    - path
+                    - per_page
+                    - to
+                    - total
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+    post:
+      operationId: public.environments.domains.store
+      description: Create a new domain for the given environment. After creating the domain, you'll have to add the required DNS records to your DNS provider. This might be a 2-step process, depending on the verification method used. You can check the required DNS records in the response of this endpoint, and you can verify the domain using the "verify" query parameter in the "Get domain" endpoint.
+      summary: Create domain
+      tags:
+      - Domains
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDomainRequest'
+      responses:
+        '200':
+          description: '`DomainResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DomainResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+  /domains/{domain}:
+    get:
+      operationId: public.domains.show
+      description: Show a specific domain.
+      summary: Get domain
+      tags:
+      - Domains
+      parameters:
+      - name: domain
+        in: path
+        required: true
+        description: The domain identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: verify
+        in: query
+        description: Whether the domain's DNS records should be verified and validated.
+        schema:
+          type: boolean
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - environment
+        explode: false
+      responses:
+        '200':
+          description: '`DomainResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DomainResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+    patch:
+      operationId: public.domains.update
+      description: Update a specific domain.
+      summary: Update domain
+      tags:
+      - Domains
+      parameters:
+      - name: domain
+        in: path
+        required: true
+        description: The domain identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDomainRequest'
+      responses:
+        '200':
+          description: '`DomainResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DomainResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+    delete:
+      operationId: public.domains.destroy
+      description: Delete a specific domain.
+      summary: Delete domain
+      tags:
+      - Domains
+      parameters:
+      - name: domain
+        in: path
+        required: true
+        description: The domain identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        '204':
+          description: No content
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+  /domains/{domain}/verify:
+    post:
+      operationId: public.domains.verify
+      description: Checks whether the DNS records for a given domain have been properly set up.
+      summary: Verify a domain
+      tags:
+      - Domains
+      parameters:
+      - name: domain
+        in: path
+        required: true
+        description: The domain identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      responses:
+        '200':
+          description: '`DomainResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DomainResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+components:
+  schemas:
+    CreateDomainRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 255
+        www_redirect:
+          anyOf:
+          - $ref: '#/components/schemas/DomainRedirect'
+          - type: 'null'
+        wildcard_enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to enable a wildcard subdomain (*.example.com) for this domain.
+          examples:
+          - false
+        allow_downtime:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to allow downtime during domain verification. When true (flexible), the domain can be pointed directly without pre-verification. When false (uninterrupted), TXT-based pre-verification is required to avoid downtime.
+          examples:
+          - true
+        cloudflare_strategy:
+          anyOf:
+          - description: The Cloudflare integration strategy. "none" uses A records with no Cloudflare integration. "dns" uses CNAME records via Cloudflare DNS only. "dns_proxy" uses CNAME records with Cloudflare's proxy enabled (Orange cloud).
+            examples:
+            - none
+            $ref: '#/components/schemas/DomainCloudflareStrategy'
+          - type: 'null'
+        verification_method:
+          anyOf:
+          - description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
+            examples:
+            - real_time
+            $ref: '#/components/schemas/DomainVerificationMethod'
+          - type: 'null'
+      required:
+      - name
+      title: CreateDomainRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    BranchResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    EnvironmentResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - environments
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            status:
+              $ref: '#/components/schemas/EnvironmentStatus'
+            created_from_automation:
+              type: boolean
+            vanity_domain:
+              type: string
+            php_major_version:
+              type: string
+              enum:
+              - '8.2'
+              - '8.3'
+              - '8.4'
+              - '8.5'
+            build_command:
+              type:
+              - string
+              - 'null'
+            node_version:
+              $ref: '#/components/schemas/NodeVersion'
+            deploy_command:
+              type:
+              - string
+              - 'null'
+            uses_octane:
+              type: boolean
+            uses_hibernation:
+              type: boolean
+            hibernation_wake_up_interval:
+              type:
+              - integer
+              - 'null'
+            uses_push_to_deploy:
+              type: boolean
+            uses_deploy_hook:
+              type: boolean
+            ? ''
+            : anyOf:
+              - type: object
+                properties:
+                  environment_variables:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                      - key
+                      - value
+                required:
+                - environment_variables
+              - type: array
+                items:
+                  type: string
+                minItems: 0
+                maxItems: 0
+                additionalItems: false
+            network_settings:
+              type: object
+              properties:
+                cache:
+                  type: object
+                  properties:
+                    strategy:
+                      type: string
+                  required:
+                  - strategy
+                response_headers:
+                  type: object
+                  properties:
+                    frame:
+                      type: string
+                    content_type:
+                      type: string
+                    hsts:
+                      type: object
+                      properties:
+                        max_age:
+                          type: integer
+                        include_subdomains:
+                          type: boolean
+                        preload:
+                          type: boolean
+                      required:
+                      - max_age
+                      - include_subdomains
+                      - preload
+                  required:
+                  - frame
+                  - content_type
+                  - hsts
+                firewall:
+                  type: object
+                  properties:
+                    bot_categories:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/BotControlCategory'
+                    rate_limit:
+                      type: object
+                      properties:
+                        level:
+                          $ref: '#/components/schemas/RateLimitLevel'
+                        per_minute:
+                          $ref: '#/components/schemas/RateLimitPerMinute'
+                        4xx:
+                          type: boolean
+                        '429':
+                          type: boolean
+                      required:
+                      - level
+                      - per_minute
+                      - 4xx
+                      - '429'
+                    under_attack_mode_started_at:
+                      type: string
+                    block_path:
+                      type: boolean
+                  required:
+                  - bot_categories
+                  - rate_limit
+                  - under_attack_mode_started_at
+                  - block_path
+                content_converter:
+                  type: boolean
+              required:
+              - cache
+              - response_headers
+              - firewall
+              - content_converter
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - slug
+          - status
+          - created_from_automation
+          - vanity_domain
+          - php_major_version
+          - build_command
+          - node_version
+          - deploy_command
+          - uses_octane
+          - uses_hibernation
+          - hibernation_wake_up_interval
+          - uses_push_to_deploy
+          - uses_deploy_hook
+          - null
+          - network_settings
+          - created_at
+        relationships:
+          type: object
+          properties:
+            application:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/ApplicationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            branch:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BranchResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            deployments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DeploymentResourceIdentifier'
+              required:
+              - data
+            currentDeployment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DeploymentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            domains:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DomainResourceIdentifier'
+              required:
+              - data
+            primaryDomain:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DomainResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            instances:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/InstanceResourceIdentifier'
+              required:
+              - data
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            cache:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/CacheResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            buckets:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FilesystemResourceIdentifier'
+              required:
+              - data
+            websocketApplication:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/WebsocketApplicationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: EnvironmentResource
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    DomainType:
+      type: string
+      enum:
+      - root
+      - www
+      - wildcard
+      title: DomainType
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    SimplifiedDomainResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - domains
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/DomainType'
+            hostname_status:
+              $ref: '#/components/schemas/DomainStatus'
+            ssl_status:
+              $ref: '#/components/schemas/DomainStatus'
+            origin_status:
+              $ref: '#/components/schemas/DomainStatus'
+            redirect:
+              anyOf:
+              - $ref: '#/components/schemas/DomainRedirect'
+              - type: 'null'
+            last_verified_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - hostname_status
+          - ssl_status
+          - origin_status
+          - redirect
+          - last_verified_at
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: SimplifiedDomainResource
+    DomainStatus:
+      type: string
+      enum:
+      - pending
+      - verified
+      - failed
+      - disabled
+      title: DomainStatus
+    DomainResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - domains
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/DomainType'
+            hostname_status:
+              $ref: '#/components/schemas/DomainStatus'
+            ssl_status:
+              $ref: '#/components/schemas/DomainStatus'
+            origin_status:
+              $ref: '#/components/schemas/DomainStatus'
+            redirect:
+              anyOf:
+              - $ref: '#/components/schemas/DomainRedirect'
+              - type: 'null'
+            cloudflare_strategy:
+              anyOf:
+              - $ref: '#/components/schemas/DomainCloudflareStrategy'
+              - type: 'null'
+            downtime:
+              type:
+              - boolean
+              - 'null'
+            wildcard_enabled:
+              type: boolean
+            dns_records:
+              type: object
+              properties:
+                ssl:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - CNAME
+                        - TXT
+                      name:
+                        type:
+                        - string
+                        - 'null'
+                      value:
+                        type:
+                        - string
+                        - 'null'
+                    required:
+                    - type
+                    - name
+                    - value
+                pre_verification:
+                  type: string
+                origin:
+                  type: string
+                origin_cname:
+                  type: string
+                dcv:
+                  type: string
+              required:
+              - ssl
+              - pre_verification
+              - origin
+              - origin_cname
+              - dcv
+            wildcard:
+              type:
+              - object
+              - 'null'
+              properties:
+                hostname_status:
+                  $ref: '#/components/schemas/DomainStatus'
+                ssl_status:
+                  $ref: '#/components/schemas/DomainStatus'
+                origin_status:
+                  $ref: '#/components/schemas/DomainStatus'
+                dns_records:
+                  type: object
+                  properties:
+                    ssl:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - CNAME
+                            - TXT
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                          value:
+                            type:
+                            - string
+                            - 'null'
+                        required:
+                        - type
+                        - name
+                        - value
+                    pre_verification:
+                      type: string
+                    origin:
+                      type: string
+                    origin_cname:
+                      type: string
+                    dcv:
+                      type: string
+                  required:
+                  - ssl
+                  - pre_verification
+                  - origin
+                  - origin_cname
+                  - dcv
+              required:
+              - hostname_status
+              - ssl_status
+              - origin_status
+              - dns_records
+            www:
+              type:
+              - object
+              - 'null'
+              properties:
+                hostname_status:
+                  $ref: '#/components/schemas/DomainStatus'
+                ssl_status:
+                  $ref: '#/components/schemas/DomainStatus'
+                origin_status:
+                  $ref: '#/components/schemas/DomainStatus'
+                dns_records:
+                  type: object
+                  properties:
+                    ssl:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - CNAME
+                            - TXT
+                          name:
+                            type:
+                            - string
+                            - 'null'
+                          value:
+                            type:
+                            - string
+                            - 'null'
+                        required:
+                        - type
+                        - name
+                        - value
+                    pre_verification:
+                      type: string
+                    origin:
+                      type: string
+                    origin_cname:
+                      type: string
+                    dcv:
+                      type: string
+                  required:
+                  - ssl
+                  - pre_verification
+                  - origin
+                  - origin_cname
+                  - dcv
+              required:
+              - hostname_status
+              - ssl_status
+              - origin_status
+              - dns_records
+            action_required:
+              anyOf:
+              - $ref: '#/components/schemas/DomainActionRequired'
+              - type: 'null'
+            last_verified_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - hostname_status
+          - ssl_status
+          - origin_status
+          - redirect
+          - cloudflare_strategy
+          - downtime
+          - wildcard_enabled
+          - dns_records
+          - wildcard
+          - www
+          - action_required
+          - last_verified_at
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DomainResource
+    UpdateDomainRequest:
+      type: object
+      properties:
+        verification_method:
+          description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
+          examples:
+          - real_time
+          $ref: '#/components/schemas/DomainVerificationMethod'
+      required:
+      - verification_method
+      title: UpdateDomainRequest
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    DomainCloudflareStrategy:
+      type: string
+      enum:
+      - dns_proxy
+      - dns
+      - none
+      title: DomainCloudflareStrategy
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainRedirect:
+      type: string
+      enum:
+      - root_to_www
+      - www_to_root
+      title: DomainRedirect
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    DomainVerificationMethod:
+      type: string
+      enum:
+      - pre_verification
+      - real_time
+      title: DomainVerificationMethod
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DomainActionRequired:
+      type: string
+      enum:
+      - add_txt_records
+      - add_dns_records
+      - failed
+      title: DomainActionRequired
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

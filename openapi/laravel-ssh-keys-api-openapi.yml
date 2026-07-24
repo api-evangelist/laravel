@@ -1,0 +1,543 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications SSH Keys API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: SSH Keys
+paths:
+  /orgs/{organization}/servers/{server}/ssh-keys:
+    get:
+      operationId: organizations.servers.ssh-keys.index
+      description: 'List all SSH keys associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List server SSH keys
+      tags:
+      - SSH Keys
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      - name: filter[user]
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `KeyResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/KeyResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.ssh-keys.store
+      description: 'Add a new SSH key to the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create server SSH key
+      tags:
+      - SSH Keys
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSshKeyRequest'
+      responses:
+        '202':
+          description: Adding SSH key to server accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-keys
+      x-permissions:
+      - server:create-keys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/ssh-keys/{key}:
+    get:
+      operationId: organizations.servers.ssh-keys.show
+      description: 'Get a specific SSH key associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server SSH key
+      tags:
+      - SSH Keys
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: key
+        in: path
+        required: true
+        description: The key ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`KeyResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/KeyResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.ssh-keys.destroy
+      description: 'Remove an SSH key from the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete server SSH key
+      tags:
+      - SSH Keys
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: key
+        in: path
+        required: true
+        description: The key ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Removal of SSH key from server accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-keys
+      x-permissions:
+      - server:delete-keys
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/key:
+    get:
+      operationId: organizations.servers.key.show
+      description: 'Get the public SSH key for the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server public SSH key
+      tags:
+      - SSH Keys
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ServerKeyResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerKeyResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.key.update
+      description: 'Regenerate the SSH key pair for the server and return the new public key.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update server public SSH key
+      tags:
+      - SSH Keys
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ServerKeyResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerKeyResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete
+      x-permissions:
+      - server:delete
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    ServerKeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - serverKeys
+        attributes:
+          type: object
+          properties:
+            public_key:
+              type: string
+            fingerprint:
+              type: string
+          required:
+          - public_key
+          - fingerprint
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ServerKeyResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    CreateSshKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the SSH key.
+          examples:
+          - oliver-macbook
+        key:
+          type: string
+          description: The public SSH key.
+          examples:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
+        user:
+          type:
+          - string
+          - 'null'
+          description: The user associated with the SSH key.
+          default: forge
+          examples:
+          - username
+      required:
+      - name
+      - key
+      title: CreateSshKeyRequest
+    KeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - keys
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            user:
+              type: string
+            status:
+              type: string
+            created_by:
+              type:
+              - integer
+              - 'null'
+              description: The user that created the key.
+            created_at:
+              type: string
+              format: date-time
+              description: The date the key was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: The date the key was last updated.
+          required:
+          - name
+          - user
+          - status
+          - created_by
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: KeyResource
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

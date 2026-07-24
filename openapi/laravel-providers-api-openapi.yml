@@ -1,0 +1,800 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Providers API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Providers
+paths:
+  /providers:
+    get:
+      operationId: providers.index
+      description: 'Show all providers
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List providers
+      tags:
+      - Providers
+      parameters:
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ProviderResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProviderResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}:
+    get:
+      operationId: providers.show
+      description: 'Show the provider.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get provider
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ProviderResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProviderResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}/sizes:
+    get:
+      operationId: providers.sizes.index
+      description: 'Show all providers
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List provider sizes
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ProviderSizeResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProviderSizeResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}/sizes/{providerSize}:
+    get:
+      operationId: providers.sizes.show
+      description: 'Show the provider size.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get provider size
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      - name: providerSize
+        in: path
+        required: true
+        description: The provider size forge id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`ProviderSizeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProviderSizeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}/regions:
+    get:
+      operationId: providers.regions.index
+      description: 'Show all provider regions
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List provider regions
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ProviderRegionResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProviderRegionResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}/regions/{providerRegion}:
+    get:
+      operationId: providers.regions.show
+      description: 'Show the provider region.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get provider region
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      - name: providerRegion
+        in: path
+        required: true
+        description: The provider region ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ProviderRegionResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProviderRegionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}/regions/{providerRegion}/sizes:
+    get:
+      operationId: providers.regions.sizes.index
+      description: 'Show all provider region sizes
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List provider region sizes
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      - name: providerRegion
+        in: path
+        required: true
+        description: The provider region ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ProviderRegionSizeResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProviderRegionSizeResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /providers/{provider}/regions/{providerRegion}/sizes/{providerSize}:
+    get:
+      operationId: providers.regions.sizes.show
+      description: 'Show the provider region size.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get provider region size
+      tags:
+      - Providers
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        description: The provider ID
+        schema:
+          type: integer
+      - name: providerRegion
+        in: path
+        required: true
+        description: The provider region ID
+        schema:
+          type: integer
+      - name: providerSize
+        in: path
+        required: true
+        description: The provider size forge id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`ProviderRegionSizeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProviderRegionSizeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    ProviderResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providers
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            simple_name:
+              type:
+              - string
+              - 'null'
+            currency:
+              type: string
+            currency_symbol:
+              type: string
+            default_size_code:
+              type:
+              - string
+              - 'null'
+            default_region_code:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - slug
+          - simple_name
+          - currency
+          - currency_symbol
+          - default_size_code
+          - default_region_code
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderResource
+    ProviderRegionSizeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providerSizes
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderRegionSizeResource
+    ProviderRegionResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providerRegions
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            code:
+              type: string
+            alternate_code:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - code
+          - alternate_code
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderRegionResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    ProviderSizeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providerSizes
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the size.
+            code:
+              type: string
+              description: The code identifier from the provider.
+            series:
+              type: string
+              description: The series type.
+            category:
+              type: string
+              description: The category name
+            cpus:
+              type: integer
+              description: The number of CPUs.
+            disk_type:
+              type: string
+              description: The type of disk.
+            architecture:
+              type: string
+              description: The CPU architecture.
+            ram:
+              type: integer
+              description: The amount of RAM in MB.
+            disk:
+              type: integer
+              description: The amount of disk space in MB.
+          required:
+          - name
+          - code
+          - series
+          - category
+          - cpus
+          - disk_type
+          - architecture
+          - ram
+          - disk
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderSizeResource
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

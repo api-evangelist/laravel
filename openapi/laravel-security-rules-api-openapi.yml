@@ -1,0 +1,597 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Security Rules API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Security Rules
+paths:
+  /orgs/{organization}/servers/{server}/sites/{site}/security-rules:
+    get:
+      operationId: organizations.servers.sites.security-rules.index
+      description: 'List all security rules associated with the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List site security rules
+      tags:
+      - Security Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[path]
+        in: query
+        description: The path for the security rule.
+        schema:
+          type: string
+          examples:
+          - /admin
+      - name: filter[status]
+        in: query
+        description: The status of the security rule.
+        schema:
+          type: string
+          examples:
+          - installed
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - path
+            - -path
+            - status
+            - -status
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `SecurityRuleResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SecurityRuleResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-security
+      x-permissions:
+      - site:manage-security
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.security-rules.store
+      description: 'Add a new security rule to the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create site security rule
+      tags:
+      - Security Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSecurityRuleRequest'
+      responses:
+        '202':
+          description: '`SecurityRuleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SecurityRuleResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - site:manage-security
+      x-permissions:
+      - site:manage-security
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/security-rules/{securityRule}:
+    get:
+      operationId: organizations.servers.sites.security-rules.show
+      description: 'Get a specific security rule associated with the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get site security rule
+      tags:
+      - Security Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: securityRule
+        in: path
+        required: true
+        description: The security rule ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`SecurityRuleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/SecurityRuleResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-security
+      x-permissions:
+      - site:manage-security
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.sites.security-rules.update
+      description: 'Update an existing security rule for a site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update site security rule
+      tags:
+      - Security Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: securityRule
+        in: path
+        required: true
+        description: The security rule ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSecurityRuleRequest'
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - site:manage-security
+      x-permissions:
+      - site:manage-security
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.security-rules.destroy
+      description: 'Remove a security rule from the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete site security rule
+      tags:
+      - Security Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: securityRule
+        in: path
+        required: true
+        description: The security rule ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-security
+      x-permissions:
+      - site:manage-security
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    UpdateSecurityRuleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the security rule.
+          examples:
+          - Restricted Access
+          maxLength: 255
+        path:
+          type:
+          - string
+          - 'null'
+          description: The path for the security rule.
+          examples:
+          - /admin
+          maxLength: 255
+        credentials:
+          type: array
+          description: The credentials for the security rule.
+          items:
+            type: object
+            properties:
+              username:
+                type: string
+                description: The usernames for the credential.
+                examples:
+                - admin
+                maxLength: 50
+              password:
+                type: string
+                description: The passwords for the credential.
+                examples:
+                - secret123
+            required:
+            - username
+          minItems: 1
+      required:
+      - name
+      - credentials
+      title: UpdateSecurityRuleRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    SecurityRuleResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - securityRules
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the security rule.
+              examples:
+              - Restricted Access
+            path:
+              type:
+              - string
+              - 'null'
+              description: The path for the security rule.
+              examples:
+              - /admin
+            status:
+              type:
+              - string
+              - 'null'
+              description: The status of the security rule.
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the security rule was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the security rule was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - path
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: SecurityRuleResource
+    CreateSecurityRuleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the security rule.
+          examples:
+          - Restricted Access
+          maxLength: 255
+        path:
+          type: string
+          description: The path for the security rule.
+          examples:
+          - /admin
+          maxLength: 255
+        credentials:
+          type: array
+          description: The credentials for the security rule.
+          items:
+            type: object
+            properties:
+              username:
+                type: string
+                description: The usernames for the credential.
+                examples:
+                - admin
+                maxLength: 50
+              password:
+                type: string
+                description: The passwords for the credential.
+                examples:
+                - secret123
+            required:
+            - username
+            - password
+          minItems: 1
+      required:
+      - name
+      - credentials
+      title: CreateSecurityRuleRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

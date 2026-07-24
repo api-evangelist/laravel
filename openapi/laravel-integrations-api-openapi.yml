@@ -1,0 +1,1670 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Integrations API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Integrations
+paths:
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/horizon:
+    get:
+      operationId: organizations.servers.sites.integrations.horizon.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Laravel Horizon integration status
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`HorizonIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/HorizonIntegrationResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.horizon.store
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Laravel Horizon integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.integrations.horizon.destroy
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete Laravel Horizon integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-daemons
+      x-permissions:
+      - server:delete-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/octane:
+    get:
+      operationId: organizations.servers.sites.integrations.octane.show
+      description: 'Show whether Laravel Octane integration is enabled.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Laravel Octane integration status
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`OctaneIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/OctaneIntegrationResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.octane.store
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Laravel Octane integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableOctaneRequest'
+      responses:
+        '202':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.integrations.octane.destroy
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete Laravel Octane integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-daemons
+      x-permissions:
+      - server:delete-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/reverb:
+    get:
+      operationId: organizations.servers.sites.integrations.reverb.show
+      description: 'Show whether Laravel Reverb integration is enabled.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Laravel Reverb integration status
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ReverbIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ReverbIntegrationResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.reverb.store
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Laravel Reverb integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableReverbRequest'
+      responses:
+        '202':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.integrations.reverb.destroy
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete Laravel Reverb integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-daemons
+      x-permissions:
+      - server:delete-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/inertia:
+    get:
+      operationId: organizations.servers.sites.integrations.inertia.show
+      description: 'Show whether Inertia SSR integration is enabled.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Inertia integration status
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`InertiaIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/InertiaIntegrationResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.inertia.store
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Inertia integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/pulse:
+    get:
+      operationId: organizations.servers.sites.integrations.pulse.show
+      description: 'Show whether Laravel Pulse integration is enabled.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Laravel Pulse integration status
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PulseIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PulseIntegrationResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BackgroundProcessResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.pulse.store
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Laravel Pulse integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.integrations.pulse.destroy
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete Laravel Pulse integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-daemons
+      x-permissions:
+      - server:delete-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/laravel-maintenance:
+    get:
+      operationId: organizations.servers.sites.integrations.laravel-maintenance.show
+      description: 'Show whether Laravel Maintenance integration is enabled.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Laravel Maintenance integration status
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`LaravelMaintenanceIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/LaravelMaintenanceIntegrationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.laravel-maintenance.store
+      description: 'Enable maintenance mode for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Laravel Maintenance integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnableMaintenanceModeRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - site:manage-commands
+      x-permissions:
+      - site:manage-commands
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.integrations.laravel-maintenance.destroy
+      description: 'Disable maintenance mode for the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete Laravel Maintenance integration
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-commands
+      x-permissions:
+      - site:manage-commands
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/integrations/laravel-scheduler:
+    get:
+      operationId: organizations.servers.sites.integrations.laravel-scheduler.show
+      description: 'Show whether Laravel Scheduler integration is enabled.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get Laravel Scheduler integration job
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`LaravelSchedulerIntegrationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/LaravelSchedulerIntegrationResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/JobResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.integrations.laravel-scheduler.store
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create Laravel Scheduler integration job
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create-schedulers
+      x-permissions:
+      - server:create-schedulers
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.sites.integrations.laravel-scheduler.destroy
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete Laravel Scheduler integration job
+      tags:
+      - Integrations
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-schedulers
+      x-permissions:
+      - server:delete-schedulers
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    HorizonIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - horizonIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            horizon_installed:
+              type: boolean
+          required:
+          - enabled
+          - horizon_installed
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: HorizonIntegrationResource
+    MaintenanceModeStatusCode:
+      type: integer
+      enum:
+      - 304
+      - 307
+      - 410
+      - 503
+      title: MaintenanceModeStatusCode
+    EnableOctaneRequest:
+      type: object
+      properties:
+        port:
+          type: string
+        server:
+          $ref: '#/components/schemas/OctaneServer'
+      required:
+      - port
+      - server
+      title: EnableOctaneRequest
+    BackgroundProcessResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - backgroundProcesses
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BackgroundProcessResourceIdentifier
+    BackgroundProcessResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backgroundProcesses
+        attributes:
+          type: object
+          properties:
+            command:
+              type: string
+              description: The command that the background process is running.
+              examples:
+              - php artisan queue:work database
+            user:
+              type: string
+              description: The user that the background process is running as.
+              examples:
+              - forge
+            directory:
+              type:
+              - string
+              - 'null'
+              description: The directory that the background process is running in.
+              examples:
+              - /home/forge/forge.laravel.com
+            processes:
+              type: integer
+              description: The number of processes that the background process is running.
+              examples:
+              - 3
+            status:
+              type: string
+              description: The status of the background process.
+              enum:
+              - installing
+              - installed
+              - removing
+              - restarting
+              - starting
+              - stopping
+              examples:
+              - running
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the background process was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+          required:
+          - command
+          - user
+          - directory
+          - processes
+          - status
+          - created_at
+      required:
+      - id
+      - type
+      title: BackgroundProcessResource
+    OctaneServer:
+      type: string
+      enum:
+      - swoole
+      - roadrunner
+      - frankenphp
+      title: OctaneServer
+    ReverbIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - reverbIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            reverb_installed:
+              type: boolean
+            host:
+              type:
+              - string
+              - 'null'
+            port:
+              type:
+              - integer
+              - 'null'
+            connections:
+              type:
+              - integer
+              - 'null'
+          required:
+          - enabled
+          - reverb_installed
+          - host
+          - port
+          - connections
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ReverbIntegrationResource
+    JobResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - scheduledJobs
+        attributes:
+          type: object
+          properties:
+            name:
+              type:
+              - string
+              - 'null'
+            command:
+              type: string
+            status:
+              type: string
+            user:
+              type: string
+            frequency:
+              type: string
+            cron:
+              type: string
+            next_run_time:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - command
+          - status
+          - user
+          - frequency
+          - cron
+          - next_run_time
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: JobResource
+    LaravelSchedulerIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - laravelSchedulerIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            laravel_installed:
+              type: string
+          required:
+          - enabled
+          - laravel_installed
+        relationships:
+          type: object
+          properties:
+            job:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/JobResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: LaravelSchedulerIntegrationResource
+    MaintenanceModeStatus:
+      type: string
+      enum:
+      - disabling
+      - enabling
+      title: MaintenanceModeStatus
+    OctaneIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - octaneIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            octane_installed:
+              type: boolean
+            port:
+              type:
+              - integer
+              - 'null'
+          required:
+          - enabled
+          - octane_installed
+          - port
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: OctaneIntegrationResource
+    PulseIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - pulseIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            pulse_installed:
+              type: boolean
+          required:
+          - enabled
+          - pulse_installed
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PulseIntegrationResource
+    EnableReverbRequest:
+      type: object
+      properties:
+        host:
+          type: string
+        port:
+          type: string
+        connections:
+          type: integer
+          minimum: 1
+          maximum: 50000
+      required:
+      - host
+      - port
+      - connections
+      title: EnableReverbRequest
+    JobResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - scheduledJobs
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: JobResourceIdentifier
+    LaravelMaintenanceIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - laravelMaintenanceIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              description: Whether the maintenance mode integration is enabled.
+            status:
+              anyOf:
+              - description: The status of the maintenance mode integration.
+                examples:
+                - enabling
+                $ref: '#/components/schemas/MaintenanceModeStatus'
+              - type: 'null'
+            laravel_installed:
+              type: boolean
+              description: Whether Laravel is installed on the site.
+          required:
+          - enabled
+          - status
+          - laravel_installed
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: LaravelMaintenanceIntegrationResource
+    EnableMaintenanceModeRequest:
+      type: object
+      properties:
+        secret:
+          type:
+          - string
+          - 'null'
+          description: The secret phrase that allows access to the application while in maintenance mode.
+          examples:
+          - my-secret-phrase
+        status:
+          description: The HTTP status code that should be returned while in maintenance mode.
+          examples:
+          - 503
+          $ref: '#/components/schemas/MaintenanceModeStatusCode'
+        redirect:
+          type:
+          - string
+          - 'null'
+          description: The redirect URL to which all requests should be sent while in maintenance mode.
+          examples:
+          - https://example.com/maintenance
+      required:
+      - status
+      title: EnableMaintenanceModeRequest
+    InertiaIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - inertiaIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            inertia_installed:
+              type: boolean
+          required:
+          - enabled
+          - inertia_installed
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: InertiaIntegrationResource
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

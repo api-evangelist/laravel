@@ -1,0 +1,1043 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Roles API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Roles
+paths:
+  /predefined-roles:
+    get:
+      operationId: predefined-roles.index
+      description: 'Show all predefined roles.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List predefined roles
+      tags:
+      - Roles
+      parameters:
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      - name: filter[permissions.name]
+        in: query
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - permissions
+            - permissionsCount
+            - permissionsExists
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `PredefinedRoleResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PredefinedRoleResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+                - links
+                - meta
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /predefined-roles/{role}:
+    get:
+      operationId: predefined-roles.show
+      description: 'Show a specific predefined role.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get predefined role
+      tags:
+      - Roles
+      parameters:
+      - name: role
+        in: path
+        required: true
+        description: The role ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PredefinedRoleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PredefinedRoleResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /permissions:
+    get:
+      operationId: permissions.index
+      description: 'Show all permissions.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List permissions
+      tags:
+      - Roles
+      parameters:
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `PermissionResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /permissions/{permission}:
+    get:
+      operationId: permissions.show
+      description: 'Show a specific permission.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get permission
+      tags:
+      - Roles
+      parameters:
+      - name: permission
+        in: path
+        required: true
+        description: The permission ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PermissionResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2: []
+      x-permissions: []
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/roles:
+    post:
+      operationId: organizations.roles.store
+      description: 'Create a new role for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Create role
+      tags:
+      - Roles
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleRequest'
+      responses:
+        '200':
+          description: '`CustomRoleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomRoleResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - organization:manage
+      x-permissions:
+      - organization:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    get:
+      operationId: organizations.roles.index
+      description: 'Show all roles for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List roles
+      tags:
+      - Roles
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      - name: filter[permissions.name]
+        in: query
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - permissions
+            - permissionsCount
+            - permissionsExists
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `CustomRoleResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomRoleResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - organization:view
+      x-permissions:
+      - organization:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/roles/{role}:
+    get:
+      operationId: organizations.roles.show
+      description: 'Show a specific role for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get role
+      tags:
+      - Roles
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: role
+        in: path
+        required: true
+        description: The role ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`CustomRoleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomRoleResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - organization:view
+      x-permissions:
+      - organization:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.roles.update
+      description: 'Update a role for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update role
+      tags:
+      - Roles
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: role
+        in: path
+        required: true
+        description: The role ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateRoleRequest'
+              - type: object
+                properties:
+                  description:
+                    type: string
+      responses:
+        '200':
+          description: '`CustomRoleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomRoleResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - organization:manage
+      x-permissions:
+      - organization:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.roles.destroy
+      description: 'Delete a role from the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete role
+      tags:
+      - Roles
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: role
+        in: path
+        required: true
+        description: The role ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Role removed successfully
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - organization:manage
+      x-permissions:
+      - organization:manage
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/roles/{role}/permissions:
+    get:
+      operationId: organizations.roles.permissions.index
+      description: 'Show all permissions for the role.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List role permissions
+      tags:
+      - Roles
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: role
+        in: path
+        required: true
+        description: The role ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `PermissionResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PermissionResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - organization:view
+      x-permissions:
+      - organization:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    Permission:
+      type: string
+      enum:
+      - organization:view
+      - organization:manage
+      - organization:delete
+      - server:view
+      - server:create
+      - server:delete
+      - server:archive
+      - server:transfer
+      - server:manage-meta
+      - server:manage-packages
+      - server:manage-php
+      - server:manage-logs
+      - server:manage-network
+      - server:manage-nginx-templates
+      - server:manage-services
+      - server:manage-password
+      - server:create-keys
+      - server:delete-keys
+      - server:create-monitors
+      - server:delete-monitors
+      - server:create-databases
+      - server:delete-databases
+      - server:create-backups
+      - server:delete-backups
+      - server:create-daemons
+      - server:delete-daemons
+      - server:create-schedulers
+      - server:delete-schedulers
+      - server:web-terminal
+      - site:create
+      - site:delete
+      - site:meta
+      - site:manage-commands
+      - site:manage-deploys
+      - site:manage-nginx
+      - site:manage-project
+      - site:manage-environment
+      - site:manage-notifications
+      - site:manage-queues
+      - site:manage-redirects
+      - site:manage-security
+      - site:manage-ssl
+      - site:manage-integrations
+      - site:manage-heartbeats
+      - credential:view
+      - credential:manage
+      - team:view
+      - team:create
+      - team:delete
+      - recipe:view
+      - recipe:manage
+      - billing:manage
+      - storage:manage
+      - integrations:manage
+      - user:view
+      - resources:view
+      - resources:create-databases
+      - resources:delete-databases
+      - resources:manage-databases
+      - resources:create-buckets
+      - resources:delete-buckets
+      - resources:manage-buckets
+      title: Permission
+    PermissionResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - permissions
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: PermissionResourceIdentifier
+    UpdateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: UpdateRoleRequest
+    PermissionResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - permissions
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PermissionResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    CustomRoleResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - customRoles
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            permissions:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PermissionResourceIdentifier'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: CustomRoleResource
+    CreateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: CreateRoleRequest
+    PredefinedRoleResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - predefinedRoles
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            permissions:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PermissionResourceIdentifier'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PredefinedRoleResource
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

@@ -1,0 +1,3876 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Servers API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Servers
+paths:
+  /orgs/{organization}/servers:
+    get:
+      operationId: organizations.servers.index
+      description: 'Show all servers for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List servers
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[ip_address]
+        in: query
+        description: The IP address of the server.
+        schema:
+          type: string
+          examples:
+          - 192.168.1.1
+      - name: filter[name]
+        in: query
+        description: The name of the server.
+        schema:
+          type: string
+          examples:
+          - production-web-01
+      - name: filter[region]
+        in: query
+        description: The region where the server is located.
+        schema:
+          type: string
+          examples:
+          - nyc3
+      - name: filter[size]
+        in: query
+        description: The size of the server.
+        schema:
+          type: string
+          examples:
+          - s-2vcpu-2gb
+      - name: filter[provider]
+        in: query
+        description: The provider of the server.
+        schema:
+          type: string
+          examples:
+          - ocean2
+      - name: filter[ubuntu_version]
+        in: query
+        description: The Ubuntu version of the server.
+        schema:
+          type: string
+          examples:
+          - 24.04
+      - name: filter[php_version]
+        in: query
+        description: The PHP version of the server.
+        schema:
+          type: string
+          examples:
+          - php83
+      - name: filter[database_type]
+        in: query
+        description: The database type of the server.
+        schema:
+          type: string
+          examples:
+          - mysql
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - name
+            - -name
+            - provider
+            - -provider
+            - ubuntu_version
+            - -ubuntu_version
+            - region
+            - -region
+            - php_version
+            - -php_version
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `ServerResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServerResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.store
+      description: 'Create a new server in the organization. Supports both standard cloud providers
+
+        and custom VPS configurations.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateServerRequest'
+              - type: object
+                properties:
+                  add_key_to_source_control:
+                    type: boolean
+                    default: true
+                  database:
+                    type: string
+                  laravel:
+                    type: object
+                    properties:
+                      vpc_uuid:
+                        type: string
+                  hetzner:
+                    type: object
+                    properties:
+                      enable_weekly_backups:
+                        type: boolean
+                        default: false
+      responses:
+        '202':
+          description: '`ServerResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create
+      x-permissions:
+      - server:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/archives:
+    get:
+      operationId: organizations.servers.archives.index
+      description: 'Get all archived servers for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List archived servers
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `ServerResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServerResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.archives.store
+      description: 'Archive a server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create an archived server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:archive
+      x-permissions:
+      - server:archive
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/archives/{server}:
+    delete:
+      operationId: organizations.servers.archives.destroy
+      description: 'Unarchive a server.
+
+        Make sure you have regenerated the server key and added it to the server before unarchiving.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete archived server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:archive
+      x-permissions:
+      - server:archive
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/background-processes/{backgroundProcess}/actions:
+    post:
+      operationId: organizations.servers.background-processes.actions.store
+      description: 'Run an action on a server-level background process.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform an action on a server background process
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: backgroundProcess
+        in: path
+        required: true
+        description: The background process ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackgroundProcessActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-daemons
+      x-permissions:
+      - server:create-daemons
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/actions:
+    post:
+      operationId: organizations.servers.actions.store
+      description: 'Run an action on a server, defined by the action type parameter.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create server action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/services/nginx/actions:
+    post:
+      operationId: organizations.servers.services.nginx.actions.store
+      description: 'Run an action on the Nginx service.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform Nginx action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NginxServiceActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/services/postgres/actions:
+    post:
+      operationId: organizations.servers.services.postgres.actions.store
+      description: 'Run an action on the Postgres service.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform Postgres action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostgresServiceActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/services/redis/actions:
+    post:
+      operationId: organizations.servers.services.redis.actions.store
+      description: 'Run an action on the Redis service.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform Redis action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedisServiceActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/services/mysql/actions:
+    post:
+      operationId: organizations.servers.services.mysql.actions.store
+      description: 'Run an action on the MySQL service.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform MySQL action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MysqlServiceActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/services/php/actions:
+    post:
+      operationId: organizations.servers.services.php.actions.store
+      description: 'Run an action on a specific PHP version.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform PHP action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhpServiceActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/services/supervisor/actions:
+    post:
+      operationId: organizations.servers.services.supervisor.actions.store
+      description: 'Run an action on the Supervisor service.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Perform Supervisor action
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SupervisorServiceActionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-services
+      x-permissions:
+      - server:manage-services
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}:
+    get:
+      operationId: organizations.servers.show
+      description: 'Show a specific server for the organization.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`ServerResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.update
+      description: 'Update a server''s details such as name, IP address, timezone, and tags.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Update server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServerRequest'
+      responses:
+        '200':
+          description: '`ServerResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-meta
+      x-permissions:
+      - server:manage-meta
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.destroy
+      description: 'Delete a server. If `preserve_at_provider` is set to `true`, the server
+
+        will only be removed from Forge and will not be deleted from the server provider.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: preserve_at_provider
+        in: query
+        description: 'When set to `true`, the server will only be removed from Forge
+
+          and will not be deleted from the server provider.'
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:delete
+      x-permissions:
+      - server:delete
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/network:
+    get:
+      operationId: organizations.servers.network.show
+      description: 'Show the servers in this server''s network.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server network
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Array of `ServerResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServerResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.network.update
+      description: 'Sync the server''s network with the given list of server IDs.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update server network
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateServerNetworkRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-network
+      x-permissions:
+      - server:manage-network
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/events:
+    get:
+      operationId: organizations.servers.events.index
+      description: 'List all events associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List server events
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[initiated_by]
+        in: query
+        description: The user ID of the event initiator.
+        schema:
+          type: string
+          examples:
+          - 1
+      - name: filter[ran_as]
+        in: query
+        description: The server user that the event was run as.
+        schema:
+          type: string
+          examples:
+          - forge
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - initiator
+            - initiatorCount
+            - initiatorExists
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `EventResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EventResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/events/{event}:
+    get:
+      operationId: organizations.servers.events.show
+      description: 'Get a specific event associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server event
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: event
+        in: path
+        required: true
+        description: The event ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`EventResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EventResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/events/{event}/output:
+    get:
+      operationId: organizations.servers.events.output.show
+      description: 'Get the output for a specific event associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server event output
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: event
+        in: path
+        required: true
+        description: The event ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`EventOutputResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EventOutputResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/servers/{server}/php/cli-version:
+    get:
+      operationId: organizations.servers.php.cli-version.show
+      description: 'Show the PHP CLI version which has been set for the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get PHP CLI version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpVersionResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpVersionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.cli-version.update
+      description: 'Update the PHP CLI version for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update PHP CLI version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpCliVersionRequest'
+      responses:
+        '204':
+          description: No content
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/site-version:
+    get:
+      operationId: organizations.servers.php.site-version.show
+      description: 'Show the PHP site version which has been set for the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get PHP site version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpVersionResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpVersionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.site-version.update
+      description: 'Update the PHP site version for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update PHP site version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpCliVersionRequest'
+      responses:
+        '204':
+          description: No content
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/versions:
+    get:
+      operationId: organizations.servers.php.versions.index
+      description: 'List all PHP versions installed on the server
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List PHP versions for server
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[status]
+        in: query
+        schema:
+          type: string
+      - name: filter[version]
+        in: query
+        schema:
+          type: string
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+            - status
+            - -status
+            - version
+            - -version
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `PhpVersionResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PhpVersionResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.php.versions.store
+      description: 'Install a new PHP version on the server
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Install new PHP version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePhpVersionRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/versions/{phpVersion}:
+    get:
+      operationId: organizations.servers.php.versions.show
+      description: 'Show the PHP version which has been installed on the server
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get PHP version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpVersionResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpVersionResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.versions.update
+      description: 'Update PHP version to the latest patch release
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update installed PHP version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.php.versions.destroy
+      description: 'Uninstall the PHP version from the server
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete installed PHP version
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/versions/{phpVersion}/configs/fpm:
+    get:
+      operationId: organizations.servers.php.versions.configs.fpm.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get PHP version FPM config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpFpmConfigurationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpFpmConfigurationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.versions.configs.fpm.update
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update PHP version FPM config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpFpmRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/versions/{phpVersion}/configs/cli:
+    get:
+      operationId: organizations.servers.php.versions.configs.cli.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get PHP version CLI config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpCliConfigurationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpCliConfigurationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.versions.configs.cli.update
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update PHP version CLI config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpCliRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/versions/{phpVersion}/configs/pool:
+    get:
+      operationId: organizations.servers.php.versions.configs.pool.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get PHP version pool config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      - name: user
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`PhpPoolConfigurationResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpPoolConfigurationResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.versions.configs.pool.update
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update PHP version pool config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: phpVersion
+        in: path
+        required: true
+        description: The php version ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpPoolRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/max-upload-size:
+    get:
+      operationId: organizations.servers.php.max-upload-size.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server PHP max upload size
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpMaxUploadSizeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpMaxUploadSizeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.max-upload-size.update
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update server PHP max upload size
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpSettingsRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/max-execution-time:
+    get:
+      operationId: organizations.servers.php.max-execution-time.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server PHP max execution time
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpMaxExecutionTimeResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpMaxExecutionTimeResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    put:
+      operationId: organizations.servers.php.max-execution-time.update
+      description: '
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Update server PHP max execution time
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePhpSettingsRequest'
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/php/opcache:
+    get:
+      operationId: organizations.servers.php.opcache.show
+      description: '
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server PHP OPcache status
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`PhpOpcacheResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/PhpOpcacheResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.php.opcache.store
+      description: 'Enable PHP OPcache for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create PHP OPcache config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+    delete:
+      operationId: organizations.servers.php.opcache.destroy
+      description: 'Disable PHP OPcache for the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete PHP OPcache config
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: ''
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-php
+      x-permissions:
+      - server:manage-php
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/teams/{team}/servers:
+    get:
+      operationId: organizations.teams.servers.index
+      description: 'Show all servers for the team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List team servers
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `ServerResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServerResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.teams.servers.store
+      description: 'Share a server with a team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Create a new server share
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShareServerRequest'
+      responses:
+        '201':
+          description: '`ServerResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServerResource'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TagResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create
+      x-permissions:
+      - server:view
+      - team:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+  /orgs/{organization}/teams/{team}/servers/{server}:
+    delete:
+      operationId: organizations.teams.servers.destroy
+      description: 'Unshare a server with a team.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Delete a server share
+      tags:
+      - Servers
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: team
+        in: path
+        required: true
+        description: The team ID
+        schema:
+          type: integer
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'Server unshared successfully
+
+
+
+
+            No content'
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:create
+      x-permissions:
+      - server:view
+      - team:create
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+components:
+  schemas:
+    SupervisorAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the Supervisor service |'
+      enum:
+      - reboot
+      title: SupervisorAction
+    PhpOpcacheResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpOpcaches
+        attributes:
+          type: object
+          properties:
+            opcache_enabled:
+              type: boolean
+          required:
+          - opcache_enabled
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpOpcacheResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    UpdateServerNetworkRequest:
+      type: object
+      properties:
+        servers:
+          type: array
+          description: The server IDs that should be in this server's network.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
+            description: A server ID to include in the network.
+            examples:
+            - 1
+      required:
+      - servers
+      title: UpdateServerNetworkRequest
+    RedisServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/RedisAction'
+      required:
+      - action
+      title: RedisServiceActionRequest
+    ArchiveRequest:
+      type: object
+      properties:
+        server_id:
+          type: integer
+      required:
+      - server_id
+      title: ArchiveRequest
+    PhpServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/PhpAction'
+        version:
+          $ref: '#/components/schemas/PhpVersion'
+      required:
+      - action
+      - version
+      title: PhpServiceActionRequest
+    UserResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - users
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: UserResource
+    TagResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - tags
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: TagResourceIdentifier
+    NginxAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the Nginx service |
+
+        | `stop` <br/> Stop the Nginx service |'
+      enum:
+      - reboot
+      - stop
+      title: NginxAction
+    UpdateServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the server.
+          examples:
+          - production-web-01
+        ip_address:
+          type: string
+          description: The IP address of the server.
+          examples:
+          - 192.168.1.1
+        private_ip_address:
+          type: string
+          description: The private IP address of the server.
+          examples:
+          - 10.0.0.1
+        timezone:
+          type: string
+          description: The timezone of the server.
+          examples:
+          - America/New_York
+        tags:
+          type: array
+          description: The tags of the server.
+          examples:
+          - - production
+            - web
+          items:
+            type: string
+            examples:
+            - production
+      title: UpdateServerRequest
+    EventResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - events
+        attributes:
+          type: object
+          properties:
+            description:
+              type: string
+              description: The description of the event.
+              examples:
+              - Adding database
+            ran_as:
+              type:
+              - string
+              - 'null'
+              description: The server user that the event was run as.
+              examples:
+              - forge
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the event was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the event was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - description
+          - ran_as
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            initiator:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/UserResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: EventResource
+    PhpVersionResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpVersions
+        attributes:
+          type: object
+          properties:
+            version:
+              type: string
+              enum:
+              - '5.6'
+              - '7.0'
+              - '7.1'
+              - '7.2'
+              - '7.3'
+              - '7.4'
+              - '8.0'
+              - '8.1'
+              - '8.2'
+              - '8.3'
+              - '8.4'
+              - '8.5'
+              - '5'
+            binary_name:
+              type: string
+            status:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+          required:
+          - version
+          - binary_name
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpVersionResource
+    CreatePhpVersionRequest:
+      type: object
+      properties:
+        version:
+          $ref: '#/components/schemas/PhpVersion'
+        cli_default:
+          type: boolean
+        site_default:
+          type: boolean
+      required:
+      - version
+      title: CreatePhpVersionRequest
+    PhpMaxExecutionTimeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpMaxExecutionTimes
+        attributes:
+          type: object
+          properties:
+            max_execution_time:
+              type:
+              - integer
+              - 'null'
+          required:
+          - max_execution_time
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpMaxExecutionTimeResource
+    UpdatePhpCliVersionRequest:
+      type: object
+      properties:
+        php_version:
+          type: string
+          description: The PHP version to update the CLI to.
+          enum:
+          - '5.6'
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+          examples:
+          - '7.4'
+      required:
+      - php_version
+      title: UpdatePhpCliVersionRequest
+    UpdatePhpPoolRequest:
+      type: object
+      properties:
+        config:
+          type: string
+        user:
+          type:
+          - string
+          - 'null'
+      required:
+      - config
+      title: UpdatePhpPoolRequest
+    UpdatePhpFpmRequest:
+      type: object
+      properties:
+        config:
+          type: string
+      required:
+      - config
+      title: UpdatePhpFpmRequest
+    SupervisorServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/SupervisorAction'
+      required:
+      - action
+      title: SupervisorServiceActionRequest
+    PhpVersion:
+      type: string
+      enum:
+      - php5
+      - php56-old
+      - php56
+      - php70
+      - php71
+      - php72
+      - php73
+      - php74
+      - php80
+      - php81
+      - php82
+      - php83
+      - php84
+      - php85
+      title: PhpVersion
+    PostgresAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the Postgres service |
+
+        | `stop` <br/> Stop the Postgres service |'
+      enum:
+      - reboot
+      - stop
+      title: PostgresAction
+    MysqlServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/MysqlAction'
+      required:
+      - action
+      title: MysqlServiceActionRequest
+    RedisAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the Redis service |'
+      enum:
+      - reboot
+      title: RedisAction
+    ShareServerRequest:
+      type: object
+      properties:
+        server_id:
+          type: integer
+          description: The server ID
+          examples:
+          - 12345
+      required:
+      - server_id
+      title: ShareServerRequest
+    PhpCliConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpCliConfigurations
+        attributes:
+          type: object
+          properties:
+            configuration:
+              type: string
+          required:
+          - configuration
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpCliConfigurationResource
+    PostgresServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/PostgresAction'
+      required:
+      - action
+      title: PostgresServiceActionRequest
+    BackgroundProcessActionRequest:
+      type: object
+      properties:
+        action:
+          description: 'The action to perform on the background process.
+
+
+            | |
+
+            |---|
+
+            | `restart` <br/> Restart the background process |
+
+            | `stop` <br/> Stop the background process |
+
+            | `start` <br/> Start the background process |
+
+            | `empty-log` <br/> Empty the background process log |'
+          examples:
+          - restart
+          $ref: '#/components/schemas/BackgroundProcessAction'
+      required:
+      - action
+      title: BackgroundProcessActionRequest
+    ServerActionRequest:
+      type: object
+      properties:
+        action:
+          description: 'The action to perform on the server.
+
+
+            | |
+
+            |---|
+
+            | `reboot` <br/> Reboot the server. |
+
+            | `power-cycle` <br/> Power-cycle the server. |'
+          examples:
+          - reboot
+          $ref: '#/components/schemas/ServerAction'
+      required:
+      - action
+      title: ServerActionRequest
+    PhpAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot PHP-FPM for a specific version |
+
+        | `reload` <br/> Gracefully reload PHP-FPM for a specific version |'
+      enum:
+      - reboot
+      - reload
+      title: PhpAction
+    CreateServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 30
+        provider:
+          type: string
+        credential_id:
+          type: integer
+        team_id:
+          type:
+          - integer
+          - 'null'
+        type:
+          $ref: '#/components/schemas/ServerType'
+        ubuntu_version:
+          type: string
+          enum:
+          - '22.04'
+          - '24.04'
+        php_version:
+          $ref: '#/components/schemas/PhpVersion'
+        database_type:
+          anyOf:
+          - $ref: '#/components/schemas/DatabaseType'
+          - type: 'null'
+        recipe_id:
+          type:
+          - integer
+          - 'null'
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        aws:
+          type: object
+          properties:
+            region_id:
+              type: string
+            size_id:
+              type: string
+            vpc_uuid:
+              type: string
+            subnet_uuid:
+              type: string
+            disk_size:
+              type: integer
+              minimum: 20
+              maximum: 2000
+        ocean2:
+          type: object
+          properties:
+            region_id:
+              type: string
+            size_id:
+              type: string
+            vpc_uuid:
+              type: string
+            enable_weekly_backups:
+              type: boolean
+        hetzner:
+          type: object
+          properties:
+            region_id:
+              type: string
+            size_id:
+              type: string
+            network_id:
+              type: integer
+            enable_daily_backups:
+              type: boolean
+        vultr:
+          type: object
+          properties:
+            region_id:
+              type: string
+            size_id:
+              type: string
+            network_id:
+              type: string
+              format: uuid
+        akamai:
+          type: object
+          properties:
+            region_id:
+              type: string
+            size_id:
+              type: string
+        laravel:
+          type: object
+          properties:
+            region_id:
+              type: string
+            size_id:
+              type: string
+        custom:
+          type: object
+          properties:
+            ip_address:
+              type: string
+            private_ip_address:
+              type:
+              - string
+              - 'null'
+            ssh_port:
+              type: integer
+            behind_nat:
+              type: boolean
+            nat_ssh_port:
+              type:
+              - integer
+              - 'null'
+      required:
+      - name
+      - provider
+      - type
+      - ubuntu_version
+      title: CreateServerRequest
+    ServerType:
+      type: string
+      enum:
+      - app
+      - web
+      - loadbalancer
+      - database
+      - cache
+      - worker
+      - meilisearch
+      - openclaw
+      title: ServerType
+    PhpFpmConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpFpmConfigurations
+        attributes:
+          type: object
+          properties:
+            configuration:
+              type: string
+          required:
+          - configuration
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpFpmConfigurationResource
+    EventOutputResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - eventOutputs
+        attributes:
+          type: object
+          properties:
+            output:
+              type: string
+          required:
+          - output
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: EventOutputResource
+    ServerResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - servers
+        attributes:
+          type: object
+          properties:
+            id:
+              type: integer
+            credential_id:
+              type:
+              - integer
+              - 'null'
+            name:
+              type: string
+            slug:
+              type: string
+            type:
+              description: The type of server.
+              examples:
+              - app
+              $ref: '#/components/schemas/ServerType'
+            ubuntu_version:
+              type:
+              - string
+              - 'null'
+            ssh_port:
+              type: integer
+            provider:
+              type: string
+            identifier:
+              type:
+              - string
+              - 'null'
+            size:
+              type: string
+            region:
+              type: string
+            php_version:
+              type:
+              - string
+              - 'null'
+            php_cli_version:
+              type:
+              - string
+              - 'null'
+            opcache_status:
+              type:
+              - string
+              - 'null'
+            database_type:
+              type:
+              - string
+              - 'null'
+            db_status:
+              type:
+              - string
+              - 'null'
+            redis_status:
+              type:
+              - string
+              - 'null'
+            ip_address:
+              type:
+              - string
+              - 'null'
+            private_ip_address:
+              type:
+              - string
+              - 'null'
+            revoked:
+              type: boolean
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the server was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the server was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+            connection_status:
+              type:
+              - string
+              - 'null'
+            timezone:
+              type: string
+            local_public_key:
+              type:
+              - string
+              - 'null'
+            is_ready:
+              type: boolean
+          required:
+          - id
+          - credential_id
+          - name
+          - slug
+          - type
+          - ubuntu_version
+          - ssh_port
+          - provider
+          - identifier
+          - size
+          - region
+          - php_version
+          - php_cli_version
+          - opcache_status
+          - database_type
+          - db_status
+          - redis_status
+          - ip_address
+          - private_ip_address
+          - revoked
+          - created_at
+          - updated_at
+          - connection_status
+          - timezone
+          - local_public_key
+          - is_ready
+        relationships:
+          type: object
+          properties:
+            tags:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TagResourceIdentifier'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ServerResource
+    TagResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - tags
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the tag was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the tag was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - created_at
+          - updated_at
+      required:
+      - id
+      - type
+      title: TagResource
+    MysqlAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the MySQL service |
+
+        | `stop` <br/> Stop the MySQL service |'
+      enum:
+      - reboot
+      - stop
+      title: MysqlAction
+    UpdatePhpCliRequest:
+      type: object
+      properties:
+        config:
+          type: string
+      required:
+      - config
+      title: UpdatePhpCliRequest
+    NginxServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/NginxAction'
+      required:
+      - action
+      title: NginxServiceActionRequest
+    PhpMaxUploadSizeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpMaxUploadSizes
+        attributes:
+          type: object
+          properties:
+            max_upload_size:
+              type:
+              - integer
+              - 'null'
+          required:
+          - max_upload_size
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpMaxUploadSizeResource
+    UpdatePhpSettingsRequest:
+      type: object
+      properties:
+        max_upload_size:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        max_execution_time:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        opcache:
+          type:
+          - boolean
+          - 'null'
+      title: UpdatePhpSettingsRequest
+    DatabaseType:
+      type: string
+      enum:
+      - mysql
+      - mysql8
+      - mysql84
+      - mysql9
+      - mariadb
+      - mariadb106
+      - mariadb1011
+      - mariadb114
+      - postgres
+      - postgres13
+      - postgres14
+      - postgres15
+      - postgres16
+      - postgres17
+      - postgres18
+      title: DatabaseType
+    BackgroundProcessAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `restart` <br/> Restart the background process |
+
+        | `stop` <br/> Stop the background process |
+
+        | `start` <br/> Start the background process |
+
+        | `empty-log` <br/> Empty the background process log |'
+      enum:
+      - restart
+      - stop
+      - start
+      - empty-log
+      title: BackgroundProcessAction
+    PhpPoolConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpPoolConfigurations
+        attributes:
+          type: object
+          properties:
+            configuration:
+              type: string
+          required:
+          - configuration
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpPoolConfigurationResource
+    ServerAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the server. |
+
+        | `power-cycle` <br/> Power-cycle the server. |'
+      enum:
+      - reboot
+      - power-cycle
+      title: ServerAction
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

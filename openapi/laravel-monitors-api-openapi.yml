@@ -1,0 +1,561 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Monitors API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Monitors
+paths:
+  /orgs/{organization}/servers/{server}/monitors:
+    get:
+      operationId: organizations.servers.monitors.index
+      description: 'List all monitors associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List server monitors
+      tags:
+      - Monitors
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[status]
+        in: query
+        description: The status of the monitor.
+        schema:
+          type: string
+          examples:
+          - installed
+      - name: filter[state]
+        in: query
+        description: The state of the monitor.
+        schema:
+          type: string
+          examples:
+          - OK
+      - name: filter[type]
+        in: query
+        description: The type of the monitor.
+        schema:
+          type: string
+          examples:
+          - cpu_load
+      - name: filter[notify]
+        in: query
+        description: The email address to notify when the monitor is in an alert state.
+        schema:
+          type: string
+          examples:
+          - taylor@laravel.com
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - state
+            - -state
+            - status
+            - -status
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `MonitorResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MonitorResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.monitors.store
+      description: 'Add a new monitor to the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create server monitor
+      tags:
+      - Monitors
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMonitorRequest'
+      responses:
+        '202':
+          description: '`MonitorResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MonitorResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:create-monitors
+      x-permissions:
+      - server:create-monitors
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/monitors/{monitor}:
+    get:
+      operationId: organizations.servers.monitors.show
+      description: 'Get a specific monitor associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server monitor
+      tags:
+      - Monitors
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: monitor
+        in: path
+        required: true
+        description: The monitor ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`MonitorResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MonitorResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:view
+      x-permissions:
+      - server:view
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.monitors.destroy
+      description: 'Remove a monitor from the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete server monitor
+      tags:
+      - Monitors
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: monitor
+        in: path
+        required: true
+        description: The monitor ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:delete-monitors
+      x-permissions:
+      - server:delete-monitors
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    MonitorOperator:
+      type: string
+      enum:
+      - gte
+      - lte
+      title: MonitorOperator
+    MonitorState:
+      type: string
+      enum:
+      - OK
+      - ALERT
+      - UNKNOWN
+      title: MonitorState
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    MonitorMetricType:
+      type: string
+      enum:
+      - cpu_load
+      - disk
+      - free_memory
+      - used_memory
+      title: MonitorMetricType
+    ResourceState:
+      type: string
+      enum:
+      - installing
+      - installed
+      - removing
+      - restarting
+      - stopping
+      - stopped
+      - starting
+      - syncing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      - running
+      - restoring
+      - deleting
+      - failed
+      - success
+      - failed-unknown
+      - failed-runner
+      - renewing
+      title: ResourceState
+    CreateMonitorRequest:
+      type: object
+      properties:
+        type:
+          description: The type of the monitor.
+          examples:
+          - cpu_load
+          $ref: '#/components/schemas/MonitorMetricType'
+        operator:
+          description: The operator used against the threshold.
+          examples:
+          - gte
+          $ref: '#/components/schemas/MonitorOperator'
+        threshold:
+          type: number
+          description: The threshold to alert on once breached.
+          examples:
+          - 90
+        minutes:
+          type: integer
+          description: The frequency in minutes to evaluate the monitor.
+          examples:
+          - 1
+          minimum: 1
+          maximum: 60
+        notify:
+          type: string
+          format: email
+          description: The email address to notify when the monitor is in an alert state.
+          examples:
+          - taylor@laravel.com
+      required:
+      - type
+      - operator
+      - threshold
+      - notify
+      title: CreateMonitorRequest
+    MonitorResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - monitors
+        attributes:
+          type: object
+          properties:
+            type:
+              description: The type of the monitor.
+              examples:
+              - cpu_load
+              $ref: '#/components/schemas/MonitorMetricType'
+            operator:
+              description: The operator used against the threshold.
+              examples:
+              - gte
+              $ref: '#/components/schemas/MonitorOperator'
+            threshold:
+              type: number
+              description: The threshold to alert on once breached.
+              examples:
+              - 90
+            minutes:
+              type:
+              - integer
+              - 'null'
+              description: The frequency in minutes to evaluate the monitor.
+              examples:
+              - 1
+            notify:
+              type: string
+              description: The email address to notify when the monitor is in an alert state.
+              examples:
+              - taylor@laravel.com
+            status:
+              description: The status of the monitor.
+              examples:
+              - installed
+              $ref: '#/components/schemas/ResourceState'
+            state:
+              description: The state of the monitor.
+              examples:
+              - OK
+              $ref: '#/components/schemas/MonitorState'
+            state_changed_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+              description: The date and time the monitor state was last changed.
+              examples:
+              - '2025-07-30T09:00:00Z'
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the monitor was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the monitor was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - type
+          - operator
+          - threshold
+          - minutes
+          - notify
+          - status
+          - state
+          - state_changed_at
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: MonitorResource
+  responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

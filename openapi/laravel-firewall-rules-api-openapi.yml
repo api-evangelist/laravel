@@ -1,0 +1,484 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Firewall Rules API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Firewall Rules
+paths:
+  /orgs/{organization}/servers/{server}/firewall-rules:
+    get:
+      operationId: organizations.servers.firewall-rules.index
+      description: 'List all firewall rules associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List server firewall rules
+      tags:
+      - Firewall Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[name]
+        in: query
+        description: The name of the firewall rule.
+        schema:
+          type: string
+          examples:
+          - Allow MySQL
+      - name: filter[status]
+        in: query
+        description: The status of the firewall rule.
+        schema:
+          type: string
+          examples:
+          - installed
+      - name: filter[ip_address]
+        in: query
+        description: The IP address or subnet for the firewall rule.
+        schema:
+          type: string
+          examples:
+          - 192.168.1.1
+      - name: filter[type]
+        in: query
+        description: The type of the firewall rule.
+        schema:
+          type: string
+          examples:
+          - allow
+      - name: filter[port]
+        in: query
+        description: The port or port range for the firewall rule.
+        schema:
+          type: string
+          examples:
+          - 3306
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `RuleResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RuleResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-network
+      x-permissions:
+      - server:manage-network
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.firewall-rules.store
+      description: 'Add a new firewall rule to the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create server firewall rule
+      tags:
+      - Firewall Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateFirewallRuleRequest'
+              - type: object
+                properties:
+                  ip_address:
+                    type: string
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - server:manage-network
+      x-permissions:
+      - server:manage-network
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/firewall-rules/{rule}:
+    get:
+      operationId: organizations.servers.firewall-rules.show
+      description: 'Get a specific firewall rule associated with the server.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get server firewall rule
+      tags:
+      - Firewall Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: rule
+        in: path
+        required: true
+        description: The rule ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`RuleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RuleResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-network
+      x-permissions:
+      - server:manage-network
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.firewall-rules.destroy
+      description: 'Remove a firewall rule from the server.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete server firewall rule
+      tags:
+      - Firewall Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: rule
+        in: path
+        required: true
+        description: The rule ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - server:manage-network
+      x-permissions:
+      - server:manage-network
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    RuleType:
+      type: string
+      enum:
+      - allow
+      - deny
+      title: RuleType
+    RuleResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - rules
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the firewall rule.
+              examples:
+              - Allow HTTP
+            port:
+              type:
+              - string
+              - 'null'
+              description: The port or port range for the firewall rule.
+              examples:
+              - '80'
+            type:
+              type: string
+              description: The type of the firewall rule.
+              examples:
+              - allow
+            ip_address:
+              type:
+              - string
+              - 'null'
+              description: The IP address or subnet for the firewall rule.
+              examples:
+              - 192.168.1.1
+            status:
+              type:
+              - string
+              - 'null'
+              description: The status of the firewall rule.
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the firewall rule was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the firewall rule was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - port
+          - type
+          - ip_address
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: RuleResource
+    CreateFirewallRuleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        port:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/RuleType'
+        ip_address:
+          type: object
+      required:
+      - name
+      - type
+      title: CreateFirewallRuleRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

@@ -1,0 +1,496 @@
+openapi: 3.1.0
+info:
+  title: Laravel Cloud Applications Redirect Rules API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Redirect Rules
+paths:
+  /orgs/{organization}/servers/{server}/sites/{site}/redirect-rules:
+    get:
+      operationId: organizations.servers.sites.redirect-rules.index
+      description: 'List all redirect rules associated with the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: List site redirect rules
+      tags:
+      - Redirect Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: page[size]
+        in: query
+        description: The number of results that will be returned per page.
+        schema:
+          type: integer
+          default: 30
+      - name: page[cursor]
+        in: query
+        description: The cursor to start the pagination from.
+        schema:
+          type: string
+      - name: filter[from]
+        in: query
+        description: The source URL path for the redirect rule.
+        schema:
+          type: string
+          examples:
+          - /old-path
+      - name: filter[to]
+        in: query
+        description: The destination URL path for the redirect rule.
+        schema:
+          type: string
+          examples:
+          - /new-path
+      - name: filter[type]
+        in: query
+        description: The type of the redirect rule.
+        schema:
+          type: string
+          examples:
+          - permanent
+      - name: filter[status]
+        in: query
+        description: The status of the redirect rule.
+        schema:
+          type: string
+          examples:
+          - installed
+      - name: sort
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - created_at
+            - -created_at
+            - updated_at
+            - -updated_at
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `RedirectRuleResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RedirectRuleResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      next_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the next set of items.
+                      prev_cursor:
+                        type:
+                        - string
+                        - 'null'
+                        description: The "cursor" that points to the previous set of items.
+                    required:
+                    - path
+                    - per_page
+                    - next_cursor
+                    - prev_cursor
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-redirects
+      x-permissions:
+      - site:manage-redirects
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    post:
+      operationId: organizations.servers.sites.redirect-rules.store
+      description: 'Add a new redirect rule to the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Create site redirect rule
+      tags:
+      - Redirect Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRedirectRequest'
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - oauth2:
+        - site:manage-redirects
+      x-permissions:
+      - site:manage-redirects
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+  /orgs/{organization}/servers/{server}/sites/{site}/redirect-rules/{redirectRule}:
+    get:
+      operationId: organizations.servers.sites.redirect-rules.show
+      description: 'Get a specific redirect rule associated with the site.
+
+
+        Processing mode: <small><code>sync</code></small>'
+      summary: Get site redirect rule
+      tags:
+      - Redirect Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: redirectRule
+        in: path
+        required: true
+        description: The redirect rule ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: '`RedirectRuleResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RedirectRuleResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-redirects
+      x-permissions:
+      - site:manage-redirects
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: sync
+    delete:
+      operationId: organizations.servers.sites.redirect-rules.destroy
+      description: 'Remove a redirect rule from the site.
+
+
+        Processing mode: <small><code>async</code></small>'
+      summary: Delete site redirect rule
+      tags:
+      - Redirect Rules
+      parameters:
+      - name: organization
+        in: path
+        required: true
+        description: The organization slug
+        schema:
+          type: string
+      - name: server
+        in: path
+        required: true
+        description: The server ID
+        schema:
+          type: integer
+      - name: site
+        in: path
+        required: true
+        description: The site ID
+        schema:
+          type: integer
+      - name: redirectRule
+        in: path
+        required: true
+        description: The redirect rule ID
+        schema:
+          type: integer
+      responses:
+        '202':
+          description: Accepted
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - oauth2:
+        - site:manage-redirects
+      x-permissions:
+      - site:manage-redirects
+      x-mint:
+        metadata:
+          noindex: true
+      x-processingMode: async
+components:
+  schemas:
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    CreateRedirectRequest:
+      type: object
+      properties:
+        from:
+          type: string
+          description: The source URL path for the redirect rule.
+          examples:
+          - /old-path
+          maxLength: 1000
+        to:
+          type: string
+          description: The destination URL path for the redirect rule.
+          examples:
+          - /new-path
+          maxLength: 1000
+        type:
+          description: The type of the redirect rule.
+          examples:
+          - permanent
+          $ref: '#/components/schemas/RedirectRuleType'
+      required:
+      - from
+      - to
+      - type
+      title: CreateRedirectRequest
+    RedirectRuleResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - redirect-rules
+        attributes:
+          type: object
+          properties:
+            from:
+              type: string
+              description: The source URL path for the redirect rule.
+              examples:
+              - /old-path
+            to:
+              type: string
+              description: The destination URL path for the redirect rule.
+              examples:
+              - /new-path
+            type:
+              description: The type of the redirect rule.
+              examples:
+              - permanent
+              $ref: '#/components/schemas/RedirectRuleType'
+            status:
+              type: string
+              description: The status of the redirect rule.
+              enum:
+              - installing
+              - installed
+              - removing
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the redirect rule was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the redirect rule was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - from
+          - to
+          - type
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: RedirectRuleResource
+    RedirectRuleType:
+      type: string
+      enum:
+      - redirect
+      - permanent
+      title: RedirectRuleType
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer
