@@ -1,0 +1,1554 @@
+{
+  "info": {
+    "_postman_id": "c988101f-27ae-49cb-be59-44ee2f10bee2",
+    "name": "Laravel Cloud Applications WebSocket Clusters API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:04:58.000Z",
+    "updatedAt": "2026-07-28T02:04:58.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c988101f-27ae-49cb-be59-44ee2f10bee2"
+  },
+  "item": [
+    {
+      "name": "websocket-servers",
+      "item": [
+        {
+          "name": "{websocketServer}",
+          "item": [
+            {
+              "name": "metrics",
+              "item": [
+                {
+                  "name": "Get WebSocket cluster metrics",
+                  "id": "f3b10621-0b53-4d5d-9489-85b34f615997",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer/metrics?period=30d",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer",
+                        "metrics"
+                      ],
+                      "query": [
+                        {
+                          "key": "period",
+                          "value": "30d"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "429b2388-550e-42ee-a709-dbe14a0bab2f",
+                          "key": "websocketServer",
+                          "value": "<string>",
+                          "description": "(Required) The websocket server identifier"
+                        }
+                      ]
+                    },
+                    "description": "Get metrics for a specific WebSocket cluster."
+                  },
+                  "response": [
+                    {
+                      "id": "95581743-360f-42ac-b4d8-6fccd095b26e",
+                      "name": "New Response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/websocket-servers/:websocketServer/metrics?period=30d",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "websocket-servers",
+                            ":websocketServer",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "key": "period",
+                              "value": "30d"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "websocketServer"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"connection_count\": {\n      \"labels\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"average\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"data\": [\n        {\n          \"x\": \"<string>\",\n          \"y\": [\n            \"<number>\",\n            \"<number>\"\n          ]\n        },\n        {\n          \"x\": \"<string>\",\n          \"y\": [\n            \"<number>\",\n            \"<number>\"\n          ]\n        }\n      ]\n    },\n    \"message_rate\": {\n      \"labels\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"average\": [\n        \"<number>\",\n        \"<number>\"\n      ],\n      \"data\": [\n        {\n          \"x\": \"<string>\",\n          \"y\": [\n            \"<number>\",\n            \"<number>\"\n          ]\n        },\n        {\n          \"x\": \"<string>\",\n          \"y\": [\n            \"<number>\",\n            \"<number>\"\n          ]\n        }\n      ]\n    }\n  },\n  \"meta\": {\n    \"period\": \"<string>\",\n    \"available_periods\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:59.000Z",
+                      "updatedAt": "2026-07-28T02:04:59.000Z",
+                      "uid": "35240-95581743-360f-42ac-b4d8-6fccd095b26e"
+                    },
+                    {
+                      "id": "e834ceb5-8bf1-4809-b568-8768a8dcbb23",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/websocket-servers/:websocketServer/metrics?period=30d",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "websocket-servers",
+                            ":websocketServer",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "key": "period",
+                              "value": "30d"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "websocketServer"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:59.000Z",
+                      "updatedAt": "2026-07-28T02:04:59.000Z",
+                      "uid": "35240-e834ceb5-8bf1-4809-b568-8768a8dcbb23"
+                    },
+                    {
+                      "id": "9d80fe83-2923-4a19-8006-de525306ee56",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/websocket-servers/:websocketServer/metrics?period=30d",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "websocket-servers",
+                            ":websocketServer",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "key": "period",
+                              "value": "30d"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "websocketServer"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:59.000Z",
+                      "updatedAt": "2026-07-28T02:04:59.000Z",
+                      "uid": "35240-9d80fe83-2923-4a19-8006-de525306ee56"
+                    },
+                    {
+                      "id": "10ae41bc-91e8-4322-b6d2-d92ca3904f02",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/websocket-servers/:websocketServer/metrics?period=30d",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "websocket-servers",
+                            ":websocketServer",
+                            "metrics"
+                          ],
+                          "query": [
+                            {
+                              "key": "period",
+                              "value": "30d"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "websocketServer"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"quis_13d\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eu_50\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:59.000Z",
+                      "updatedAt": "2026-07-28T02:04:59.000Z",
+                      "uid": "35240-10ae41bc-91e8-4322-b6d2-d92ca3904f02"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-f3b10621-0b53-4d5d-9489-85b34f615997"
+                }
+              ],
+              "id": "9c5cc950-68a0-4a5c-acdc-31d14bcf6a79",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-9c5cc950-68a0-4a5c-acdc-31d14bcf6a79"
+            },
+            {
+              "name": "Get WebSocket cluster",
+              "id": "530704f2-f40b-4d36-a1ac-02c920878083",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers/:websocketServer?include=applications,applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers",
+                    ":websocketServer"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "applications,applications"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "43c19164-ec07-4d23-b760-395b71bbbfd0",
+                      "key": "websocketServer",
+                      "value": "<string>",
+                      "description": "(Required) The websocket server identifier"
+                    }
+                  ]
+                },
+                "description": "Get a specific WebSocket cluster."
+              },
+              "response": [
+                {
+                  "id": "dbcaaaba-5b2c-40a7-be55-edeed983f568",
+                  "name": "`WebsocketServerResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer?include=applications,applications",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "applications,applications"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"websocketServers\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"reverb\",\n      \"region\": \"eu-central-1\",\n      \"status\": \"stopped\",\n      \"max_connections\": 200,\n      \"connection_distribution_strategy\": \"evenly\",\n      \"hostname\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"applications\": {\n        \"data\": [\n          {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-dbcaaaba-5b2c-40a7-be55-edeed983f568"
+                },
+                {
+                  "id": "aad9e959-3cfd-4aaf-ae42-a596e94a71a0",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer?include=applications,applications",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "applications,applications"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-aad9e959-3cfd-4aaf-ae42-a596e94a71a0"
+                },
+                {
+                  "id": "d5122de1-7dca-48db-963c-bb247ebec9c5",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer?include=applications,applications",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "applications,applications"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-d5122de1-7dca-48db-963c-bb247ebec9c5"
+                }
+              ],
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-530704f2-f40b-4d36-a1ac-02c920878083"
+            },
+            {
+              "name": "Update WebSocket cluster",
+              "id": "47ec2211-6c8f-471b-a689-4ca5b672e2d6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"y0l\",\n  \"max_connections\": 2000\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers",
+                    ":websocketServer"
+                  ],
+                  "variable": [
+                    {
+                      "id": "54a6e2f1-cfd7-4cb8-8272-6b3a15e39b04",
+                      "key": "websocketServer",
+                      "value": "<string>",
+                      "description": "(Required) The websocket server identifier"
+                    }
+                  ]
+                },
+                "description": "Update a WebSocket cluster."
+              },
+              "response": [
+                {
+                  "id": "bf836727-6d9b-418b-b4c5-eb52c9585e46",
+                  "name": "`WebsocketServerResource`",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"y0l\",\n  \"max_connections\": 2000\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"websocketServers\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"reverb\",\n      \"region\": \"eu-central-1\",\n      \"status\": \"stopped\",\n      \"max_connections\": 200,\n      \"connection_distribution_strategy\": \"evenly\",\n      \"hostname\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"applications\": {\n        \"data\": [\n          {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-bf836727-6d9b-418b-b4c5-eb52c9585e46"
+                },
+                {
+                  "id": "681ac214-139c-4258-84cb-94f877d2ca8f",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"y0l\",\n  \"max_connections\": 2000\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-681ac214-139c-4258-84cb-94f877d2ca8f"
+                },
+                {
+                  "id": "85350a7a-ef44-4616-a7ff-500af2d06c49",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"y0l\",\n  \"max_connections\": 2000\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-85350a7a-ef44-4616-a7ff-500af2d06c49"
+                },
+                {
+                  "id": "17183810-1dd6-4c0c-8230-10862e051b1c",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"y0l\",\n  \"max_connections\": 2000\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"quis_13d\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eu_50\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-17183810-1dd6-4c0c-8230-10862e051b1c"
+                }
+              ],
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-47ec2211-6c8f-471b-a689-4ca5b672e2d6"
+            },
+            {
+              "name": "Delete WebSocket cluster",
+              "id": "3834368d-43c0-4994-a073-fcf7afc93249",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers",
+                    ":websocketServer"
+                  ],
+                  "variable": [
+                    {
+                      "id": "66efadf6-2e43-493b-85ce-935fb3e47373",
+                      "key": "websocketServer",
+                      "value": "<string>",
+                      "description": "(Required) The websocket server identifier"
+                    }
+                  ]
+                },
+                "description": "Delete a WebSocket cluster and all its applications."
+              },
+              "response": [
+                {
+                  "id": "f9efc2b5-0e9e-4274-9c76-327eb52e7361",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-f9efc2b5-0e9e-4274-9c76-327eb52e7361"
+                },
+                {
+                  "id": "89362716-1e63-4a00-9ecc-4b57e8b9279e",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-89362716-1e63-4a00-9ecc-4b57e8b9279e"
+                },
+                {
+                  "id": "d19b4fc2-160d-4ed4-94b9-be2d96400395",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-d19b4fc2-160d-4ed4-94b9-be2d96400395"
+                },
+                {
+                  "id": "b473b8a8-316e-4111-8ec4-cd9d9b3495d5",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/websocket-servers/:websocketServer",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "websocket-servers",
+                        ":websocketServer"
+                      ],
+                      "variable": [
+                        {
+                          "key": "websocketServer"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"quis_13d\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eu_50\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:04:59.000Z",
+                  "updatedAt": "2026-07-28T02:04:59.000Z",
+                  "uid": "35240-b473b8a8-316e-4111-8ec4-cd9d9b3495d5"
+                }
+              ],
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-3834368d-43c0-4994-a073-fcf7afc93249"
+            }
+          ],
+          "id": "daa8bc57-8201-47a2-847f-fd7ee5992981",
+          "createdAt": "2026-07-28T02:04:59.000Z",
+          "updatedAt": "2026-07-28T02:04:59.000Z",
+          "uid": "35240-daa8bc57-8201-47a2-847f-fd7ee5992981"
+        },
+        {
+          "name": "List WebSocket clusters",
+          "id": "34045dc9-f7fa-44b7-9096-4581eb87e30a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/websocket-servers?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=applications,applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "websocket-servers"
+              ],
+              "query": [
+                {
+                  "key": "filter[type]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "filter[region]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "filter[status]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "include",
+                  "value": "applications,applications"
+                }
+              ]
+            },
+            "description": "Get a list of all WebSocket clusters for the authenticated organization."
+          },
+          "response": [
+            {
+              "id": "ddf32e76-39a2-485e-8c4a-ff71f6cbf56e",
+              "name": "Paginated set of `WebsocketServerResource`",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=applications,applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "applications,applications"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketServers\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"reverb\",\n        \"region\": \"eu-central-1\",\n        \"status\": \"deleting\",\n        \"max_connections\": 100,\n        \"connection_distribution_strategy\": \"custom\",\n        \"hostname\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"applications\": {\n          \"data\": [\n            {\n              \"type\": \"websocketApplications\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"websocketApplications\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketServers\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"reverb\",\n        \"region\": \"eu-west-2\",\n        \"status\": \"stopped\",\n        \"max_connections\": 5000,\n        \"connection_distribution_strategy\": \"custom\",\n        \"hostname\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"applications\": {\n          \"data\": [\n            {\n              \"type\": \"websocketApplications\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"websocketApplications\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-ddf32e76-39a2-485e-8c4a-ff71f6cbf56e"
+            },
+            {
+              "id": "d2bf87ab-1bef-437b-9bde-f00bdec64f83",
+              "name": "An error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=applications,applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "applications,applications"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-d2bf87ab-1bef-437b-9bde-f00bdec64f83"
+            },
+            {
+              "id": "f8c0763a-0a9c-4cdf-87ae-b39c8a0a5cec",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=applications,applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "applications,applications"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-f8c0763a-0a9c-4cdf-87ae-b39c8a0a5cec"
+            }
+          ],
+          "createdAt": "2026-07-28T02:04:59.000Z",
+          "updatedAt": "2026-07-28T02:04:59.000Z",
+          "uid": "35240-34045dc9-f7fa-44b7-9096-4581eb87e30a"
+        },
+        {
+          "name": "Create WebSocket cluster",
+          "id": "3b79793e-e378-43a3-9ede-aab877881afb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"tnxy97tan\",\n  \"type\": \"reverb\",\n  \"region\": \"eu-west-1\",\n  \"max_connections\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/websocket-servers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "websocket-servers"
+              ]
+            },
+            "description": "Create a new WebSocket cluster with a default application."
+          },
+          "response": [
+            {
+              "id": "a470c9fe-5e48-4c9a-8db0-7ec312dedc24",
+              "name": "`WebsocketServerResource`",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"tnxy97tan\",\n  \"type\": \"reverb\",\n  \"region\": \"eu-west-1\",\n  \"max_connections\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"websocketServers\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"reverb\",\n      \"region\": \"eu-central-1\",\n      \"status\": \"stopped\",\n      \"max_connections\": 200,\n      \"connection_distribution_strategy\": \"evenly\",\n      \"hostname\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"applications\": {\n        \"data\": [\n          {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"websocketApplications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"app_id\": \"<string>\",\n        \"allowed_origins\": [],\n        \"ping_interval\": \"<integer>\",\n        \"activity_timeout\": \"<integer>\",\n        \"max_message_size\": \"<integer>\",\n        \"max_connections\": \"<integer>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"key\": \"<string>\",\n          \"secret\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"server\": {\n          \"data\": {\n            \"type\": \"websocketServers\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-a470c9fe-5e48-4c9a-8db0-7ec312dedc24"
+            },
+            {
+              "id": "05dc6f47-a20c-41b4-b7d6-205b10db8742",
+              "name": "An error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"tnxy97tan\",\n  \"type\": \"reverb\",\n  \"region\": \"eu-west-1\",\n  \"max_connections\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-05dc6f47-a20c-41b4-b7d6-205b10db8742"
+            },
+            {
+              "id": "f4d16a63-43e2-483a-ba10-e3b1f70c54f4",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"tnxy97tan\",\n  \"type\": \"reverb\",\n  \"region\": \"eu-west-1\",\n  \"max_connections\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-f4d16a63-43e2-483a-ba10-e3b1f70c54f4"
+            },
+            {
+              "id": "1f5f0c73-88a3-44c2-991f-5b99f1789cb1",
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"tnxy97tan\",\n  \"type\": \"reverb\",\n  \"region\": \"eu-west-1\",\n  \"max_connections\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/websocket-servers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "websocket-servers"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"quis_13d\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"eu_50\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T02:04:59.000Z",
+              "updatedAt": "2026-07-28T02:04:59.000Z",
+              "uid": "35240-1f5f0c73-88a3-44c2-991f-5b99f1789cb1"
+            }
+          ],
+          "createdAt": "2026-07-28T02:04:59.000Z",
+          "updatedAt": "2026-07-28T02:04:59.000Z",
+          "uid": "35240-3b79793e-e378-43a3-9ede-aab877881afb"
+        }
+      ],
+      "id": "1eb5bb08-1770-4f94-b0dc-a6d06420db42",
+      "createdAt": "2026-07-28T02:04:59.000Z",
+      "updatedAt": "2026-07-28T02:04:59.000Z",
+      "uid": "35240-1eb5bb08-1770-4f94-b0dc-a6d06420db42"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

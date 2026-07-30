@@ -1,0 +1,408 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/laravel-forge-openapi.json
+api: laravel:forge-api
+docs: https://forge.laravel.com/docs/api
+scope_count: 62
+notes: The 62 scopes below are declared in the Forge OpenAPI oauth2 authorizationCode flow, each with a
+  provider-authored description. Laravel publishes no standalone scopes-reference page; the token
+  documentation (forge.laravel.com/docs/api) only instructs users to "select the scopes you wish to
+  assign" when creating a token in the API dashboard, so the OpenAPI remains the authoritative scope
+  registry. Scopes are namespaced by domain (organization, server, site, team, billing, credential,
+  integrations) with view/create/delete/manage verbs.
+other_oauth_surfaces:
+- issuer: https://id.laravel.com
+  role: end-user SSO identity provider (Laravel Cloud sign-in), distinct from the Forge resource API
+  scopes_supported:
+  - email
+  - offline_access
+  - openid
+  - profile
+  source: well-known/laravel-oauth-authorization-server.json
+- api: laravel:cloud-api
+  model: bearer token only; no OAuth 2.0 scheme and no scope model is declared in the Cloud OpenAPI
+  source: openapi/laravel-cloud-openapi.json
+- api: laravel:envoyer-api
+  model: 'API-key bearer token with a coarse scope model documented in prose: all GET endpoints are
+    freely accessible with any API token, and *:create scopes govern creating and updating resources.'
+  source: https://envoyer.io/api-documentation
+schemes:
+- name: oauth2
+  source: openapi/laravel-forge-openapi.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://forge.laravel.com/oauth/authorize
+    tokenUrl: https://forge.laravel.com/oauth/token
+scopes:
+- scope: billing:manage
+  description: Allow members to manage the organization's subscription
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: credential:manage
+  description: Allow members to manage credentials
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: credential:view
+  description: Allow members to view credentials
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: integrations:manage
+  description: Allow members to manage the organization's integrations
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: organization:delete
+  description: Allow members to delete the organization
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: organization:manage
+  description: Allow members to manage the organization
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: organization:view
+  description: Allow members to view the organization
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: recipe:manage
+  description: Allow members to manage recipes
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: recipe:view
+  description: Allow members to view recipes
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:create-buckets
+  description: Allow members to create object storage buckets
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:create-databases
+  description: Allow members to create managed database & cache clusters
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:delete-buckets
+  description: Allow members to delete object storage buckets
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:delete-databases
+  description: Allow members to delete managed database & cache clusters
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:manage-buckets
+  description: Allow members to manage object storage buckets and their access keys
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:manage-databases
+  description: Allow members to manage managed database & cache clusters settings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: resources:view
+  description: Allow members to view resources
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:archive
+  description: Allow members to archive servers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create
+  description: Allow members to create servers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create-backups
+  description: Allow members to create database backup configurations
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create-daemons
+  description: Allow members to create daemons
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create-databases
+  description: Allow members to create databases and database users
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create-keys
+  description: Allow members to add SSH keys to servers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create-monitors
+  description: Allow members to create server monitors
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:create-schedulers
+  description: Allow members to create scheduled jobs
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete
+  description: Allow members to delete servers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete-backups
+  description: Allow members to delete database backup configurations
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete-daemons
+  description: Allow members to delete daemons
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete-databases
+  description: Allow members to delete databases and database users
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete-keys
+  description: Allow members to remove SSH keys from servers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete-monitors
+  description: Allow members to delete server monitors
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:delete-schedulers
+  description: Allow members to delete scheduled jobs
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-logs
+  description: Allow members to clear server and site logs
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-meta
+  description: Allow members to change server settings such as name and IP address
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-network
+  description: Allow members to change the server‘s firewall
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-nginx-templates
+  description: Allow members to manage Nginx templates
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-packages
+  description: Allow members to configure and remove server and site package authentication
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-password
+  description: Allow members to reset the sudo password
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-php
+  description: Allow members to install and change PHP installations
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:manage-services
+  description: Allow members to start, stop and restart services
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:transfer
+  description: Allow members to transfer servers to another Forge account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:view
+  description: Allow members to view servers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: server:web-terminal
+  description: Allow members to start web terminal sessions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:create
+  description: Allow members to create sites
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:delete
+  description: Allow members to delete sites
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-commands
+  description: Allow members to run arbitrary commands from the site‘s root directory
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-deploys
+  description: Allow members to deploy the site and update the deployment script
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-environment
+  description: Allow members to update the site‘s environment file
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-heartbeats
+  description: Allow members to manage heartbeats
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-integrations
+  description: Allow members to manage site integrations
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-nginx
+  description: Allow members to manage the site‘s Nginx configuration file
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-notifications
+  description: Allow members to configure deployment notifications
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-project
+  description: Allow members to install Git repositories, phpMyAdmin and WordPress applications
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-queues
+  description: Allow members to configure queue workers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-redirects
+  description: Allow members to configure URL redirects
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-security
+  description: Allow members to configure HTTP Basic Authentication
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:manage-ssl
+  description: Allow members to configure SSL and Let‘s Encrypt certificates
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: site:meta
+  description: Allow members to update site meta data such as domain name and aliases
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: storage:manage
+  description: Allow members to manage the organization's storage providers.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: team:create
+  description: Allow members to create teams
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: team:delete
+  description: Allow members to delete teams and team members
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: team:view
+  description: Allow members to view teams
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json
+- scope: user:view
+  description: Allow members to view user details
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/laravel-forge-openapi.json

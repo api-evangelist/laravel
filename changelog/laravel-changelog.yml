@@ -1,0 +1,124 @@
+generated: '2026-07-19'
+method: searched
+source: https://forge.laravel.com/docs/changelog, https://cloud.laravel.com/docs/changelog,
+  https://laravel.com/docs/13.x/releases
+notes: Laravel maintains separate dated changelogs per product rather than one company-wide feed. Both
+  the Forge and Cloud changelogs are Mintlify Update entries labelled with a date; Forge additionally
+  groups each entry into Improvements and Fixes counts. Only the recent window is captured here — the
+  live pages remain the source of truth.
+scheme: dated entries (no semantic version numbers on the hosted products)
+feeds:
+- product: Laravel Forge
+  url: https://forge.laravel.com/docs/changelog
+  markdown: https://forge.laravel.com/docs/changelog.md
+  cadence: roughly monthly (weekly during late 2025)
+  current_marker: 'June 30, 2026'
+- product: Laravel Cloud
+  url: https://cloud.laravel.com/docs/changelog
+  markdown: https://cloud.laravel.com/docs/changelog.md
+  cadence: roughly weekly
+  current_marker: 'July 16, 2026'
+- product: Laravel framework
+  url: https://laravel.com/docs/13.x/releases
+  cadence: annual major release with a published support window
+  current_marker: '13.x'
+  latest_package_version: v13.20.0
+entries:
+- product: cloud
+  date: '2026-07-16'
+  highlights:
+  - Secrets Manager
+- product: cloud
+  date: '2026-07-13'
+  highlights:
+  - MySQL Scale to Zero
+- product: cloud
+  date: '2026-07-08'
+  highlights:
+  - First-Class Monorepo Support
+- product: cloud
+  date: '2026-06-29'
+  highlights:
+  - Symfony Support
+  - Expanded Outbound IP Addresses
+- product: cloud
+  date: '2026-06-22'
+  highlights:
+  - Improved Notifications
+- product: cloud
+  date: '2026-06-11'
+  highlights:
+  - Deploy to Laravel Cloud with Stripe Projects
+- product: cloud
+  date: '2026-06-10'
+  highlights:
+  - ElastiCache
+- product: cloud
+  date: '2026-06-01'
+  highlights:
+  - Scale to Zero and New Pricing
+- product: forge
+  date: '2026-06-30'
+  highlights:
+  - Managed caches — Valkey available as a fully managed cache option
+  - Object storage — managed buckets creatable from the dashboard
+  improvements: 4
+  fixes: 3
+  api_changes:
+  - Added an API endpoint for listing a site's SSL certificates.
+- product: forge
+  date: '2026-05-31'
+  highlights:
+  - Managed MySQL 8.4 for managed database clusters
+  improvements: 6
+  fixes: 8
+- product: forge
+  date: '2026-04-29'
+  highlights:
+  - PHP 8.5 generally available
+  improvements: 10
+  fixes: 8
+  api_changes:
+  - 'Server API v2 endpoints: added PUT /servers/{server} for updating server attributes and GET/PUT
+    /servers/{server}/network for viewing and syncing network peers.'
+  - Added a deploy key creation endpoint to API v2.
+  - Added a site_id parameter to the Create Background Process endpoint.
+- product: forge
+  date: '2026-03-31'
+  highlights:
+  - Managed databases
+  improvements: 15
+  fixes: 25
+- product: forge
+  date: '2026-02-20'
+  highlights:
+  - npm private packages
+  improvements: 2
+  fixes: 6
+- product: forge
+  date: '2026-02-13'
+  highlights:
+  - MySQL 9.x support
+  fixes: 4
+- product: forge
+  date: '2026-02-06'
+  highlights:
+  - OpenClaw server type
+  improvements: 2
+  fixes: 1
+breaking_changes:
+- date: '2026-07-31'
+  product: forge
+  what: Announced discontinuation of the legacy Forge API v1.
+  source: https://forge.laravel.com/api-documentation
+  see: lifecycle/laravel-lifecycle.yml
+- product: forge
+  what: Laravel Forge SDK v4.0 targets the Forge v2 API with significant breaking changes; every resource
+    endpoint now requires an organization slug as the first argument.
+  source: https://forge.laravel.com/docs/sdk
+  upgrade_guide: https://github.com/laravel/forge-sdk/blob/4.x/UPGRADE-4.0.md
+gaps:
+- Neither changelog publishes an RSS/Atom feed or a machine-readable format; entries must be scraped
+  from the Mintlify markdown.
+- Changelog entries are not tagged as breaking vs additive, and API-affecting changes are mixed into
+  general improvement lists rather than called out in a dedicated API changelog.

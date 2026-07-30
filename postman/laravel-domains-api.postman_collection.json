@@ -1,0 +1,1559 @@
+{
+  "info": {
+    "_postman_id": "4b628c6a-b826-4b2a-9e7e-e3445f9b4be8",
+    "name": "Laravel Cloud Applications Domains API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:35.000Z",
+    "updatedAt": "2026-07-28T02:03:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4b628c6a-b826-4b2a-9e7e-e3445f9b4be8"
+  },
+  "item": [
+    {
+      "name": "environments",
+      "item": [
+        {
+          "name": "{environment}",
+          "item": [
+            {
+              "name": "domains",
+              "item": [
+                {
+                  "name": "List domains",
+                  "id": "5e77607e-d433-421b-828b-d1e05e758995",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/environments/:environment/domains?filter[name]=<string>&filter[hostname_status]=<string>&filter[ssl_status]=<string>&filter[origin_status]=<string>&include=environment,environment",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "environments",
+                        ":environment",
+                        "domains"
+                      ],
+                      "query": [
+                        {
+                          "key": "filter[name]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[hostname_status]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[ssl_status]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[origin_status]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "include",
+                          "value": "environment,environment"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "c921965c-412f-49bc-82b3-b2a09be6bf03",
+                          "key": "environment",
+                          "value": "<string>",
+                          "description": "(Required) The environment identifier"
+                        }
+                      ]
+                    },
+                    "description": "List all domains for the given environment."
+                  },
+                  "response": [
+                    {
+                      "id": "081601e1-35c3-45b1-a0ec-64c8ba5b85b7",
+                      "name": "Paginated set of `SimplifiedDomainResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains?filter[name]=<string>&filter[hostname_status]=<string>&filter[ssl_status]=<string>&filter[origin_status]=<string>&include=environment,environment",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[name]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[hostname_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[ssl_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[origin_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "environment,environment"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"domains\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"wildcard\",\n        \"hostname_status\": \"disabled\",\n        \"ssl_status\": \"failed\",\n        \"origin_status\": \"failed\",\n        \"redirect\": \"www_to_root\",\n        \"last_verified_at\": \"<string,null-date-time>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"domains\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"www\",\n        \"hostname_status\": \"disabled\",\n        \"ssl_status\": \"verified\",\n        \"origin_status\": \"verified\",\n        \"redirect\": \"www_to_root\",\n        \"last_verified_at\": \"<string,null-date-time>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.5\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"page_preview\",\n              \"security\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"ban\",\n              \"per_minute\": 750,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"search_engine_crawler\",\n              \"search_engine_optimization\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-081601e1-35c3-45b1-a0ec-64c8ba5b85b7"
+                    },
+                    {
+                      "id": "5184bb5b-3c56-4c83-8eaa-0a80b1850e1b",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains?filter[name]=<string>&filter[hostname_status]=<string>&filter[ssl_status]=<string>&filter[origin_status]=<string>&include=environment,environment",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[name]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[hostname_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[ssl_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[origin_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "environment,environment"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-5184bb5b-3c56-4c83-8eaa-0a80b1850e1b"
+                    },
+                    {
+                      "id": "7f12c864-1504-41f9-be18-e1d722205ab8",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains?filter[name]=<string>&filter[hostname_status]=<string>&filter[ssl_status]=<string>&filter[origin_status]=<string>&include=environment,environment",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[name]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[hostname_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[ssl_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[origin_status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "environment,environment"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-7f12c864-1504-41f9-be18-e1d722205ab8"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-5e77607e-d433-421b-828b-d1e05e758995"
+                },
+                {
+                  "name": "Create domain",
+                  "id": "1e552570-463c-419c-aa92-f36a6a5c720e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"www_redirect\": \"www_to_root\",\n  \"wildcard_enabled\": \"<boolean,null>\",\n  \"allow_downtime\": \"<boolean,null>\",\n  \"cloudflare_strategy\": \"dns\",\n  \"verification_method\": \"real_time\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/environments/:environment/domains",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "environments",
+                        ":environment",
+                        "domains"
+                      ],
+                      "variable": [
+                        {
+                          "id": "2a9532de-95f8-4225-9666-3a07b5c08c96",
+                          "key": "environment",
+                          "value": "<string>",
+                          "description": "(Required) The environment identifier"
+                        }
+                      ]
+                    },
+                    "description": "Create a new domain for the given environment. After creating the domain, you'll have to add the required DNS records to your DNS provider. This might be a 2-step process, depending on the verification method used. You can check the required DNS records in the response of this endpoint, and you can verify the domain using the \"verify\" query parameter in the \"Get domain\" endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "453bd19b-7066-485b-9bb0-f112da9761f7",
+                      "name": "`DomainResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"www_redirect\": \"www_to_root\",\n  \"wildcard_enabled\": \"<boolean,null>\",\n  \"allow_downtime\": \"<boolean,null>\",\n  \"cloudflare_strategy\": \"dns\",\n  \"verification_method\": \"real_time\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"domains\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"www\",\n      \"hostname_status\": \"verified\",\n      \"ssl_status\": \"pending\",\n      \"origin_status\": \"verified\",\n      \"redirect\": \"www_to_root\",\n      \"cloudflare_strategy\": \"none\",\n      \"downtime\": \"<boolean,null>\",\n      \"wildcard_enabled\": \"<boolean>\",\n      \"dns_records\": {\n        \"ssl\": [\n          {\n            \"type\": \"TXT\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          },\n          {\n            \"type\": \"CNAME\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          }\n        ],\n        \"pre_verification\": \"<string>\",\n        \"origin\": \"<string>\",\n        \"origin_cname\": \"<string>\",\n        \"dcv\": \"<string>\"\n      },\n      \"wildcard\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"disabled\",\n        \"origin_status\": \"pending\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"www\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"verified\",\n        \"origin_status\": \"disabled\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"CNAME\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"action_required\": \"add_txt_records\",\n      \"last_verified_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"accessibility\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"ban\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"academic_research\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-453bd19b-7066-485b-9bb0-f112da9761f7"
+                    },
+                    {
+                      "id": "b42d4630-ba43-4fab-b170-2b1d6d21b5d9",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"www_redirect\": \"www_to_root\",\n  \"wildcard_enabled\": \"<boolean,null>\",\n  \"allow_downtime\": \"<boolean,null>\",\n  \"cloudflare_strategy\": \"dns\",\n  \"verification_method\": \"real_time\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-b42d4630-ba43-4fab-b170-2b1d6d21b5d9"
+                    },
+                    {
+                      "id": "c02c6555-97d2-4b0c-8730-9b1626e35f8f",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"www_redirect\": \"www_to_root\",\n  \"wildcard_enabled\": \"<boolean,null>\",\n  \"allow_downtime\": \"<boolean,null>\",\n  \"cloudflare_strategy\": \"dns\",\n  \"verification_method\": \"real_time\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-c02c6555-97d2-4b0c-8730-9b1626e35f8f"
+                    },
+                    {
+                      "id": "4fe1669f-f135-47a7-b423-851efdad01c6",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"www_redirect\": \"www_to_root\",\n  \"wildcard_enabled\": \"<boolean,null>\",\n  \"allow_downtime\": \"<boolean,null>\",\n  \"cloudflare_strategy\": \"dns\",\n  \"verification_method\": \"real_time\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/domains",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "domains"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"pariatur234\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-4fe1669f-f135-47a7-b423-851efdad01c6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-1e552570-463c-419c-aa92-f36a6a5c720e"
+                }
+              ],
+              "id": "d38f30db-5d21-47db-a42f-049cb1e67f60",
+              "createdAt": "2026-07-28T02:03:35.000Z",
+              "updatedAt": "2026-07-28T02:03:35.000Z",
+              "uid": "35240-d38f30db-5d21-47db-a42f-049cb1e67f60"
+            }
+          ],
+          "id": "f100542a-b3b2-4a71-b238-8af471437933",
+          "createdAt": "2026-07-28T02:03:35.000Z",
+          "updatedAt": "2026-07-28T02:03:35.000Z",
+          "uid": "35240-f100542a-b3b2-4a71-b238-8af471437933"
+        }
+      ],
+      "id": "021f3d30-e868-44e0-b17d-e50af26c8a3a",
+      "createdAt": "2026-07-28T02:03:35.000Z",
+      "updatedAt": "2026-07-28T02:03:35.000Z",
+      "uid": "35240-021f3d30-e868-44e0-b17d-e50af26c8a3a"
+    },
+    {
+      "name": "domains",
+      "item": [
+        {
+          "name": "{domain}",
+          "item": [
+            {
+              "name": "verify",
+              "item": [
+                {
+                  "name": "Verify a domain",
+                  "id": "6513f795-b1da-4071-993e-856070a26b91",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain/verify",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain",
+                        "verify"
+                      ],
+                      "variable": [
+                        {
+                          "id": "740073b9-b2c8-4cf6-8371-8f9ac17471eb",
+                          "key": "domain",
+                          "value": "<string,null>",
+                          "description": "(Required) The domain identifier"
+                        }
+                      ]
+                    },
+                    "description": "Checks whether the DNS records for a given domain have been properly set up."
+                  },
+                  "response": [
+                    {
+                      "id": "cee058f7-0429-4f1a-aeef-138d7444aca8",
+                      "name": "`DomainResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/domains/:domain/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "domains",
+                            ":domain",
+                            "verify"
+                          ],
+                          "variable": [
+                            {
+                              "key": "domain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"domains\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"www\",\n      \"hostname_status\": \"verified\",\n      \"ssl_status\": \"pending\",\n      \"origin_status\": \"verified\",\n      \"redirect\": \"www_to_root\",\n      \"cloudflare_strategy\": \"none\",\n      \"downtime\": \"<boolean,null>\",\n      \"wildcard_enabled\": \"<boolean>\",\n      \"dns_records\": {\n        \"ssl\": [\n          {\n            \"type\": \"TXT\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          },\n          {\n            \"type\": \"CNAME\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          }\n        ],\n        \"pre_verification\": \"<string>\",\n        \"origin\": \"<string>\",\n        \"origin_cname\": \"<string>\",\n        \"dcv\": \"<string>\"\n      },\n      \"wildcard\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"disabled\",\n        \"origin_status\": \"pending\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"www\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"verified\",\n        \"origin_status\": \"disabled\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"CNAME\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"action_required\": \"add_txt_records\",\n      \"last_verified_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"accessibility\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"ban\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"academic_research\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-cee058f7-0429-4f1a-aeef-138d7444aca8"
+                    },
+                    {
+                      "id": "7af3eead-54d7-4509-8001-528a504a2d28",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/domains/:domain/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "domains",
+                            ":domain",
+                            "verify"
+                          ],
+                          "variable": [
+                            {
+                              "key": "domain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-7af3eead-54d7-4509-8001-528a504a2d28"
+                    },
+                    {
+                      "id": "2926ce5b-97ea-4d3b-bf6a-61ea6ad50270",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/domains/:domain/verify",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "domains",
+                            ":domain",
+                            "verify"
+                          ],
+                          "variable": [
+                            {
+                              "key": "domain"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:35.000Z",
+                      "updatedAt": "2026-07-28T02:03:35.000Z",
+                      "uid": "35240-2926ce5b-97ea-4d3b-bf6a-61ea6ad50270"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-6513f795-b1da-4071-993e-856070a26b91"
+                }
+              ],
+              "id": "7e57d318-c5d7-4822-9705-c4835d53f7f1",
+              "createdAt": "2026-07-28T02:03:35.000Z",
+              "updatedAt": "2026-07-28T02:03:35.000Z",
+              "uid": "35240-7e57d318-c5d7-4822-9705-c4835d53f7f1"
+            },
+            {
+              "name": "Get domain",
+              "id": "60a0ea96-c51b-4d7b-bf81-a642dbe1fdd9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/domains/:domain?verify=<boolean>&include=environment,environment",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domains",
+                    ":domain"
+                  ],
+                  "query": [
+                    {
+                      "description": "Whether the domain's DNS records should be verified and validated.",
+                      "key": "verify",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "environment,environment"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "14ce97fa-6422-4f7e-bbaf-424825950497",
+                      "key": "domain",
+                      "value": "<string,null>",
+                      "description": "(Required) The domain identifier"
+                    }
+                  ]
+                },
+                "description": "Show a specific domain."
+              },
+              "response": [
+                {
+                  "id": "5325f62d-787c-48c5-815e-ba69a6065260",
+                  "name": "`DomainResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain?verify=<boolean>&include=environment,environment",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "query": [
+                        {
+                          "description": "Whether the domain's DNS records should be verified and validated.",
+                          "key": "verify",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "include",
+                          "value": "environment,environment"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"domains\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"www\",\n      \"hostname_status\": \"verified\",\n      \"ssl_status\": \"pending\",\n      \"origin_status\": \"verified\",\n      \"redirect\": \"www_to_root\",\n      \"cloudflare_strategy\": \"none\",\n      \"downtime\": \"<boolean,null>\",\n      \"wildcard_enabled\": \"<boolean>\",\n      \"dns_records\": {\n        \"ssl\": [\n          {\n            \"type\": \"TXT\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          },\n          {\n            \"type\": \"CNAME\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          }\n        ],\n        \"pre_verification\": \"<string>\",\n        \"origin\": \"<string>\",\n        \"origin_cname\": \"<string>\",\n        \"dcv\": \"<string>\"\n      },\n      \"wildcard\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"disabled\",\n        \"origin_status\": \"pending\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"www\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"verified\",\n        \"origin_status\": \"disabled\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"CNAME\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"action_required\": \"add_txt_records\",\n      \"last_verified_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"accessibility\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"ban\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"academic_research\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-5325f62d-787c-48c5-815e-ba69a6065260"
+                },
+                {
+                  "id": "238a265a-c4b9-4775-84db-242cf13deaa3",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain?verify=<boolean>&include=environment,environment",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "query": [
+                        {
+                          "description": "Whether the domain's DNS records should be verified and validated.",
+                          "key": "verify",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "include",
+                          "value": "environment,environment"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-238a265a-c4b9-4775-84db-242cf13deaa3"
+                },
+                {
+                  "id": "f336e2b7-2eea-411b-8976-52001856e0e7",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain?verify=<boolean>&include=environment,environment",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "query": [
+                        {
+                          "description": "Whether the domain's DNS records should be verified and validated.",
+                          "key": "verify",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "include",
+                          "value": "environment,environment"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-f336e2b7-2eea-411b-8976-52001856e0e7"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:35.000Z",
+              "updatedAt": "2026-07-28T02:03:35.000Z",
+              "uid": "35240-60a0ea96-c51b-4d7b-bf81-a642dbe1fdd9"
+            },
+            {
+              "name": "Update domain",
+              "id": "84d03269-fe9b-4296-9518-edc707319a71",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"verification_method\": \"real_time\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/domains/:domain",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domains",
+                    ":domain"
+                  ],
+                  "variable": [
+                    {
+                      "id": "e72d279d-1d4b-42b4-a961-109f98f2674d",
+                      "key": "domain",
+                      "value": "<string,null>",
+                      "description": "(Required) The domain identifier"
+                    }
+                  ]
+                },
+                "description": "Update a specific domain."
+              },
+              "response": [
+                {
+                  "id": "449a7299-4920-4855-999b-5feaf2fd44db",
+                  "name": "`DomainResource`",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"verification_method\": \"real_time\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"domains\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"www\",\n      \"hostname_status\": \"verified\",\n      \"ssl_status\": \"pending\",\n      \"origin_status\": \"verified\",\n      \"redirect\": \"www_to_root\",\n      \"cloudflare_strategy\": \"none\",\n      \"downtime\": \"<boolean,null>\",\n      \"wildcard_enabled\": \"<boolean>\",\n      \"dns_records\": {\n        \"ssl\": [\n          {\n            \"type\": \"TXT\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          },\n          {\n            \"type\": \"CNAME\",\n            \"name\": \"<string,null>\",\n            \"value\": \"<string,null>\"\n          }\n        ],\n        \"pre_verification\": \"<string>\",\n        \"origin\": \"<string>\",\n        \"origin_cname\": \"<string>\",\n        \"dcv\": \"<string>\"\n      },\n      \"wildcard\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"disabled\",\n        \"origin_status\": \"pending\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"www\": {\n        \"hostname_status\": \"pending\",\n        \"ssl_status\": \"verified\",\n        \"origin_status\": \"disabled\",\n        \"dns_records\": {\n          \"ssl\": [\n            {\n              \"type\": \"TXT\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            },\n            {\n              \"type\": \"CNAME\",\n              \"name\": \"<string,null>\",\n              \"value\": \"<string,null>\"\n            }\n          ],\n          \"pre_verification\": \"<string>\",\n          \"origin\": \"<string>\",\n          \"origin_cname\": \"<string>\",\n          \"dcv\": \"<string>\"\n        }\n      },\n      \"action_required\": \"add_txt_records\",\n      \"last_verified_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"accessibility\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"ban\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"academic_research\",\n              \"social_media_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-449a7299-4920-4855-999b-5feaf2fd44db"
+                },
+                {
+                  "id": "333855c1-c5b6-40c6-a582-973b70f34b40",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"verification_method\": \"real_time\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-333855c1-c5b6-40c6-a582-973b70f34b40"
+                },
+                {
+                  "id": "c6fa5301-9dc2-4885-b2f4-23f233eb69a7",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"verification_method\": \"real_time\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-c6fa5301-9dc2-4885-b2f4-23f233eb69a7"
+                },
+                {
+                  "id": "1f519231-8adb-4b04-a0a1-d016f2c1dd36",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"verification_method\": \"real_time\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"pariatur234\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-1f519231-8adb-4b04-a0a1-d016f2c1dd36"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:35.000Z",
+              "updatedAt": "2026-07-28T02:03:35.000Z",
+              "uid": "35240-84d03269-fe9b-4296-9518-edc707319a71"
+            },
+            {
+              "name": "Delete domain",
+              "id": "781313d3-3ac9-4649-8776-5498edab56f9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/domains/:domain",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "domains",
+                    ":domain"
+                  ],
+                  "variable": [
+                    {
+                      "id": "3657893c-61a7-4d63-a276-eae38b5313f9",
+                      "key": "domain",
+                      "value": "<string,null>",
+                      "description": "(Required) The domain identifier"
+                    }
+                  ]
+                },
+                "description": "Delete a specific domain."
+              },
+              "response": [
+                {
+                  "id": "4830ea95-3c8d-47b2-891f-ba1c4b5961b7",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-4830ea95-3c8d-47b2-891f-ba1c4b5961b7"
+                },
+                {
+                  "id": "17c49cac-df73-47d9-9d56-6337dcc757c0",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-17c49cac-df73-47d9-9d56-6337dcc757c0"
+                },
+                {
+                  "id": "166fbca3-8bbe-4ac3-82f1-5216b9230d62",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/domains/:domain",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "domains",
+                        ":domain"
+                      ],
+                      "variable": [
+                        {
+                          "key": "domain"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:35.000Z",
+                  "updatedAt": "2026-07-28T02:03:35.000Z",
+                  "uid": "35240-166fbca3-8bbe-4ac3-82f1-5216b9230d62"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:35.000Z",
+              "updatedAt": "2026-07-28T02:03:35.000Z",
+              "uid": "35240-781313d3-3ac9-4649-8776-5498edab56f9"
+            }
+          ],
+          "id": "db4cff65-b4ca-41fa-a346-0b61f2949327",
+          "createdAt": "2026-07-28T02:03:35.000Z",
+          "updatedAt": "2026-07-28T02:03:35.000Z",
+          "uid": "35240-db4cff65-b4ca-41fa-a346-0b61f2949327"
+        }
+      ],
+      "id": "3f8ffc94-dc5e-4623-9e37-622031446dec",
+      "createdAt": "2026-07-28T02:03:35.000Z",
+      "updatedAt": "2026-07-28T02:03:35.000Z",
+      "uid": "35240-3f8ffc94-dc5e-4623-9e37-622031446dec"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

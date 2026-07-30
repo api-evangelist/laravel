@@ -1,0 +1,95 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/laravel-forge-openapi.json, openapi/laravel-cloud-openapi.json
+format: laravel-validation
+rfc9457: false
+notes: Neither Laravel API emits application/problem+json. Both use the framework-standard Laravel JSON
+  error envelope. Error bodies are returned as application/json even though success bodies use application/vnd.api+json.
+envelope:
+  media_type: application/json
+  fields:
+  - name: message
+    type: string
+    required: true
+    description: Human-readable error overview.
+  - name: errors
+    type: object
+    required: false
+    description: Present on 422 validation failures only. Map of field name to an array of validation
+      message strings.
+shared_components:
+  AuthorizationException:
+    status: 403
+    description: Authorization error
+    fields:
+    - message
+  ModelNotFoundException:
+    status: 404
+    description: Not found
+    fields:
+    - message
+  ValidationException:
+    status: 422
+    description: Validation error
+    fields:
+    - message
+    - errors
+status_totals:
+  '400': 6
+  '401': 16
+  '403': 371
+  '404': 350
+  '409': 1
+  '422': 141
+  '500': 1
+problems:
+- api: forge
+  status: 400
+  component: null
+  operation_count: 6
+  example_operation: openapi/laravel-forge-openapi.json#organizations.servers.sites.integrations.horizon.store
+- api: forge
+  status: 403
+  component: AuthorizationException
+  operation_count: 273
+  example_operation: openapi/laravel-forge-openapi.json#organizations.servers.background-processes.index
+- api: forge
+  status: 404
+  component: ModelNotFoundException
+  operation_count: 265
+  example_operation: openapi/laravel-forge-openapi.json#organizations.servers.background-processes.index
+- api: forge
+  status: 409
+  component: null
+  operation_count: 1
+  example_operation: openapi/laravel-forge-openapi.json#organizations.storage-providers.destroy
+- api: forge
+  status: 422
+  component: ValidationException
+  operation_count: 82
+  example_operation: openapi/laravel-forge-openapi.json#organizations.servers.background-processes.store
+- api: forge
+  status: 500
+  component: null
+  operation_count: 1
+  example_operation: openapi/laravel-forge-openapi.json#organizations.server-credentials.vpcs.store
+- api: cloud
+  status: 401
+  component: An error
+  operation_count: 16
+  example_operation: openapi/laravel-cloud-openapi.json#public.applications.index
+- api: cloud
+  status: 403
+  component: AuthorizationException
+  operation_count: 98
+  example_operation: openapi/laravel-cloud-openapi.json#public.applications.index
+- api: cloud
+  status: 404
+  component: ModelNotFoundException
+  operation_count: 85
+  example_operation: openapi/laravel-cloud-openapi.json#public.applications.show
+- api: cloud
+  status: 422
+  component: ValidationException
+  operation_count: 59
+  example_operation: openapi/laravel-cloud-openapi.json#public.applications.store

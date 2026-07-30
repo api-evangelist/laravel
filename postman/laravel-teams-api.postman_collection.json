@@ -1,0 +1,3508 @@
+{
+  "info": {
+    "_postman_id": "8286341b-15cb-45c6-87cd-b2c164c4e6af",
+    "name": "Laravel Cloud Applications Teams API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:04:51.000Z",
+    "updatedAt": "2026-07-28T02:04:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8286341b-15cb-45c6-87cd-b2c164c4e6af"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{organization}",
+          "item": [
+            {
+              "name": "teams",
+              "item": [
+                {
+                  "name": "{team}",
+                  "item": [
+                    {
+                      "name": "members",
+                      "item": [
+                        {
+                          "name": "{user}",
+                          "item": [
+                            {
+                              "name": "Get team member",
+                              "id": "3dd0d14e-dd61-4c22-b47a-c9045ec994b5",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "members",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "1bd53cd0-cf91-40c9-b2a0-cab55e5d6f47",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "bfa90c96-d758-48d0-8b9c-68c2f6dd68b4",
+                                      "key": "team",
+                                      "value": "<integer>",
+                                      "description": "(Required) The team ID"
+                                    },
+                                    {
+                                      "id": "92e3a7ca-ff0e-4a6d-8e22-9658b8735175",
+                                      "key": "user",
+                                      "value": "<integer>",
+                                      "description": "(Required) The user ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Show the team member for the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "bb5d344a-5a1f-4d32-871d-8158c286adac",
+                                  "name": "`MembershipResource`",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"memberships\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"role\": {\n        \"data\": {\n          \"type\": \"predefinedRoles\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-bb5d344a-5a1f-4d32-871d-8158c286adac"
+                                },
+                                {
+                                  "id": "4266793e-b074-4e63-939b-fadd736f5e60",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-4266793e-b074-4e63-939b-fadd736f5e60"
+                                },
+                                {
+                                  "id": "5425869c-4b2a-4c1e-aa91-4516cdf501ba",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-5425869c-4b2a-4c1e-aa91-4516cdf501ba"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-3dd0d14e-dd61-4c22-b47a-c9045ec994b5"
+                            },
+                            {
+                              "name": "Delete team member",
+                              "id": "4d6ab06f-e7c3-4487-a9e0-f4edbf818b41",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "members",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "65dab2ce-7e87-4e6e-aece-6fc53da6de41",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "f6f7473f-6ba6-4609-8287-8d741f5353f0",
+                                      "key": "team",
+                                      "value": "<integer>",
+                                      "description": "(Required) The team ID"
+                                    },
+                                    {
+                                      "id": "d43dc01f-4500-4aca-83e9-9395ddfb972b",
+                                      "key": "user",
+                                      "value": "<integer>",
+                                      "description": "(Required) The user ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Remove a member from the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "d27bfd53-2f71-4172-9bfa-6bb1a0438995",
+                                  "name": "Member removed from team\n\n\n\nNo content",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-d27bfd53-2f71-4172-9bfa-6bb1a0438995"
+                                },
+                                {
+                                  "id": "38c3ad83-87ed-4d5c-bfb4-30df54b16224",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-38c3ad83-87ed-4d5c-bfb4-30df54b16224"
+                                },
+                                {
+                                  "id": "2b2e8851-4023-4f9a-8dc7-e23e8a5c3f50",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-2b2e8851-4023-4f9a-8dc7-e23e8a5c3f50"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-4d6ab06f-e7c3-4487-a9e0-f4edbf818b41"
+                            },
+                            {
+                              "name": "Update team member",
+                              "id": "303aa751-39cf-48d6-93ab-772a53dc54be",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"role_id\": \"<integer>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "members",
+                                    ":user"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "588eb840-9881-4772-83cf-09cb71d209d1",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "9203fb61-a346-4b0d-a3a3-79481b00cfd6",
+                                      "key": "team",
+                                      "value": "<integer>",
+                                      "description": "(Required) The team ID"
+                                    },
+                                    {
+                                      "id": "b6dd15be-a1a3-4a1b-acd6-0ee661968f65",
+                                      "key": "user",
+                                      "value": "<integer>",
+                                      "description": "(Required) The user ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Update the team member for the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "f7179b55-5ae8-48bc-889b-08d78f9a3028",
+                                  "name": "`MembershipResource`",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"role_id\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"memberships\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"email\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"role\": {\n        \"data\": {\n          \"type\": \"predefinedRoles\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-f7179b55-5ae8-48bc-889b-08d78f9a3028"
+                                },
+                                {
+                                  "id": "6374dd0f-37a4-4e8c-aa9c-1073b3e20ecc",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"role_id\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-6374dd0f-37a4-4e8c-aa9c-1073b3e20ecc"
+                                },
+                                {
+                                  "id": "53008c75-b657-40bc-bc1c-f7f47c19379b",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"role_id\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-53008c75-b657-40bc-bc1c-f7f47c19379b"
+                                },
+                                {
+                                  "id": "6d81859e-1c6e-4853-a01d-5b2c3f86f185",
+                                  "name": "Validation error",
+                                  "originalRequest": {
+                                    "method": "PUT",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"role_id\": \"<integer>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members/:user",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "members",
+                                        ":user"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "user"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"deserunt_cd6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"officia_11_\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-6d81859e-1c6e-4853-a01d-5b2c3f86f185"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-303aa751-39cf-48d6-93ab-772a53dc54be"
+                            }
+                          ],
+                          "id": "28aed83c-b49b-430f-a342-c1c332040a82",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-28aed83c-b49b-430f-a342-c1c332040a82"
+                        },
+                        {
+                          "name": "List team members",
+                          "id": "634e01ff-2e6d-4fad-9dee-92bd2279bbc5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members?page[size]=30&page[cursor]=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team",
+                                "members"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of results that will be returned per page.",
+                                  "key": "page[size]",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "The cursor to start the pagination from.",
+                                  "key": "page[cursor]",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "8bd3f83a-c8ce-4dcf-8596-08cf6933f7e2",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "a9b499a6-8f19-4e4b-aa51-4dd5f1cdb514",
+                                  "key": "team",
+                                  "value": "<integer>",
+                                  "description": "(Required) The team ID"
+                                }
+                              ]
+                            },
+                            "description": "Show all members for the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "2c61be17-944b-4ec8-9e32-9d505efca91a",
+                              "name": "Paginated set of `MembershipResource`",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members?page[size]=30&page[cursor]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "members"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"memberships\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"role\": {\n          \"data\": {\n            \"type\": \"predefinedRoles\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"memberships\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"role\": {\n          \"data\": {\n            \"type\": \"predefinedRoles\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-2c61be17-944b-4ec8-9e32-9d505efca91a"
+                            },
+                            {
+                              "id": "c500c1d4-06c2-481b-8fd6-5ce0e038a14f",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members?page[size]=30&page[cursor]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "members"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-c500c1d4-06c2-481b-8fd6-5ce0e038a14f"
+                            },
+                            {
+                              "id": "d3cbf172-0ec0-42e0-8533-37088cc22362",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/members?page[size]=30&page[cursor]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "members"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-d3cbf172-0ec0-42e0-8533-37088cc22362"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-634e01ff-2e6d-4fad-9dee-92bd2279bbc5"
+                        }
+                      ],
+                      "id": "49f3c4ad-d83c-486d-9841-a22d938f3a7c",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-49f3c4ad-d83c-486d-9841-a22d938f3a7c"
+                    },
+                    {
+                      "name": "invites",
+                      "item": [
+                        {
+                          "name": "{invitation}",
+                          "item": [
+                            {
+                              "name": "Get team invitation",
+                              "id": "4764553d-bcae-49c8-ab4e-1997ded1aaaa",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites",
+                                    ":invitation"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "113101f9-0353-431e-89d5-3e3a0748076a",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "5ba6ab7b-d7c9-40a1-9222-ad3f12dd3cf1",
+                                      "key": "team",
+                                      "value": "<integer>",
+                                      "description": "(Required) The team ID"
+                                    },
+                                    {
+                                      "id": "b112b2f7-f86c-4717-8a10-62d7811b3eb8",
+                                      "key": "invitation",
+                                      "value": "<integer>",
+                                      "description": "(Required) The invitation ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Show a pending invitation for the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "6ddee229-1a83-40d8-9f63-53e9f007768a",
+                                  "name": "`TeamInvitationResource`",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "invites",
+                                        ":invitation"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "invitation"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"teamInvitations\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"email\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"role\": {\n        \"data\": {\n          \"type\": \"predefinedRoles\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"team\": {\n        \"data\": {\n          \"type\": \"teams\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"organization\": {\n        \"data\": {\n          \"type\": \"organizations\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-6ddee229-1a83-40d8-9f63-53e9f007768a"
+                                },
+                                {
+                                  "id": "da29af0f-ae41-4fa4-9fa6-bdf47381988d",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "invites",
+                                        ":invitation"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "invitation"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-da29af0f-ae41-4fa4-9fa6-bdf47381988d"
+                                },
+                                {
+                                  "id": "1a9c4251-ebc9-437c-8381-9f57c69bb91c",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "invites",
+                                        ":invitation"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "invitation"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-1a9c4251-ebc9-437c-8381-9f57c69bb91c"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-4764553d-bcae-49c8-ab4e-1997ded1aaaa"
+                            },
+                            {
+                              "name": "Delete team invitation",
+                              "id": "a09a1a17-77cb-40c9-9389-df074b946ce8",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites",
+                                    ":invitation"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "31d62e82-8f4b-4571-b0a6-a6397c5874d2",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "fc0f21ad-f82f-4cdf-a562-b22594de0217",
+                                      "key": "team",
+                                      "value": "<integer>",
+                                      "description": "(Required) The team ID"
+                                    },
+                                    {
+                                      "id": "41d61356-912d-4db4-9c90-f0265b4ed5fa",
+                                      "key": "invitation",
+                                      "value": "<integer>",
+                                      "description": "(Required) The invitation ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Cancel a pending invitation for the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "7c07f985-4e86-4231-aecb-aa5b057ffd2c",
+                                  "name": "Invitation deleted\n\n\n\nNo content",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "invites",
+                                        ":invitation"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "invitation"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-7c07f985-4e86-4231-aecb-aa5b057ffd2c"
+                                },
+                                {
+                                  "id": "5eeb9008-aa01-4010-b1b1-28ec96041b49",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "invites",
+                                        ":invitation"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "invitation"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-5eeb9008-aa01-4010-b1b1-28ec96041b49"
+                                },
+                                {
+                                  "id": "ed5098a4-ee9a-4b73-9a90-bb6adb6280b0",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites/:invitation",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "teams",
+                                        ":team",
+                                        "invites",
+                                        ":invitation"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "team"
+                                        },
+                                        {
+                                          "key": "invitation"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:51.000Z",
+                                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                                  "uid": "35240-ed5098a4-ee9a-4b73-9a90-bb6adb6280b0"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-a09a1a17-77cb-40c9-9389-df074b946ce8"
+                            }
+                          ],
+                          "id": "6760ffd0-73d3-4fc1-b91d-19e3c487a093",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-6760ffd0-73d3-4fc1-b91d-19e3c487a093"
+                        },
+                        {
+                          "name": "Create team invite",
+                          "id": "098bfd1d-9838-48d6-aeae-12cee05614b5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"role_id\": \"<integer>\",\n  \"email\": \"<email>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team",
+                                "invites"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a34b93c5-2d2d-4d76-af0d-62a00a5948d6",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "04f885a2-cc4d-4cbd-b432-2c82e0aeb17e",
+                                  "key": "team",
+                                  "value": "<integer>",
+                                  "description": "(Required) The team ID"
+                                }
+                              ]
+                            },
+                            "description": "Invite a new member to the team.\n\nProcessing mode: <small><code>async</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "c548f03d-f257-418c-9dcd-8c8d186b0336",
+                              "name": "`TeamInvitationResource`",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"role_id\": \"<integer>\",\n  \"email\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"teamInvitations\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"email\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"role\": {\n        \"data\": {\n          \"type\": \"predefinedRoles\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"team\": {\n        \"data\": {\n          \"type\": \"teams\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"organization\": {\n        \"data\": {\n          \"type\": \"organizations\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-c548f03d-f257-418c-9dcd-8c8d186b0336"
+                            },
+                            {
+                              "id": "e061da1b-cb90-425b-9ed9-8fc4cd38819e",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"role_id\": \"<integer>\",\n  \"email\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-e061da1b-cb90-425b-9ed9-8fc4cd38819e"
+                            },
+                            {
+                              "id": "91940884-cdb0-4b7b-80f2-9a1c0a9f66ce",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"role_id\": \"<integer>\",\n  \"email\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-91940884-cdb0-4b7b-80f2-9a1c0a9f66ce"
+                            },
+                            {
+                              "id": "cc8a0a1e-5ab7-4c1b-83d3-5821c923aed8",
+                              "name": "Validation error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"role_id\": \"<integer>\",\n  \"email\": \"<email>\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"deserunt_cd6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"officia_11_\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-cc8a0a1e-5ab7-4c1b-83d3-5821c923aed8"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-098bfd1d-9838-48d6-aeae-12cee05614b5"
+                        },
+                        {
+                          "name": "List team invitations",
+                          "id": "f2695ecd-d331-437a-bab9-fe2ba0f70906",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites?page[size]=30&page[cursor]=<string>&include=organizationExists,roleExists",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team",
+                                "invites"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of results that will be returned per page.",
+                                  "key": "page[size]",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "The cursor to start the pagination from.",
+                                  "key": "page[cursor]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "include",
+                                  "value": "organizationExists,roleExists"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "154bfaf7-f941-49cd-86f7-a239e82da9aa",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "b15a6da2-5f5b-427d-b2f5-86344ad29a85",
+                                  "key": "team",
+                                  "value": "<integer>",
+                                  "description": "(Required) The team ID"
+                                }
+                              ]
+                            },
+                            "description": "Show all pending invitations for the team.\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "689c8d6c-15a2-421c-b6c8-84a8aecf7133",
+                              "name": "Paginated set of `TeamInvitationResource`",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites?page[size]=30&page[cursor]=<string>&include=organizationExists,roleExists",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "include",
+                                      "value": "organizationExists,roleExists"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"teamInvitations\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"role\": {\n          \"data\": {\n            \"type\": \"predefinedRoles\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"team\": {\n          \"data\": {\n            \"type\": \"teams\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"organization\": {\n          \"data\": {\n            \"type\": \"organizations\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"teamInvitations\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"role\": {\n          \"data\": {\n            \"type\": \"predefinedRoles\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"team\": {\n          \"data\": {\n            \"type\": \"teams\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"organization\": {\n          \"data\": {\n            \"type\": \"organizations\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"predefinedRoles\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"permissions\": {\n          \"data\": [\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"permissions\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-689c8d6c-15a2-421c-b6c8-84a8aecf7133"
+                            },
+                            {
+                              "id": "dc471aed-626b-4c41-8ec7-40acbc921d1e",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites?page[size]=30&page[cursor]=<string>&include=organizationExists,roleExists",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "include",
+                                      "value": "organizationExists,roleExists"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-dc471aed-626b-4c41-8ec7-40acbc921d1e"
+                            },
+                            {
+                              "id": "051a410f-dbe0-48e1-a2cb-b61a8eb0a496",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/teams/:team/invites?page[size]=30&page[cursor]=<string>&include=organizationExists,roleExists",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "teams",
+                                    ":team",
+                                    "invites"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "include",
+                                      "value": "organizationExists,roleExists"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "team"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:51.000Z",
+                              "updatedAt": "2026-07-28T02:04:51.000Z",
+                              "uid": "35240-051a410f-dbe0-48e1-a2cb-b61a8eb0a496"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-f2695ecd-d331-437a-bab9-fe2ba0f70906"
+                        }
+                      ],
+                      "id": "2a871076-d020-4c40-a7a8-8c684750f75e",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-2a871076-d020-4c40-a7a8-8c684750f75e"
+                    },
+                    {
+                      "name": "Get team",
+                      "id": "635cb204-b763-4d97-886b-15cdcc68ff0a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams",
+                            ":team"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f057c04a-fd0b-4369-8609-d27566a15fc7",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) The organization slug"
+                            },
+                            {
+                              "id": "d5a86240-e000-4660-aecb-e4130f8d3cad",
+                              "key": "team",
+                              "value": "<integer>",
+                              "description": "(Required) The team ID"
+                            }
+                          ]
+                        },
+                        "description": "Show a specific team for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                      },
+                      "response": [
+                        {
+                          "id": "52afe65a-73df-4df0-abf3-84b7674b154b",
+                          "name": "`TeamResource`",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"teams\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-52afe65a-73df-4df0-abf3-84b7674b154b"
+                        },
+                        {
+                          "id": "9c41e908-1b80-409f-8456-110c9b936090",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-9c41e908-1b80-409f-8456-110c9b936090"
+                        },
+                        {
+                          "id": "c42580a6-d665-4e31-b61e-58d230386a59",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-c42580a6-d665-4e31-b61e-58d230386a59"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-635cb204-b763-4d97-886b-15cdcc68ff0a"
+                    },
+                    {
+                      "name": "Update team",
+                      "id": "f73dcd37-4669-479b-9bc2-7f6f4f83c040",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams",
+                            ":team"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f2457348-0450-43b1-b90b-80351ffbb35a",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) The organization slug"
+                            },
+                            {
+                              "id": "cb907328-7122-4689-95ea-e25121b2ea5b",
+                              "key": "team",
+                              "value": "<integer>",
+                              "description": "(Required) The team ID"
+                            }
+                          ]
+                        },
+                        "description": "Update a team for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                      },
+                      "response": [
+                        {
+                          "id": "62a7ace1-6e3e-4649-8151-7308dd6e501e",
+                          "name": "`TeamResource`",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"teams\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-62a7ace1-6e3e-4649-8151-7308dd6e501e"
+                        },
+                        {
+                          "id": "d2ac0a63-e5de-4b8c-bc4e-b5f31c73ba95",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-d2ac0a63-e5de-4b8c-bc4e-b5f31c73ba95"
+                        },
+                        {
+                          "id": "34b11e2d-1079-47ce-91f8-795c51590367",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-34b11e2d-1079-47ce-91f8-795c51590367"
+                        },
+                        {
+                          "id": "b6a48737-afd4-4cc1-9363-63e138fae1e2",
+                          "name": "Validation error",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"deserunt_cd6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"officia_11_\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-b6a48737-afd4-4cc1-9363-63e138fae1e2"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-f73dcd37-4669-479b-9bc2-7f6f4f83c040"
+                    },
+                    {
+                      "name": "Delete team",
+                      "id": "22492e67-a9a6-473a-b3f9-deb29d8c227e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams",
+                            ":team"
+                          ],
+                          "variable": [
+                            {
+                              "id": "0ae5a561-a11d-46ea-a4ce-864d439cfe80",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) The organization slug"
+                            },
+                            {
+                              "id": "dbc2370a-9dbd-42f8-8db5-c4fceade236d",
+                              "key": "team",
+                              "value": "<integer>",
+                              "description": "(Required) The team ID"
+                            }
+                          ]
+                        },
+                        "description": "Delete a team for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                      },
+                      "response": [
+                        {
+                          "id": "6ca83410-1227-4cec-80dd-9f386133e2c7",
+                          "name": "Team deleted successfully'\n\n\n\nNo content",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-6ca83410-1227-4cec-80dd-9f386133e2c7"
+                        },
+                        {
+                          "id": "2b42d5b9-ae7c-4b02-b4de-2002fed5a181",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-2b42d5b9-ae7c-4b02-b4de-2002fed5a181"
+                        },
+                        {
+                          "id": "5c64625c-3380-403d-9892-ded29682d5da",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/teams/:team",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "teams",
+                                ":team"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "team"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:51.000Z",
+                          "updatedAt": "2026-07-28T02:04:51.000Z",
+                          "uid": "35240-5c64625c-3380-403d-9892-ded29682d5da"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-22492e67-a9a6-473a-b3f9-deb29d8c227e"
+                    }
+                  ],
+                  "id": "3c32e91e-64e4-4b82-b052-35e028a1bd99",
+                  "createdAt": "2026-07-28T02:04:51.000Z",
+                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                  "uid": "35240-3c32e91e-64e4-4b82-b052-35e028a1bd99"
+                },
+                {
+                  "name": "List teams",
+                  "id": "6da91a75-f9ae-46db-9873-e850edc5a8ac",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:organization/teams?page[size]=30&page[cursor]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":organization",
+                        "teams"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results that will be returned per page.",
+                          "key": "page[size]",
+                          "value": "30"
+                        },
+                        {
+                          "description": "The cursor to start the pagination from.",
+                          "key": "page[cursor]",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "b2afadc0-3a51-4eed-9ad0-52d6c8b0cf5d",
+                          "key": "organization",
+                          "value": "<string>",
+                          "description": "(Required) The organization slug"
+                        }
+                      ]
+                    },
+                    "description": "Show all teams for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                  },
+                  "response": [
+                    {
+                      "id": "bf0782ba-25a9-44a0-9cfd-2d9545e63f74",
+                      "name": "Paginated set of `TeamResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"teams\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"teams\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-bf0782ba-25a9-44a0-9cfd-2d9545e63f74"
+                    },
+                    {
+                      "id": "f386dc0a-0f4d-4cfb-87c5-b660c858b0e6",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-f386dc0a-0f4d-4cfb-87c5-b660c858b0e6"
+                    },
+                    {
+                      "id": "240fcd3e-0d16-46b5-9d20-2a60dd62d3d7",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-240fcd3e-0d16-46b5-9d20-2a60dd62d3d7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:04:51.000Z",
+                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                  "uid": "35240-6da91a75-f9ae-46db-9873-e850edc5a8ac"
+                },
+                {
+                  "name": "Create team",
+                  "id": "2369df24-537d-444a-ba0c-209533d88157",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ],\n  \"invites\": [\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:organization/teams",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":organization",
+                        "teams"
+                      ],
+                      "variable": [
+                        {
+                          "id": "958f80bf-5eb7-4368-a676-dfc332101a4b",
+                          "key": "organization",
+                          "value": "<string>",
+                          "description": "(Required) The organization slug"
+                        }
+                      ]
+                    },
+                    "description": "Create a new team for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                  },
+                  "response": [
+                    {
+                      "id": "3a5272e2-ba69-4beb-9432-c9372718a1b9",
+                      "name": "`TeamResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ],\n  \"invites\": [\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"teams\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-3a5272e2-ba69-4beb-9432-c9372718a1b9"
+                    },
+                    {
+                      "id": "5644fcec-f167-4d3e-b70b-5a865e85b543",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ],\n  \"invites\": [\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-5644fcec-f167-4d3e-b70b-5a865e85b543"
+                    },
+                    {
+                      "id": "706c9d3c-b6ac-44ee-b892-b29f3f869332",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ],\n  \"invites\": [\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-706c9d3c-b6ac-44ee-b892-b29f3f869332"
+                    },
+                    {
+                      "id": "941df63f-b7c5-4010-8dfc-ebb9c54b97f3",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"users\": [\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ],\n  \"invites\": [\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    },\n    {\n      \"email\": \"<email>\",\n      \"role\": {\n        \"id\": \"<integer>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/teams",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "teams"
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"deserunt_cd6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"officia_11_\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:51.000Z",
+                      "updatedAt": "2026-07-28T02:04:51.000Z",
+                      "uid": "35240-941df63f-b7c5-4010-8dfc-ebb9c54b97f3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:04:51.000Z",
+                  "updatedAt": "2026-07-28T02:04:51.000Z",
+                  "uid": "35240-2369df24-537d-444a-ba0c-209533d88157"
+                }
+              ],
+              "id": "03f0685a-b4eb-4000-8c7b-3dfc9da8b61a",
+              "createdAt": "2026-07-28T02:04:51.000Z",
+              "updatedAt": "2026-07-28T02:04:51.000Z",
+              "uid": "35240-03f0685a-b4eb-4000-8c7b-3dfc9da8b61a"
+            }
+          ],
+          "id": "79112380-3427-4b49-aa3b-6e5af9e9da46",
+          "createdAt": "2026-07-28T02:04:51.000Z",
+          "updatedAt": "2026-07-28T02:04:51.000Z",
+          "uid": "35240-79112380-3427-4b49-aa3b-6e5af9e9da46"
+        }
+      ],
+      "id": "08cb573d-754c-4b16-8897-4e6128a63c30",
+      "createdAt": "2026-07-28T02:04:51.000Z",
+      "updatedAt": "2026-07-28T02:04:51.000Z",
+      "uid": "35240-08cb573d-754c-4b16-8897-4e6128a63c30"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

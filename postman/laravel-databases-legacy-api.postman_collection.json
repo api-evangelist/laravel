@@ -1,0 +1,1278 @@
+{
+  "info": {
+    "_postman_id": "8d35b598-fbf4-4e47-9d37-b99aa0a21d6e",
+    "name": "Laravel Cloud Applications Databases (Legacy) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:30.000Z",
+    "updatedAt": "2026-07-28T02:03:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8d35b598-fbf4-4e47-9d37-b99aa0a21d6e"
+  },
+  "item": [
+    {
+      "name": "databases",
+      "item": [
+        {
+          "name": "{database}",
+          "item": [
+            {
+              "name": "Get database",
+              "id": "e5e5a0e1-cef6-4dec-bad2-6d44ff1506ed",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/databases/:database?include=schemas,schemas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases",
+                    ":database"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "schemas,schemas"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "2b6c6a51-26c0-4799-836b-b8eb9771cad6",
+                      "key": "database",
+                      "value": "<string,null>",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "description": "Use GET /databases/clusters/{database} instead."
+              },
+              "response": [
+                {
+                  "id": "96bcb5e9-f015-4b1b-9481-9b8570a16e9b",
+                  "name": "`DatabaseResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database?include=schemas,schemas",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "schemas,schemas"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"databases\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"neon_serverless_postgres_18\",\n      \"status\": \"snapshotting_before_archiving\",\n      \"region\": \"eu-west-2\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"config\": {\n        \"cu_min\": 0.5,\n        \"cu_max\": 8,\n        \"suspend_seconds\": \"<integer>\",\n        \"retention_days\": \"<integer>\"\n      },\n      \"connection\": {\n        \"hostname\": \"<string>\",\n        \"port\": 3306,\n        \"protocol\": \"mysql\",\n        \"driver\": \"pgsql\",\n        \"\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"schemas\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"databases\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-96bcb5e9-f015-4b1b-9481-9b8570a16e9b"
+                },
+                {
+                  "id": "a85f272b-1c3c-43bf-a6cb-354e1d0e3b05",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database?include=schemas,schemas",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "schemas,schemas"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-a85f272b-1c3c-43bf-a6cb-354e1d0e3b05"
+                },
+                {
+                  "id": "8caec3bf-60cb-4003-a1d8-66327f537c53",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database?include=schemas,schemas",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "schemas,schemas"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-8caec3bf-60cb-4003-a1d8-66327f537c53"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:30.000Z",
+              "updatedAt": "2026-07-28T02:03:30.000Z",
+              "uid": "35240-e5e5a0e1-cef6-4dec-bad2-6d44ff1506ed"
+            },
+            {
+              "name": "Update database",
+              "id": "5aa4f76c-c96f-492c-962e-77a1f1f7b76f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"cu_min\": 0.5,\n    \"cu_max\": 0.25,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/databases/:database",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases",
+                    ":database"
+                  ],
+                  "variable": [
+                    {
+                      "id": "548eff75-16be-4bdf-9bd3-59bd6d9b4a84",
+                      "key": "database",
+                      "value": "<string,null>",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "description": "Use PATCH /databases/clusters/{database} instead."
+              },
+              "response": [
+                {
+                  "id": "b9c93b83-ad74-4e36-9f2d-d65ae0e59d88",
+                  "name": "`DatabaseResource`",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"config\": {\n    \"cu_min\": 0.5,\n    \"cu_max\": 0.25,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"databases\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"neon_serverless_postgres_18\",\n      \"status\": \"snapshotting_before_archiving\",\n      \"region\": \"eu-west-2\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"config\": {\n        \"cu_min\": 0.5,\n        \"cu_max\": 8,\n        \"suspend_seconds\": \"<integer>\",\n        \"retention_days\": \"<integer>\"\n      },\n      \"connection\": {\n        \"hostname\": \"<string>\",\n        \"port\": 3306,\n        \"protocol\": \"mysql\",\n        \"driver\": \"pgsql\",\n        \"\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"schemas\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"databases\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-b9c93b83-ad74-4e36-9f2d-d65ae0e59d88"
+                },
+                {
+                  "id": "8ac7663b-c5e4-43ed-bdef-352fe2907d78",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"config\": {\n    \"cu_min\": 0.5,\n    \"cu_max\": 0.25,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-8ac7663b-c5e4-43ed-bdef-352fe2907d78"
+                },
+                {
+                  "id": "e7a14bdb-4ae7-44cb-83e3-297a8f972f99",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"config\": {\n    \"cu_min\": 0.5,\n    \"cu_max\": 0.25,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-e7a14bdb-4ae7-44cb-83e3-297a8f972f99"
+                },
+                {
+                  "id": "700344f5-f182-4324-9046-4cb5c84901d8",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"config\": {\n    \"cu_min\": 0.5,\n    \"cu_max\": 0.25,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"labore__7\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"commodoe_8\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-700344f5-f182-4324-9046-4cb5c84901d8"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:30.000Z",
+              "updatedAt": "2026-07-28T02:03:30.000Z",
+              "uid": "35240-5aa4f76c-c96f-492c-962e-77a1f1f7b76f"
+            },
+            {
+              "name": "Delete database",
+              "id": "1e0e136d-040e-4de4-af54-40cd9d68edfe",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/databases/:database",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases",
+                    ":database"
+                  ],
+                  "variable": [
+                    {
+                      "id": "a303d4f2-56a3-434b-8021-c4ad86729cf9",
+                      "key": "database",
+                      "value": "<string,null>",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "description": "Use DELETE /databases/clusters/{database} instead."
+              },
+              "response": [
+                {
+                  "id": "189b0c96-7efe-4b27-91f8-b05324366d4b",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-189b0c96-7efe-4b27-91f8-b05324366d4b"
+                },
+                {
+                  "id": "7fa4b45c-d843-4b6b-a360-b23c858186c5",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-7fa4b45c-d843-4b6b-a360-b23c858186c5"
+                },
+                {
+                  "id": "76de4764-5dc5-4de6-87d6-013e4913c2ba",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-76de4764-5dc5-4de6-87d6-013e4913c2ba"
+                },
+                {
+                  "id": "72b39377-d37d-4c8c-b260-62e0cd5a09f5",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/databases/:database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "databases",
+                        ":database"
+                      ],
+                      "variable": [
+                        {
+                          "key": "database"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"labore__7\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"commodoe_8\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:31.000Z",
+                  "updatedAt": "2026-07-28T02:03:31.000Z",
+                  "uid": "35240-72b39377-d37d-4c8c-b260-62e0cd5a09f5"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:30.000Z",
+              "updatedAt": "2026-07-28T02:03:30.000Z",
+              "uid": "35240-1e0e136d-040e-4de4-af54-40cd9d68edfe"
+            }
+          ],
+          "id": "611166cb-f69a-4ba9-921e-17734c5130e2",
+          "createdAt": "2026-07-28T02:03:30.000Z",
+          "updatedAt": "2026-07-28T02:03:30.000Z",
+          "uid": "35240-611166cb-f69a-4ba9-921e-17734c5130e2"
+        },
+        {
+          "name": "List databases",
+          "id": "38687376-3757-42fd-ac6b-6b02d325aea7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/databases?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=schemas,schemas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "databases"
+              ],
+              "query": [
+                {
+                  "key": "filter[type]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "filter[region]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "filter[status]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "include",
+                  "value": "schemas,schemas"
+                }
+              ]
+            },
+            "description": "Use GET /databases/clusters instead."
+          },
+          "response": [
+            {
+              "id": "10f8c723-1e10-4e8d-be22-d7926a282a74",
+              "name": "Paginated set of `DatabaseResource`",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/databases?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=schemas,schemas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "schemas,schemas"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"neon_serverless_postgres_17\",\n        \"status\": \"restore_failed\",\n        \"region\": \"us-east-2\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 2,\n          \"cu_max\": 8,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 3306,\n          \"protocol\": \"postgres\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"neon_serverless_postgres_17\",\n        \"status\": \"restarting\",\n        \"region\": \"eu-west-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 0.5,\n          \"cu_max\": 4,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 3306,\n          \"protocol\": \"postgres\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-10f8c723-1e10-4e8d-be22-d7926a282a74"
+            },
+            {
+              "id": "9de7e964-8023-426c-936c-f9e5b7121a6f",
+              "name": "An error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/databases?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=schemas,schemas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "schemas,schemas"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-9de7e964-8023-426c-936c-f9e5b7121a6f"
+            },
+            {
+              "id": "2deb6e75-e96f-4eca-93da-f1f382fc69d1",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/databases?filter[type]=<string>&filter[region]=<string>&filter[status]=<string>&include=schemas,schemas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "schemas,schemas"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-2deb6e75-e96f-4eca-93da-f1f382fc69d1"
+            }
+          ],
+          "createdAt": "2026-07-28T02:03:30.000Z",
+          "updatedAt": "2026-07-28T02:03:30.000Z",
+          "uid": "35240-38687376-3757-42fd-ac6b-6b02d325aea7"
+        },
+        {
+          "name": "Create database",
+          "id": "a6aaae29-e3c9-4568-8409-c85e2d9386b7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"laravel_mysql_84\",\n  \"name\": \"h_go6f4\",\n  \"region\": \"ca-central-1\",\n  \"config\": {\n    \"cu_min\": 1,\n    \"cu_max\": 8,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  },\n  \"cluster_id\": \"<integer,null>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/databases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "databases"
+              ]
+            },
+            "description": "Use POST /databases/clusters instead."
+          },
+          "response": [
+            {
+              "id": "f61d488f-f590-4172-848c-fa9cb0077cb4",
+              "name": "`DatabaseResource`",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"laravel_mysql_84\",\n  \"name\": \"h_go6f4\",\n  \"region\": \"ca-central-1\",\n  \"config\": {\n    \"cu_min\": 1,\n    \"cu_max\": 8,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  },\n  \"cluster_id\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/databases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"databases\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"neon_serverless_postgres_18\",\n      \"status\": \"snapshotting_before_archiving\",\n      \"region\": \"eu-west-2\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"config\": {\n        \"cu_min\": 0.5,\n        \"cu_max\": 8,\n        \"suspend_seconds\": \"<integer>\",\n        \"retention_days\": \"<integer>\"\n      },\n      \"connection\": {\n        \"hostname\": \"<string>\",\n        \"port\": 3306,\n        \"protocol\": \"mysql\",\n        \"driver\": \"pgsql\",\n        \"\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"schemas\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"databases\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-f61d488f-f590-4172-848c-fa9cb0077cb4"
+            },
+            {
+              "id": "8068388f-b8ce-43e8-8e1b-600ba93ed17b",
+              "name": "An error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"laravel_mysql_84\",\n  \"name\": \"h_go6f4\",\n  \"region\": \"ca-central-1\",\n  \"config\": {\n    \"cu_min\": 1,\n    \"cu_max\": 8,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  },\n  \"cluster_id\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/databases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-8068388f-b8ce-43e8-8e1b-600ba93ed17b"
+            },
+            {
+              "id": "020b0786-10b3-45e4-8167-ff23ba90fd1f",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"laravel_mysql_84\",\n  \"name\": \"h_go6f4\",\n  \"region\": \"ca-central-1\",\n  \"config\": {\n    \"cu_min\": 1,\n    \"cu_max\": 8,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  },\n  \"cluster_id\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/databases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-020b0786-10b3-45e4-8167-ff23ba90fd1f"
+            },
+            {
+              "id": "d03cd09e-4816-43da-9195-090dfd6f7c16",
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"laravel_mysql_84\",\n  \"name\": \"h_go6f4\",\n  \"region\": \"ca-central-1\",\n  \"config\": {\n    \"cu_min\": 1,\n    \"cu_max\": 8,\n    \"suspend_seconds\": \"<integer>\",\n    \"retention_days\": \"<integer>\"\n  },\n  \"cluster_id\": \"<integer,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/databases",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "databases"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"labore__7\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"commodoe_8\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T02:03:31.000Z",
+              "updatedAt": "2026-07-28T02:03:31.000Z",
+              "uid": "35240-d03cd09e-4816-43da-9195-090dfd6f7c16"
+            }
+          ],
+          "createdAt": "2026-07-28T02:03:30.000Z",
+          "updatedAt": "2026-07-28T02:03:30.000Z",
+          "uid": "35240-a6aaae29-e3c9-4568-8409-c85e2d9386b7"
+        }
+      ],
+      "id": "f593852a-35f9-4bea-83a9-35c3207b07e0",
+      "createdAt": "2026-07-28T02:03:30.000Z",
+      "updatedAt": "2026-07-28T02:03:30.000Z",
+      "uid": "35240-f593852a-35f9-4bea-83a9-35c3207b07e0"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

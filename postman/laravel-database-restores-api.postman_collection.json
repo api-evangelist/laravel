@@ -1,0 +1,377 @@
+{
+  "info": {
+    "_postman_id": "acd11f2f-7248-4b5c-8527-0a959f6a78a0",
+    "name": "Laravel Cloud Applications Database Restores API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:25.000Z",
+    "updatedAt": "2026-07-28T02:03:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-acd11f2f-7248-4b5c-8527-0a959f6a78a0"
+  },
+  "item": [
+    {
+      "name": "databases",
+      "item": [
+        {
+          "name": "clusters",
+          "item": [
+            {
+              "name": "{database}",
+              "item": [
+                {
+                  "name": "restore",
+                  "item": [
+                    {
+                      "name": "Create a database restore",
+                      "id": "876e3c62-288e-4714-8fac-baa45e6a4aca",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"0tfaaw\",\n  \"restore_time\": \"<string,null-date-time>\",\n  \"database_snapshot_id\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/databases/clusters/:database/restore",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "databases",
+                            "clusters",
+                            ":database",
+                            "restore"
+                          ],
+                          "variable": [
+                            {
+                              "id": "33c0f88b-cbc3-4661-a36f-9b73ca407d2b",
+                              "key": "database",
+                              "value": "<string,null>",
+                              "description": "(Required) The database identifier"
+                            }
+                          ]
+                        },
+                        "description": "Restore a database cluster from a point in time or snapshot. Returns the newly created database."
+                      },
+                      "response": [
+                        {
+                          "id": "b23c0a98-d8fd-4f2c-8978-445debb0a26a",
+                          "name": "`DatabaseResource`",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"0tfaaw\",\n  \"restore_time\": \"<string,null-date-time>\",\n  \"database_snapshot_id\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/restore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "restore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"databases\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"neon_serverless_postgres_17\",\n      \"status\": \"restore_failed\",\n      \"region\": \"me-central-1\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"config\": {\n        \"cu_min\": 4,\n        \"cu_max\": 1,\n        \"suspend_seconds\": \"<integer>\",\n        \"retention_days\": \"<integer>\"\n      },\n      \"connection\": {\n        \"hostname\": \"<string>\",\n        \"port\": 5432,\n        \"protocol\": \"postgres\",\n        \"driver\": \"pgsql\",\n        \"\": {\n          \"username\": \"<string>\",\n          \"password\": \"<string>\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"schemas\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"databases\": {\n        \"data\": [\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:03:25.000Z",
+                          "updatedAt": "2026-07-28T02:03:25.000Z",
+                          "uid": "35240-b23c0a98-d8fd-4f2c-8978-445debb0a26a"
+                        },
+                        {
+                          "id": "b44d8333-db28-4b5e-b664-3a50253cf348",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"0tfaaw\",\n  \"restore_time\": \"<string,null-date-time>\",\n  \"database_snapshot_id\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/restore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "restore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:25.000Z",
+                          "updatedAt": "2026-07-28T02:03:25.000Z",
+                          "uid": "35240-b44d8333-db28-4b5e-b664-3a50253cf348"
+                        },
+                        {
+                          "id": "f5f2a0c9-aac6-4204-9196-2ed9ebd2bda3",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"0tfaaw\",\n  \"restore_time\": \"<string,null-date-time>\",\n  \"database_snapshot_id\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/restore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "restore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:25.000Z",
+                          "updatedAt": "2026-07-28T02:03:25.000Z",
+                          "uid": "35240-f5f2a0c9-aac6-4204-9196-2ed9ebd2bda3"
+                        },
+                        {
+                          "id": "11ee2cd6-d249-4b9b-8579-aeff4bc3db28",
+                          "name": "Validation error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"0tfaaw\",\n  \"restore_time\": \"<string,null-date-time>\",\n  \"database_snapshot_id\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/restore",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "restore"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"do60\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T02:03:25.000Z",
+                          "updatedAt": "2026-07-28T02:03:25.000Z",
+                          "uid": "35240-11ee2cd6-d249-4b9b-8579-aeff4bc3db28"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:03:25.000Z",
+                      "updatedAt": "2026-07-28T02:03:25.000Z",
+                      "uid": "35240-876e3c62-288e-4714-8fac-baa45e6a4aca"
+                    }
+                  ],
+                  "id": "3ea0d490-5e4e-4db7-9ea8-d9683d5c90db",
+                  "createdAt": "2026-07-28T02:03:25.000Z",
+                  "updatedAt": "2026-07-28T02:03:25.000Z",
+                  "uid": "35240-3ea0d490-5e4e-4db7-9ea8-d9683d5c90db"
+                }
+              ],
+              "id": "62bbd19e-be43-4496-9416-bf09aeff98dd",
+              "createdAt": "2026-07-28T02:03:25.000Z",
+              "updatedAt": "2026-07-28T02:03:25.000Z",
+              "uid": "35240-62bbd19e-be43-4496-9416-bf09aeff98dd"
+            }
+          ],
+          "id": "a60fb807-7054-47c1-b1ba-59238e2d224f",
+          "createdAt": "2026-07-28T02:03:25.000Z",
+          "updatedAt": "2026-07-28T02:03:25.000Z",
+          "uid": "35240-a60fb807-7054-47c1-b1ba-59238e2d224f"
+        }
+      ],
+      "id": "4966d6cb-dcd6-4f70-94e2-444381d42b75",
+      "createdAt": "2026-07-28T02:03:25.000Z",
+      "updatedAt": "2026-07-28T02:03:25.000Z",
+      "uid": "35240-4966d6cb-dcd6-4f70-94e2-444381d42b75"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

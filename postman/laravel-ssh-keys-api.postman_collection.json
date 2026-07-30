@@ -1,0 +1,1582 @@
+{
+  "info": {
+    "_postman_id": "47e50a8b-fb9d-47d4-ac96-696661646d59",
+    "name": "Laravel Cloud Applications SSH Keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:04:48.000Z",
+    "updatedAt": "2026-07-28T02:04:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-47e50a8b-fb9d-47d4-ac96-696661646d59"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{organization}",
+          "item": [
+            {
+              "name": "servers",
+              "item": [
+                {
+                  "name": "{server}",
+                  "item": [
+                    {
+                      "name": "ssh-keys",
+                      "item": [
+                        {
+                          "name": "{key}",
+                          "item": [
+                            {
+                              "name": "Get server SSH key",
+                              "id": "a0f3f791-dba2-497d-87e4-1af78d9f9192",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys",
+                                    ":key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "b33f40a1-a921-45a7-ae39-7f0508e9a058",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "266d14bd-5026-40ab-acf5-e6e3f5fc6723",
+                                      "key": "server",
+                                      "value": "<integer>",
+                                      "description": "(Required) The server ID"
+                                    },
+                                    {
+                                      "id": "70d7bc8d-7001-487a-bd8f-9a83009a308b",
+                                      "key": "key",
+                                      "value": "<integer>",
+                                      "description": "(Required) The key ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Get a specific SSH key associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "8d6ae7da-e541-41dd-ac04-1315c275f238",
+                                  "name": "`KeyResource`",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "ssh-keys",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"keys\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"user\": \"<string>\",\n      \"status\": \"<string>\",\n      \"created_by\": \"<integer,null>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+                                  "createdAt": "2026-07-28T02:04:49.000Z",
+                                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                                  "uid": "35240-8d6ae7da-e541-41dd-ac04-1315c275f238"
+                                },
+                                {
+                                  "id": "664d923c-4a17-4fc8-99a9-d00c8c4ff525",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "ssh-keys",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:49.000Z",
+                                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                                  "uid": "35240-664d923c-4a17-4fc8-99a9-d00c8c4ff525"
+                                },
+                                {
+                                  "id": "e05824a8-c774-4b06-9c6a-c52379bd8d0a",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "ssh-keys",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:49.000Z",
+                                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                                  "uid": "35240-e05824a8-c774-4b06-9c6a-c52379bd8d0a"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-a0f3f791-dba2-497d-87e4-1af78d9f9192"
+                            },
+                            {
+                              "name": "Delete server SSH key",
+                              "id": "e0a2c554-2a45-4bc9-8f9a-301b31943a97",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys",
+                                    ":key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "3dd8fa53-7e8f-447b-9b8c-7785874e714f",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "f765d07b-e6f0-4293-8de4-ab89fc6a2f76",
+                                      "key": "server",
+                                      "value": "<integer>",
+                                      "description": "(Required) The server ID"
+                                    },
+                                    {
+                                      "id": "9cbf9934-fecd-4ecd-a317-05e485a9d4e4",
+                                      "key": "key",
+                                      "value": "<integer>",
+                                      "description": "(Required) The key ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Remove an SSH key from the server.\n\nProcessing mode: <small><code>async</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "bcd67781-a8ad-422a-973b-3b2c8cc68e30",
+                                  "name": "Removal of SSH key from server accepted",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "ssh-keys",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Accepted",
+                                  "code": 202,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:04:49.000Z",
+                                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                                  "uid": "35240-bcd67781-a8ad-422a-973b-3b2c8cc68e30"
+                                },
+                                {
+                                  "id": "2bece75d-d039-4743-9412-2de9c60caa9c",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "ssh-keys",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:49.000Z",
+                                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                                  "uid": "35240-2bece75d-d039-4743-9412-2de9c60caa9c"
+                                },
+                                {
+                                  "id": "2343e7bf-ea0f-4b25-823e-8203c4df2203",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "ssh-keys",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:49.000Z",
+                                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                                  "uid": "35240-2343e7bf-ea0f-4b25-823e-8203c4df2203"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-e0a2c554-2a45-4bc9-8f9a-301b31943a97"
+                            }
+                          ],
+                          "id": "7817866f-d25a-4c52-83ff-6fb362788193",
+                          "createdAt": "2026-07-28T02:04:49.000Z",
+                          "updatedAt": "2026-07-28T02:04:49.000Z",
+                          "uid": "35240-7817866f-d25a-4c52-83ff-6fb362788193"
+                        },
+                        {
+                          "name": "List server SSH keys",
+                          "id": "53bb9b0e-e1c2-49ca-a0a8-d3815de5f5cc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys?page[size]=30&page[cursor]=<string>&filter[name]=<string>&filter[user]=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "servers",
+                                ":server",
+                                "ssh-keys"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of results that will be returned per page.",
+                                  "key": "page[size]",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "The cursor to start the pagination from.",
+                                  "key": "page[cursor]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[name]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[user]",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ae81c461-ed16-4256-980a-db03d015d298",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "04ffb568-5502-4f81-ab85-ec1efc3cd697",
+                                  "key": "server",
+                                  "value": "<integer>",
+                                  "description": "(Required) The server ID"
+                                }
+                              ]
+                            },
+                            "description": "List all SSH keys associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "7c05a954-6342-43f2-a241-7528410e52bf",
+                              "name": "Paginated set of `KeyResource`",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys?page[size]=30&page[cursor]=<string>&filter[name]=<string>&filter[user]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[name]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[user]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"keys\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"user\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_by\": \"<integer,null>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"keys\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"user\": \"<string>\",\n        \"status\": \"<string>\",\n        \"created_by\": \"<integer,null>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-7c05a954-6342-43f2-a241-7528410e52bf"
+                            },
+                            {
+                              "id": "a5b69f31-20d6-4caa-a392-93b4d83685e7",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys?page[size]=30&page[cursor]=<string>&filter[name]=<string>&filter[user]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[name]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[user]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-a5b69f31-20d6-4caa-a392-93b4d83685e7"
+                            },
+                            {
+                              "id": "af9355c3-e1ce-427d-a156-28a7368afc51",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys?page[size]=30&page[cursor]=<string>&filter[name]=<string>&filter[user]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[name]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[user]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-af9355c3-e1ce-427d-a156-28a7368afc51"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:49.000Z",
+                          "updatedAt": "2026-07-28T02:04:49.000Z",
+                          "uid": "35240-53bb9b0e-e1c2-49ca-a0a8-d3815de5f5cc"
+                        },
+                        {
+                          "name": "Create server SSH key",
+                          "id": "0755ec27-2abc-4d55-a6c5-67214ec8eff4",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"user\": \"forge\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "servers",
+                                ":server",
+                                "ssh-keys"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "158696e0-6f9e-4204-99bd-951bc630e287",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "47424931-31e7-4aa5-9dc6-57c690833b9e",
+                                  "key": "server",
+                                  "value": "<integer>",
+                                  "description": "(Required) The server ID"
+                                }
+                              ]
+                            },
+                            "description": "Add a new SSH key to the server.\n\nProcessing mode: <small><code>async</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "e82ac694-ff01-422c-8998-725fef4df3e3",
+                              "name": "Adding SSH key to server accepted",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"user\": \"forge\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Accepted",
+                              "code": 202,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-e82ac694-ff01-422c-8998-725fef4df3e3"
+                            },
+                            {
+                              "id": "106034ca-64dc-4695-b027-bd0c3612e819",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"user\": \"forge\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-106034ca-64dc-4695-b027-bd0c3612e819"
+                            },
+                            {
+                              "id": "692ee3ba-0dc5-4f8f-935f-d624b439585f",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"user\": \"forge\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-692ee3ba-0dc5-4f8f-935f-d624b439585f"
+                            },
+                            {
+                              "id": "426569a8-87b1-4646-a7ec-60f4a45c555e",
+                              "name": "Validation error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"user\": \"forge\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/ssh-keys",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "ssh-keys"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"idb\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-426569a8-87b1-4646-a7ec-60f4a45c555e"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:49.000Z",
+                          "updatedAt": "2026-07-28T02:04:49.000Z",
+                          "uid": "35240-0755ec27-2abc-4d55-a6c5-67214ec8eff4"
+                        }
+                      ],
+                      "id": "31e399a5-d6af-42b1-897c-a785a318d67b",
+                      "createdAt": "2026-07-28T02:04:49.000Z",
+                      "updatedAt": "2026-07-28T02:04:49.000Z",
+                      "uid": "35240-31e399a5-d6af-42b1-897c-a785a318d67b"
+                    },
+                    {
+                      "name": "key",
+                      "item": [
+                        {
+                          "name": "Get server public SSH key",
+                          "id": "f47e7726-f8c3-40ba-95d2-cccfb600594c",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "servers",
+                                ":server",
+                                "key"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ecdff0e2-e8d8-45ba-b53e-55a07ac6fb4f",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "627abb56-6b5f-4b0a-af8e-390678666fa6",
+                                  "key": "server",
+                                  "value": "<integer>",
+                                  "description": "(Required) The server ID"
+                                }
+                              ]
+                            },
+                            "description": "Get the public SSH key for the server.\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "6669871e-82f8-4c83-a094-8f73b2bf73d8",
+                              "name": "`ServerKeyResource`",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"serverKeys\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"public_key\": \"<string>\",\n      \"fingerprint\": \"<string>\"\n    }\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-6669871e-82f8-4c83-a094-8f73b2bf73d8"
+                            },
+                            {
+                              "id": "9f99e42d-3a4c-4a5b-a140-fe97717c66cd",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-9f99e42d-3a4c-4a5b-a140-fe97717c66cd"
+                            },
+                            {
+                              "id": "906b6e31-0394-42e7-a0ef-bb7dc477bedd",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-906b6e31-0394-42e7-a0ef-bb7dc477bedd"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:49.000Z",
+                          "updatedAt": "2026-07-28T02:04:49.000Z",
+                          "uid": "35240-f47e7726-f8c3-40ba-95d2-cccfb600594c"
+                        },
+                        {
+                          "name": "Update server public SSH key",
+                          "id": "57ee610f-5b44-4c63-948c-0a1d89dd129e",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "servers",
+                                ":server",
+                                "key"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "f202b528-63c7-4923-a714-bd500d6872f6",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "8990b6e0-4f00-4c5d-9ce5-2d1978ac6a24",
+                                  "key": "server",
+                                  "value": "<integer>",
+                                  "description": "(Required) The server ID"
+                                }
+                              ]
+                            },
+                            "description": "Regenerate the SSH key pair for the server and return the new public key.\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "fcd5837a-0f21-4ada-9b3d-d596b529ac9f",
+                              "name": "`ServerKeyResource`",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"serverKeys\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"public_key\": \"<string>\",\n      \"fingerprint\": \"<string>\"\n    }\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-fcd5837a-0f21-4ada-9b3d-d596b529ac9f"
+                            },
+                            {
+                              "id": "7f43be8b-1937-436d-82a4-6180a24b4933",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-7f43be8b-1937-436d-82a4-6180a24b4933"
+                            },
+                            {
+                              "id": "cc029706-a013-4a71-a202-6bc789ba2ab4",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "PUT",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:49.000Z",
+                              "updatedAt": "2026-07-28T02:04:49.000Z",
+                              "uid": "35240-cc029706-a013-4a71-a202-6bc789ba2ab4"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:49.000Z",
+                          "updatedAt": "2026-07-28T02:04:49.000Z",
+                          "uid": "35240-57ee610f-5b44-4c63-948c-0a1d89dd129e"
+                        }
+                      ],
+                      "id": "f62e0820-3fd4-449a-bd47-261c6a28f733",
+                      "createdAt": "2026-07-28T02:04:49.000Z",
+                      "updatedAt": "2026-07-28T02:04:49.000Z",
+                      "uid": "35240-f62e0820-3fd4-449a-bd47-261c6a28f733"
+                    }
+                  ],
+                  "id": "dfc4ec0e-aa8f-4edf-a97c-a6b09bbe3b3e",
+                  "createdAt": "2026-07-28T02:04:49.000Z",
+                  "updatedAt": "2026-07-28T02:04:49.000Z",
+                  "uid": "35240-dfc4ec0e-aa8f-4edf-a97c-a6b09bbe3b3e"
+                }
+              ],
+              "id": "f9ee726d-f0f6-401f-bd5b-183f5e022890",
+              "createdAt": "2026-07-28T02:04:49.000Z",
+              "updatedAt": "2026-07-28T02:04:49.000Z",
+              "uid": "35240-f9ee726d-f0f6-401f-bd5b-183f5e022890"
+            }
+          ],
+          "id": "b6ce7e08-f2ff-4ef5-82e5-0b5fedcf5d35",
+          "createdAt": "2026-07-28T02:04:49.000Z",
+          "updatedAt": "2026-07-28T02:04:49.000Z",
+          "uid": "35240-b6ce7e08-f2ff-4ef5-82e5-0b5fedcf5d35"
+        }
+      ],
+      "id": "b58c918b-24e2-4bfc-96af-5b4f3e752731",
+      "createdAt": "2026-07-28T02:04:49.000Z",
+      "updatedAt": "2026-07-28T02:04:49.000Z",
+      "uid": "35240-b58c918b-24e2-4bfc-96af-5b4f3e752731"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

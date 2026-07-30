@@ -1,0 +1,98 @@
+generated: '2026-07-19'
+method: searched
+source: https://forge.laravel.com/docs/sites/deployments, openapi/laravel-forge-openapi.json,
+  https://forge.laravel.com/api-documentation
+spec_type: Webhooks
+asyncapi_published: false
+notes: Laravel publishes no AsyncAPI document. Laravel Forge does ship a real outbound webhook surface
+  around deployments, plus inbound deploy-hook trigger URLs, and the webhook subscriptions are managed
+  through first-class API operations. That surface is captured here. Laravel Cloud's OpenAPI declares no
+  webhook or event resource. This catalog is the honest scope of the provider's event surface — it is
+  not an invented event taxonomy.
+outbound_webhooks:
+- name: deployment
+  product: Laravel Forge
+  api: laravel:forge-api
+  trigger: Fired after each deployment of a site, for both successful and failed deployments.
+  transport: HTTP POST to an arbitrary subscriber URL
+  docs: https://forge.laravel.com/docs/sites/deployments
+  payload_fields:
+  - name: status
+    type: string
+    description: Deployment outcome, e.g. "success".
+  - name: server.id
+    type: integer
+  - name: server.name
+    type: string
+  - name: site.id
+    type: integer
+  - name: site.name
+    type: string
+  - name: commit_hash
+    type: string
+  - name: commit_url
+    type: string
+  - name: commit_author
+    type: string
+  - name: commit_message
+    type: string
+  example_payload: |
+    {
+      "status": "success",
+      "server": { "id": 123, "name": "my-awesome-server" },
+      "site": { "id": 456, "name": "my-awesome-site.dev" },
+      "commit_hash": "382b0f5185773fa0f67a8ed8056c7759",
+      "commit_url": "https://github.com/johndoe/my-awesome-site/commit/382b0f5185773fa0f67a8ed8056c7759",
+      "commit_author": "John Doe",
+      "commit_message": "deploying!"
+    }
+  management_operations:
+  - openapi/laravel-forge-openapi.json#organizations.servers.sites.webhooks.index
+  - openapi/laravel-forge-openapi.json#organizations.servers.sites.webhooks.store
+  - openapi/laravel-forge-openapi.json#organizations.servers.sites.webhooks.show
+  - openapi/laravel-forge-openapi.json#organizations.servers.sites.webhooks.destroy
+  legacy_operations:
+  - GET /api/v1/servers/{server_id}/sites/{site_id}/webhooks
+  - POST /api/v1/servers/{server_id}/sites/{site_id}/webhooks
+  - DELETE /api/v1/servers/{server_id}/sites/{site_id}/webhooks/{id}
+inbound_hooks:
+- name: deploy-hook
+  product: Laravel Forge
+  api: laravel:forge-api
+  direction: inbound (subscriber calls Laravel to trigger a deployment)
+  methods:
+  - GET
+  - POST
+  description: Each site is issued a unique deployment trigger URI containing an authentication token.
+    Calling it starts a deployment. The token can be regenerated from the dashboard, which immediately
+    invalidates the previous token.
+  docs: https://forge.laravel.com/docs/sites/deployments
+  management_operations:
+  - openapi/laravel-forge-openapi.json#organizations.servers.sites.deployments.deploy-hook.show
+  - openapi/laravel-forge-openapi.json#organizations.servers.sites.deployments.deploy-hook.update
+- name: quick-deploy (source control push)
+  product: Laravel Forge
+  direction: inbound (source control provider calls Laravel on push)
+  description: Forge registers a webhook with the connected source control provider so that pushes to
+    the deployment branch trigger a deployment. Surfaced to deploy scripts as FORGE_QUICK_DEPLOY.
+  docs: https://forge.laravel.com/docs/sites/deployments
+notification_integrations:
+- name: Discord deployment notifications
+  description: Forge posts to a Discord Incoming Webhook URL for both successful and failed deployments.
+  docs: https://forge.laravel.com/docs/sites/deployments
+- name: Deployment failure emails
+  legacy_operation: POST /api/v1/servers/{server_id}/sites/{site_id}/deployment-failure-emails
+polling_surface:
+- description: Forge exposes server events as a polled resource rather than as pushed events.
+  operations:
+  - openapi/laravel-forge-openapi.json#organizations.servers.events.index
+  - openapi/laravel-forge-openapi.json#organizations.servers.events.show
+  note: Forge documents that provisioning takes roughly ten minutes and asks integrators to poll about
+    once every two minutes rather than tightly.
+gaps:
+- No AsyncAPI document is published for the deployment webhook, so the payload contract exists only as a
+  prose example in the documentation.
+- No webhook signing / HMAC verification scheme is documented for the outbound deployment webhook; the
+  inbound deploy hook is authenticated by a bearer token embedded in the URL.
+- No event catalog, no delivery-retry policy and no replay endpoint are documented.
+- Laravel Cloud publishes no webhook or event surface at all in its OpenAPI description.

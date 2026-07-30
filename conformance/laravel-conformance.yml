@@ -1,0 +1,114 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/laravel-forge-openapi.json, openapi/laravel-cloud-openapi.json,
+  https://forge.laravel.com/docs/api-reference/introduction, https://trust.laravel.com/,
+  well-known/laravel-openid-configuration.json
+notes: Standards conformance is asserted only where there is concrete evidence in a harvested spec, a
+  live discovery document, or an explicit published claim. "conforms false" means the evidence was
+  looked for and not found, which is a legitimate result, not a defect.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Both laravel-forge-openapi.json and laravel-cloud-openapi.json declare openapi 3.1.0 and are
+    published at stable, unauthenticated URLs (forge.laravel.com/api/docs.openapi and
+    cloud.laravel.com/api-docs/api.json), each linked from the product llms.txt.
+- id: oauth2
+  conforms: true
+  evidence: The Forge OpenAPI declares an oauth2 securityScheme with an authorizationCode flow
+    (authorizationUrl https://forge.laravel.com/oauth/authorize, tokenUrl
+    https://forge.laravel.com/oauth/token) and 62 named scopes.
+- id: oauth2-bearer-rfc6750
+  conforms: true
+  evidence: 'Both APIs declare an http bearer securityScheme and document the Authorization: Bearer
+    <token> header.'
+- id: oidc
+  conforms: true
+  scope: identity provider only
+  evidence: id.laravel.com serves a valid /.well-known/openid-configuration with issuer,
+    authorization/token/userinfo endpoints, jwks_uri and RS256 id_token signing. This covers Laravel
+    account SSO, not the Forge or Cloud resource APIs.
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  scope: identity provider only
+  evidence: id.laravel.com serves /.well-known/oauth-authorization-server including
+    code_challenge_methods_supported S256 and device-code grant support.
+- id: pkce-rfc7636
+  conforms: true
+  scope: identity provider only
+  evidence: code_challenge_methods_supported = [S256] in the id.laravel.com authorization server metadata.
+- id: json-api
+  conforms: partial
+  evidence: Both APIs serialize success responses as application/vnd.api+json (245 of 377 documented
+    responses) with data / meta / links envelopes, typed resource objects (id + type + attributes) and
+    a relationships object with include support. However errors are returned as plain Laravel JSON on
+    application/json rather than a JSON:API errors array, and Laravel makes no formal JSON:API 1.x
+    conformance claim.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json media type appears in either spec. Errors use the Laravel
+    envelope { message, errors } — see errors/laravel-problem-types.yml.
+- id: pagination
+  conforms: true
+  evidence: Cursor pagination is documented and consistent across both APIs — page[size] and
+    page[cursor], with meta.next_cursor / meta.prev_cursor and links.next / links.prev.
+- id: idempotency
+  conforms: false
+  evidence: Zero occurrences of 'idempoten' across both OpenAPI files and no idempotency contract in the
+    API reference. See conventions/laravel-conventions.yml.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: The legacy Forge v1 discontinuation (2026-07-31) is announced only in documentation prose; no
+    Sunset or Deprecation response headers are declared or documented.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on laravel.com and cloud.laravel.com and redirects to
+    the sign-in page on forge.laravel.com.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404 or a sign-in redirect on every Laravel host.
+- id: llms-txt
+  conforms: true
+  evidence: Both forge.laravel.com/docs/llms.txt and cloud.laravel.com/docs/llms.txt are published, each
+    with an "## OpenAPI Specs" section pointing at the machine-readable description.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document is published. The event surface is outbound deployment webhooks only —
+    see asyncapi/laravel-webhooks.yml.
+- id: mcp
+  conforms: true
+  evidence: Laravel publishes a first-party MCP server (laravel/boost, php artisan boost:mcp) with nine
+    documented tools, plus laravel/mcp for building MCP servers. See mcp/laravel-mcp.yml.
+- id: agent-skills
+  conforms: true
+  evidence: Laravel Boost ships twelve provider-authored Agent Skills in the SKILL.md frontmatter format
+    and documents the format for third-party packages. See skills/_index.yml.
+- id: fhir-r4
+  conforms: false
+- id: scim2
+  conforms: false
+- id: odata
+  conforms: false
+- id: fapi
+  conforms: false
+- id: psd2
+  conforms: false
+compliance_program:
+  published: true
+  url: https://trust.laravel.com/
+  platform: SafeBase
+  certifications:
+  - SOC 2 Type 2
+  - HIPAA
+  frameworks_and_regimes:
+  - GDPR
+  - CCPA
+  - EU-US Data Privacy Framework
+  - Swiss-US Data Privacy Framework
+  - UK Extension to the EU-US Data Privacy Framework
+  evidence_documents:
+  - Pentest Report
+  - SOC 2 Report
+  - Data Processing Agreement
+  - Cyber Insurance
+  access: Public listing; the underlying reports require a request through the Trust Center.
+  see: security/laravel-trust-center.yml

@@ -1,0 +1,534 @@
+{
+  "info": {
+    "_postman_id": "6178d52a-b951-4dd3-846a-9207323b7fbf",
+    "name": "Laravel Cloud Applications Logs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:50.000Z",
+    "updatedAt": "2026-07-28T02:03:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6178d52a-b951-4dd3-846a-9207323b7fbf"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{organization}",
+          "item": [
+            {
+              "name": "servers",
+              "item": [
+                {
+                  "name": "{server}",
+                  "item": [
+                    {
+                      "name": "logs",
+                      "item": [
+                        {
+                          "name": "{key}",
+                          "item": [
+                            {
+                              "name": "Get server log content",
+                              "id": "ff18ee32-cd6b-4965-aa74-58091ac8ee6d",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "logs",
+                                    ":key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "41d361a0-fbc9-44d6-b52d-51f690e2cf47",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "3a2b6376-dfc7-4e47-b106-9fb5aee5ca57",
+                                      "key": "server",
+                                      "value": "<integer>",
+                                      "description": "(Required) The server ID"
+                                    },
+                                    {
+                                      "id": "db4cd07b-305c-4213-ab40-6e722e6e5ec4",
+                                      "key": "key",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "fe8967b6-bcec-422a-a1f6-01a9186c5d9b",
+                                  "name": "`ServerLogResource`",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "logs",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"serverLogs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"content\": \"<string>\"\n    }\n  },\n  \"meta\": {\n    \"log\": \"<string>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T02:03:51.000Z",
+                                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                                  "uid": "35240-fe8967b6-bcec-422a-a1f6-01a9186c5d9b"
+                                },
+                                {
+                                  "id": "2284af28-c367-45a5-8688-d1dde5107294",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "logs",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:03:51.000Z",
+                                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                                  "uid": "35240-2284af28-c367-45a5-8688-d1dde5107294"
+                                },
+                                {
+                                  "id": "c8d81ddc-3740-46e5-9294-74f393e922ce",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "logs",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:03:51.000Z",
+                                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                                  "uid": "35240-c8d81ddc-3740-46e5-9294-74f393e922ce"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:03:51.000Z",
+                              "updatedAt": "2026-07-28T02:03:51.000Z",
+                              "uid": "35240-ff18ee32-cd6b-4965-aa74-58091ac8ee6d"
+                            },
+                            {
+                              "name": "Delete server log content",
+                              "id": "d9113451-abf5-4939-a928-fa92521a3b6f",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "logs",
+                                    ":key"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "cac2aba3-7847-4b52-a86a-49368fe4a41f",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "d4fc1df6-9e5e-42f3-8e72-623065cc365c",
+                                      "key": "server",
+                                      "value": "<integer>",
+                                      "description": "(Required) The server ID"
+                                    },
+                                    {
+                                      "id": "cf167d08-c350-4f9d-b0ee-72156cbda63e",
+                                      "key": "key",
+                                      "value": "<string>",
+                                      "description": "(Required) "
+                                    }
+                                  ]
+                                },
+                                "description": "\n\nProcessing mode: <small><code>async</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "bd06d042-0a64-4d9b-ae9f-bee1bed0eaa5",
+                                  "name": "No content",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "logs",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "No Content",
+                                  "code": 204,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:03:51.000Z",
+                                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                                  "uid": "35240-bd06d042-0a64-4d9b-ae9f-bee1bed0eaa5"
+                                },
+                                {
+                                  "id": "4d430a73-3c58-4909-95ef-f376ce6e7356",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "logs",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:03:51.000Z",
+                                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                                  "uid": "35240-4d430a73-3c58-4909-95ef-f376ce6e7356"
+                                },
+                                {
+                                  "id": "cad257d0-bceb-4c9d-8b7e-c17c24620112",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/logs/:key",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "logs",
+                                        ":key"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "key"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:03:51.000Z",
+                                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                                  "uid": "35240-cad257d0-bceb-4c9d-8b7e-c17c24620112"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:03:51.000Z",
+                              "updatedAt": "2026-07-28T02:03:51.000Z",
+                              "uid": "35240-d9113451-abf5-4939-a928-fa92521a3b6f"
+                            }
+                          ],
+                          "id": "08afee9b-fba7-4ea0-88ef-1dbf99a08fd6",
+                          "createdAt": "2026-07-28T02:03:51.000Z",
+                          "updatedAt": "2026-07-28T02:03:51.000Z",
+                          "uid": "35240-08afee9b-fba7-4ea0-88ef-1dbf99a08fd6"
+                        }
+                      ],
+                      "id": "4261e0e4-c28a-4615-b5bf-c4dd8941141d",
+                      "createdAt": "2026-07-28T02:03:51.000Z",
+                      "updatedAt": "2026-07-28T02:03:51.000Z",
+                      "uid": "35240-4261e0e4-c28a-4615-b5bf-c4dd8941141d"
+                    }
+                  ],
+                  "id": "89dbc083-97c2-45ac-90f9-9222cd6672ea",
+                  "createdAt": "2026-07-28T02:03:51.000Z",
+                  "updatedAt": "2026-07-28T02:03:51.000Z",
+                  "uid": "35240-89dbc083-97c2-45ac-90f9-9222cd6672ea"
+                }
+              ],
+              "id": "939cce62-95cd-4ff8-9de4-03f36e0cae0b",
+              "createdAt": "2026-07-28T02:03:51.000Z",
+              "updatedAt": "2026-07-28T02:03:51.000Z",
+              "uid": "35240-939cce62-95cd-4ff8-9de4-03f36e0cae0b"
+            }
+          ],
+          "id": "af3d04ff-1cc0-400d-9ff5-8b48ec0bb45e",
+          "createdAt": "2026-07-28T02:03:51.000Z",
+          "updatedAt": "2026-07-28T02:03:51.000Z",
+          "uid": "35240-af3d04ff-1cc0-400d-9ff5-8b48ec0bb45e"
+        }
+      ],
+      "id": "845b7769-7f5f-4d9d-bd61-e42959a9b7db",
+      "createdAt": "2026-07-28T02:03:51.000Z",
+      "updatedAt": "2026-07-28T02:03:51.000Z",
+      "uid": "35240-845b7769-7f5f-4d9d-bd61-e42959a9b7db"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

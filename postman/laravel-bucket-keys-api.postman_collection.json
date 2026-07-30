@@ -1,0 +1,1326 @@
+{
+  "info": {
+    "_postman_id": "a613ac79-6090-442f-9b22-59b182a6fea6",
+    "name": "Laravel Cloud Applications Bucket Keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:02:51.000Z",
+    "updatedAt": "2026-07-28T02:02:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a613ac79-6090-442f-9b22-59b182a6fea6"
+  },
+  "item": [
+    {
+      "name": "buckets",
+      "item": [
+        {
+          "name": "{filesystem}",
+          "item": [
+            {
+              "name": "keys",
+              "item": [
+                {
+                  "name": "List object storage keys",
+                  "id": "eb4448f2-30ef-496f-a182-8b27cc9adc90",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/buckets/:filesystem/keys?include=filesystem,filesystem",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "buckets",
+                        ":filesystem",
+                        "keys"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "filesystem,filesystem"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "0681ee33-00cd-4543-b2b3-473c8dec05a6",
+                          "key": "filesystem",
+                          "value": "<string>",
+                          "description": "(Required) The filesystem identifier"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of all keys for a specific object storage bucket."
+                  },
+                  "response": [
+                    {
+                      "id": "70e54c7a-26b5-4241-b42d-dc469779be1a",
+                      "name": "Paginated set of `FilesystemKeyResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys?include=filesystem,filesystem",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "query": [
+                            {
+                              "key": "include",
+                              "value": "filesystem,filesystem"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"permission\": \"read_only\",\n        \"access_key_id\": \"<string,null>\",\n        \"access_key_secret\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"permission\": \"read_write\",\n        \"access_key_id\": \"<string,null>\",\n        \"access_key_secret\": \"<string,null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"deleting\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"eu\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"unknown\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"default\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-70e54c7a-26b5-4241-b42d-dc469779be1a"
+                    },
+                    {
+                      "id": "b4af07d2-950a-4662-9910-ea472c58431e",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys?include=filesystem,filesystem",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "query": [
+                            {
+                              "key": "include",
+                              "value": "filesystem,filesystem"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-b4af07d2-950a-4662-9910-ea472c58431e"
+                    },
+                    {
+                      "id": "7dbb2752-72f4-46af-b19a-dc166dd928cd",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys?include=filesystem,filesystem",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "query": [
+                            {
+                              "key": "include",
+                              "value": "filesystem,filesystem"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-7dbb2752-72f4-46af-b19a-dc166dd928cd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-eb4448f2-30ef-496f-a182-8b27cc9adc90"
+                },
+                {
+                  "name": "Create object storage key",
+                  "id": "af45bc76-fd48-4adb-b9be-fa967929c4f5",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"permission\": \"read_only\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/buckets/:filesystem/keys",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "buckets",
+                        ":filesystem",
+                        "keys"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b711d41f-36bb-4c11-9f3e-bdb029fed2ab",
+                          "key": "filesystem",
+                          "value": "<string>",
+                          "description": "(Required) The filesystem identifier"
+                        }
+                      ]
+                    },
+                    "description": "Create a new key for an object storage bucket."
+                  },
+                  "response": [
+                    {
+                      "id": "858fd72d-2135-4324-a1bd-e27e331ac15a",
+                      "name": "`FilesystemKeyResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"permission\": \"read_only\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"filesystemKeys\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"permission\": \"read_write\",\n      \"access_key_id\": \"<string,null>\",\n      \"access_key_secret\": \"<string,null>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"filesystem\": {\n        \"data\": {\n          \"type\": \"filesystems\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"deleted\",\n        \"visibility\": \"public\",\n        \"jurisdiction\": \"default\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"updating\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"eu\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-858fd72d-2135-4324-a1bd-e27e331ac15a"
+                    },
+                    {
+                      "id": "d579e8ac-afb2-406d-aafe-5ee6dc0438ac",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"permission\": \"read_only\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-d579e8ac-afb2-406d-aafe-5ee6dc0438ac"
+                    },
+                    {
+                      "id": "45cba24d-f4ce-4bbb-8b5d-3310561df035",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"permission\": \"read_only\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-45cba24d-f4ce-4bbb-8b5d-3310561df035"
+                    },
+                    {
+                      "id": "dc6566e9-2e9f-478f-9cd9-b1df9d30dab6",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"permission\": \"read_only\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/buckets/:filesystem/keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "buckets",
+                            ":filesystem",
+                            "keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "filesystem"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"non6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"voluptate__\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:02:52.000Z",
+                      "updatedAt": "2026-07-28T02:02:52.000Z",
+                      "uid": "35240-dc6566e9-2e9f-478f-9cd9-b1df9d30dab6"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-af45bc76-fd48-4adb-b9be-fa967929c4f5"
+                }
+              ],
+              "id": "56dee118-c472-4e82-90be-8b78bdb2acfb",
+              "createdAt": "2026-07-28T02:02:52.000Z",
+              "updatedAt": "2026-07-28T02:02:52.000Z",
+              "uid": "35240-56dee118-c472-4e82-90be-8b78bdb2acfb"
+            }
+          ],
+          "id": "6d257d61-e503-4bd6-9476-4220f8daab12",
+          "createdAt": "2026-07-28T02:02:52.000Z",
+          "updatedAt": "2026-07-28T02:02:52.000Z",
+          "uid": "35240-6d257d61-e503-4bd6-9476-4220f8daab12"
+        }
+      ],
+      "id": "6438d75b-34bf-40e2-935a-7e4700431e31",
+      "createdAt": "2026-07-28T02:02:52.000Z",
+      "updatedAt": "2026-07-28T02:02:52.000Z",
+      "uid": "35240-6438d75b-34bf-40e2-935a-7e4700431e31"
+    },
+    {
+      "name": "bucket-keys",
+      "item": [
+        {
+          "name": "{filesystemKey}",
+          "item": [
+            {
+              "name": "Get object storage key",
+              "id": "880182d4-11f8-428f-ba2c-501bb9d7ab9d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/bucket-keys/:filesystemKey?include=filesystem,filesystem",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket-keys",
+                    ":filesystemKey"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "filesystem,filesystem"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "69cb3cf1-b70f-4bf6-a389-53ff2ca8be9b",
+                      "key": "filesystemKey",
+                      "value": "<string>",
+                      "description": "(Required) The filesystem key identifier"
+                    }
+                  ]
+                },
+                "description": "Get a specific object storage key."
+              },
+              "response": [
+                {
+                  "id": "c85541fe-37bd-4be1-8fcb-16b99885a1dd",
+                  "name": "`FilesystemKeyResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey?include=filesystem,filesystem",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "filesystem,filesystem"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"filesystemKeys\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"permission\": \"read_write\",\n      \"access_key_id\": \"<string,null>\",\n      \"access_key_secret\": \"<string,null>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"filesystem\": {\n        \"data\": {\n          \"type\": \"filesystems\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"deleted\",\n        \"visibility\": \"public\",\n        \"jurisdiction\": \"default\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"updating\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"eu\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-c85541fe-37bd-4be1-8fcb-16b99885a1dd"
+                },
+                {
+                  "id": "a20cd808-57e9-44de-a573-e1a354b8d0ac",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey?include=filesystem,filesystem",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "filesystem,filesystem"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-a20cd808-57e9-44de-a573-e1a354b8d0ac"
+                },
+                {
+                  "id": "e6851288-bd13-415d-8f8c-0b05c94701d2",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey?include=filesystem,filesystem",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "filesystem,filesystem"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-e6851288-bd13-415d-8f8c-0b05c94701d2"
+                }
+              ],
+              "createdAt": "2026-07-28T02:02:52.000Z",
+              "updatedAt": "2026-07-28T02:02:52.000Z",
+              "uid": "35240-880182d4-11f8-428f-ba2c-501bb9d7ab9d"
+            },
+            {
+              "name": "Update object storage key",
+              "id": "7d68e298-4fcd-4a69-b916-6fc0fd99e8a9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket-keys",
+                    ":filesystemKey"
+                  ],
+                  "variable": [
+                    {
+                      "id": "74da5717-2f8e-4306-ae91-1c1606864acb",
+                      "key": "filesystemKey",
+                      "value": "<string>",
+                      "description": "(Required) The filesystem key identifier"
+                    }
+                  ]
+                },
+                "description": "Update an object storage key."
+              },
+              "response": [
+                {
+                  "id": "ed058796-7816-4138-a6e7-d69dc2e0581e",
+                  "name": "`FilesystemKeyResource`",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"filesystemKeys\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"permission\": \"read_write\",\n      \"access_key_id\": \"<string,null>\",\n      \"access_key_secret\": \"<string,null>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"filesystem\": {\n        \"data\": {\n          \"type\": \"filesystems\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"deleted\",\n        \"visibility\": \"public\",\n        \"jurisdiction\": \"default\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"updating\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"eu\",\n        \"endpoint\": \"<string,null>\",\n        \"url\": \"<string,null>\",\n        \"allowed_origins\": \"<null>\",\n        \"cors_settings\": \"<null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-ed058796-7816-4138-a6e7-d69dc2e0581e"
+                },
+                {
+                  "id": "8d768c3f-972c-4a55-8333-83e34bc1d0c7",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-8d768c3f-972c-4a55-8333-83e34bc1d0c7"
+                },
+                {
+                  "id": "78c2bef3-b7ef-445b-9df3-8069ba7f0c79",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-78c2bef3-b7ef-445b-9df3-8069ba7f0c79"
+                },
+                {
+                  "id": "75d8d0c6-76cb-421c-85d1-382ef7192758",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"non6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"voluptate__\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-75d8d0c6-76cb-421c-85d1-382ef7192758"
+                }
+              ],
+              "createdAt": "2026-07-28T02:02:52.000Z",
+              "updatedAt": "2026-07-28T02:02:52.000Z",
+              "uid": "35240-7d68e298-4fcd-4a69-b916-6fc0fd99e8a9"
+            },
+            {
+              "name": "Delete object storage key",
+              "id": "44f0dd7d-9081-406b-8ac6-2bfcc9aa7508",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket-keys",
+                    ":filesystemKey"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9ce5b9b9-ec14-491f-aafa-c69aa89ad2f2",
+                      "key": "filesystemKey",
+                      "value": "<string>",
+                      "description": "(Required) The filesystem key identifier"
+                    }
+                  ]
+                },
+                "description": "Delete an object storage key."
+              },
+              "response": [
+                {
+                  "id": "09229a65-7407-45c2-80dd-0197dc853eb8",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-09229a65-7407-45c2-80dd-0197dc853eb8"
+                },
+                {
+                  "id": "41eb8b40-b595-461c-9037-1f681e85a560",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-41eb8b40-b595-461c-9037-1f681e85a560"
+                },
+                {
+                  "id": "5b320fbe-ee3e-468e-9348-658ec71476b1",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-5b320fbe-ee3e-468e-9348-658ec71476b1"
+                },
+                {
+                  "id": "506ff382-a702-4c8f-80af-83e1964efbfa",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket-keys/:filesystemKey",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket-keys",
+                        ":filesystemKey"
+                      ],
+                      "variable": [
+                        {
+                          "key": "filesystemKey"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"non6\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"voluptate__\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:02:52.000Z",
+                  "updatedAt": "2026-07-28T02:02:52.000Z",
+                  "uid": "35240-506ff382-a702-4c8f-80af-83e1964efbfa"
+                }
+              ],
+              "createdAt": "2026-07-28T02:02:52.000Z",
+              "updatedAt": "2026-07-28T02:02:52.000Z",
+              "uid": "35240-44f0dd7d-9081-406b-8ac6-2bfcc9aa7508"
+            }
+          ],
+          "id": "8d0eed02-0a29-49e9-b82d-d7909c6176e3",
+          "createdAt": "2026-07-28T02:02:52.000Z",
+          "updatedAt": "2026-07-28T02:02:52.000Z",
+          "uid": "35240-8d0eed02-0a29-49e9-b82d-d7909c6176e3"
+        }
+      ],
+      "id": "cebe5758-0423-4898-aa45-2e3cfc590907",
+      "createdAt": "2026-07-28T02:02:52.000Z",
+      "updatedAt": "2026-07-28T02:02:52.000Z",
+      "uid": "35240-cebe5758-0423-4898-aa45-2e3cfc590907"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

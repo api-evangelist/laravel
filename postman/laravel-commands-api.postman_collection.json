@@ -1,0 +1,2380 @@
+{
+  "info": {
+    "_postman_id": "f4224a02-f83f-4a38-b86c-be5ec1831c9b",
+    "name": "Laravel Cloud Applications Commands API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:21.000Z",
+    "updatedAt": "2026-07-28T02:03:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f4224a02-f83f-4a38-b86c-be5ec1831c9b"
+  },
+  "item": [
+    {
+      "name": "environments",
+      "item": [
+        {
+          "name": "{environment}",
+          "item": [
+            {
+              "name": "commands",
+              "item": [
+                {
+                  "name": "List commands",
+                  "id": "2035ff4e-1e83-4849-a664-d901108120f1",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/environments/:environment/commands?filter[status]=<string>&filter[command]=<string>&include=environment,initiator",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "environments",
+                        ":environment",
+                        "commands"
+                      ],
+                      "query": [
+                        {
+                          "key": "filter[status]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[command]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "include",
+                          "value": "environment,initiator"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8c949d8b-f34f-4233-bb7f-d0ca86abe47d",
+                          "key": "environment",
+                          "value": "<string>",
+                          "description": "(Required) The environment identifier"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of all commands for the given environment."
+                  },
+                  "response": [
+                    {
+                      "id": "9048cf5e-1a87-4933-a4fa-cc269a9678af",
+                      "name": "Paginated set of `CommandResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands?filter[status]=<string>&filter[command]=<string>&include=environment,initiator",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[command]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "environment,initiator"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"commands\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"command\": \"<string>\",\n        \"output\": \"<string,null>\",\n        \"status\": \"command.created\",\n        \"exit_code\": 0,\n        \"failure_reason\": \"<string,null>\",\n        \"started_at\": \"<string,null-date-time>\",\n        \"finished_at\": \"<string,null-date-time>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"initiator\": {\n          \"data\": {\n            \"type\": \"users\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"commands\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"command\": \"<string>\",\n        \"output\": \"<string,null>\",\n        \"status\": \"pending\",\n        \"exit_code\": 1,\n        \"failure_reason\": \"<string,null>\",\n        \"started_at\": \"<string,null-date-time>\",\n        \"finished_at\": \"<string,null-date-time>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"initiator\": {\n          \"data\": {\n            \"type\": \"users\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"page_preview\",\n              \"advertising_and_marketing\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 750,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.5\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"accessibility\",\n              \"security\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"ban\",\n              \"per_minute\": 300,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-9048cf5e-1a87-4933-a4fa-cc269a9678af"
+                    },
+                    {
+                      "id": "482ce062-d386-42a2-8bef-170b7f0a2c9d",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands?filter[status]=<string>&filter[command]=<string>&include=environment,initiator",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[command]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "environment,initiator"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-482ce062-d386-42a2-8bef-170b7f0a2c9d"
+                    },
+                    {
+                      "id": "52e688b0-2d44-4a86-bb8e-b25ef559b2b4",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands?filter[status]=<string>&filter[command]=<string>&include=environment,initiator",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[status]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[command]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "environment,initiator"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-52e688b0-2d44-4a86-bb8e-b25ef559b2b4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:21.000Z",
+                  "updatedAt": "2026-07-28T02:03:21.000Z",
+                  "uid": "35240-2035ff4e-1e83-4849-a664-d901108120f1"
+                },
+                {
+                  "name": "Run command",
+                  "id": "0e053807-754f-4ed6-9a02-e34be43ef954",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"command\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/environments/:environment/commands",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "environments",
+                        ":environment",
+                        "commands"
+                      ],
+                      "variable": [
+                        {
+                          "id": "80f833cc-b2e1-4755-92f3-d9223d17555b",
+                          "key": "environment",
+                          "value": "<string>",
+                          "description": "(Required) The environment identifier"
+                        }
+                      ]
+                    },
+                    "description": "Run a command on the given environment."
+                  },
+                  "response": [
+                    {
+                      "id": "22483497-948e-49ed-bf80-98f679fb1491",
+                      "name": "`CommandResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"commands\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"command\": \"<string>\",\n      \"output\": \"<string,null>\",\n      \"status\": \"pending\",\n      \"exit_code\": 0,\n      \"failure_reason\": \"<string,null>\",\n      \"started_at\": \"<string,null-date-time>\",\n      \"finished_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"deployment\": {\n        \"data\": {\n          \"type\": \"deployments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"initiator\": {\n        \"data\": {\n          \"type\": \"users\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"running\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"feed_fetcher\",\n              \"feed_fetcher\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"feed_fetcher\",\n              \"academic_research\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-22483497-948e-49ed-bf80-98f679fb1491"
+                    },
+                    {
+                      "id": "aa7a803f-d1ac-4deb-8207-38dff25437e2",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-aa7a803f-d1ac-4deb-8207-38dff25437e2"
+                    },
+                    {
+                      "id": "5a2c5dd2-b7c9-4e8f-a02e-6b80c30f49b8",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-5a2c5dd2-b7c9-4e8f-a02e-6b80c30f49b8"
+                    },
+                    {
+                      "id": "d45d47f3-0c3f-4d7f-82e2-e668a1063ebf",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/commands",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "commands"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"non_c\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:22.000Z",
+                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                      "uid": "35240-d45d47f3-0c3f-4d7f-82e2-e668a1063ebf"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:21.000Z",
+                  "updatedAt": "2026-07-28T02:03:21.000Z",
+                  "uid": "35240-0e053807-754f-4ed6-9a02-e34be43ef954"
+                }
+              ],
+              "id": "3c4647a4-3e13-4cf1-8493-a3fd577a40e3",
+              "createdAt": "2026-07-28T02:03:21.000Z",
+              "updatedAt": "2026-07-28T02:03:21.000Z",
+              "uid": "35240-3c4647a4-3e13-4cf1-8493-a3fd577a40e3"
+            }
+          ],
+          "id": "c5a24f0b-c79e-4bea-bfdc-670c3cb8b499",
+          "createdAt": "2026-07-28T02:03:21.000Z",
+          "updatedAt": "2026-07-28T02:03:21.000Z",
+          "uid": "35240-c5a24f0b-c79e-4bea-bfdc-670c3cb8b499"
+        }
+      ],
+      "id": "7c8e550b-990e-45b1-8b43-7f2263869580",
+      "createdAt": "2026-07-28T02:03:21.000Z",
+      "updatedAt": "2026-07-28T02:03:21.000Z",
+      "uid": "35240-7c8e550b-990e-45b1-8b43-7f2263869580"
+    },
+    {
+      "name": "commands",
+      "item": [
+        {
+          "name": "{command}",
+          "item": [
+            {
+              "name": "Get command",
+              "id": "f50d8239-d7a0-4fab-8234-732c567c1d2e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/commands/:command?include=environment,initiator",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "commands",
+                    ":command"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "environment,initiator"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "2deaee7a-66d9-4414-a1c6-239d08902d56",
+                      "key": "command",
+                      "value": "<string>",
+                      "description": "(Required) The command identifier"
+                    }
+                  ]
+                },
+                "description": "Get the details of a specific command."
+              },
+              "response": [
+                {
+                  "id": "9ebc3309-15ad-483b-b1bb-0f9251d0c908",
+                  "name": "`CommandResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commands/:command?include=environment,initiator",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commands",
+                        ":command"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "environment,initiator"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "command"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"commands\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"command\": \"<string>\",\n      \"output\": \"<string,null>\",\n      \"status\": \"pending\",\n      \"exit_code\": 0,\n      \"failure_reason\": \"<string,null>\",\n      \"started_at\": \"<string,null-date-time>\",\n      \"finished_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"deployment\": {\n        \"data\": {\n          \"type\": \"deployments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"initiator\": {\n        \"data\": {\n          \"type\": \"users\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"running\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"feed_fetcher\",\n              \"feed_fetcher\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"feed_fetcher\",\n              \"academic_research\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 100,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:22.000Z",
+                  "updatedAt": "2026-07-28T02:03:22.000Z",
+                  "uid": "35240-9ebc3309-15ad-483b-b1bb-0f9251d0c908"
+                },
+                {
+                  "id": "9272c51f-44b9-4f8a-b994-342373a1bdbb",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commands/:command?include=environment,initiator",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commands",
+                        ":command"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "environment,initiator"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "command"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:22.000Z",
+                  "updatedAt": "2026-07-28T02:03:22.000Z",
+                  "uid": "35240-9272c51f-44b9-4f8a-b994-342373a1bdbb"
+                },
+                {
+                  "id": "bc359747-362f-4f1d-84ab-e59249c544b6",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/commands/:command?include=environment,initiator",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "commands",
+                        ":command"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "environment,initiator"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "command"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:22.000Z",
+                  "updatedAt": "2026-07-28T02:03:22.000Z",
+                  "uid": "35240-bc359747-362f-4f1d-84ab-e59249c544b6"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:21.000Z",
+              "updatedAt": "2026-07-28T02:03:21.000Z",
+              "uid": "35240-f50d8239-d7a0-4fab-8234-732c567c1d2e"
+            }
+          ],
+          "id": "31523f47-8ed1-4d6c-bfa1-bfb4f59b4da5",
+          "createdAt": "2026-07-28T02:03:21.000Z",
+          "updatedAt": "2026-07-28T02:03:21.000Z",
+          "uid": "35240-31523f47-8ed1-4d6c-bfa1-bfb4f59b4da5"
+        }
+      ],
+      "id": "7c49bf60-3e65-47f6-acc3-7bd8f6e8ffc2",
+      "createdAt": "2026-07-28T02:03:21.000Z",
+      "updatedAt": "2026-07-28T02:03:21.000Z",
+      "uid": "35240-7c49bf60-3e65-47f6-acc3-7bd8f6e8ffc2"
+    },
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{organization}",
+          "item": [
+            {
+              "name": "servers",
+              "item": [
+                {
+                  "name": "{server}",
+                  "item": [
+                    {
+                      "name": "sites",
+                      "item": [
+                        {
+                          "name": "{site}",
+                          "item": [
+                            {
+                              "name": "commands",
+                              "item": [
+                                {
+                                  "name": "{command}",
+                                  "item": [
+                                    {
+                                      "name": "output",
+                                      "item": [
+                                        {
+                                          "name": "Get command output",
+                                          "id": "b5ff11a9-ba43-4b20-b358-323c2af58ebc",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/vnd.api+json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command/output",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command",
+                                                "output"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "5bed82b9-dc00-49ab-a0c7-e4d2ab6e7cee",
+                                                  "key": "organization",
+                                                  "value": "<string>",
+                                                  "description": "(Required) The organization slug"
+                                                },
+                                                {
+                                                  "id": "1399c059-5547-424a-ad4f-652eb6470e02",
+                                                  "key": "server",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) The server ID"
+                                                },
+                                                {
+                                                  "id": "276c094f-53d0-4c81-9509-0c8582c4d916",
+                                                  "key": "site",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) The site ID"
+                                                },
+                                                {
+                                                  "id": "ca7a0de0-cb5a-4eca-a9c3-6f5c6d03d5ee",
+                                                  "key": "command",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) The command ID"
+                                                }
+                                              ]
+                                            },
+                                            "description": "Get the output of a specific command run.\n\nProcessing mode: <small><code>sync</code></small>"
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "005728b1-42ad-4d00-9d37-5ba9e1950a57",
+                                              "name": "`CommandOutputResource`",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/vnd.api+json"
+                                                  },
+                                                  {
+                                                    "description": "Added as a part of security scheme: bearer",
+                                                    "key": "Authorization",
+                                                    "value": "Bearer <token>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command/output",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "orgs",
+                                                    ":organization",
+                                                    "servers",
+                                                    ":server",
+                                                    "sites",
+                                                    ":site",
+                                                    "commands",
+                                                    ":command",
+                                                    "output"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "organization"
+                                                    },
+                                                    {
+                                                      "key": "server"
+                                                    },
+                                                    {
+                                                      "key": "site"
+                                                    },
+                                                    {
+                                                      "key": "command"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/vnd.api+json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"commandOutputs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"output\": \"<string>\"\n    }\n  }\n}",
+                                              "createdAt": "2026-07-28T02:03:22.000Z",
+                                              "updatedAt": "2026-07-28T02:03:22.000Z",
+                                              "uid": "35240-005728b1-42ad-4d00-9d37-5ba9e1950a57"
+                                            },
+                                            {
+                                              "id": "acecd25d-9710-4955-98d6-df388b454ce8",
+                                              "name": "Authorization error",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  },
+                                                  {
+                                                    "description": "Added as a part of security scheme: bearer",
+                                                    "key": "Authorization",
+                                                    "value": "Bearer <token>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command/output",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "orgs",
+                                                    ":organization",
+                                                    "servers",
+                                                    ":server",
+                                                    "sites",
+                                                    ":site",
+                                                    "commands",
+                                                    ":command",
+                                                    "output"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "organization"
+                                                    },
+                                                    {
+                                                      "key": "server"
+                                                    },
+                                                    {
+                                                      "key": "site"
+                                                    },
+                                                    {
+                                                      "key": "command"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "Forbidden",
+                                              "code": 403,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"message\": \"<string>\"\n}",
+                                              "createdAt": "2026-07-28T02:03:22.000Z",
+                                              "updatedAt": "2026-07-28T02:03:22.000Z",
+                                              "uid": "35240-acecd25d-9710-4955-98d6-df388b454ce8"
+                                            },
+                                            {
+                                              "id": "75d85d13-41c0-4498-a8a5-a58f99015bb0",
+                                              "name": "Not found",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  },
+                                                  {
+                                                    "description": "Added as a part of security scheme: bearer",
+                                                    "key": "Authorization",
+                                                    "value": "Bearer <token>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command/output",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "orgs",
+                                                    ":organization",
+                                                    "servers",
+                                                    ":server",
+                                                    "sites",
+                                                    ":site",
+                                                    "commands",
+                                                    ":command",
+                                                    "output"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "organization"
+                                                    },
+                                                    {
+                                                      "key": "server"
+                                                    },
+                                                    {
+                                                      "key": "site"
+                                                    },
+                                                    {
+                                                      "key": "command"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "Not Found",
+                                              "code": 404,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"message\": \"<string>\"\n}",
+                                              "createdAt": "2026-07-28T02:03:22.000Z",
+                                              "updatedAt": "2026-07-28T02:03:22.000Z",
+                                              "uid": "35240-75d85d13-41c0-4498-a8a5-a58f99015bb0"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:03:21.000Z",
+                                          "updatedAt": "2026-07-28T02:03:21.000Z",
+                                          "uid": "35240-b5ff11a9-ba43-4b20-b358-323c2af58ebc"
+                                        }
+                                      ],
+                                      "id": "cc66e1e1-a834-48bf-b9b1-a4803f89ed8a",
+                                      "createdAt": "2026-07-28T02:03:21.000Z",
+                                      "updatedAt": "2026-07-28T02:03:21.000Z",
+                                      "uid": "35240-cc66e1e1-a834-48bf-b9b1-a4803f89ed8a"
+                                    },
+                                    {
+                                      "name": "Get command",
+                                      "id": "1c830f2b-6e1a-409f-90b0-11f3cbdfa248",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands",
+                                            ":command"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "597bd1ab-8dfe-4fab-b45e-2938adb26399",
+                                              "key": "organization",
+                                              "value": "<string>",
+                                              "description": "(Required) The organization slug"
+                                            },
+                                            {
+                                              "id": "c3efd23e-173f-4f3d-9c76-6d55a6912ee8",
+                                              "key": "server",
+                                              "value": "<integer>",
+                                              "description": "(Required) The server ID"
+                                            },
+                                            {
+                                              "id": "ab344fb2-3acc-40d6-a72a-1068a306cd9f",
+                                              "key": "site",
+                                              "value": "<integer>",
+                                              "description": "(Required) The site ID"
+                                            },
+                                            {
+                                              "id": "92112009-a29c-4181-b7bf-d171ed77371b",
+                                              "key": "command",
+                                              "value": "<integer>",
+                                              "description": "(Required) The command ID"
+                                            }
+                                          ]
+                                        },
+                                        "description": "Get a specific command run.\n\nProcessing mode: <small><code>sync</code></small>"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "e7c37b2b-b26b-4003-9029-e01eac992cf8",
+                                          "name": "`CommandResource`",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/vnd.api+json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "command"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/vnd.api+json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"commands\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"command\": \"<string>\",\n      \"status\": \"waiting\",\n      \"exit_code\": \"<integer,null>\",\n      \"error_output\": \"<string,null>\",\n      \"duration\": \"<string>\",\n      \"user_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    \"relationships\": {\n      \"user\": {\n        \"data\": {\n          \"type\": \"users\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"users\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"users\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ]\n}",
+                                          "createdAt": "2026-07-28T02:03:22.000Z",
+                                          "updatedAt": "2026-07-28T02:03:22.000Z",
+                                          "uid": "35240-e7c37b2b-b26b-4003-9029-e01eac992cf8"
+                                        },
+                                        {
+                                          "id": "a8d2dfdf-57b8-4246-9be5-999f6a4fe36f",
+                                          "name": "Authorization error",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "command"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:03:22.000Z",
+                                          "updatedAt": "2026-07-28T02:03:22.000Z",
+                                          "uid": "35240-a8d2dfdf-57b8-4246-9be5-999f6a4fe36f"
+                                        },
+                                        {
+                                          "id": "a3f09b9d-dbbd-44c5-8033-59340997a5f6",
+                                          "name": "Not found",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "command"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:03:22.000Z",
+                                          "updatedAt": "2026-07-28T02:03:22.000Z",
+                                          "uid": "35240-a3f09b9d-dbbd-44c5-8033-59340997a5f6"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:03:21.000Z",
+                                      "updatedAt": "2026-07-28T02:03:21.000Z",
+                                      "uid": "35240-1c830f2b-6e1a-409f-90b0-11f3cbdfa248"
+                                    },
+                                    {
+                                      "name": "Delete command",
+                                      "id": "96c3fcc0-3a9c-4f49-904d-3fa82b265f31",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands",
+                                            ":command"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "d6ee9609-fc68-422b-9e7a-fb1b79af6427",
+                                              "key": "organization",
+                                              "value": "<string>",
+                                              "description": "(Required) The organization slug"
+                                            },
+                                            {
+                                              "id": "271cc6e4-c1d3-4eb9-a220-13752af9b2d9",
+                                              "key": "server",
+                                              "value": "<integer>",
+                                              "description": "(Required) The server ID"
+                                            },
+                                            {
+                                              "id": "39b959fc-2092-4292-a5c1-6f43eab737e9",
+                                              "key": "site",
+                                              "value": "<integer>",
+                                              "description": "(Required) The site ID"
+                                            },
+                                            {
+                                              "id": "5b38ce06-b165-4f41-8380-ff6c2fab786c",
+                                              "key": "command",
+                                              "value": "<integer>",
+                                              "description": "(Required) The command ID"
+                                            }
+                                          ]
+                                        },
+                                        "description": "Delete a command history.\n\nProcessing mode: <small><code>sync</code></small>"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "f9ac3a55-50b3-4866-af24-c621c9eb82b7",
+                                          "name": "New Response",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "command"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Accepted",
+                                          "code": 202,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:03:22.000Z",
+                                          "updatedAt": "2026-07-28T02:03:22.000Z",
+                                          "uid": "35240-f9ac3a55-50b3-4866-af24-c621c9eb82b7"
+                                        },
+                                        {
+                                          "id": "d9be9112-447d-4cdc-9b47-91918f2e0e4f",
+                                          "name": "Authorization error",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "command"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:03:22.000Z",
+                                          "updatedAt": "2026-07-28T02:03:22.000Z",
+                                          "uid": "35240-d9be9112-447d-4cdc-9b47-91918f2e0e4f"
+                                        },
+                                        {
+                                          "id": "f8e9cb67-0fce-4b93-a18c-a8c4b7e7f02b",
+                                          "name": "Not found",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands/:command",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "commands",
+                                                ":command"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "command"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:03:22.000Z",
+                                          "updatedAt": "2026-07-28T02:03:22.000Z",
+                                          "uid": "35240-f8e9cb67-0fce-4b93-a18c-a8c4b7e7f02b"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:03:21.000Z",
+                                      "updatedAt": "2026-07-28T02:03:21.000Z",
+                                      "uid": "35240-96c3fcc0-3a9c-4f49-904d-3fa82b265f31"
+                                    }
+                                  ],
+                                  "id": "221e5b75-287e-43f9-9467-12bb1d839e16",
+                                  "createdAt": "2026-07-28T02:03:21.000Z",
+                                  "updatedAt": "2026-07-28T02:03:21.000Z",
+                                  "uid": "35240-221e5b75-287e-43f9-9467-12bb1d839e16"
+                                },
+                                {
+                                  "name": "List commands",
+                                  "id": "c67913e7-fbd1-44f1-ab58-409753a92017",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands?page[size]=30&page[cursor]=<string>&filter[user_id]=<string>&filter[status]=<string>&filter[command]=<string>&sort=status,created_at",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "sites",
+                                        ":site",
+                                        "commands"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The number of results that will be returned per page.",
+                                          "key": "page[size]",
+                                          "value": "30"
+                                        },
+                                        {
+                                          "description": "The cursor to start the pagination from.",
+                                          "key": "page[cursor]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The user ID of the command initiator.",
+                                          "key": "filter[user_id]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The status of the command.",
+                                          "key": "filter[status]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "description": "The command it ran.",
+                                          "key": "filter[command]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "key": "sort",
+                                          "value": "status,created_at"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "ac28e56f-e42d-4fd1-8b73-97bf0bd30310",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "095fd0e2-ccab-4013-8425-ff9f51d16029",
+                                          "key": "server",
+                                          "value": "<integer>",
+                                          "description": "(Required) The server ID"
+                                        },
+                                        {
+                                          "id": "3d1e5ba7-e4cc-4bf7-a795-82ba2764c7c6",
+                                          "key": "site",
+                                          "value": "<integer>",
+                                          "description": "(Required) The site ID"
+                                        }
+                                      ]
+                                    },
+                                    "description": "List all command runs for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "36be1122-306b-46d3-a81f-c40aa5a173ad",
+                                      "name": "Paginated set of `CommandResource`",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands?page[size]=30&page[cursor]=<string>&filter[user_id]=<string>&filter[status]=<string>&filter[command]=<string>&sort=status,created_at",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "The number of results that will be returned per page.",
+                                              "key": "page[size]",
+                                              "value": "30"
+                                            },
+                                            {
+                                              "description": "The cursor to start the pagination from.",
+                                              "key": "page[cursor]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The user ID of the command initiator.",
+                                              "key": "filter[user_id]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The status of the command.",
+                                              "key": "filter[status]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The command it ran.",
+                                              "key": "filter[command]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "sort",
+                                              "value": "status,created_at"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/vnd.api+json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"commands\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"command\": \"<string>\",\n        \"status\": \"timeout\",\n        \"exit_code\": \"<integer,null>\",\n        \"error_output\": \"<string,null>\",\n        \"duration\": \"<string>\",\n        \"user_id\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      \"relationships\": {\n        \"user\": {\n          \"data\": {\n            \"type\": \"users\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"commands\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"command\": \"<string>\",\n        \"status\": \"timeout\",\n        \"exit_code\": \"<integer,null>\",\n        \"error_output\": \"<string,null>\",\n        \"duration\": \"<string>\",\n        \"user_id\": \"<integer>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      \"relationships\": {\n        \"user\": {\n          \"data\": {\n            \"type\": \"users\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"users\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"users\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"email\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ]\n}",
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-36be1122-306b-46d3-a81f-c40aa5a173ad"
+                                    },
+                                    {
+                                      "id": "e092cf48-e151-45f6-9e8f-e64d1637fd8b",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands?page[size]=30&page[cursor]=<string>&filter[user_id]=<string>&filter[status]=<string>&filter[command]=<string>&sort=status,created_at",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "The number of results that will be returned per page.",
+                                              "key": "page[size]",
+                                              "value": "30"
+                                            },
+                                            {
+                                              "description": "The cursor to start the pagination from.",
+                                              "key": "page[cursor]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The user ID of the command initiator.",
+                                              "key": "filter[user_id]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The status of the command.",
+                                              "key": "filter[status]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The command it ran.",
+                                              "key": "filter[command]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "sort",
+                                              "value": "status,created_at"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-e092cf48-e151-45f6-9e8f-e64d1637fd8b"
+                                    },
+                                    {
+                                      "id": "47844e9b-55f9-4e56-90b1-7f9cf1fb658f",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands?page[size]=30&page[cursor]=<string>&filter[user_id]=<string>&filter[status]=<string>&filter[command]=<string>&sort=status,created_at",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "The number of results that will be returned per page.",
+                                              "key": "page[size]",
+                                              "value": "30"
+                                            },
+                                            {
+                                              "description": "The cursor to start the pagination from.",
+                                              "key": "page[cursor]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The user ID of the command initiator.",
+                                              "key": "filter[user_id]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The status of the command.",
+                                              "key": "filter[status]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "description": "The command it ran.",
+                                              "key": "filter[command]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "sort",
+                                              "value": "status,created_at"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-47844e9b-55f9-4e56-90b1-7f9cf1fb658f"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:03:21.000Z",
+                                  "updatedAt": "2026-07-28T02:03:21.000Z",
+                                  "uid": "35240-c67913e7-fbd1-44f1-ab58-409753a92017"
+                                },
+                                {
+                                  "name": "Create command",
+                                  "id": "2429797a-6283-4d23-8627-ead7725edf1e",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"command\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "sites",
+                                        ":site",
+                                        "commands"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "d36db08f-0a83-4ca7-8dda-274436cabf5e",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "78582280-525d-49d2-8aea-3107eb4eef7e",
+                                          "key": "server",
+                                          "value": "<integer>",
+                                          "description": "(Required) The server ID"
+                                        },
+                                        {
+                                          "id": "940bd28e-8bc7-495a-9f5e-64ca7d5159f3",
+                                          "key": "site",
+                                          "value": "<integer>",
+                                          "description": "(Required) The site ID"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Run a command on the site.\n\nProcessing mode: <small><code>async</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "798d7c35-5bbf-4535-9ff8-1756e96b5095",
+                                      "name": "The command has been queued for execution.",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Accepted",
+                                      "code": 202,
+                                      "_postman_previewlanguage": "text",
+                                      "header": [],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": null,
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-798d7c35-5bbf-4535-9ff8-1756e96b5095"
+                                    },
+                                    {
+                                      "id": "b33f2d91-e56a-48aa-890b-677a5db564ce",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-b33f2d91-e56a-48aa-890b-677a5db564ce"
+                                    },
+                                    {
+                                      "id": "f39b1450-e29f-42a7-9623-2eddb8faf28f",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-f39b1450-e29f-42a7-9623-2eddb8faf28f"
+                                    },
+                                    {
+                                      "id": "1c2a40aa-125b-49f5-af0d-d2310cbc0cfb",
+                                      "name": "Validation error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/commands",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "commands"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                      "code": 422,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"non_c\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T02:03:22.000Z",
+                                      "updatedAt": "2026-07-28T02:03:22.000Z",
+                                      "uid": "35240-1c2a40aa-125b-49f5-af0d-d2310cbc0cfb"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:03:21.000Z",
+                                  "updatedAt": "2026-07-28T02:03:21.000Z",
+                                  "uid": "35240-2429797a-6283-4d23-8627-ead7725edf1e"
+                                }
+                              ],
+                              "id": "37d3e199-97ed-4eca-94e0-f3736bc3e484",
+                              "createdAt": "2026-07-28T02:03:21.000Z",
+                              "updatedAt": "2026-07-28T02:03:21.000Z",
+                              "uid": "35240-37d3e199-97ed-4eca-94e0-f3736bc3e484"
+                            }
+                          ],
+                          "id": "3cb9f485-35d1-4908-bdab-206ea3a432fe",
+                          "createdAt": "2026-07-28T02:03:21.000Z",
+                          "updatedAt": "2026-07-28T02:03:21.000Z",
+                          "uid": "35240-3cb9f485-35d1-4908-bdab-206ea3a432fe"
+                        }
+                      ],
+                      "id": "a648da3b-0739-4ef5-8cf5-b5a05fa20b2b",
+                      "createdAt": "2026-07-28T02:03:21.000Z",
+                      "updatedAt": "2026-07-28T02:03:21.000Z",
+                      "uid": "35240-a648da3b-0739-4ef5-8cf5-b5a05fa20b2b"
+                    }
+                  ],
+                  "id": "6b6c21bc-2ddf-4146-a589-16cb68c9dd4d",
+                  "createdAt": "2026-07-28T02:03:21.000Z",
+                  "updatedAt": "2026-07-28T02:03:21.000Z",
+                  "uid": "35240-6b6c21bc-2ddf-4146-a589-16cb68c9dd4d"
+                }
+              ],
+              "id": "2dcebba0-6a36-436c-97b1-bc5df7bd3bf5",
+              "createdAt": "2026-07-28T02:03:21.000Z",
+              "updatedAt": "2026-07-28T02:03:21.000Z",
+              "uid": "35240-2dcebba0-6a36-436c-97b1-bc5df7bd3bf5"
+            }
+          ],
+          "id": "3eeeed48-953e-4b03-9dd6-6ad3886b740e",
+          "createdAt": "2026-07-28T02:03:21.000Z",
+          "updatedAt": "2026-07-28T02:03:21.000Z",
+          "uid": "35240-3eeeed48-953e-4b03-9dd6-6ad3886b740e"
+        }
+      ],
+      "id": "89442e8a-77d8-438e-a53a-fea121f9c889",
+      "createdAt": "2026-07-28T02:03:21.000Z",
+      "updatedAt": "2026-07-28T02:03:21.000Z",
+      "uid": "35240-89442e8a-77d8-438e-a53a-fea121f9c889"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+generated: '2026-07-19'
+method: searched
+source: https://forge.laravel.com/docs/cli, https://github.com/laravel/forge-cli,
+  https://packagist.org/packages/laravel/forge-cli, https://packagist.org/packages/laravel/vapor-cli,
+  https://packagist.org/packages/laravel/installer
+notes: Laravel ships several first-party command-line tools. The Forge CLI is the one that sits directly
+  on a catalogued API (the Forge v2 API); it is documented here in full. The Vapor CLI and the Laravel
+  installer are recorded as siblings. The binaries themselves are catalogued in packages/laravel-packages.yml.
+clis:
+- name: forge
+  product: Laravel Forge
+  api: laravel:forge-api
+  package: laravel/forge-cli
+  version: v2.0.2
+  repository: https://github.com/laravel/forge-cli
+  docs: https://forge.laravel.com/docs/cli
+  requires: PHP 8.2+
+  install:
+  - method: composer-global
+    command: composer global require laravel/forge-cli
+  authentication:
+    commands:
+    - forge login
+    - forge login --token="your-api-token"
+    - forge logout
+    token_source: https://forge.laravel.com/profile/api
+    ci_env_var: FORGE_API_TOKEN
+  context:
+    note: Commands run against a currently active organization and server. Switching organizations
+      resets the active server.
+    commands:
+    - forge organization:current
+    - forge organization:list
+    - forge organization:switch
+    - forge server:current
+    - forge server:list
+    - forge server:switch
+    aliases: org:current, org:list and org:switch are shorter aliases for the organization commands.
+  command_groups:
+  - group: organizations
+    commands:
+    - organization:current
+    - organization:list
+    - organization:switch
+  - group: servers
+    commands:
+    - server:current
+    - server:list
+    - server:switch
+  - group: ssh
+    commands:
+    - ssh
+    - ssh:test
+    - ssh:configure
+    flags:
+    - --key
+    - --name
+  - group: sites
+    commands:
+    - site:list
+    - site:logs
+    - open
+    flags:
+    - --follow
+  - group: deployments
+    commands:
+    - deploy
+    - deploy:logs
+  - group: environment
+    commands:
+    - env:pull
+    - env:push
+  - group: remote execution
+    commands:
+    - command
+    - tinker
+    flags:
+    - --command
+  - group: resources
+    note: '{resource} is one of background-process (legacy alias daemon), database, nginx or php.'
+    commands:
+    - '{resource}:status'
+    - '{resource}:logs'
+    - '{resource}:restart'
+    - database:shell
+    flags:
+    - --follow
+    - --user
+  key_flows:
+  - name: Deploy a site
+    steps:
+    - forge server:switch staging
+    - forge deploy example.com
+    - forge deploy:logs example.com
+  - name: Rotate environment variables
+    steps:
+    - forge env:pull example.com .env
+    - edit the downloaded .env file
+    - forge env:push example.com .env
+    caveat: If the site uses configuration caching or has queue workers, the new variables are not used
+      until the site is deployed again.
+  - name: Inspect a failing service
+    steps:
+    - forge nginx:status
+    - forge nginx:logs
+    - forge nginx:restart
+- name: vapor
+  product: Laravel Vapor
+  package: laravel/vapor-cli
+  version: v1.70.1
+  repository: https://github.com/laravel/vapor-cli
+  docs: https://docs.vapor.build/introduction
+  install:
+  - method: composer-global
+    command: composer global require laravel/vapor-cli
+  note: Serverless deployment of Laravel applications to AWS Lambda. Vapor publishes no OpenAPI
+    description, so its command surface is not catalogued against an API here.
+- name: laravel
+  product: Laravel framework
+  package: laravel/installer
+  version: v5.31.0
+  repository: https://github.com/laravel/installer
+  install:
+  - method: composer-global
+    command: composer global require laravel/installer
+  note: Scaffolds new Laravel applications. Not an API client.
+gaps:
+- No first-party CLI is published for the Laravel Cloud API, despite Cloud shipping a full OpenAPI 3.1
+  description; Cloud is driven from the dashboard or direct REST calls.
+- No first-party CLI is published for the Envoyer API.

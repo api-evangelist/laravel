@@ -1,0 +1,68 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://laravel.com/docs/13.x/boost
+notes: Laravel publishes a first-party MCP server as part of Laravel Boost. It is a local stdio server
+  run inside a Laravel application (php artisan boost:mcp), not a hosted/remote endpoint, and its tools
+  operate against the developer's own application (logs, schema, queries, ecosystem docs) rather than
+  against the Forge or Cloud REST APIs. There is no hosted MCP server for the Forge API or the Cloud API.
+server:
+  name: laravel-boost
+  transport: stdio
+  command: php
+  args:
+  - artisan
+  - boost:mcp
+  package: laravel/boost
+  install: composer require laravel/boost --dev
+  setup: php artisan boost:install
+  repository: https://github.com/laravel/boost
+  docs: https://laravel.com/docs/13.x/boost
+  hosted_url: null
+  registration_example: |
+    {
+      "mcpServers": {
+        "laravel-boost": {
+          "command": "php",
+          "args": ["artisan", "boost:mcp"]
+        }
+      }
+    }
+supported_agents:
+- Claude Code
+- Cursor
+- Codex
+- Gemini CLI
+- GitHub Copilot (VS Code)
+- Junie
+tools:
+- name: Application Info
+  description: Read PHP and Laravel versions, database engine, list of ecosystem packages with versions,
+    and Eloquent models.
+- name: Browser Logs
+  description: Read logs and errors from the browser.
+- name: Database Connections
+  description: Inspect available database connections, including the default connection.
+- name: Database Query
+  description: Execute a query against the database.
+- name: Database Schema
+  description: Read the database schema.
+- name: Get Absolute URL
+  description: Convert relative path URIs to absolute so agents generate valid URLs.
+- name: Last Error
+  description: Read the last error from the application's log files.
+- name: Read Log Entries
+  description: Read the last N log entries.
+- name: Search Docs
+  description: Query the Laravel hosted documentation API service to retrieve documentation based on
+    installed packages. Backed by a knowledge base of over 17,000 pieces of Laravel-specific information
+    with semantic/embedding search.
+related:
+  agent_skills: skills/_index.yml
+  library_for_building_servers:
+    package: laravel/mcp
+    description: Rapidly build MCP servers for your Laravel applications.
+    docs: https://laravel.com/docs/13.x/mcp
+gaps:
+- No hosted or remote MCP server is published for the Laravel Forge API or the Laravel Cloud API, despite
+  both shipping complete OpenAPI 3.1 descriptions that a server could be generated from.

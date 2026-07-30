@@ -1,0 +1,76 @@
+generated: '2026-07-19'
+method: searched
+source: https://forge.laravel.com/api-documentation, https://forge.laravel.com/docs/api-reference/introduction,
+  https://forge.laravel.com/docs/changelog, https://cloud.laravel.com/docs/changelog,
+  https://laravel.com/docs/13.x/releases, https://status.laravel.com/, https://status.on-forge.com/,
+  openapi/laravel-cloud-openapi.json
+versioning:
+  scheme: documentation-split major versions; the current APIs carry no version segment or version header
+  forge:
+    current: v2
+    base_url: https://forge.laravel.com/api
+    docs: https://forge.laravel.com/docs/api-reference/introduction
+  cloud:
+    current: unversioned
+    base_url: https://cloud.laravel.com/api
+    docs: https://cloud.laravel.com/docs/api/authentication
+  framework:
+    scheme: semver with an annual major release and a published support window
+    current: '13.x'
+    docs: https://laravel.com/docs/13.x/releases
+deprecation:
+  policy_url: https://forge.laravel.com/api-documentation
+  policy_published: partial
+  sunset_header: false
+  deprecation_header: false
+  notes: Laravel announces API deprecations in-band on the affected documentation page and in the product
+    changelog. There is no standalone, versioned deprecation policy document, and neither API emits RFC
+    8594 Sunset or Deprecation response headers.
+  announced_sunsets:
+  - api: laravel:forge-api-legacy
+    what: Laravel Forge API v1
+    notice: This version of the Laravel Forge API is now deprecated and will be discontinued on July 31,
+      2026. We recommend you to migrate to the latest version of the API as soon as possible.
+    sunset_date: '2026-07-31'
+    source: https://forge.laravel.com/api-documentation
+    migration_target: https://forge.laravel.com/docs/api-reference/introduction
+    migration_guide: https://github.com/laravel/forge-sdk/blob/4.x/UPGRADE-4.0.md
+deprecated_operations:
+- spec: openapi/laravel-cloud-openapi.json
+  tag: Databases (Legacy)
+  operations:
+  - openapi/laravel-cloud-openapi.json#public.databases.deprecated.index
+  - openapi/laravel-cloud-openapi.json#public.databases.deprecated.store
+  - openapi/laravel-cloud-openapi.json#public.databases.deprecated.show
+  - openapi/laravel-cloud-openapi.json#public.databases.deprecated.update
+  - openapi/laravel-cloud-openapi.json#public.databases.deprecated.destroy
+  note: Five operations under /databases are flagged deprecated:true in the Cloud spec, superseded by
+    the database-cluster and database-schema resources.
+- spec: openapi/laravel-forge-openapi.json
+  operations: []
+  note: No operation in the Forge v2 spec is flagged deprecated:true.
+breaking_change_precedent:
+- what: Laravel Forge SDK v4.0 targets the Forge v2 API and contains significant breaking changes. Every
+    resource endpoint now requires an organization slug as the first argument; several action traits were
+    renamed and some legacy features were removed.
+  source: https://forge.laravel.com/docs/sdk
+  upgrade_guide: https://github.com/laravel/forge-sdk/blob/4.x/UPGRADE-4.0.md
+status_page:
+  laravel: https://status.laravel.com/
+  forge: https://status.on-forge.com/
+  note: Laravel runs two status pages — a company/Cloud status page linked from laravel.com, and a
+    dedicated Forge status page linked from the Forge documentation footer.
+changelog:
+  forge: https://forge.laravel.com/docs/changelog
+  cloud: https://cloud.laravel.com/docs/changelog
+  framework: https://laravel.com/docs/13.x/releases
+  artifact: changelog/laravel-changelog.yml
+sla:
+  published: false
+  notes: No public uptime SLA or uptime target was found on the Laravel, Forge or Cloud sites. SLA terms,
+    if any, sit behind the Trust Center document request flow at https://trust.laravel.com/.
+gaps:
+- No RFC 8594 Sunset or Deprecation headers on either API, so the v1 discontinuation is discoverable
+  only by reading the documentation page.
+- No standalone deprecation-policy or API-versioning-policy document; deprecation notices are per-page.
+- No published uptime SLA or uptime target.

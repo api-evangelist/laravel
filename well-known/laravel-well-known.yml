@@ -1,0 +1,96 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of /.well-known/* on every Laravel host in apis.yml and the OpenAPI servers[]
+notes: The marketing, Forge and Cloud hosts publish no /.well-known/ discovery surface. The shared
+  Laravel identity host (id.laravel.com), which fronts sign-in for Laravel Cloud, does publish both
+  OpenID Connect discovery (RFC 8414 / OIDC Discovery 1.0) and OAuth 2.0 authorization server metadata.
+  Note that this is the end-user/SSO identity provider, distinct from the Forge API's own OAuth 2.0
+  authorization-code endpoints at forge.laravel.com/oauth/*, which are declared in the Forge OpenAPI
+  but have no published discovery document.
+hosts:
+- host: https://id.laravel.com
+  role: identity provider (SSO for Laravel Cloud sign-in / sign-up)
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: laravel-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: laravel-oauth-authorization-server.json
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://laravel.com
+  role: marketing site and framework documentation
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://forge.laravel.com
+  role: Laravel Forge API and dashboard
+  documents:
+  - path: /.well-known/security.txt
+    status: 302
+    redirects_to: /sign-in
+  - path: /.well-known/openid-configuration
+    status: 302
+    redirects_to: /sign-in
+  - path: /.well-known/oauth-authorization-server
+    status: 302
+    redirects_to: /sign-in
+  - path: /.well-known/api-catalog
+    status: 302
+    redirects_to: /sign-in
+  - path: /.well-known/ai-plugin.json
+    status: 302
+    redirects_to: /sign-in
+- host: https://cloud.laravel.com
+  role: Laravel Cloud API and dashboard
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+identity_provider:
+  issuer: https://id.laravel.com
+  authorization_endpoint: https://id.laravel.com/oauth2/authorize
+  token_endpoint: https://id.laravel.com/oauth2/token
+  userinfo_endpoint: https://id.laravel.com/oauth2/userinfo
+  jwks_uri: https://id.laravel.com/oauth2/jwks
+  introspection_endpoint: https://id.laravel.com/oauth2/introspection
+  device_authorization_endpoint: https://id.laravel.com/oauth2/device_authorization
+  grant_types_supported:
+  - authorization_code
+  - client_credentials
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:device_code
+  scopes_supported:
+  - email
+  - offline_access
+  - openid
+  - profile
+  code_challenge_methods_supported:
+  - S256
+  id_token_signing_alg_values_supported:
+  - RS256
+  token_endpoint_auth_methods_supported:
+  - none
+  - client_secret_basic
+  - client_secret_post
+gaps:
+- No security.txt (RFC 9116) is published on any Laravel host, despite a documented security-vulnerability
+  reporting policy and a SafeBase trust center with a Responsible Disclosure entry.
+- No /.well-known/api-catalog (RFC 9727) is published, even though Laravel ships two OpenAPI 3.1
+  descriptions at stable URLs that a catalog could advertise.

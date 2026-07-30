@@ -1,0 +1,1788 @@
+{
+  "info": {
+    "_postman_id": "043f38c3-f346-4053-a7e7-0f352726da3d",
+    "name": "Laravel Cloud Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:02:46.000Z",
+    "updatedAt": "2026-07-28T02:02:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-043f38c3-f346-4053-a7e7-0f352726da3d"
+  },
+  "item": [
+    {
+      "name": "applications",
+      "item": [
+        {
+          "name": "{application}",
+          "item": [
+            {
+              "name": "avatar",
+              "item": [
+                {
+                  "name": "Upload application avatar",
+                  "id": "19f57672-c6c5-4f48-8d12-a12b12509460",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "multipart/form-data"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "description": "(Required) Maximum file size: 3072 kilobytes.",
+                          "key": "avatar",
+                          "type": "file",
+                          "value": null
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application/avatar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application",
+                        "avatar"
+                      ],
+                      "variable": [
+                        {
+                          "id": "8a08c4e3-fa7f-4419-ade2-e4de8e43fede",
+                          "key": "application",
+                          "value": "<string>",
+                          "description": "(Required) The application identifier"
+                        }
+                      ]
+                    },
+                    "description": "Upload or replace the avatar for an application."
+                  },
+                  "response": [
+                    {
+                      "id": "d68ae640-4e56-4293-9154-4fcf608bd22a",
+                      "name": "`ApplicationResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) Maximum file size: 3072 kilobytes.",
+                              "key": "avatar",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"applications\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"region\": \"eu-west-1\",\n      \"slack_channel\": \"<string,null>\",\n      \"avatar_url\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"repository\": null\n    },\n    \"relationships\": {\n      \"repository\": {\n        \"data\": {\n          \"type\": \"repositories\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"organization\": {\n        \"data\": {\n          \"type\": \"organizations\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"deployments\": {\n        \"data\": [\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"defaultEnvironment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-d68ae640-4e56-4293-9154-4fcf608bd22a"
+                    },
+                    {
+                      "id": "f1cfe65c-4535-467c-9fa1-783fa65394c5",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) Maximum file size: 3072 kilobytes.",
+                              "key": "avatar",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-f1cfe65c-4535-467c-9fa1-783fa65394c5"
+                    },
+                    {
+                      "id": "fabfc656-9900-4d62-86a1-ed3677e9356c",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) Maximum file size: 3072 kilobytes.",
+                              "key": "avatar",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-fabfc656-9900-4d62-86a1-ed3677e9356c"
+                    },
+                    {
+                      "id": "803fdad8-db4c-4f27-9a51-7a07a426f672",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "multipart/form-data"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "formdata",
+                          "formdata": [
+                            {
+                              "description": "(Required) Maximum file size: 3072 kilobytes.",
+                              "key": "avatar",
+                              "type": "file"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_7\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Excepteur53\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"elit_a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-803fdad8-db4c-4f27-9a51-7a07a426f672"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-19f57672-c6c5-4f48-8d12-a12b12509460"
+                },
+                {
+                  "name": "Delete application avatar",
+                  "id": "5226e5bc-3b5d-4f97-b163-8f1c2decd3d9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application/avatar",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application",
+                        "avatar"
+                      ],
+                      "variable": [
+                        {
+                          "id": "97c956ef-28bd-4271-a0ff-7ef7d838fd70",
+                          "key": "application",
+                          "value": "<string>",
+                          "description": "(Required) The application identifier"
+                        }
+                      ]
+                    },
+                    "description": "Remove the avatar from an application."
+                  },
+                  "response": [
+                    {
+                      "id": "febfaed3-662d-466c-87e0-7aef1d0ea849",
+                      "name": "No content",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-febfaed3-662d-466c-87e0-7aef1d0ea849"
+                    },
+                    {
+                      "id": "f61be9a5-3ed9-48b1-a403-44d7e68242ef",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-f61be9a5-3ed9-48b1-a403-44d7e68242ef"
+                    },
+                    {
+                      "id": "b8859f78-dd73-4bb7-ada6-a5d787cff111",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:application/avatar",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":application",
+                            "avatar"
+                          ],
+                          "variable": [
+                            {
+                              "key": "application"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:02:46.000Z",
+                      "updatedAt": "2026-07-28T02:02:46.000Z",
+                      "uid": "35240-b8859f78-dd73-4bb7-ada6-a5d787cff111"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-5226e5bc-3b5d-4f97-b163-8f1c2decd3d9"
+                }
+              ],
+              "id": "50ad9ee9-f926-4283-b04b-592aea74b464",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-50ad9ee9-f926-4283-b04b-592aea74b464"
+            },
+            {
+              "name": "Get application",
+              "id": "174e092e-0f24-404a-a80f-b3946e31955b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/applications/:application?include=environments,organization",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications",
+                    ":application"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "environments,organization"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "de1ea96c-181d-4fe5-aa61-8b787969c2c2",
+                      "key": "application",
+                      "value": "<string>",
+                      "description": "(Required) The application identifier"
+                    }
+                  ]
+                },
+                "description": "Get a specific application."
+              },
+              "response": [
+                {
+                  "id": "6604138b-88dc-40a2-a249-8d1d9f858f7d",
+                  "name": "`ApplicationResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application?include=environments,organization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "environments,organization"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"applications\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"region\": \"eu-west-1\",\n      \"slack_channel\": \"<string,null>\",\n      \"avatar_url\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"repository\": null\n    },\n    \"relationships\": {\n      \"repository\": {\n        \"data\": {\n          \"type\": \"repositories\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"organization\": {\n        \"data\": {\n          \"type\": \"organizations\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"deployments\": {\n        \"data\": [\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"defaultEnvironment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-6604138b-88dc-40a2-a249-8d1d9f858f7d"
+                },
+                {
+                  "id": "4e72eddf-21be-45b9-84fb-615e6ce1561c",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application?include=environments,organization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "environments,organization"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-4e72eddf-21be-45b9-84fb-615e6ce1561c"
+                },
+                {
+                  "id": "fff9045d-bc66-4998-9e34-cc8ab96e7e46",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application?include=environments,organization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "environments,organization"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-fff9045d-bc66-4998-9e34-cc8ab96e7e46"
+                }
+              ],
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-174e092e-0f24-404a-a80f-b3946e31955b"
+            },
+            {
+              "name": "Update application",
+              "id": "aa202d82-587a-45d4-b743-82b509f6076f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"source_control_provider_type\": \"gitlab\",\n  \"name\": \"0LLi}0..9\",\n  \"slug\": \"<string>\",\n  \"default_environment_id\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"slack_channel\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/applications/:application",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications",
+                    ":application"
+                  ],
+                  "variable": [
+                    {
+                      "id": "b24072fc-618a-468f-a4fd-8da29358cc7f",
+                      "key": "application",
+                      "value": "<string>",
+                      "description": "(Required) The application identifier"
+                    }
+                  ]
+                },
+                "description": "Update an application."
+              },
+              "response": [
+                {
+                  "id": "8fa15e4d-7bbf-4cba-8f80-c4090652f3c7",
+                  "name": "`ApplicationResource`",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_control_provider_type\": \"gitlab\",\n  \"name\": \"0LLi}0..9\",\n  \"slug\": \"<string>\",\n  \"default_environment_id\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"slack_channel\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"applications\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"region\": \"eu-west-1\",\n      \"slack_channel\": \"<string,null>\",\n      \"avatar_url\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"repository\": null\n    },\n    \"relationships\": {\n      \"repository\": {\n        \"data\": {\n          \"type\": \"repositories\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"organization\": {\n        \"data\": {\n          \"type\": \"organizations\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"deployments\": {\n        \"data\": [\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"defaultEnvironment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-8fa15e4d-7bbf-4cba-8f80-c4090652f3c7"
+                },
+                {
+                  "id": "98a8d0e7-c232-4540-89ee-d13b396a2b29",
+                  "name": "An error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_control_provider_type\": \"gitlab\",\n  \"name\": \"0LLi}0..9\",\n  \"slug\": \"<string>\",\n  \"default_environment_id\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"slack_channel\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-98a8d0e7-c232-4540-89ee-d13b396a2b29"
+                },
+                {
+                  "id": "4d89f85b-13d4-48f0-94b3-6c377c30119b",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_control_provider_type\": \"gitlab\",\n  \"name\": \"0LLi}0..9\",\n  \"slug\": \"<string>\",\n  \"default_environment_id\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"slack_channel\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-4d89f85b-13d4-48f0-94b3-6c377c30119b"
+                },
+                {
+                  "id": "db4521e1-4c68-401f-aea5-dab63214aed6",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_control_provider_type\": \"gitlab\",\n  \"name\": \"0LLi}0..9\",\n  \"slug\": \"<string>\",\n  \"default_environment_id\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"slack_channel\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-db4521e1-4c68-401f-aea5-dab63214aed6"
+                },
+                {
+                  "id": "f6d4b617-36e5-4ad7-9079-ef3d0a296a8a",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"source_control_provider_type\": \"gitlab\",\n  \"name\": \"0LLi}0..9\",\n  \"slug\": \"<string>\",\n  \"default_environment_id\": \"<string>\",\n  \"repository\": \"<string>\",\n  \"slack_channel\": \"<string,null>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_7\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Excepteur53\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"elit_a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-f6d4b617-36e5-4ad7-9079-ef3d0a296a8a"
+                }
+              ],
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-aa202d82-587a-45d4-b743-82b509f6076f"
+            },
+            {
+              "name": "Delete application",
+              "id": "2b5d3857-c48d-4076-8e07-c1bbea27a419",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/applications/:application",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications",
+                    ":application"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f2a70f7d-a583-4875-97ae-70bf55c89a5a",
+                      "key": "application",
+                      "value": "<string>",
+                      "description": "(Required) The application identifier"
+                    }
+                  ]
+                },
+                "description": "Delete an application and all of its environments."
+              },
+              "response": [
+                {
+                  "id": "2fc51d80-d8c6-4aba-882d-758f69b9637e",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-2fc51d80-d8c6-4aba-882d-758f69b9637e"
+                },
+                {
+                  "id": "972caf0b-bf9f-4a23-9b07-ba174f03fd03",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-972caf0b-bf9f-4a23-9b07-ba174f03fd03"
+                },
+                {
+                  "id": "09c76052-d6f8-40fd-b458-fec5b9462052",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:application",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":application"
+                      ],
+                      "variable": [
+                        {
+                          "key": "application"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:02:46.000Z",
+                  "updatedAt": "2026-07-28T02:02:46.000Z",
+                  "uid": "35240-09c76052-d6f8-40fd-b458-fec5b9462052"
+                }
+              ],
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-2b5d3857-c48d-4076-8e07-c1bbea27a419"
+            }
+          ],
+          "id": "34ccc176-6f12-4674-bccb-b4398ea765db",
+          "createdAt": "2026-07-28T02:02:46.000Z",
+          "updatedAt": "2026-07-28T02:02:46.000Z",
+          "uid": "35240-34ccc176-6f12-4674-bccb-b4398ea765db"
+        },
+        {
+          "name": "List applications",
+          "id": "9d46aa71-41a1-4197-85b9-50eb6bbeb881",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/applications?filter[name]=<string>&filter[region]=<string>&filter[slug]=<string>&include=environments,organization",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications"
+              ],
+              "query": [
+                {
+                  "key": "filter[name]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "filter[region]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "filter[slug]",
+                  "value": "<string>"
+                },
+                {
+                  "key": "include",
+                  "value": "environments,organization"
+                }
+              ]
+            },
+            "description": "Get a list of all applications for the authenticated organization."
+          },
+          "response": [
+            {
+              "id": "0da7a80b-dfb3-4202-8dbe-d4ba65a761ff",
+              "name": "Paginated set of `ApplicationResource`",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/applications?filter[name]=<string>&filter[region]=<string>&filter[slug]=<string>&include=environments,organization",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[slug]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "environments,organization"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"applications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"region\": \"me-central-1\",\n        \"slack_channel\": \"<string,null>\",\n        \"avatar_url\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"repository\": {\n          \"full_name\": \"<string>\",\n          \"default_branch\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"repository\": {\n          \"data\": {\n            \"type\": \"repositories\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"organization\": {\n          \"data\": {\n            \"type\": \"organizations\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"defaultEnvironment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"applications\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"region\": \"eu-west-2\",\n        \"slack_channel\": \"<string,null>\",\n        \"avatar_url\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"repository\": {\n          \"full_name\": \"<string>\",\n          \"default_branch\": \"<string>\"\n        }\n      },\n      \"relationships\": {\n        \"repository\": {\n          \"data\": {\n            \"type\": \"repositories\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"organization\": {\n          \"data\": {\n            \"type\": \"organizations\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"defaultEnvironment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-0da7a80b-dfb3-4202-8dbe-d4ba65a761ff"
+            },
+            {
+              "id": "44d6491e-e6bd-428e-990c-c0520bd50b77",
+              "name": "An error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/applications?filter[name]=<string>&filter[region]=<string>&filter[slug]=<string>&include=environments,organization",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[slug]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "environments,organization"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-44d6491e-e6bd-428e-990c-c0520bd50b77"
+            },
+            {
+              "id": "ab702939-92a0-46e7-ac50-ed1b1de3ad34",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/applications?filter[name]=<string>&filter[region]=<string>&filter[slug]=<string>&include=environments,organization",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[slug]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "environments,organization"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-ab702939-92a0-46e7-ac50-ed1b1de3ad34"
+            }
+          ],
+          "createdAt": "2026-07-28T02:02:46.000Z",
+          "updatedAt": "2026-07-28T02:02:46.000Z",
+          "uid": "35240-9d46aa71-41a1-4197-85b9-50eb6bbeb881"
+        },
+        {
+          "name": "Create application",
+          "id": "f8a5591d-4010-4eae-bd98-961bb1b60c91",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"repository\": \"<string>\",\n  \"name\": \" a2p7\",\n  \"region\": \"us-east-1\",\n  \"source_control_provider_type\": \"gitlab\",\n  \"cluster_id\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/applications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "applications"
+              ]
+            },
+            "description": "Create a new application."
+          },
+          "response": [
+            {
+              "id": "db3eef2b-de69-4ce8-9c37-1ad55a81a8cf",
+              "name": "`ApplicationResource`",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository\": \"<string>\",\n  \"name\": \" a2p7\",\n  \"region\": \"us-east-1\",\n  \"source_control_provider_type\": \"gitlab\",\n  \"cluster_id\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"applications\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"region\": \"eu-west-1\",\n      \"slack_channel\": \"<string,null>\",\n      \"avatar_url\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"repository\": null\n    },\n    \"relationships\": {\n      \"repository\": {\n        \"data\": {\n          \"type\": \"repositories\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"organization\": {\n        \"data\": {\n          \"type\": \"organizations\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"deployments\": {\n        \"data\": [\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        ]\n      },\n      \"defaultEnvironment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"repositories\",\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-db3eef2b-de69-4ce8-9c37-1ad55a81a8cf"
+            },
+            {
+              "id": "0b893a29-db48-469b-bad7-ee79eb382665",
+              "name": "An error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository\": \"<string>\",\n  \"name\": \" a2p7\",\n  \"region\": \"us-east-1\",\n  \"source_control_provider_type\": \"gitlab\",\n  \"cluster_id\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-0b893a29-db48-469b-bad7-ee79eb382665"
+            },
+            {
+              "id": "2e994b7d-2fc5-4df8-9846-40fa9c8df50b",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository\": \"<string>\",\n  \"name\": \" a2p7\",\n  \"region\": \"us-east-1\",\n  \"source_control_provider_type\": \"gitlab\",\n  \"cluster_id\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-2e994b7d-2fc5-4df8-9846-40fa9c8df50b"
+            },
+            {
+              "id": "70a6a99c-65ca-4821-9309-0a68f958bcfd",
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"repository\": \"<string>\",\n  \"name\": \" a2p7\",\n  \"region\": \"us-east-1\",\n  \"source_control_provider_type\": \"gitlab\",\n  \"cluster_id\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/applications",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "applications"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_7\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"Excepteur53\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"elit_a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "createdAt": "2026-07-28T02:02:46.000Z",
+              "updatedAt": "2026-07-28T02:02:46.000Z",
+              "uid": "35240-70a6a99c-65ca-4821-9309-0a68f958bcfd"
+            }
+          ],
+          "createdAt": "2026-07-28T02:02:46.000Z",
+          "updatedAt": "2026-07-28T02:02:46.000Z",
+          "uid": "35240-f8a5591d-4010-4eae-bd98-961bb1b60c91"
+        }
+      ],
+      "id": "d68473c6-2837-46da-bd2f-325257fdd2f4",
+      "createdAt": "2026-07-28T02:02:46.000Z",
+      "updatedAt": "2026-07-28T02:02:46.000Z",
+      "uid": "35240-d68473c6-2837-46da-bd2f-325257fdd2f4"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

@@ -1,0 +1,2911 @@
+{
+  "info": {
+    "_postman_id": "c5404ef7-e8c2-43b5-bcbb-8586f4530513",
+    "name": "Laravel Cloud Applications Scheduled Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:04:06.000Z",
+    "updatedAt": "2026-07-28T02:04:07.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c5404ef7-e8c2-43b5-bcbb-8586f4530513"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{organization}",
+          "item": [
+            {
+              "name": "servers",
+              "item": [
+                {
+                  "name": "{server}",
+                  "item": [
+                    {
+                      "name": "scheduled-jobs",
+                      "item": [
+                        {
+                          "name": "{job}",
+                          "item": [
+                            {
+                              "name": "output",
+                              "item": [
+                                {
+                                  "name": "Get scheduled job output",
+                                  "id": "1ebd26a4-0bc6-4946-a10a-0a33b26c4437",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job/output",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job",
+                                        "output"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "39c264d7-424e-4fcd-9bc8-043ea8475e3b",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "0f586802-3b21-4980-9fc5-6579ccf9b229",
+                                          "key": "server",
+                                          "value": "<integer>",
+                                          "description": "(Required) The server ID"
+                                        },
+                                        {
+                                          "id": "99aff775-646b-45b3-8d5f-9ec5e2298a4c",
+                                          "key": "job",
+                                          "value": "<integer>",
+                                          "description": "(Required) The job ID"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Show a specific scheduled job output.\n\nProcessing mode: <small><code>sync</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "7881db0f-0e25-483c-983d-4b56ac39ecc8",
+                                      "name": "`JobOutputResource`",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job/output",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "scheduled-jobs",
+                                            ":job",
+                                            "output"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "job"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/vnd.api+json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"scheduledJobOutputs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"output\": \"<string>\"\n    }\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-7881db0f-0e25-483c-983d-4b56ac39ecc8"
+                                    },
+                                    {
+                                      "id": "8cb41a95-f6f6-4978-a3cb-b95a91b4c631",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job/output",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "scheduled-jobs",
+                                            ":job",
+                                            "output"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "job"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-8cb41a95-f6f6-4978-a3cb-b95a91b4c631"
+                                    },
+                                    {
+                                      "id": "615c9df0-e21b-4cd0-becf-6d82fad5eeb5",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job/output",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "scheduled-jobs",
+                                            ":job",
+                                            "output"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "job"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-615c9df0-e21b-4cd0-becf-6d82fad5eeb5"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-1ebd26a4-0bc6-4946-a10a-0a33b26c4437"
+                                }
+                              ],
+                              "id": "7a522e3b-c14f-4d85-aa32-0ce42e21dca0",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-7a522e3b-c14f-4d85-aa32-0ce42e21dca0"
+                            },
+                            {
+                              "name": "Get scheduled job",
+                              "id": "3a8e1b2f-ad8e-441a-a77c-2d6e20fd14fb",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs",
+                                    ":job"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "2b7aea35-4f00-4542-91ee-4ef81575cae0",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "723ea0f5-c409-427b-8a59-b7ca5409698e",
+                                      "key": "server",
+                                      "value": "<integer>",
+                                      "description": "(Required) The server ID"
+                                    },
+                                    {
+                                      "id": "27dc498a-1358-4e26-9ef3-0d01c332b460",
+                                      "key": "job",
+                                      "value": "<integer>",
+                                      "description": "(Required) The job ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Show a specific scheduled job.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "110a7bd1-4ef5-4733-836d-67a2ea16f2da",
+                                  "name": "`JobResource`",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "job"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"scheduledJobs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string,null>\",\n      \"command\": \"<string>\",\n      \"status\": \"<string>\",\n      \"user\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"cron\": \"<string>\",\n      \"next_run_time\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-110a7bd1-4ef5-4733-836d-67a2ea16f2da"
+                                },
+                                {
+                                  "id": "0ed5e2d2-cae2-4004-a03f-8e001b2e963a",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "job"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-0ed5e2d2-cae2-4004-a03f-8e001b2e963a"
+                                },
+                                {
+                                  "id": "6ac1cafa-822d-4090-bc60-22dc2d75413b",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "job"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-6ac1cafa-822d-4090-bc60-22dc2d75413b"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-3a8e1b2f-ad8e-441a-a77c-2d6e20fd14fb"
+                            },
+                            {
+                              "name": "Delete scheduled job",
+                              "id": "e3f2eeaa-8c72-41d7-8d4d-3596313ff478",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs",
+                                    ":job"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "8832ea2a-13da-4a08-8b4b-32c4cb243db9",
+                                      "key": "organization",
+                                      "value": "<string>",
+                                      "description": "(Required) The organization slug"
+                                    },
+                                    {
+                                      "id": "b35b05ed-8ce1-4185-99ee-b4cda972a468",
+                                      "key": "server",
+                                      "value": "<integer>",
+                                      "description": "(Required) The server ID"
+                                    },
+                                    {
+                                      "id": "daa6b4b7-5318-4973-8086-4c092ca9e7f7",
+                                      "key": "job",
+                                      "value": "<integer>",
+                                      "description": "(Required) The job ID"
+                                    }
+                                  ]
+                                },
+                                "description": "Delete a specific scheduled job.\n\nProcessing mode: <small><code>async</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "c549d5bc-dd03-4cb0-8aef-69b13be80d11",
+                                  "name": "Removal of scheduled job from server accepted",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "job"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Accepted",
+                                  "code": 202,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-c549d5bc-dd03-4cb0-8aef-69b13be80d11"
+                                },
+                                {
+                                  "id": "5587ea0d-2ba4-4d66-9b85-e111dd3bf568",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "job"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-5587ea0d-2ba4-4d66-9b85-e111dd3bf568"
+                                },
+                                {
+                                  "id": "1a3479d4-1f64-4dec-8e2f-885f40174f2e",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs/:job",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "scheduled-jobs",
+                                        ":job"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "organization"
+                                        },
+                                        {
+                                          "key": "server"
+                                        },
+                                        {
+                                          "key": "job"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-1a3479d4-1f64-4dec-8e2f-885f40174f2e"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-e3f2eeaa-8c72-41d7-8d4d-3596313ff478"
+                            }
+                          ],
+                          "id": "45250e83-596e-4f1e-b5cc-1f8a3d85b052",
+                          "createdAt": "2026-07-28T02:04:07.000Z",
+                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                          "uid": "35240-45250e83-596e-4f1e-b5cc-1f8a3d85b052"
+                        },
+                        {
+                          "name": "List server scheduled jobs",
+                          "id": "943c46c7-3e21-47d2-99a7-463fe9ecef21",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "servers",
+                                ":server",
+                                "scheduled-jobs"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of results that will be returned per page.",
+                                  "key": "page[size]",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "The cursor to start the pagination from.",
+                                  "key": "page[cursor]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[status]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "filter[user]",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "sort",
+                                  "value": "created_at,-status"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "ad5f62a2-7d0e-4b6f-a58f-c90e0cfc2712",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "368f7185-6954-4ec9-8441-4839dd8ce35d",
+                                  "key": "server",
+                                  "value": "<integer>",
+                                  "description": "(Required) The server ID"
+                                }
+                              ]
+                            },
+                            "description": "List all scheduled jobs associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "2fa79468-fc31-4827-bf7b-7dbef2cdfec8",
+                              "name": "Paginated set of `JobResource`",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[status]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[user]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "sort",
+                                      "value": "created_at,-status"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"scheduledJobs\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"command\": \"<string>\",\n        \"status\": \"<string>\",\n        \"user\": \"<string>\",\n        \"frequency\": \"<string>\",\n        \"cron\": \"<string>\",\n        \"next_run_time\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"scheduledJobs\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"command\": \"<string>\",\n        \"status\": \"<string>\",\n        \"user\": \"<string>\",\n        \"frequency\": \"<string>\",\n        \"cron\": \"<string>\",\n        \"next_run_time\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-2fa79468-fc31-4827-bf7b-7dbef2cdfec8"
+                            },
+                            {
+                              "id": "d956ef6d-b430-43c4-bbb1-d80496f1e992",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[status]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[user]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "sort",
+                                      "value": "created_at,-status"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-d956ef6d-b430-43c4-bbb1-d80496f1e992"
+                            },
+                            {
+                              "id": "177affe1-4c6d-4e57-b232-69846cb3b8c5",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[status]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "filter[user]",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "key": "sort",
+                                      "value": "created_at,-status"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-177affe1-4c6d-4e57-b232-69846cb3b8c5"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:07.000Z",
+                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                          "uid": "35240-943c46c7-3e21-47d2-99a7-463fe9ecef21"
+                        },
+                        {
+                          "name": "Create scheduled job",
+                          "id": "6af15616-2eba-458d-b8fb-ba48a26d8748",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "servers",
+                                ":server",
+                                "scheduled-jobs"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "44fb38a2-7f98-4b46-b3fd-d6419cf3aaa0",
+                                  "key": "organization",
+                                  "value": "<string>",
+                                  "description": "(Required) The organization slug"
+                                },
+                                {
+                                  "id": "5ef27016-c43c-40c8-ab18-b895e4db31fc",
+                                  "key": "server",
+                                  "value": "<integer>",
+                                  "description": "(Required) The server ID"
+                                }
+                              ]
+                            },
+                            "description": "Create a specific scheduled job.\n\nProcessing mode: <small><code>async</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "4a3ff464-fb78-4c15-b816-c8fbc16d44e4",
+                              "name": "`JobResource`",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Accepted",
+                              "code": 202,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"scheduledJobs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string,null>\",\n      \"command\": \"<string>\",\n      \"status\": \"<string>\",\n      \"user\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"cron\": \"<string>\",\n      \"next_run_time\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-4a3ff464-fb78-4c15-b816-c8fbc16d44e4"
+                            },
+                            {
+                              "id": "9db9c0e7-1266-4c88-9de5-781522cd893c",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-9db9c0e7-1266-4c88-9de5-781522cd893c"
+                            },
+                            {
+                              "id": "fca49f8c-04ae-458d-bf78-27a2039a57c6",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-fca49f8c-04ae-458d-bf78-27a2039a57c6"
+                            },
+                            {
+                              "id": "6210785d-4aca-4a94-aae6-fedc1a15435a",
+                              "name": "Validation error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/scheduled-jobs",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "orgs",
+                                    ":organization",
+                                    "servers",
+                                    ":server",
+                                    "scheduled-jobs"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "organization"
+                                    },
+                                    {
+                                      "key": "server"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"fugiatc\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exercitation_88\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-6210785d-4aca-4a94-aae6-fedc1a15435a"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:07.000Z",
+                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                          "uid": "35240-6af15616-2eba-458d-b8fb-ba48a26d8748"
+                        }
+                      ],
+                      "id": "2895f015-ec93-4f4c-89fd-2d863eb60460",
+                      "createdAt": "2026-07-28T02:04:07.000Z",
+                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                      "uid": "35240-2895f015-ec93-4f4c-89fd-2d863eb60460"
+                    },
+                    {
+                      "name": "sites",
+                      "item": [
+                        {
+                          "name": "{site}",
+                          "item": [
+                            {
+                              "name": "scheduled-jobs",
+                              "item": [
+                                {
+                                  "name": "{job}",
+                                  "item": [
+                                    {
+                                      "name": "output",
+                                      "item": [
+                                        {
+                                          "name": "Get site scheduled job output",
+                                          "id": "16ceeef1-2539-4a8b-bfab-a308242e2400",
+                                          "protocolProfileBehavior": {
+                                            "disableBodyPruning": true
+                                          },
+                                          "request": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/vnd.api+json"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job/output",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job",
+                                                "output"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "id": "61ad0fc1-ed89-46ea-829e-b806f1a809a7",
+                                                  "key": "organization",
+                                                  "value": "<string>",
+                                                  "description": "(Required) The organization slug"
+                                                },
+                                                {
+                                                  "id": "70295d10-b068-4a88-948d-0ad1f723c5b7",
+                                                  "key": "server",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) The server ID"
+                                                },
+                                                {
+                                                  "id": "47bb7f42-5a02-4bb8-b8e9-b909929d5d9f",
+                                                  "key": "site",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) The site ID"
+                                                },
+                                                {
+                                                  "id": "522f1227-0860-40ec-bff6-e03b34a9d24b",
+                                                  "key": "job",
+                                                  "value": "<integer>",
+                                                  "description": "(Required) The job ID"
+                                                }
+                                              ]
+                                            },
+                                            "description": "Show a specific scheduled job output associated with the site.\n\nProcessing mode: <small><code>sync</code></small>"
+                                          },
+                                          "response": [
+                                            {
+                                              "id": "a5e3ea7d-5598-4329-a7fd-84ca2c11b10d",
+                                              "name": "`JobOutputResource`",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/vnd.api+json"
+                                                  },
+                                                  {
+                                                    "description": "Added as a part of security scheme: bearer",
+                                                    "key": "Authorization",
+                                                    "value": "Bearer <token>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job/output",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "orgs",
+                                                    ":organization",
+                                                    "servers",
+                                                    ":server",
+                                                    "sites",
+                                                    ":site",
+                                                    "scheduled-jobs",
+                                                    ":job",
+                                                    "output"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "organization"
+                                                    },
+                                                    {
+                                                      "key": "server"
+                                                    },
+                                                    {
+                                                      "key": "site"
+                                                    },
+                                                    {
+                                                      "key": "job"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "OK",
+                                              "code": 200,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/vnd.api+json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"scheduledJobOutputs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"output\": \"<string>\"\n    }\n  }\n}",
+                                              "createdAt": "2026-07-28T02:04:07.000Z",
+                                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                                              "uid": "35240-a5e3ea7d-5598-4329-a7fd-84ca2c11b10d"
+                                            },
+                                            {
+                                              "id": "51da3998-d213-4278-a0c3-ff02b6bbce4d",
+                                              "name": "Authorization error",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  },
+                                                  {
+                                                    "description": "Added as a part of security scheme: bearer",
+                                                    "key": "Authorization",
+                                                    "value": "Bearer <token>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job/output",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "orgs",
+                                                    ":organization",
+                                                    "servers",
+                                                    ":server",
+                                                    "sites",
+                                                    ":site",
+                                                    "scheduled-jobs",
+                                                    ":job",
+                                                    "output"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "organization"
+                                                    },
+                                                    {
+                                                      "key": "server"
+                                                    },
+                                                    {
+                                                      "key": "site"
+                                                    },
+                                                    {
+                                                      "key": "job"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "Forbidden",
+                                              "code": 403,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"message\": \"<string>\"\n}",
+                                              "createdAt": "2026-07-28T02:04:07.000Z",
+                                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                                              "uid": "35240-51da3998-d213-4278-a0c3-ff02b6bbce4d"
+                                            },
+                                            {
+                                              "id": "b3b449de-af25-410b-8107-735dacd5347e",
+                                              "name": "Not found",
+                                              "originalRequest": {
+                                                "method": "GET",
+                                                "header": [
+                                                  {
+                                                    "key": "Accept",
+                                                    "value": "application/json"
+                                                  },
+                                                  {
+                                                    "description": "Added as a part of security scheme: bearer",
+                                                    "key": "Authorization",
+                                                    "value": "Bearer <token>"
+                                                  }
+                                                ],
+                                                "url": {
+                                                  "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job/output",
+                                                  "host": [
+                                                    "{{baseUrl}}"
+                                                  ],
+                                                  "path": [
+                                                    "orgs",
+                                                    ":organization",
+                                                    "servers",
+                                                    ":server",
+                                                    "sites",
+                                                    ":site",
+                                                    "scheduled-jobs",
+                                                    ":job",
+                                                    "output"
+                                                  ],
+                                                  "variable": [
+                                                    {
+                                                      "key": "organization"
+                                                    },
+                                                    {
+                                                      "key": "server"
+                                                    },
+                                                    {
+                                                      "key": "site"
+                                                    },
+                                                    {
+                                                      "key": "job"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "status": "Not Found",
+                                              "code": 404,
+                                              "_postman_previewlanguage": "json",
+                                              "header": [
+                                                {
+                                                  "key": "Content-Type",
+                                                  "value": "application/json"
+                                                }
+                                              ],
+                                              "cookie": [],
+                                              "responseTime": null,
+                                              "body": "{\n  \"message\": \"<string>\"\n}",
+                                              "createdAt": "2026-07-28T02:04:07.000Z",
+                                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                                              "uid": "35240-b3b449de-af25-410b-8107-735dacd5347e"
+                                            }
+                                          ],
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-16ceeef1-2539-4a8b-bfab-a308242e2400"
+                                        }
+                                      ],
+                                      "id": "1b7e4100-549d-418c-8eb5-d656790677aa",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-1b7e4100-549d-418c-8eb5-d656790677aa"
+                                    },
+                                    {
+                                      "name": "Get site scheduled job",
+                                      "id": "d971c842-ace0-4592-878c-d4be58418a6f",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs",
+                                            ":job"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "21c33d17-aac2-454c-8efa-b0f416739914",
+                                              "key": "organization",
+                                              "value": "<string>",
+                                              "description": "(Required) The organization slug"
+                                            },
+                                            {
+                                              "id": "e26d32e3-8098-4f21-884a-6fa77819361f",
+                                              "key": "server",
+                                              "value": "<integer>",
+                                              "description": "(Required) The server ID"
+                                            },
+                                            {
+                                              "id": "fcabbd7a-84ba-48d6-87fe-e0cf3ea267cd",
+                                              "key": "site",
+                                              "value": "<integer>",
+                                              "description": "(Required) The site ID"
+                                            },
+                                            {
+                                              "id": "25d102f5-c201-4d22-b01e-a22996334eae",
+                                              "key": "job",
+                                              "value": "<integer>",
+                                              "description": "(Required) The job ID"
+                                            }
+                                          ]
+                                        },
+                                        "description": "Show a specific scheduled job.\n\nProcessing mode: <small><code>sync</code></small>"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "9d74ad57-3040-4cf7-929a-c999a9e5839d",
+                                          "name": "`JobResource`",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/vnd.api+json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "job"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/vnd.api+json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"scheduledJobs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string,null>\",\n      \"command\": \"<string>\",\n      \"status\": \"<string>\",\n      \"user\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"cron\": \"<string>\",\n      \"next_run_time\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-9d74ad57-3040-4cf7-929a-c999a9e5839d"
+                                        },
+                                        {
+                                          "id": "3a6c473b-2c90-4176-8fa9-54071fa58a97",
+                                          "name": "Authorization error",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "job"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-3a6c473b-2c90-4176-8fa9-54071fa58a97"
+                                        },
+                                        {
+                                          "id": "c9360f94-5bf8-43d6-8939-648486ee9df5",
+                                          "name": "Not found",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "job"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-c9360f94-5bf8-43d6-8939-648486ee9df5"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-d971c842-ace0-4592-878c-d4be58418a6f"
+                                    },
+                                    {
+                                      "name": "Delete site scheduled job",
+                                      "id": "14dff5ee-3d1e-424f-a498-673821356e26",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs",
+                                            ":job"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "62831c6e-c0df-4f98-88e9-af168dcd4d81",
+                                              "key": "organization",
+                                              "value": "<string>",
+                                              "description": "(Required) The organization slug"
+                                            },
+                                            {
+                                              "id": "4cc1f6b4-d888-427a-ab25-12fe5b4ad442",
+                                              "key": "server",
+                                              "value": "<integer>",
+                                              "description": "(Required) The server ID"
+                                            },
+                                            {
+                                              "id": "992eaeb5-d372-4125-901c-e461f5b3a066",
+                                              "key": "site",
+                                              "value": "<integer>",
+                                              "description": "(Required) The site ID"
+                                            },
+                                            {
+                                              "id": "51bb248c-00b5-42e8-b25a-97b94d6117e9",
+                                              "key": "job",
+                                              "value": "<integer>",
+                                              "description": "(Required) The job ID"
+                                            }
+                                          ]
+                                        },
+                                        "description": "Delete a specific scheduled job associated with the site.\n\nProcessing mode: <small><code>async</code></small>"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "1eb7691d-066c-4d22-b956-8a27a5978f83",
+                                          "name": "Removal of scheduled job from server accepted",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "job"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Accepted",
+                                          "code": 202,
+                                          "_postman_previewlanguage": "text",
+                                          "header": [],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": null,
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-1eb7691d-066c-4d22-b956-8a27a5978f83"
+                                        },
+                                        {
+                                          "id": "d9e31ca1-a3cf-405c-b08d-4ec66f728b14",
+                                          "name": "Authorization error",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "job"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-d9e31ca1-a3cf-405c-b08d-4ec66f728b14"
+                                        },
+                                        {
+                                          "id": "63205b70-7db7-4f5b-bcb7-984817c84d43",
+                                          "name": "Not found",
+                                          "originalRequest": {
+                                            "method": "DELETE",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs/:job",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "servers",
+                                                ":server",
+                                                "sites",
+                                                ":site",
+                                                "scheduled-jobs",
+                                                ":job"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "server"
+                                                },
+                                                {
+                                                  "key": "site"
+                                                },
+                                                {
+                                                  "key": "job"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:04:07.000Z",
+                                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                                          "uid": "35240-63205b70-7db7-4f5b-bcb7-984817c84d43"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-14dff5ee-3d1e-424f-a498-673821356e26"
+                                    }
+                                  ],
+                                  "id": "7edf2c9e-7544-4684-a356-2fcf4f500f50",
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-7edf2c9e-7544-4684-a356-2fcf4f500f50"
+                                },
+                                {
+                                  "name": "List site scheduled jobs",
+                                  "id": "0d99c3c4-4306-40b7-991b-b814dce1e841",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "sites",
+                                        ":site",
+                                        "scheduled-jobs"
+                                      ],
+                                      "query": [
+                                        {
+                                          "description": "The number of results that will be returned per page.",
+                                          "key": "page[size]",
+                                          "value": "30"
+                                        },
+                                        {
+                                          "description": "The cursor to start the pagination from.",
+                                          "key": "page[cursor]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "key": "filter[status]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "key": "filter[user]",
+                                          "value": "<string>"
+                                        },
+                                        {
+                                          "key": "sort",
+                                          "value": "created_at,-status"
+                                        }
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "b97a5109-521b-47c5-8d65-a292fea59544",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "4d3f759f-2ab3-48d4-b956-a12cf6f18045",
+                                          "key": "server",
+                                          "value": "<integer>",
+                                          "description": "(Required) The server ID"
+                                        },
+                                        {
+                                          "id": "61fe705c-84ad-4cb5-acc6-d4cbe59b5fd9",
+                                          "key": "site",
+                                          "value": "<integer>",
+                                          "description": "(Required) The site ID"
+                                        }
+                                      ]
+                                    },
+                                    "description": "List all scheduled jobs associated with the site.\n\nProcessing mode: <small><code>sync</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "6ec1ae30-a163-4f84-9ec9-da3d704a05c8",
+                                      "name": "Paginated set of `JobResource`",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "The number of results that will be returned per page.",
+                                              "key": "page[size]",
+                                              "value": "30"
+                                            },
+                                            {
+                                              "description": "The cursor to start the pagination from.",
+                                              "key": "page[cursor]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "filter[status]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "filter[user]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "sort",
+                                              "value": "created_at,-status"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/vnd.api+json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"scheduledJobs\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"command\": \"<string>\",\n        \"status\": \"<string>\",\n        \"user\": \"<string>\",\n        \"frequency\": \"<string>\",\n        \"cron\": \"<string>\",\n        \"next_run_time\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"scheduledJobs\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"command\": \"<string>\",\n        \"status\": \"<string>\",\n        \"user\": \"<string>\",\n        \"frequency\": \"<string>\",\n        \"cron\": \"<string>\",\n        \"next_run_time\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-6ec1ae30-a163-4f84-9ec9-da3d704a05c8"
+                                    },
+                                    {
+                                      "id": "1b2ee74a-d8cb-4a0a-af6b-28100fe121de",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "The number of results that will be returned per page.",
+                                              "key": "page[size]",
+                                              "value": "30"
+                                            },
+                                            {
+                                              "description": "The cursor to start the pagination from.",
+                                              "key": "page[cursor]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "filter[status]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "filter[user]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "sort",
+                                              "value": "created_at,-status"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-1b2ee74a-d8cb-4a0a-af6b-28100fe121de"
+                                    },
+                                    {
+                                      "id": "0af60322-394b-4ce2-a73e-af8d1337e9c7",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs?page[size]=30&page[cursor]=<string>&filter[status]=<string>&filter[user]=<string>&sort=created_at,-status",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "query": [
+                                            {
+                                              "description": "The number of results that will be returned per page.",
+                                              "key": "page[size]",
+                                              "value": "30"
+                                            },
+                                            {
+                                              "description": "The cursor to start the pagination from.",
+                                              "key": "page[cursor]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "filter[status]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "filter[user]",
+                                              "value": "<string>"
+                                            },
+                                            {
+                                              "key": "sort",
+                                              "value": "created_at,-status"
+                                            }
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-0af60322-394b-4ce2-a73e-af8d1337e9c7"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-0d99c3c4-4306-40b7-991b-b814dce1e841"
+                                },
+                                {
+                                  "name": "Create site scheduled job",
+                                  "id": "8d52440d-6a48-4a90-9f72-fd8f58c07fba",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "servers",
+                                        ":server",
+                                        "sites",
+                                        ":site",
+                                        "scheduled-jobs"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "fc9f0063-1e15-444f-8527-22f44e4f3140",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "d8853f52-1dc1-4920-a97e-297644673054",
+                                          "key": "server",
+                                          "value": "<integer>",
+                                          "description": "(Required) The server ID"
+                                        },
+                                        {
+                                          "id": "6a3f06d0-0d71-4c20-975a-f5ec56072963",
+                                          "key": "site",
+                                          "value": "<integer>",
+                                          "description": "(Required) The site ID"
+                                        }
+                                      ]
+                                    },
+                                    "description": "Create a specific scheduled job for the site.\n\nProcessing mode: <small><code>async</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "7bb57e56-4e4b-48f3-84f4-65ee376f59f0",
+                                      "name": "`JobResource`",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Accepted",
+                                      "code": 202,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/vnd.api+json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"scheduledJobs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string,null>\",\n      \"command\": \"<string>\",\n      \"status\": \"<string>\",\n      \"user\": \"<string>\",\n      \"frequency\": \"<string>\",\n      \"cron\": \"<string>\",\n      \"next_run_time\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-7bb57e56-4e4b-48f3-84f4-65ee376f59f0"
+                                    },
+                                    {
+                                      "id": "a54cfc32-1029-4fd8-9421-d3b56771931f",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-a54cfc32-1029-4fd8-9421-d3b56771931f"
+                                    },
+                                    {
+                                      "id": "4ac128e0-5ee6-406d-a2a6-d30567d853c7",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-4ac128e0-5ee6-406d-a2a6-d30567d853c7"
+                                    },
+                                    {
+                                      "id": "36f217c3-af23-464b-9c09-7b17d43610b5",
+                                      "name": "Validation error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"frequency\": \"monthly\",\n  \"name\": \"<string,null>\",\n  \"cron\": \"<string,null>\",\n  \"heartbeat\": \"<boolean,null>\",\n  \"grace_period\": 10\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/servers/:server/sites/:site/scheduled-jobs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "servers",
+                                            ":server",
+                                            "sites",
+                                            ":site",
+                                            "scheduled-jobs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "server"
+                                            },
+                                            {
+                                              "key": "site"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                      "code": 422,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"fugiatc\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"exercitation_88\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:07.000Z",
+                                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                                      "uid": "35240-36f217c3-af23-464b-9c09-7b17d43610b5"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:04:07.000Z",
+                                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                                  "uid": "35240-8d52440d-6a48-4a90-9f72-fd8f58c07fba"
+                                }
+                              ],
+                              "id": "64ea66da-336a-4447-bc74-1bde9d9a870e",
+                              "createdAt": "2026-07-28T02:04:07.000Z",
+                              "updatedAt": "2026-07-28T02:04:07.000Z",
+                              "uid": "35240-64ea66da-336a-4447-bc74-1bde9d9a870e"
+                            }
+                          ],
+                          "id": "9303c8f7-8b88-400a-b343-8a239a610858",
+                          "createdAt": "2026-07-28T02:04:07.000Z",
+                          "updatedAt": "2026-07-28T02:04:07.000Z",
+                          "uid": "35240-9303c8f7-8b88-400a-b343-8a239a610858"
+                        }
+                      ],
+                      "id": "4f6ff3c7-d6d3-4beb-bc63-8150d42bacd7",
+                      "createdAt": "2026-07-28T02:04:07.000Z",
+                      "updatedAt": "2026-07-28T02:04:07.000Z",
+                      "uid": "35240-4f6ff3c7-d6d3-4beb-bc63-8150d42bacd7"
+                    }
+                  ],
+                  "id": "e425a368-9db6-4c3f-b21f-06e8ea3d89a9",
+                  "createdAt": "2026-07-28T02:04:07.000Z",
+                  "updatedAt": "2026-07-28T02:04:07.000Z",
+                  "uid": "35240-e425a368-9db6-4c3f-b21f-06e8ea3d89a9"
+                }
+              ],
+              "id": "368286f5-7622-4d66-b1c4-13009d2db070",
+              "createdAt": "2026-07-28T02:04:07.000Z",
+              "updatedAt": "2026-07-28T02:04:07.000Z",
+              "uid": "35240-368286f5-7622-4d66-b1c4-13009d2db070"
+            }
+          ],
+          "id": "df67a2d1-4de0-4138-8f88-db91af8ec642",
+          "createdAt": "2026-07-28T02:04:07.000Z",
+          "updatedAt": "2026-07-28T02:04:07.000Z",
+          "uid": "35240-df67a2d1-4de0-4138-8f88-db91af8ec642"
+        }
+      ],
+      "id": "e0079bff-c04d-4bb6-968f-f8d9bc795690",
+      "createdAt": "2026-07-28T02:04:07.000Z",
+      "updatedAt": "2026-07-28T02:04:07.000Z",
+      "uid": "35240-e0079bff-c04d-4bb6-968f-f8d9bc795690"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

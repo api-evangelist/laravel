@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Laravel Cloud API
+  version: 1.0.0
+extends: openapi/laravel-cloud-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: laravel
+    x-apievangelist-api: laravel:cloud-api
+    x-apievangelist-harvested: '2026-07-19'
+    x-apievangelist-source: https://cloud.laravel.com/api-docs/api.json
+    x-apievangelist-operation-count: 104
+    x-apievangelist-artifacts:
+      authentication: authentication/laravel-authentication.yml
+      conventions: conventions/laravel-conventions.yml
+      errors: errors/laravel-problem-types.yml
+      lifecycle: lifecycle/laravel-lifecycle.yml
+      data_model: data-model/laravel-data-model.yml
+      scopes: scopes/laravel-scopes.yml
+- target: $.info
+  update:
+    x-apievangelist-conventions:
+      media_type: application/vnd.api+json
+      pagination: cursor via page[size] and page[cursor]; meta.next_cursor / meta.prev_cursor
+      filtering: filter[<field>] query parameters
+      sorting: sort=<field>, prefix with - to reverse
+      includes: include=<relationship>, comma separated
+      idempotency: not documented by Laravel

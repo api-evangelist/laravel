@@ -1,0 +1,1802 @@
+{
+  "info": {
+    "_postman_id": "488bee14-baaa-441a-a1fe-d317c548a6c6",
+    "name": "Laravel Cloud Applications Organizations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:59.000Z",
+    "updatedAt": "2026-07-28T02:03:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-488bee14-baaa-441a-a1fe-d317c548a6c6"
+  },
+  "item": [
+    {
+      "name": "orgs",
+      "item": [
+        {
+          "name": "{organization}",
+          "item": [
+            {
+              "name": "server-credentials",
+              "item": [
+                {
+                  "name": "{credential}",
+                  "item": [
+                    {
+                      "name": "regions",
+                      "item": [
+                        {
+                          "name": "{region}",
+                          "item": [
+                            {
+                              "name": "vpcs",
+                              "item": [
+                                {
+                                  "name": "{vpcId}",
+                                  "item": [
+                                    {
+                                      "name": "Get VPC",
+                                      "id": "0786f8d2-2953-41a8-ab1f-80acd57bab93",
+                                      "protocolProfileBehavior": {
+                                        "disableBodyPruning": true
+                                      },
+                                      "request": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs/:vpcId",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs",
+                                            ":vpcId"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "id": "e123d94b-12db-4ebe-83ba-e9d76b8b4b33",
+                                              "key": "organization",
+                                              "value": "<string>",
+                                              "description": "(Required) The organization slug"
+                                            },
+                                            {
+                                              "id": "385cd5f0-e45e-4621-822c-69eb17132143",
+                                              "key": "credential",
+                                              "value": "<integer>",
+                                              "description": "(Required) The credential ID"
+                                            },
+                                            {
+                                              "id": "dee8d18f-4f7a-4a24-8224-f8ad9282c4e2",
+                                              "key": "region",
+                                              "value": "<string>",
+                                              "description": "(Required) "
+                                            },
+                                            {
+                                              "id": "7334f6b0-9e2f-4854-8302-18f7edbd20e4",
+                                              "key": "vpcId",
+                                              "value": "<string>",
+                                              "description": "(Required) "
+                                            }
+                                          ]
+                                        },
+                                        "description": "Get a VPC for the provider.\n\nProcessing mode: <small><code>sync</code></small>"
+                                      },
+                                      "response": [
+                                        {
+                                          "id": "985cbc5c-6110-43ec-b3ce-a706d5c38004",
+                                          "name": "`VpcResource`",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/vnd.api+json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs/:vpcId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "server-credentials",
+                                                ":credential",
+                                                "regions",
+                                                ":region",
+                                                "vpcs",
+                                                ":vpcId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "credential"
+                                                },
+                                                {
+                                                  "key": "region"
+                                                },
+                                                {
+                                                  "key": "vpcId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "OK",
+                                          "code": 200,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/vnd.api+json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"cidrBlock\": \"<string>\",\n      \"subnets\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"cidrBlock\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"cidrBlock\": \"<string>\"\n        }\n      ],\n      \"region\": \"<string>\"\n    }\n  }\n}",
+                                          "createdAt": "2026-07-28T02:04:00.000Z",
+                                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                                          "uid": "35240-985cbc5c-6110-43ec-b3ce-a706d5c38004"
+                                        },
+                                        {
+                                          "id": "21a589d8-964c-4307-a674-78dc46d498ba",
+                                          "name": "Authorization error",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs/:vpcId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "server-credentials",
+                                                ":credential",
+                                                "regions",
+                                                ":region",
+                                                "vpcs",
+                                                ":vpcId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "credential"
+                                                },
+                                                {
+                                                  "key": "region"
+                                                },
+                                                {
+                                                  "key": "vpcId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Forbidden",
+                                          "code": 403,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:04:00.000Z",
+                                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                                          "uid": "35240-21a589d8-964c-4307-a674-78dc46d498ba"
+                                        },
+                                        {
+                                          "id": "e0640768-29a2-4915-b544-ec4213fcb02c",
+                                          "name": "Not found",
+                                          "originalRequest": {
+                                            "method": "GET",
+                                            "header": [
+                                              {
+                                                "key": "Accept",
+                                                "value": "application/json"
+                                              },
+                                              {
+                                                "description": "Added as a part of security scheme: bearer",
+                                                "key": "Authorization",
+                                                "value": "Bearer <token>"
+                                              }
+                                            ],
+                                            "url": {
+                                              "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs/:vpcId",
+                                              "host": [
+                                                "{{baseUrl}}"
+                                              ],
+                                              "path": [
+                                                "orgs",
+                                                ":organization",
+                                                "server-credentials",
+                                                ":credential",
+                                                "regions",
+                                                ":region",
+                                                "vpcs",
+                                                ":vpcId"
+                                              ],
+                                              "variable": [
+                                                {
+                                                  "key": "organization"
+                                                },
+                                                {
+                                                  "key": "credential"
+                                                },
+                                                {
+                                                  "key": "region"
+                                                },
+                                                {
+                                                  "key": "vpcId"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "status": "Not Found",
+                                          "code": 404,
+                                          "_postman_previewlanguage": "json",
+                                          "header": [
+                                            {
+                                              "key": "Content-Type",
+                                              "value": "application/json"
+                                            }
+                                          ],
+                                          "cookie": [],
+                                          "responseTime": null,
+                                          "body": "{\n  \"message\": \"<string>\"\n}",
+                                          "createdAt": "2026-07-28T02:04:00.000Z",
+                                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                                          "uid": "35240-e0640768-29a2-4915-b544-ec4213fcb02c"
+                                        }
+                                      ],
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-0786f8d2-2953-41a8-ab1f-80acd57bab93"
+                                    }
+                                  ],
+                                  "id": "873ef10e-aa2b-48f0-828c-048c19196256",
+                                  "createdAt": "2026-07-28T02:04:00.000Z",
+                                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                                  "uid": "35240-873ef10e-aa2b-48f0-828c-048c19196256"
+                                },
+                                {
+                                  "name": "Create a new VPC",
+                                  "id": "be4ce3af-587e-4175-a593-48e83467eb8f",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "server-credentials",
+                                        ":credential",
+                                        "regions",
+                                        ":region",
+                                        "vpcs"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "8a036f83-8d3d-4135-a24a-cca5e8f22cb6",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "6a1c8f2b-fdbb-4d53-a95d-ddb19359816f",
+                                          "key": "credential",
+                                          "value": "<integer>",
+                                          "description": "(Required) The credential ID"
+                                        },
+                                        {
+                                          "id": "751ebbea-e2b3-40f9-ac26-869cb7e00213",
+                                          "key": "region",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "Create a private network for the provider.\n\nProcessing mode: <small><code>sync</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "cc0a8eae-f25c-4d12-8a80-c8fb7bad6076",
+                                      "name": "`VpcResource`",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Created",
+                                      "code": 201,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/vnd.api+json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"<string>\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"cidrBlock\": \"<string>\",\n      \"subnets\": [\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"cidrBlock\": \"<string>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"name\": \"<string>\",\n          \"cidrBlock\": \"<string>\"\n        }\n      ],\n      \"region\": \"<string>\"\n    }\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-cc0a8eae-f25c-4d12-8a80-c8fb7bad6076"
+                                    },
+                                    {
+                                      "id": "96303185-ed30-4038-bc41-2bd4f85208ba",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-96303185-ed30-4038-bc41-2bd4f85208ba"
+                                    },
+                                    {
+                                      "id": "1ab25233-dacb-4585-bd1c-9697b4fee245",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-1ab25233-dacb-4585-bd1c-9697b4fee245"
+                                    },
+                                    {
+                                      "id": "00cddd7a-dc80-447f-b033-3613a24136ff",
+                                      "name": "Validation error",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                      "code": 422,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consecteturb\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-00cddd7a-dc80-447f-b033-3613a24136ff"
+                                    },
+                                    {
+                                      "id": "c196b4ef-2c69-4dfa-b85a-d3ec7b8df98f",
+                                      "name": "New Response",
+                                      "originalRequest": {
+                                        "method": "POST",
+                                        "header": [
+                                          {
+                                            "key": "Content-Type",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "body": {
+                                          "mode": "raw",
+                                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                                          "options": {
+                                            "raw": {
+                                              "headerFamily": "json",
+                                              "language": "json"
+                                            }
+                                          }
+                                        },
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Internal Server Error",
+                                      "code": 500,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "[]",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-c196b4ef-2c69-4dfa-b85a-d3ec7b8df98f"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:04:00.000Z",
+                                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                                  "uid": "35240-be4ce3af-587e-4175-a593-48e83467eb8f"
+                                },
+                                {
+                                  "name": "List VPCs",
+                                  "id": "cd5f6a37-2af0-4ab4-9772-2cb551666f6d",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "orgs",
+                                        ":organization",
+                                        "server-credentials",
+                                        ":credential",
+                                        "regions",
+                                        ":region",
+                                        "vpcs"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "c0b57880-5bbf-49db-8bda-e47cc3f0640e",
+                                          "key": "organization",
+                                          "value": "<string>",
+                                          "description": "(Required) The organization slug"
+                                        },
+                                        {
+                                          "id": "2343ec36-57ba-4c39-8d4b-99baae1900d4",
+                                          "key": "credential",
+                                          "value": "<integer>",
+                                          "description": "(Required) The credential ID"
+                                        },
+                                        {
+                                          "id": "754da70c-f69a-486d-816e-820de001119c",
+                                          "key": "region",
+                                          "value": "<string>",
+                                          "description": "(Required) "
+                                        }
+                                      ]
+                                    },
+                                    "description": "List VPCs for the provider.\n\nProcessing mode: <small><code>sync</code></small>"
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "1a224eb5-7630-4c81-9a23-d484a5b34b5f",
+                                      "name": "Paginated set of `VpcResource`",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/vnd.api+json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/vnd.api+json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"cidrBlock\": \"<string>\",\n        \"subnets\": [\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"cidrBlock\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"cidrBlock\": \"<string>\"\n          }\n        ],\n        \"region\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"cidrBlock\": \"<string>\",\n        \"subnets\": [\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"cidrBlock\": \"<string>\"\n          },\n          {\n            \"id\": \"<string>\",\n            \"name\": \"<string>\",\n            \"cidrBlock\": \"<string>\"\n          }\n        ],\n        \"region\": \"<string>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\"\n  }\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-1a224eb5-7630-4c81-9a23-d484a5b34b5f"
+                                    },
+                                    {
+                                      "id": "0992d931-6df2-4036-8952-9e9c4ce57286",
+                                      "name": "Authorization error",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Forbidden",
+                                      "code": 403,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-0992d931-6df2-4036-8952-9e9c4ce57286"
+                                    },
+                                    {
+                                      "id": "d08af92d-da1b-48f6-8b62-1afde3293ee9",
+                                      "name": "Not found",
+                                      "originalRequest": {
+                                        "method": "GET",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: bearer",
+                                            "key": "Authorization",
+                                            "value": "Bearer <token>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential/regions/:region/vpcs",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "orgs",
+                                            ":organization",
+                                            "server-credentials",
+                                            ":credential",
+                                            "regions",
+                                            ":region",
+                                            "vpcs"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "organization"
+                                            },
+                                            {
+                                              "key": "credential"
+                                            },
+                                            {
+                                              "key": "region"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"message\": \"<string>\"\n}",
+                                      "createdAt": "2026-07-28T02:04:00.000Z",
+                                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                                      "uid": "35240-d08af92d-da1b-48f6-8b62-1afde3293ee9"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T02:04:00.000Z",
+                                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                                  "uid": "35240-cd5f6a37-2af0-4ab4-9772-2cb551666f6d"
+                                }
+                              ],
+                              "id": "7f118a1e-0676-473d-bd2a-f04c0c6a59d5",
+                              "createdAt": "2026-07-28T02:04:00.000Z",
+                              "updatedAt": "2026-07-28T02:04:00.000Z",
+                              "uid": "35240-7f118a1e-0676-473d-bd2a-f04c0c6a59d5"
+                            }
+                          ],
+                          "id": "abadaed7-662b-4fef-b062-31f820ebbb1e",
+                          "createdAt": "2026-07-28T02:04:00.000Z",
+                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                          "uid": "35240-abadaed7-662b-4fef-b062-31f820ebbb1e"
+                        }
+                      ],
+                      "id": "55d1bd86-dacf-434f-8973-1cf3961d8ec4",
+                      "createdAt": "2026-07-28T02:04:00.000Z",
+                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                      "uid": "35240-55d1bd86-dacf-434f-8973-1cf3961d8ec4"
+                    },
+                    {
+                      "name": "Get server credential",
+                      "id": "e6ef3f94-038c-44a0-9bce-558c7c229a1a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "server-credentials",
+                            ":credential"
+                          ],
+                          "variable": [
+                            {
+                              "id": "82ba133a-84ef-4e6c-a282-1a87060b23f7",
+                              "key": "organization",
+                              "value": "<string>",
+                              "description": "(Required) The organization slug"
+                            },
+                            {
+                              "id": "ff81ffcd-60c6-4bca-aa7a-555d97bd1e66",
+                              "key": "credential",
+                              "value": "<integer>",
+                              "description": "(Required) The credential ID"
+                            }
+                          ]
+                        },
+                        "description": "Show a specific server credential for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                      },
+                      "response": [
+                        {
+                          "id": "a9d17ce9-13fb-4719-9f0c-2493f1853345",
+                          "name": "`ServerCredentialResource`",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "server-credentials",
+                                ":credential"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "credential"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"serverCredentials\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"provider\": \"<string>\",\n      \"in_use\": \"<boolean>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T02:04:00.000Z",
+                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                          "uid": "35240-a9d17ce9-13fb-4719-9f0c-2493f1853345"
+                        },
+                        {
+                          "id": "48a26e1a-2cc9-4ff5-8410-85e5017618c7",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "server-credentials",
+                                ":credential"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "credential"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:00.000Z",
+                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                          "uid": "35240-48a26e1a-2cc9-4ff5-8410-85e5017618c7"
+                        },
+                        {
+                          "id": "a45b85e5-b39e-49a1-abf4-17ba92a78379",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/orgs/:organization/server-credentials/:credential",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "orgs",
+                                ":organization",
+                                "server-credentials",
+                                ":credential"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "organization"
+                                },
+                                {
+                                  "key": "credential"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:00.000Z",
+                          "updatedAt": "2026-07-28T02:04:00.000Z",
+                          "uid": "35240-a45b85e5-b39e-49a1-abf4-17ba92a78379"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:04:00.000Z",
+                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                      "uid": "35240-e6ef3f94-038c-44a0-9bce-558c7c229a1a"
+                    }
+                  ],
+                  "id": "ac7c04e8-409d-4c14-876d-6e5bde3b8675",
+                  "createdAt": "2026-07-28T02:04:00.000Z",
+                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                  "uid": "35240-ac7c04e8-409d-4c14-876d-6e5bde3b8675"
+                },
+                {
+                  "name": "List server credentials",
+                  "id": "39374890-871a-4391-bc02-93b5baa95f8b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:organization/server-credentials?page[size]=30&page[cursor]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":organization",
+                        "server-credentials"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results that will be returned per page.",
+                          "key": "page[size]",
+                          "value": "30"
+                        },
+                        {
+                          "description": "The cursor to start the pagination from.",
+                          "key": "page[cursor]",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "2e2d85ee-6d8f-49ce-81a2-e1a3c0a7f8d6",
+                          "key": "organization",
+                          "value": "<string>",
+                          "description": "(Required) The organization slug"
+                        }
+                      ]
+                    },
+                    "description": "Show all server credentials for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+                  },
+                  "response": [
+                    {
+                      "id": "ef51f57f-edf7-48a8-bc23-6f444d2e0b95",
+                      "name": "Paginated set of `ServerCredentialResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "server-credentials"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"serverCredentials\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"provider\": \"<string>\",\n        \"in_use\": \"<boolean>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"serverCredentials\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"provider\": \"<string>\",\n        \"in_use\": \"<boolean>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:00.000Z",
+                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                      "uid": "35240-ef51f57f-edf7-48a8-bc23-6f444d2e0b95"
+                    },
+                    {
+                      "id": "648d2b47-b2cf-446c-b947-ca490bd93452",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "server-credentials"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:00.000Z",
+                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                      "uid": "35240-648d2b47-b2cf-446c-b947-ca490bd93452"
+                    },
+                    {
+                      "id": "89ed125d-3b54-4bfe-b2b7-1e09221ae9b1",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/orgs/:organization/server-credentials?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "orgs",
+                            ":organization",
+                            "server-credentials"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "organization"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:00.000Z",
+                      "updatedAt": "2026-07-28T02:04:00.000Z",
+                      "uid": "35240-89ed125d-3b54-4bfe-b2b7-1e09221ae9b1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:04:00.000Z",
+                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                  "uid": "35240-39374890-871a-4391-bc02-93b5baa95f8b"
+                }
+              ],
+              "id": "ff868af3-669d-4632-b878-8dcdadeb957a",
+              "createdAt": "2026-07-28T02:04:00.000Z",
+              "updatedAt": "2026-07-28T02:04:00.000Z",
+              "uid": "35240-ff868af3-669d-4632-b878-8dcdadeb957a"
+            },
+            {
+              "name": "Get organization",
+              "id": "f50e8262-3b29-4a8d-ae60-251bbfcc6e89",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orgs/:organization",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orgs",
+                    ":organization"
+                  ],
+                  "variable": [
+                    {
+                      "id": "61c09aaa-436a-4ed8-be57-e1d93789ad74",
+                      "key": "organization",
+                      "value": "<string>",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "description": "Show a specific organization for the user.\n\nProcessing mode: <small><code>sync</code></small>"
+              },
+              "response": [
+                {
+                  "id": "cde8f2fb-0631-4202-9413-f7214e52c5ab",
+                  "name": "`OrganizationResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:organization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":organization"
+                      ],
+                      "variable": [
+                        {
+                          "key": "organization"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"organizations\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"created_at\": \"<string,null-date-time>\",\n      \"updated_at\": \"<string,null-date-time>\"\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T02:04:00.000Z",
+                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                  "uid": "35240-cde8f2fb-0631-4202-9413-f7214e52c5ab"
+                },
+                {
+                  "id": "b2cfc837-fb74-4a1c-97be-aa607def1e43",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:organization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":organization"
+                      ],
+                      "variable": [
+                        {
+                          "key": "organization"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:00.000Z",
+                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                  "uid": "35240-b2cfc837-fb74-4a1c-97be-aa607def1e43"
+                },
+                {
+                  "id": "563a4cb0-e862-45a1-a581-45aa78de035f",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/orgs/:organization",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "orgs",
+                        ":organization"
+                      ],
+                      "variable": [
+                        {
+                          "key": "organization"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:00.000Z",
+                  "updatedAt": "2026-07-28T02:04:00.000Z",
+                  "uid": "35240-563a4cb0-e862-45a1-a581-45aa78de035f"
+                }
+              ],
+              "createdAt": "2026-07-28T02:04:00.000Z",
+              "updatedAt": "2026-07-28T02:04:00.000Z",
+              "uid": "35240-f50e8262-3b29-4a8d-ae60-251bbfcc6e89"
+            }
+          ],
+          "id": "4dc9cec8-d31c-4ec1-9f0e-82025bcd668e",
+          "createdAt": "2026-07-28T02:04:00.000Z",
+          "updatedAt": "2026-07-28T02:04:00.000Z",
+          "uid": "35240-4dc9cec8-d31c-4ec1-9f0e-82025bcd668e"
+        },
+        {
+          "name": "List organizations",
+          "id": "d402f9c8-9841-41d5-b4c3-6560225e992b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/orgs?page[size]=30&page[cursor]=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "orgs"
+              ],
+              "query": [
+                {
+                  "description": "The number of results that will be returned per page.",
+                  "key": "page[size]",
+                  "value": "30"
+                },
+                {
+                  "description": "The cursor to start the pagination from.",
+                  "key": "page[cursor]",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Show all organizations the user has access to.\n\nProcessing mode: <small><code>sync</code></small>"
+          },
+          "response": [
+            {
+              "id": "9dc99ba8-ac43-41a0-a28b-a7e4283020e6",
+              "name": "Paginated set of `OrganizationResource`",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orgs?page[size]=30&page[cursor]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orgs"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of results that will be returned per page.",
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "description": "The cursor to start the pagination from.",
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"organizations\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"organizations\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"updated_at\": \"<string,null-date-time>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:04:00.000Z",
+              "updatedAt": "2026-07-28T02:04:00.000Z",
+              "uid": "35240-9dc99ba8-ac43-41a0-a28b-a7e4283020e6"
+            },
+            {
+              "id": "b71d222d-522a-4956-9755-c39230e71176",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orgs?page[size]=30&page[cursor]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "orgs"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of results that will be returned per page.",
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "description": "The cursor to start the pagination from.",
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:04:00.000Z",
+              "updatedAt": "2026-07-28T02:04:00.000Z",
+              "uid": "35240-b71d222d-522a-4956-9755-c39230e71176"
+            }
+          ],
+          "createdAt": "2026-07-28T02:04:00.000Z",
+          "updatedAt": "2026-07-28T02:04:00.000Z",
+          "uid": "35240-d402f9c8-9841-41d5-b4c3-6560225e992b"
+        }
+      ],
+      "id": "916d97a7-a481-4ba1-9aee-3cae7fd589be",
+      "createdAt": "2026-07-28T02:04:00.000Z",
+      "updatedAt": "2026-07-28T02:04:00.000Z",
+      "uid": "35240-916d97a7-a481-4ba1-9aee-3cae7fd589be"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

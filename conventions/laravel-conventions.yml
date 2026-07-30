@@ -1,0 +1,129 @@
+generated: '2026-07-19'
+method: searched
+source: https://forge.laravel.com/docs/api-reference/introduction, https://forge.laravel.com/docs/api-reference/pagination,
+  https://forge.laravel.com/docs/api-reference/rate-limiting, https://forge.laravel.com/docs/api-reference/filtering,
+  https://forge.laravel.com/docs/api-reference/relationships, openapi/laravel-forge-openapi.json,
+  openapi/laravel-cloud-openapi.json
+applies_to:
+- laravel:forge-api
+- laravel:cloud-api
+notes: The current Forge API and the Cloud API share one house style. Both are Laravel applications that
+  serialize responses as JSON:API-flavoured documents (application/vnd.api+json) with data / meta / links
+  envelopes and a relationships object, but neither claims formal JSON:API 1.x conformance and error
+  bodies fall back to the plain Laravel JSON error envelope on application/json.
+authentication:
+  style: bearer-token
+  header: 'Authorization: Bearer <token>'
+  token_source: Generated in the Forge or Cloud dashboard under API / tokens
+  scoped_tokens: true
+  scope_model: Forge tokens are assigned scopes at creation time; the OpenAPI declares 62 OAuth 2.0 scopes
+    across organization, server, site and team domains
+  oauth2:
+    flow: authorizationCode
+    authorization_url: https://forge.laravel.com/oauth/authorize
+    token_url: https://forge.laravel.com/oauth/token
+    applies_to: laravel:forge-api
+  token_expiration: Optional expiration date may be set per token (Forge)
+  artifact: authentication/laravel-authentication.yml
+  scopes_artifact: scopes/laravel-scopes.yml
+required_headers:
+- name: Accept
+  value: application/json
+- name: Content-Type
+  value: application/json
+media_types:
+  success: application/vnd.api+json
+  errors: application/json
+  note: 245 of the 377 documented responses across both specs use application/vnd.api+json; error
+    responses use application/json.
+pagination:
+  style: cursor
+  default_page_size: 30
+  params:
+  - name: page[size]
+    description: Number of items to return per page.
+  - name: page[cursor]
+    description: Opaque cursor taken from meta.next_cursor or meta.prev_cursor.
+  response_fields:
+  - meta.per_page
+  - meta.next_cursor
+  - meta.prev_cursor
+  - links.next
+  - links.prev
+  termination: meta.prev_cursor is null on the first page; meta.next_cursor is null on the last page.
+  docs: https://forge.laravel.com/docs/api-reference/pagination
+filtering:
+  style: bracketed query parameters
+  param: filter[<field>]
+  example: GET /orgs/{org}/servers?filter[name]=conifly-web
+  per_endpoint: Supported fields vary by endpoint; consult the operation.
+  docs: https://forge.laravel.com/docs/api-reference/filtering
+sorting:
+  param: sort
+  format: comma-separated list of field names
+  descending: prefix a field with a hyphen (sort=-php_version)
+  example: GET /orgs/{org}/servers?sort=-php_version
+  docs: https://forge.laravel.com/docs/api-reference/filtering
+expansion:
+  style: JSON:API includes
+  param: include
+  format: comma-separated relationship names
+  example: GET /orgs/{org}/servers/{id}/sites?include=latestDeployment,tags
+  discovery: Available relationships are listed in the relationships object of each resource response.
+  docs: https://forge.laravel.com/docs/api-reference/relationships
+  data_model: data-model/laravel-data-model.yml
+rate_limiting:
+  documented: true
+  default_limit: 60 requests per minute per authenticated user
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  status_on_exceed: 429
+  increase_process: Email forge@laravel.com with a description of the use case to request an adjustment.
+  docs: https://forge.laravel.com/docs/api-reference/rate-limiting
+  note: The rate-limit headers are documented in prose but are not declared as response headers in either
+    OpenAPI file.
+idempotency:
+  supported: false
+  documented: false
+  evidence: No Idempotency-Key header, parameter or retry-safety contract appears in either OpenAPI file
+    (zero matches for 'idempoten' across both specs) or anywhere in the Forge or Cloud API reference.
+  implication: Retrying a failed POST against either API risks duplicate resource creation. Long-running
+    provisioning operations return 202 Accepted (99 operations in the Forge spec) and must be polled
+    rather than retried.
+versioning:
+  scheme: major version behind a documentation split, not a URI or header parameter on the current API
+  current:
+    forge: v2 (base path https://forge.laravel.com/api, no version segment)
+    cloud: unversioned (base path https://cloud.laravel.com/api)
+  legacy:
+    forge: v1 at https://forge.laravel.com/api/v1, deprecated, discontinuation announced for 2026-07-31
+  spec_declared_version: '0.0.1 in both OpenAPI info blocks, which does not track the product version'
+  artifact: lifecycle/laravel-lifecycle.yml
+request_tracing:
+  request_id_header: not documented
+  correlation: No request-id or trace header is documented or declared in either spec.
+errors:
+  envelope: '{ "message": string, "errors"?: { field: [string, ...] } }'
+  media_type: application/json
+  rfc9457: false
+  artifact: errors/laravel-problem-types.yml
+async_operations:
+  pattern: 202 Accepted for provisioning and long-running actions
+  polling: Poll the resource until its readiness attribute flips (for example a Forge server's is_ready).
+  guidance: 'Forge documents that servers take about ten minutes to provision and explicitly asks
+    integrators not to poll tightly: poll roughly once every two minutes.'
+scoping:
+  forge: Every v2 resource path is scoped to an organization slug (/orgs/{organization}/...). Callers
+    must first list organizations to resolve the slug.
+  cloud: Resources are scoped to the organization the bearer token belongs to; paths are flat
+    (/applications, /environments).
+cross_links:
+  authentication: authentication/laravel-authentication.yml
+  scopes: scopes/laravel-scopes.yml
+  errors: errors/laravel-problem-types.yml
+  lifecycle: lifecycle/laravel-lifecycle.yml
+  data_model: data-model/laravel-data-model.yml
+  conformance: conformance/laravel-conformance.yml
+  webhooks: asyncapi/laravel-webhooks.yml

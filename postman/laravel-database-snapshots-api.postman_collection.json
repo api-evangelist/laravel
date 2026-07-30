@@ -1,0 +1,1041 @@
+{
+  "info": {
+    "_postman_id": "7da1beb8-1478-4e28-866b-b574daa5fea9",
+    "name": "Laravel Cloud Applications Database Snapshots API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:26.000Z",
+    "updatedAt": "2026-07-28T02:03:26.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7da1beb8-1478-4e28-866b-b574daa5fea9"
+  },
+  "item": [
+    {
+      "name": "databases",
+      "item": [
+        {
+          "name": "clusters",
+          "item": [
+            {
+              "name": "{database}",
+              "item": [
+                {
+                  "name": "snapshots",
+                  "item": [
+                    {
+                      "name": "List database snapshots",
+                      "id": "c606c688-6b51-4136-a9dc-cabaaac1aa50",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/databases/clusters/:database/snapshots?include=database,database",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "databases",
+                            "clusters",
+                            ":database",
+                            "snapshots"
+                          ],
+                          "query": [
+                            {
+                              "key": "include",
+                              "value": "database,database"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "id": "c4bca813-bf4f-41f6-bbc6-6de94fc1d938",
+                              "key": "database",
+                              "value": "<string,null>",
+                              "description": "(Required) The database identifier"
+                            }
+                          ]
+                        },
+                        "description": "Get a list of all snapshots for a specific database cluster."
+                      },
+                      "response": [
+                        {
+                          "id": "506fc241-a2ba-46a5-9a1f-7283ad5b84e3",
+                          "name": "Paginated set of `DatabaseSnapshotResource`",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots?include=database,database",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "key": "include",
+                                  "value": "database,database"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"database_snapshots\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"description\": \"<string,null>\",\n        \"type\": \"scheduled\",\n        \"status\": \"failed\",\n        \"storage_bytes\": \"<integer,null>\",\n        \"pitr_enabled\": \"<boolean,null>\",\n        \"pitr_ends_at\": \"<string,null-date-time>\",\n        \"completed_at\": \"<string,null-date-time>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"database_snapshots\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"description\": \"<string,null>\",\n        \"type\": \"scheduled\",\n        \"status\": \"failed\",\n        \"storage_bytes\": \"<integer,null>\",\n        \"pitr_enabled\": \"<boolean,null>\",\n        \"pitr_ends_at\": \"<string,null-date-time>\",\n        \"completed_at\": \"<string,null-date-time>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"neon_serverless_postgres_16\",\n        \"status\": \"updating\",\n        \"region\": \"eu-west-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 2,\n          \"cu_max\": 0.25,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"pgsql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"neon_serverless_postgres_18\",\n        \"status\": \"upgrading\",\n        \"region\": \"ap-northeast-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 8,\n          \"cu_max\": 4,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 3306,\n          \"protocol\": \"postgres\",\n          \"driver\": \"pgsql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-506fc241-a2ba-46a5-9a1f-7283ad5b84e3"
+                        },
+                        {
+                          "id": "a40bf004-fbc2-4546-a9ca-2723aa15d6a5",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots?include=database,database",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "key": "include",
+                                  "value": "database,database"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-a40bf004-fbc2-4546-a9ca-2723aa15d6a5"
+                        },
+                        {
+                          "id": "2627def0-e013-4eeb-bed8-cfc25c0b8f1e",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots?include=database,database",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "query": [
+                                {
+                                  "key": "include",
+                                  "value": "database,database"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-2627def0-e013-4eeb-bed8-cfc25c0b8f1e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:03:26.000Z",
+                      "updatedAt": "2026-07-28T02:03:26.000Z",
+                      "uid": "35240-c606c688-6b51-4136-a9dc-cabaaac1aa50"
+                    },
+                    {
+                      "name": "Create a database snapshot",
+                      "id": "8c7b55f1-5b00-4c90-a8ad-296b260bf154",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/databases/clusters/:database/snapshots",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "databases",
+                            "clusters",
+                            ":database",
+                            "snapshots"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d2b4ff26-6f47-4355-9f7a-608b75a00cc8",
+                              "key": "database",
+                              "value": "<string,null>",
+                              "description": "(Required) The database identifier"
+                            }
+                          ]
+                        },
+                        "description": "Create a new manual snapshot for a database cluster."
+                      },
+                      "response": [
+                        {
+                          "id": "5a6068da-94b8-4d42-a72a-9246149030e5",
+                          "name": "`DatabaseSnapshotResource`",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"database_snapshots\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"type\": \"scheduled\",\n      \"status\": \"deleting\",\n      \"storage_bytes\": \"<integer,null>\",\n      \"pitr_enabled\": \"<boolean,null>\",\n      \"pitr_ends_at\": \"<string,null-date-time>\",\n      \"completed_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"database\": {\n        \"data\": {\n          \"type\": \"databases\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"laravel_mysql_8\",\n        \"status\": \"creating\",\n        \"region\": \"ca-central-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 0.25,\n          \"cu_max\": 0.5,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 5432,\n          \"protocol\": \"postgres\",\n          \"driver\": \"pgsql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"neon_serverless_postgres_17\",\n        \"status\": \"upgrading\",\n        \"region\": \"ap-southeast-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 4,\n          \"cu_max\": 4,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 3306,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-5a6068da-94b8-4d42-a72a-9246149030e5"
+                        },
+                        {
+                          "id": "8cc22e37-5b3f-4ce4-8bb8-31b00b5ccb13",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-8cc22e37-5b3f-4ce4-8bb8-31b00b5ccb13"
+                        },
+                        {
+                          "id": "7def1e1b-0e0d-4689-bf1f-6e2409c18856",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-7def1e1b-0e0d-4689-bf1f-6e2409c18856"
+                        },
+                        {
+                          "id": "4f4d0aeb-4b1b-4a3c-ab29-d208b9828a20",
+                          "name": "Validation error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string,null>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/databases/clusters/:database/snapshots",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "databases",
+                                "clusters",
+                                ":database",
+                                "snapshots"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "database"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"utf\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                          "createdAt": "2026-07-28T02:03:26.000Z",
+                          "updatedAt": "2026-07-28T02:03:26.000Z",
+                          "uid": "35240-4f4d0aeb-4b1b-4a3c-ab29-d208b9828a20"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:03:26.000Z",
+                      "updatedAt": "2026-07-28T02:03:26.000Z",
+                      "uid": "35240-8c7b55f1-5b00-4c90-a8ad-296b260bf154"
+                    }
+                  ],
+                  "id": "84ba8c64-2a0b-477e-92d2-dc6b0d5ba2cd",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-84ba8c64-2a0b-477e-92d2-dc6b0d5ba2cd"
+                }
+              ],
+              "id": "997e673b-df0a-4c2f-a34d-d02f39fcc54c",
+              "createdAt": "2026-07-28T02:03:26.000Z",
+              "updatedAt": "2026-07-28T02:03:26.000Z",
+              "uid": "35240-997e673b-df0a-4c2f-a34d-d02f39fcc54c"
+            }
+          ],
+          "id": "a5d41db0-c337-4f5b-b824-c424df368e83",
+          "createdAt": "2026-07-28T02:03:26.000Z",
+          "updatedAt": "2026-07-28T02:03:26.000Z",
+          "uid": "35240-a5d41db0-c337-4f5b-b824-c424df368e83"
+        }
+      ],
+      "id": "88ac58cf-11c8-41c0-b497-484dfa2d9364",
+      "createdAt": "2026-07-28T02:03:26.000Z",
+      "updatedAt": "2026-07-28T02:03:26.000Z",
+      "uid": "35240-88ac58cf-11c8-41c0-b497-484dfa2d9364"
+    },
+    {
+      "name": "database-snapshots",
+      "item": [
+        {
+          "name": "{databaseSnapshot}",
+          "item": [
+            {
+              "name": "Get a database snapshot",
+              "id": "f0870c2c-96ad-4fe6-ac01-63f5cf02d149",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot?include=database,database",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "database-snapshots",
+                    ":databaseSnapshot"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "database,database"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "8a4d3136-050f-4c4a-9ea3-6e42aef08e97",
+                      "key": "databaseSnapshot",
+                      "value": "<string,null>",
+                      "description": "(Required) The database snapshot identifier"
+                    }
+                  ]
+                },
+                "description": "Get a specific database snapshot."
+              },
+              "response": [
+                {
+                  "id": "6b1fbb82-eb15-4c4a-900b-acb4ab3399d3",
+                  "name": "`DatabaseSnapshotResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot?include=database,database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "database,database"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"database_snapshots\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"type\": \"scheduled\",\n      \"status\": \"deleting\",\n      \"storage_bytes\": \"<integer,null>\",\n      \"pitr_enabled\": \"<boolean,null>\",\n      \"pitr_ends_at\": \"<string,null-date-time>\",\n      \"completed_at\": \"<string,null-date-time>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"database\": {\n        \"data\": {\n          \"type\": \"databases\",\n          \"id\": \"<string>\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"laravel_mysql_8\",\n        \"status\": \"creating\",\n        \"region\": \"ca-central-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 0.25,\n          \"cu_max\": 0.5,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 5432,\n          \"protocol\": \"postgres\",\n          \"driver\": \"pgsql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"neon_serverless_postgres_17\",\n        \"status\": \"upgrading\",\n        \"region\": \"ap-southeast-1\",\n        \"created_at\": \"<string,null-date-time>\",\n        \"config\": {\n          \"cu_min\": 4,\n          \"cu_max\": 4,\n          \"suspend_seconds\": \"<integer>\",\n          \"retention_days\": \"<integer>\"\n        },\n        \"connection\": {\n          \"hostname\": \"<string>\",\n          \"port\": 3306,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"<string>\",\n            \"password\": \"<string>\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"databaseSchemas\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-6b1fbb82-eb15-4c4a-900b-acb4ab3399d3"
+                },
+                {
+                  "id": "d01b08d1-0821-491a-bd53-4dca7fdfbc35",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot?include=database,database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "database,database"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-d01b08d1-0821-491a-bd53-4dca7fdfbc35"
+                },
+                {
+                  "id": "fcf6c641-0fb3-4f09-a090-dd6e94bbddaf",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot?include=database,database",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "database,database"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-fcf6c641-0fb3-4f09-a090-dd6e94bbddaf"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:26.000Z",
+              "updatedAt": "2026-07-28T02:03:26.000Z",
+              "uid": "35240-f0870c2c-96ad-4fe6-ac01-63f5cf02d149"
+            },
+            {
+              "name": "Delete a database snapshot",
+              "id": "27c4e751-a0ef-462f-92b7-a2255289183f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "database-snapshots",
+                    ":databaseSnapshot"
+                  ],
+                  "variable": [
+                    {
+                      "id": "43982e3c-aa1c-4d0e-9188-b931a9737269",
+                      "key": "databaseSnapshot",
+                      "value": "<string,null>",
+                      "description": "(Required) The database snapshot identifier"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "68139769-45a5-40ae-b84d-4b837d71a91a",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-68139769-45a5-40ae-b84d-4b837d71a91a"
+                },
+                {
+                  "id": "ddd0f39b-7691-407f-8c13-527c70622fa5",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-ddd0f39b-7691-407f-8c13-527c70622fa5"
+                },
+                {
+                  "id": "c6348617-c6f0-453c-87a8-aa6d99562148",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-c6348617-c6f0-453c-87a8-aa6d99562148"
+                },
+                {
+                  "id": "78b1a2a1-5f96-493d-8bb2-51a149518753",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/database-snapshots/:databaseSnapshot",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "database-snapshots",
+                        ":databaseSnapshot"
+                      ],
+                      "variable": [
+                        {
+                          "key": "databaseSnapshot"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"utf\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:26.000Z",
+                  "updatedAt": "2026-07-28T02:03:26.000Z",
+                  "uid": "35240-78b1a2a1-5f96-493d-8bb2-51a149518753"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:26.000Z",
+              "updatedAt": "2026-07-28T02:03:26.000Z",
+              "uid": "35240-27c4e751-a0ef-462f-92b7-a2255289183f"
+            }
+          ],
+          "id": "2ba1b30c-ee43-48fa-820a-02325204d6a1",
+          "createdAt": "2026-07-28T02:03:26.000Z",
+          "updatedAt": "2026-07-28T02:03:26.000Z",
+          "uid": "35240-2ba1b30c-ee43-48fa-820a-02325204d6a1"
+        }
+      ],
+      "id": "678ef2f5-8b2e-4416-8465-99ea8c9a4f33",
+      "createdAt": "2026-07-28T02:03:26.000Z",
+      "updatedAt": "2026-07-28T02:03:26.000Z",
+      "uid": "35240-678ef2f5-8b2e-4416-8465-99ea8c9a4f33"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

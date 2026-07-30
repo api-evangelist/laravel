@@ -1,0 +1,3091 @@
+{
+  "info": {
+    "_postman_id": "235f13ac-5381-45f6-8208-49fe09e5f8b5",
+    "name": "Laravel Cloud Applications Instances API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:03:43.000Z",
+    "updatedAt": "2026-07-28T02:03:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-235f13ac-5381-45f6-8208-49fe09e5f8b5"
+  },
+  "item": [
+    {
+      "name": "environments",
+      "item": [
+        {
+          "name": "{environment}",
+          "item": [
+            {
+              "name": "instances",
+              "item": [
+                {
+                  "name": "List instances",
+                  "id": "e63de2ce-f1d8-40be-bcbc-9c7656c03c10",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/environments/:environment/instances?filter[name]=<string>&filter[type]=<string>&filter[size]=<string>&filter[scaling_type]=<string>&include=backgroundProcesses,backgroundProcesses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "environments",
+                        ":environment",
+                        "instances"
+                      ],
+                      "query": [
+                        {
+                          "key": "filter[name]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[type]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[size]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "filter[scaling_type]",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "include",
+                          "value": "backgroundProcesses,backgroundProcesses"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "7be8db53-0c04-407c-bd8e-89ee92bea7e4",
+                          "key": "environment",
+                          "value": "<string>",
+                          "description": "(Required) The environment identifier"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of all instances for the given environment."
+                  },
+                  "response": [
+                    {
+                      "id": "fb018dd1-7377-4752-a8a0-ff7ccbd4d3b4",
+                      "name": "Paginated set of `InstanceResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances?filter[name]=<string>&filter[type]=<string>&filter[size]=<string>&filter[scaling_type]=<string>&include=backgroundProcesses,backgroundProcesses",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[name]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[type]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[size]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[scaling_type]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "backgroundProcesses,backgroundProcesses"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"queue\",\n        \"size\": \"flex.g-1vcpu-512mb\",\n        \"scaling_type\": \"custom\",\n        \"min_replicas\": \"<integer>\",\n        \"max_replicas\": \"<integer>\",\n        \"queue_status\": \"unknown\",\n        \"paused\": \"<boolean,null>\",\n        \"is_default\": \"<boolean,null>\",\n        \"visibility_timeout\": \"<integer,null>\",\n        \"polling_interval\": \"<integer,null>\",\n        \"shutdown_timeout\": \"<integer,null>\",\n        \"uses_scheduler\": \"<boolean>\",\n        \"sleep_with_app\": \"<boolean,null>\",\n        \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n        \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"type\": \"managed_queue\",\n        \"size\": \"mq-dedicated-2gb\",\n        \"scaling_type\": \"custom\",\n        \"min_replicas\": \"<integer>\",\n        \"max_replicas\": \"<integer>\",\n        \"queue_status\": \"updating\",\n        \"paused\": \"<boolean,null>\",\n        \"is_default\": \"<boolean,null>\",\n        \"visibility_timeout\": \"<integer,null>\",\n        \"polling_interval\": \"<integer,null>\",\n        \"shutdown_timeout\": \"<integer,null>\",\n        \"uses_scheduler\": \"<boolean>\",\n        \"sleep_with_app\": \"<boolean,null>\",\n        \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n        \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n        \"created_at\": \"<string,null-date-time>\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"<string>\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"running\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"search_engine_optimization\",\n              \"page_preview\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"challenge\",\n              \"per_minute\": 300,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"aggregator\",\n              \"ai_crawler\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 300,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-fb018dd1-7377-4752-a8a0-ff7ccbd4d3b4"
+                    },
+                    {
+                      "id": "9477090e-415f-4104-b729-1f4aa4f56794",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances?filter[name]=<string>&filter[type]=<string>&filter[size]=<string>&filter[scaling_type]=<string>&include=backgroundProcesses,backgroundProcesses",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[name]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[type]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[size]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[scaling_type]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "backgroundProcesses,backgroundProcesses"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-9477090e-415f-4104-b729-1f4aa4f56794"
+                    },
+                    {
+                      "id": "2d1a8d6d-1bf7-4b5e-892e-3b2bc6baf835",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances?filter[name]=<string>&filter[type]=<string>&filter[size]=<string>&filter[scaling_type]=<string>&include=backgroundProcesses,backgroundProcesses",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "query": [
+                            {
+                              "key": "filter[name]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[type]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[size]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "filter[scaling_type]",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "include",
+                              "value": "backgroundProcesses,backgroundProcesses"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-2d1a8d6d-1bf7-4b5e-892e-3b2bc6baf835"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-e63de2ce-f1d8-40be-bcbc-9c7656c03c10"
+                },
+                {
+                  "name": "Create instance",
+                  "id": "161b11ed-2611-42d4-852a-c6b84fe42073",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"service\",\n  \"size\": \"dedicated.m-2vcpu-16gb\",\n  \"scaling_type\": \"custom\",\n  \"min_replicas\": \"<integer>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\",\n  \"max_replicas\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"background_processes\": [\n    {\n      \"type\": \"custom\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    },\n    {\n      \"type\": \"worker\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/environments/:environment/instances",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "environments",
+                        ":environment",
+                        "instances"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ef1646bf-3d68-40f6-80ba-1fad0555a31a",
+                          "key": "environment",
+                          "value": "<string>",
+                          "description": "(Required) The environment identifier"
+                        }
+                      ]
+                    },
+                    "description": "Create a new instance for an environment."
+                  },
+                  "response": [
+                    {
+                      "id": "9200c9f8-daa7-40e8-ba57-ac59bb9623b4",
+                      "name": "`InstanceResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"service\",\n  \"size\": \"dedicated.m-2vcpu-16gb\",\n  \"scaling_type\": \"custom\",\n  \"min_replicas\": \"<integer>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\",\n  \"max_replicas\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"background_processes\": [\n    {\n      \"type\": \"custom\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    },\n    {\n      \"type\": \"worker\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"instances\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"app\",\n      \"size\": \"mq-dedicated-512mb\",\n      \"scaling_type\": \"custom\",\n      \"min_replicas\": \"<integer>\",\n      \"max_replicas\": \"<integer>\",\n      \"queue_status\": \"deleting\",\n      \"paused\": \"<boolean,null>\",\n      \"is_default\": \"<boolean,null>\",\n      \"visibility_timeout\": \"<integer,null>\",\n      \"polling_interval\": \"<integer,null>\",\n      \"shutdown_timeout\": \"<integer,null>\",\n      \"uses_scheduler\": \"<boolean>\",\n      \"sleep_with_app\": \"<boolean,null>\",\n      \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n      \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"backgroundProcesses\": {\n        \"data\": [\n          {\n            \"type\": \"background_processes\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"background_processes\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"accessibility\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 1000,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"advertising_and_marketing\",\n              \"monitoring_and_analytics\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"challenge\",\n              \"per_minute\": 1000,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-9200c9f8-daa7-40e8-ba57-ac59bb9623b4"
+                    },
+                    {
+                      "id": "156c754c-3e33-4eb0-891c-bf55693062a7",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"service\",\n  \"size\": \"dedicated.m-2vcpu-16gb\",\n  \"scaling_type\": \"custom\",\n  \"min_replicas\": \"<integer>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\",\n  \"max_replicas\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"background_processes\": [\n    {\n      \"type\": \"custom\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    },\n    {\n      \"type\": \"worker\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-156c754c-3e33-4eb0-891c-bf55693062a7"
+                    },
+                    {
+                      "id": "5ce33c59-cb88-4ce2-ba02-55b824f5367e",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"service\",\n  \"size\": \"dedicated.m-2vcpu-16gb\",\n  \"scaling_type\": \"custom\",\n  \"min_replicas\": \"<integer>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\",\n  \"max_replicas\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"background_processes\": [\n    {\n      \"type\": \"custom\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    },\n    {\n      \"type\": \"worker\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-5ce33c59-cb88-4ce2-ba02-55b824f5367e"
+                    },
+                    {
+                      "id": "c82d896c-97d5-4400-82da-b01fd2a8cf5e",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"service\",\n  \"size\": \"dedicated.m-2vcpu-16gb\",\n  \"scaling_type\": \"custom\",\n  \"min_replicas\": \"<integer>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\",\n  \"max_replicas\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"background_processes\": [\n    {\n      \"type\": \"custom\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    },\n    {\n      \"type\": \"worker\",\n      \"processes\": \"<integer>\",\n      \"command\": \"<string>\",\n      \"config\": {\n        \"connection\": \"<string>\",\n        \"queue\": \"<string>\",\n        \"tries\": \"<integer>\",\n        \"backoff\": \"<integer>\",\n        \"sleep\": \"<integer>\",\n        \"rest\": \"<integer>\",\n        \"timeout\": \"<integer>\",\n        \"force\": \"<boolean>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/environments/:environment/instances",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "environments",
+                            ":environment",
+                            "instances"
+                          ],
+                          "variable": [
+                            {
+                              "key": "environment"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-c82d896c-97d5-4400-82da-b01fd2a8cf5e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-161b11ed-2611-42d4-852a-c6b84fe42073"
+                }
+              ],
+              "id": "6844894a-f9a3-46a8-a4b9-6524b47d5964",
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-6844894a-f9a3-46a8-a4b9-6524b47d5964"
+            }
+          ],
+          "id": "e6eaedcb-9b3a-483e-9eca-c58ff19c8518",
+          "createdAt": "2026-07-28T02:03:44.000Z",
+          "updatedAt": "2026-07-28T02:03:44.000Z",
+          "uid": "35240-e6eaedcb-9b3a-483e-9eca-c58ff19c8518"
+        }
+      ],
+      "id": "616cd601-13dc-45ea-a5c6-32c97440a0c3",
+      "createdAt": "2026-07-28T02:03:44.000Z",
+      "updatedAt": "2026-07-28T02:03:44.000Z",
+      "uid": "35240-616cd601-13dc-45ea-a5c6-32c97440a0c3"
+    },
+    {
+      "name": "instances",
+      "item": [
+        {
+          "name": "sizes",
+          "item": [
+            {
+              "name": "List instance sizes",
+              "id": "47407306-2931-4baa-bbd1-aa7115ace2b6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/instances/sizes",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instances",
+                    "sizes"
+                  ]
+                },
+                "description": "List all available instance sizes grouped by category."
+              },
+              "response": [
+                {
+                  "id": "718357f8-0497-4b4b-83b9-2206da98acbc",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/sizes",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        "sizes"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"general\": [\n      {\n        \"name\": \"<string>\",\n        \"label\": \"<string>\",\n        \"description\": \"<string>\",\n        \"cpu_type\": \"<string>\",\n        \"compute_class\": \"<string>\",\n        \"cpu_count\": \"<integer>\",\n        \"memory_mib\": \"<integer>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"label\": \"<string>\",\n        \"description\": \"<string>\",\n        \"cpu_type\": \"<string>\",\n        \"compute_class\": \"<string>\",\n        \"cpu_count\": \"<integer>\",\n        \"memory_mib\": \"<integer>\"\n      }\n    ],\n    \"managed_queue\": [\n      {\n        \"name\": \"<string>\",\n        \"label\": \"<string>\",\n        \"description\": \"<string>\",\n        \"cpu_type\": \"<string>\",\n        \"compute_class\": \"<string>\",\n        \"cpu_count\": \"<number>\",\n        \"memory_mib\": \"<integer>\"\n      },\n      {\n        \"name\": \"<string>\",\n        \"label\": \"<string>\",\n        \"description\": \"<string>\",\n        \"cpu_type\": \"<string>\",\n        \"compute_class\": \"<string>\",\n        \"cpu_count\": \"<number>\",\n        \"memory_mib\": \"<integer>\"\n      }\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-718357f8-0497-4b4b-83b9-2206da98acbc"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-47407306-2931-4baa-bbd1-aa7115ace2b6"
+            }
+          ],
+          "id": "645f2b0d-81cf-44a4-9ee3-b4ea6340774d",
+          "createdAt": "2026-07-28T02:03:44.000Z",
+          "updatedAt": "2026-07-28T02:03:44.000Z",
+          "uid": "35240-645f2b0d-81cf-44a4-9ee3-b4ea6340774d"
+        },
+        {
+          "name": "{instance}",
+          "item": [
+            {
+              "name": "pause",
+              "item": [
+                {
+                  "name": "Pause a managed queue",
+                  "id": "6550252d-f226-497f-a743-209eb8f9cb46",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance/pause",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance",
+                        "pause"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ec9594f9-e975-4343-aaa0-4e8436919b88",
+                          "key": "instance",
+                          "value": "<string>",
+                          "description": "(Required) The instance identifier"
+                        }
+                      ]
+                    },
+                    "description": "Stop dispatching jobs to the queue's workers; queued messages are retained until it is resumed."
+                  },
+                  "response": [
+                    {
+                      "id": "b70e71e7-57ca-4743-ab46-c9410eabefc4",
+                      "name": "`InstanceResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-b70e71e7-57ca-4743-ab46-c9410eabefc4"
+                    },
+                    {
+                      "id": "6cc4067f-9806-4eca-bc1e-f1d0789bde23",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-6cc4067f-9806-4eca-bc1e-f1d0789bde23"
+                    },
+                    {
+                      "id": "ce7b1d43-e79e-4b20-bcd6-89883a95b65b",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-ce7b1d43-e79e-4b20-bcd6-89883a95b65b"
+                    },
+                    {
+                      "id": "23e93519-cbaa-4de1-ae05-3df52d2d46cc",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-23e93519-cbaa-4de1-ae05-3df52d2d46cc"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-6550252d-f226-497f-a743-209eb8f9cb46"
+                }
+              ],
+              "id": "0557e15a-9c10-48e3-8a77-8a7976eb139b",
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-0557e15a-9c10-48e3-8a77-8a7976eb139b"
+            },
+            {
+              "name": "resume",
+              "item": [
+                {
+                  "name": "Resume a managed queue",
+                  "id": "c584b230-9a22-4710-8004-285fe52a7a38",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance/resume",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance",
+                        "resume"
+                      ],
+                      "variable": [
+                        {
+                          "id": "59750260-aa5f-4dea-a524-281836dfa6be",
+                          "key": "instance",
+                          "value": "<string>",
+                          "description": "(Required) The instance identifier"
+                        }
+                      ]
+                    },
+                    "description": "Resume dispatching jobs to the queue's workers after it was paused."
+                  },
+                  "response": [
+                    {
+                      "id": "1829d334-f3df-4c55-93f0-6f5cd82adf7f",
+                      "name": "`InstanceResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-1829d334-f3df-4c55-93f0-6f5cd82adf7f"
+                    },
+                    {
+                      "id": "9214bc4f-ff46-47de-94fa-f0b5df82fa32",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-9214bc4f-ff46-47de-94fa-f0b5df82fa32"
+                    },
+                    {
+                      "id": "7b8bc4ef-b8f0-4e20-8051-ab5403b5cde9",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-7b8bc4ef-b8f0-4e20-8051-ab5403b5cde9"
+                    },
+                    {
+                      "id": "cff36246-5955-46d9-92cb-16b835fc6bed",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/resume",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "resume"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-cff36246-5955-46d9-92cb-16b835fc6bed"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-c584b230-9a22-4710-8004-285fe52a7a38"
+                }
+              ],
+              "id": "65e13ce6-d214-4b73-a494-79d68d5dd5c9",
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-65e13ce6-d214-4b73-a494-79d68d5dd5c9"
+            },
+            {
+              "name": "purge",
+              "item": [
+                {
+                  "name": "Purge a managed queue",
+                  "id": "4c44a0da-5071-4493-a632-dce42178c61c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance/purge",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance",
+                        "purge"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d68d6a13-466f-4762-a0e6-618831c114d9",
+                          "key": "instance",
+                          "value": "<string>",
+                          "description": "(Required) The instance identifier"
+                        }
+                      ]
+                    },
+                    "description": "Permanently delete all messages currently in the queue. This cannot be undone."
+                  },
+                  "response": [
+                    {
+                      "id": "ce46243e-9770-44a2-bb62-6db8b29e5268",
+                      "name": "`InstanceResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-ce46243e-9770-44a2-bb62-6db8b29e5268"
+                    },
+                    {
+                      "id": "b813df6a-ed4d-413a-bc61-038b3d9ae85c",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-b813df6a-ed4d-413a-bc61-038b3d9ae85c"
+                    },
+                    {
+                      "id": "72d93b17-4c0c-45d9-931e-23a2369d0f93",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-72d93b17-4c0c-45d9-931e-23a2369d0f93"
+                    },
+                    {
+                      "id": "d2342d9f-7fa1-4e34-9950-1f209fd793d2",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/purge",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "purge"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-d2342d9f-7fa1-4e34-9950-1f209fd793d2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-4c44a0da-5071-4493-a632-dce42178c61c"
+                }
+              ],
+              "id": "c0790256-5fd1-4f11-8066-c92012761eae",
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-c0790256-5fd1-4f11-8066-c92012761eae"
+            },
+            {
+              "name": "default",
+              "item": [
+                {
+                  "name": "Set the default managed queue",
+                  "id": "ad43d202-7f85-4c3b-af82-51eccd03565b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance/default",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance",
+                        "default"
+                      ],
+                      "variable": [
+                        {
+                          "id": "32aaf99f-1681-4670-9e7b-70da225e1e28",
+                          "key": "instance",
+                          "value": "<string>",
+                          "description": "(Required) The instance identifier"
+                        }
+                      ]
+                    },
+                    "description": "Make this queue the environment's default, used when a job does not specify a queue."
+                  },
+                  "response": [
+                    {
+                      "id": "4accb815-0291-4863-9495-042e6018ff9a",
+                      "name": "`InstanceResource`",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/default",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "default"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-4accb815-0291-4863-9495-042e6018ff9a"
+                    },
+                    {
+                      "id": "fc1eb322-35aa-4529-8eb9-cd1c39f35bad",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/default",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "default"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-fc1eb322-35aa-4529-8eb9-cd1c39f35bad"
+                    },
+                    {
+                      "id": "d0ec7f04-0558-48fc-890b-4771abcfe374",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/default",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "default"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-d0ec7f04-0558-48fc-890b-4771abcfe374"
+                    },
+                    {
+                      "id": "29fc7c8c-7996-4d84-8d79-f608614463d5",
+                      "name": "Validation error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/default",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "default"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-29fc7c8c-7996-4d84-8d79-f608614463d5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-ad43d202-7f85-4c3b-af82-51eccd03565b"
+                }
+              ],
+              "id": "299f284f-f436-49da-87c9-ee77f841b971",
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-299f284f-f436-49da-87c9-ee77f841b971"
+            },
+            {
+              "name": "failed-jobs",
+              "item": [
+                {
+                  "name": "{jobId}",
+                  "item": [
+                    {
+                      "name": "retry",
+                      "item": [
+                        {
+                          "name": "Retry a managed queue failed job",
+                          "id": "140753f8-8bee-4e4a-8e55-1d25dbb64f70",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId/retry",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "instances",
+                                ":instance",
+                                "failed-jobs",
+                                ":jobId",
+                                "retry"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "4c0d687b-668e-4a45-bff9-b75eba3700cf",
+                                  "key": "instance",
+                                  "value": "<string>",
+                                  "description": "(Required) The instance identifier"
+                                },
+                                {
+                                  "id": "eba7be50-23cb-4ad1-8954-58577435531d",
+                                  "key": "jobId",
+                                  "value": "<string>",
+                                  "description": "(Required) The identifier of the failed job."
+                                }
+                              ]
+                            },
+                            "description": "Re-queue a failed job so it is processed again."
+                          },
+                          "response": [
+                            {
+                              "id": "32802196-e0dc-4888-b81f-4f295869d428",
+                              "name": "The job is being retried.",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId/retry",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "instances",
+                                    ":instance",
+                                    "failed-jobs",
+                                    ":jobId",
+                                    "retry"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "instance"
+                                    },
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Accepted",
+                              "code": 202,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:03:44.000Z",
+                              "updatedAt": "2026-07-28T02:03:44.000Z",
+                              "uid": "35240-32802196-e0dc-4888-b81f-4f295869d428"
+                            },
+                            {
+                              "id": "bc617653-5b7d-474e-b63b-5841673adc5f",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId/retry",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "instances",
+                                    ":instance",
+                                    "failed-jobs",
+                                    ":jobId",
+                                    "retry"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "instance"
+                                    },
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:03:44.000Z",
+                              "updatedAt": "2026-07-28T02:03:44.000Z",
+                              "uid": "35240-bc617653-5b7d-474e-b63b-5841673adc5f"
+                            },
+                            {
+                              "id": "d6e362ea-d03b-4a0c-8edd-96bb06ceef22",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId/retry",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "instances",
+                                    ":instance",
+                                    "failed-jobs",
+                                    ":jobId",
+                                    "retry"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "instance"
+                                    },
+                                    {
+                                      "key": "jobId"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:03:44.000Z",
+                              "updatedAt": "2026-07-28T02:03:44.000Z",
+                              "uid": "35240-d6e362ea-d03b-4a0c-8edd-96bb06ceef22"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:03:44.000Z",
+                          "updatedAt": "2026-07-28T02:03:44.000Z",
+                          "uid": "35240-140753f8-8bee-4e4a-8e55-1d25dbb64f70"
+                        }
+                      ],
+                      "id": "e1f5d50e-7b85-4e89-ba5f-3762506f6527",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-e1f5d50e-7b85-4e89-ba5f-3762506f6527"
+                    },
+                    {
+                      "name": "Delete a managed queue failed job",
+                      "id": "0ec1586b-e661-464e-9374-c7bc024b9551",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "failed-jobs",
+                            ":jobId"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ec5ea105-f13f-46ce-9d40-ab07518f347d",
+                              "key": "instance",
+                              "value": "<string>",
+                              "description": "(Required) The instance identifier"
+                            },
+                            {
+                              "id": "78a0f7c9-6bf2-41ef-8fc1-ef651e878293",
+                              "key": "jobId",
+                              "value": "<string>",
+                              "description": "(Required) The identifier of the failed job."
+                            }
+                          ]
+                        },
+                        "description": "Permanently remove a failed job from the given managed queue."
+                      },
+                      "response": [
+                        {
+                          "id": "3b955ce9-1147-4a94-a03b-c6e6b676f333",
+                          "name": "The failed job was deleted.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "instances",
+                                ":instance",
+                                "failed-jobs",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "instance"
+                                },
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<string>",
+                          "createdAt": "2026-07-28T02:03:44.000Z",
+                          "updatedAt": "2026-07-28T02:03:44.000Z",
+                          "uid": "35240-3b955ce9-1147-4a94-a03b-c6e6b676f333"
+                        },
+                        {
+                          "id": "a81769ce-856a-49a6-9de5-fdae6dbe931f",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "instances",
+                                ":instance",
+                                "failed-jobs",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "instance"
+                                },
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:44.000Z",
+                          "updatedAt": "2026-07-28T02:03:44.000Z",
+                          "uid": "35240-a81769ce-856a-49a6-9de5-fdae6dbe931f"
+                        },
+                        {
+                          "id": "30817dba-f16f-4bfd-850c-3f7ac05ac621",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/instances/:instance/failed-jobs/:jobId",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "instances",
+                                ":instance",
+                                "failed-jobs",
+                                ":jobId"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "instance"
+                                },
+                                {
+                                  "key": "jobId"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:03:44.000Z",
+                          "updatedAt": "2026-07-28T02:03:44.000Z",
+                          "uid": "35240-30817dba-f16f-4bfd-850c-3f7ac05ac621"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-0ec1586b-e661-464e-9374-c7bc024b9551"
+                    }
+                  ],
+                  "id": "7112a597-b412-42f5-9dba-e02f07522c8a",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-7112a597-b412-42f5-9dba-e02f07522c8a"
+                },
+                {
+                  "name": "List managed queue failed jobs",
+                  "id": "589b19d2-5dd3-484e-8b63-775793647109",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance/failed-jobs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance",
+                        "failed-jobs"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9a5d603a-89ae-4611-96f8-db45f9c24fce",
+                          "key": "instance",
+                          "value": "<string>",
+                          "description": "(Required) The instance identifier"
+                        }
+                      ]
+                    },
+                    "description": "Get a list of the jobs that have failed on the given managed queue."
+                  },
+                  "response": [
+                    {
+                      "id": "89967ed6-9c8f-4d96-9a82-19fae346c1d0",
+                      "name": "Paginated set of `ManagedQueueFailedJobResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/failed-jobs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "failed-jobs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"queue\": \"<string>\",\n        \"failed_at\": \"<string,null-date-time>\",\n        \"started_at\": \"<string,null-date-time>\",\n        \"attempts\": \"<string>\",\n        \"exception\": \"<string>\",\n        \"retried_at\": \"<string,null-date-time>\",\n        \"retry_reserved_until\": \"<string,null-date-time>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"name\": \"<string,null>\",\n        \"queue\": \"<string>\",\n        \"failed_at\": \"<string,null-date-time>\",\n        \"started_at\": \"<string,null-date-time>\",\n        \"attempts\": \"<string>\",\n        \"exception\": \"<string>\",\n        \"retried_at\": \"<string,null-date-time>\",\n        \"retry_reserved_until\": \"<string,null-date-time>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"current_page\": \"<integer>\",\n    \"from\": \"<integer,null>\",\n    \"last_page\": \"<integer>\",\n    \"links\": [\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      },\n      {\n        \"url\": \"<string,null>\",\n        \"label\": \"<string>\",\n        \"active\": \"<boolean>\"\n      }\n    ],\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"to\": \"<integer,null>\",\n    \"total\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-89967ed6-9c8f-4d96-9a82-19fae346c1d0"
+                    },
+                    {
+                      "id": "983ec422-7cb4-464a-b96f-c18fb347e85b",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/failed-jobs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "failed-jobs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-983ec422-7cb4-464a-b96f-c18fb347e85b"
+                    },
+                    {
+                      "id": "9ca43814-a86e-46f0-b890-2dc05a65de1a",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/instances/:instance/failed-jobs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "instances",
+                            ":instance",
+                            "failed-jobs"
+                          ],
+                          "variable": [
+                            {
+                              "key": "instance"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:03:44.000Z",
+                      "updatedAt": "2026-07-28T02:03:44.000Z",
+                      "uid": "35240-9ca43814-a86e-46f0-b890-2dc05a65de1a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-589b19d2-5dd3-484e-8b63-775793647109"
+                }
+              ],
+              "id": "ceb944ab-6f85-4ed4-86eb-5c01c26ccaa9",
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-ceb944ab-6f85-4ed4-86eb-5c01c26ccaa9"
+            },
+            {
+              "name": "Get instance",
+              "id": "cfbd6462-9eac-4e6e-9c9d-084e47daa387",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/instances/:instance?include=backgroundProcesses,backgroundProcesses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instances",
+                    ":instance"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "backgroundProcesses,backgroundProcesses"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "c0e5e85e-a9fe-4c4b-8ba6-423ffe84e1d7",
+                      "key": "instance",
+                      "value": "<string>",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "description": "Get the details of a specific instance."
+              },
+              "response": [
+                {
+                  "id": "eb55ac22-4f21-49eb-8b26-897de1c51990",
+                  "name": "`InstanceResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance?include=backgroundProcesses,backgroundProcesses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "backgroundProcesses,backgroundProcesses"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"instances\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"app\",\n      \"size\": \"mq-dedicated-512mb\",\n      \"scaling_type\": \"custom\",\n      \"min_replicas\": \"<integer>\",\n      \"max_replicas\": \"<integer>\",\n      \"queue_status\": \"deleting\",\n      \"paused\": \"<boolean,null>\",\n      \"is_default\": \"<boolean,null>\",\n      \"visibility_timeout\": \"<integer,null>\",\n      \"polling_interval\": \"<integer,null>\",\n      \"shutdown_timeout\": \"<integer,null>\",\n      \"uses_scheduler\": \"<boolean>\",\n      \"sleep_with_app\": \"<boolean,null>\",\n      \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n      \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"backgroundProcesses\": {\n        \"data\": [\n          {\n            \"type\": \"background_processes\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"background_processes\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"accessibility\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 1000,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"advertising_and_marketing\",\n              \"monitoring_and_analytics\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"challenge\",\n              \"per_minute\": 1000,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-eb55ac22-4f21-49eb-8b26-897de1c51990"
+                },
+                {
+                  "id": "06ec188a-db7c-4cb7-88ef-dd0b2d1f3ca4",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance?include=backgroundProcesses,backgroundProcesses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "backgroundProcesses,backgroundProcesses"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-06ec188a-db7c-4cb7-88ef-dd0b2d1f3ca4"
+                },
+                {
+                  "id": "93585eae-fd9d-41b9-8fde-ceaccd8bf7be",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance?include=backgroundProcesses,backgroundProcesses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "query": [
+                        {
+                          "key": "include",
+                          "value": "backgroundProcesses,backgroundProcesses"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-93585eae-fd9d-41b9-8fde-ceaccd8bf7be"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-cfbd6462-9eac-4e6e-9c9d-084e47daa387"
+            },
+            {
+              "name": "Update instance",
+              "id": "c5950875-bcd8-45b0-9591-3d252b29f0ee",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"flex.g-4vcpu-2gb\",\n  \"scaling_type\": \"none\",\n  \"max_replicas\": \"<integer>\",\n  \"min_replicas\": \"<integer>\",\n  \"hibernation_timeout\": \"<integer,null>\",\n  \"uses_sleep_mode\": \"<boolean>\",\n  \"sleep_timeout\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"uses_octane\": \"<boolean>\",\n  \"uses_inertia_ssr\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/instances/:instance",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instances",
+                    ":instance"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f7555179-f7ee-4ff3-8988-e3a9d132d4d3",
+                      "key": "instance",
+                      "value": "<string>",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "description": "Update an instance."
+              },
+              "response": [
+                {
+                  "id": "c599fb09-7348-48da-889e-c0b1dc6dc319",
+                  "name": "`InstanceResource`",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"flex.g-4vcpu-2gb\",\n  \"scaling_type\": \"none\",\n  \"max_replicas\": \"<integer>\",\n  \"min_replicas\": \"<integer>\",\n  \"hibernation_timeout\": \"<integer,null>\",\n  \"uses_sleep_mode\": \"<boolean>\",\n  \"sleep_timeout\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"uses_octane\": \"<boolean>\",\n  \"uses_inertia_ssr\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"instances\",\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"type\": \"app\",\n      \"size\": \"mq-dedicated-512mb\",\n      \"scaling_type\": \"custom\",\n      \"min_replicas\": \"<integer>\",\n      \"max_replicas\": \"<integer>\",\n      \"queue_status\": \"deleting\",\n      \"paused\": \"<boolean,null>\",\n      \"is_default\": \"<boolean,null>\",\n      \"visibility_timeout\": \"<integer,null>\",\n      \"polling_interval\": \"<integer,null>\",\n      \"shutdown_timeout\": \"<integer,null>\",\n      \"uses_scheduler\": \"<boolean>\",\n      \"sleep_with_app\": \"<boolean,null>\",\n      \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n      \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n      \"created_at\": \"<string,null-date-time>\"\n    },\n    \"relationships\": {\n      \"environment\": {\n        \"data\": {\n          \"type\": \"environments\",\n          \"id\": \"<string>\"\n        }\n      },\n      \"backgroundProcesses\": {\n        \"data\": [\n          {\n            \"type\": \"background_processes\",\n            \"id\": \"<string>\"\n          },\n          {\n            \"type\": \"background_processes\",\n            \"id\": \"<string>\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"accessibility\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"throttle\",\n              \"per_minute\": 1000,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": \"<boolean>\",\n        \"vanity_domain\": \"<string>\",\n        \"php_major_version\": \"8.3\",\n        \"build_command\": \"<string,null>\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"<string,null>\",\n        \"uses_octane\": \"<boolean>\",\n        \"uses_hibernation\": \"<boolean>\",\n        \"hibernation_wake_up_interval\": \"<integer,null>\",\n        \"uses_push_to_deploy\": \"<boolean>\",\n        \"uses_deploy_hook\": \"<boolean>\",\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"<string>\"\n          },\n          \"response_headers\": {\n            \"frame\": \"<string>\",\n            \"content_type\": \"<string>\",\n            \"hsts\": {\n              \"max_age\": \"<integer>\",\n              \"include_subdomains\": \"<boolean>\",\n              \"preload\": \"<boolean>\"\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"advertising_and_marketing\",\n              \"monitoring_and_analytics\"\n            ],\n            \"rate_limit\": {\n              \"429\": \"<boolean>\",\n              \"level\": \"challenge\",\n              \"per_minute\": 1000,\n              \"4xx\": \"<boolean>\"\n            },\n            \"under_attack_mode_started_at\": \"<string>\",\n            \"block_path\": \"<boolean>\"\n          },\n          \"content_converter\": \"<boolean>\"\n        },\n        \"created_at\": \"<string,null-date-time>\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            },\n            {\n              \"key\": \"<string>\",\n              \"value\": \"<string>\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"<string>\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"<string>\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"<string>\"\n          }\n        }\n      }\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-c599fb09-7348-48da-889e-c0b1dc6dc319"
+                },
+                {
+                  "id": "9b195ee8-ca0f-4170-b974-6ff96dae3985",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"flex.g-4vcpu-2gb\",\n  \"scaling_type\": \"none\",\n  \"max_replicas\": \"<integer>\",\n  \"min_replicas\": \"<integer>\",\n  \"hibernation_timeout\": \"<integer,null>\",\n  \"uses_sleep_mode\": \"<boolean>\",\n  \"sleep_timeout\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"uses_octane\": \"<boolean>\",\n  \"uses_inertia_ssr\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-9b195ee8-ca0f-4170-b974-6ff96dae3985"
+                },
+                {
+                  "id": "b258db30-d449-4aa1-b450-3fb19d527058",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"flex.g-4vcpu-2gb\",\n  \"scaling_type\": \"none\",\n  \"max_replicas\": \"<integer>\",\n  \"min_replicas\": \"<integer>\",\n  \"hibernation_timeout\": \"<integer,null>\",\n  \"uses_sleep_mode\": \"<boolean>\",\n  \"sleep_timeout\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"uses_octane\": \"<boolean>\",\n  \"uses_inertia_ssr\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-b258db30-d449-4aa1-b450-3fb19d527058"
+                },
+                {
+                  "id": "759775ce-118a-41be-8119-b881b8b3e1b7",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"flex.g-4vcpu-2gb\",\n  \"scaling_type\": \"none\",\n  \"max_replicas\": \"<integer>\",\n  \"min_replicas\": \"<integer>\",\n  \"hibernation_timeout\": \"<integer,null>\",\n  \"uses_sleep_mode\": \"<boolean>\",\n  \"sleep_timeout\": \"<integer>\",\n  \"uses_scheduler\": \"<boolean>\",\n  \"sleep_with_app\": \"<boolean>\",\n  \"uses_octane\": \"<boolean>\",\n  \"uses_inertia_ssr\": \"<boolean>\",\n  \"scaling_cpu_threshold_percentage\": \"<integer,null>\",\n  \"scaling_memory_threshold_percentage\": \"<integer,null>\",\n  \"visibility_timeout\": \"<integer>\",\n  \"polling_interval\": \"<integer>\",\n  \"shutdown_timeout\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-759775ce-118a-41be-8119-b881b8b3e1b7"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-c5950875-bcd8-45b0-9591-3d252b29f0ee"
+            },
+            {
+              "name": "Delete instance",
+              "id": "75d190bc-bc15-4fe2-b989-5ac8fe6b6ffa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/instances/:instance",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "instances",
+                    ":instance"
+                  ],
+                  "variable": [
+                    {
+                      "id": "9d193b79-9a3e-47a7-9f69-c243441cbb7d",
+                      "key": "instance",
+                      "value": "<string>",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "description": "Delete an instance."
+              },
+              "response": [
+                {
+                  "id": "ba6f25a2-0e96-4ee9-96ab-434af38c7c9a",
+                  "name": "No content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-ba6f25a2-0e96-4ee9-96ab-434af38c7c9a"
+                },
+                {
+                  "id": "5b9499b0-58a1-4840-9c60-b73b59c0f1a3",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-5b9499b0-58a1-4840-9c60-b73b59c0f1a3"
+                },
+                {
+                  "id": "e9e3fa1c-b21b-4bae-b2ef-76ba81d3e542",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-e9e3fa1c-b21b-4bae-b2ef-76ba81d3e542"
+                },
+                {
+                  "id": "479ef2aa-6115-42d5-87fc-17bc60e86dbf",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/instances/:instance",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "instances",
+                        ":instance"
+                      ],
+                      "variable": [
+                        {
+                          "key": "instance"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"errors\": {\n    \"consequat_0a\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "createdAt": "2026-07-28T02:03:44.000Z",
+                  "updatedAt": "2026-07-28T02:03:44.000Z",
+                  "uid": "35240-479ef2aa-6115-42d5-87fc-17bc60e86dbf"
+                }
+              ],
+              "createdAt": "2026-07-28T02:03:44.000Z",
+              "updatedAt": "2026-07-28T02:03:44.000Z",
+              "uid": "35240-75d190bc-bc15-4fe2-b989-5ac8fe6b6ffa"
+            }
+          ],
+          "id": "029528d5-4c79-4ba9-95f7-9fd703756c74",
+          "createdAt": "2026-07-28T02:03:44.000Z",
+          "updatedAt": "2026-07-28T02:03:44.000Z",
+          "uid": "35240-029528d5-4c79-4ba9-95f7-9fd703756c74"
+        }
+      ],
+      "id": "d18e2fc8-e1eb-4a93-bacc-5c1f143721ec",
+      "createdAt": "2026-07-28T02:03:44.000Z",
+      "updatedAt": "2026-07-28T02:03:44.000Z",
+      "uid": "35240-d18e2fc8-e1eb-4a93-bacc-5c1f143721ec"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}

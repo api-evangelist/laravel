@@ -1,0 +1,1811 @@
+{
+  "info": {
+    "_postman_id": "0fed93ac-6c81-47a0-aa5e-7c51b6bb32fe",
+    "name": "Laravel Cloud Applications Providers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:04:02.000Z",
+    "updatedAt": "2026-07-28T02:04:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0fed93ac-6c81-47a0-aa5e-7c51b6bb32fe"
+  },
+  "item": [
+    {
+      "name": "providers",
+      "item": [
+        {
+          "name": "{provider}",
+          "item": [
+            {
+              "name": "sizes",
+              "item": [
+                {
+                  "name": "{providerSize}",
+                  "item": [
+                    {
+                      "name": "Get provider size",
+                      "id": "f1fe1c23-15b1-4ebd-b8aa-c55109e1fdf6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/sizes/:providerSize",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "sizes",
+                            ":providerSize"
+                          ],
+                          "variable": [
+                            {
+                              "id": "57ca0304-a596-4566-8833-f065fb19bc38",
+                              "key": "provider",
+                              "value": "<integer>",
+                              "description": "(Required) The provider ID"
+                            },
+                            {
+                              "id": "25f9ffbb-16d0-4d06-8179-466066c33106",
+                              "key": "providerSize",
+                              "value": "<string>",
+                              "description": "(Required) The provider size forge id"
+                            }
+                          ]
+                        },
+                        "description": "Show the provider size.\n\nProcessing mode: <small><code>sync</code></small>"
+                      },
+                      "response": [
+                        {
+                          "id": "dc045722-2f54-478b-8510-86976bc831b8",
+                          "name": "`ProviderSizeResource`",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/sizes/:providerSize",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "sizes",
+                                ":providerSize"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerSize"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"providerSizes\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"series\": \"<string>\",\n      \"category\": \"<string>\",\n      \"cpus\": \"<integer>\",\n      \"disk_type\": \"<string>\",\n      \"architecture\": \"<string>\",\n      \"ram\": \"<integer>\",\n      \"disk\": \"<integer>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-dc045722-2f54-478b-8510-86976bc831b8"
+                        },
+                        {
+                          "id": "3a14a021-2c77-4b92-b931-e979c21f973c",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/sizes/:providerSize",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "sizes",
+                                ":providerSize"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerSize"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-3a14a021-2c77-4b92-b931-e979c21f973c"
+                        },
+                        {
+                          "id": "8184f75b-fbe3-4a07-902d-522a8457cafe",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/sizes/:providerSize",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "sizes",
+                                ":providerSize"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerSize"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-8184f75b-fbe3-4a07-902d-522a8457cafe"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-f1fe1c23-15b1-4ebd-b8aa-c55109e1fdf6"
+                    }
+                  ],
+                  "id": "1ca4455c-cd0b-4957-8aae-f0511c2da306",
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-1ca4455c-cd0b-4957-8aae-f0511c2da306"
+                },
+                {
+                  "name": "List provider sizes",
+                  "id": "47a57095-bdec-4e45-831d-1266c4f7a265",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/providers/:provider/sizes?page[size]=30&page[cursor]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "providers",
+                        ":provider",
+                        "sizes"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results that will be returned per page.",
+                          "key": "page[size]",
+                          "value": "30"
+                        },
+                        {
+                          "description": "The cursor to start the pagination from.",
+                          "key": "page[cursor]",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "6b37bd2a-86e4-4a1a-b1cb-c8574fdaaca9",
+                          "key": "provider",
+                          "value": "<integer>",
+                          "description": "(Required) The provider ID"
+                        }
+                      ]
+                    },
+                    "description": "Show all providers\n\nProcessing mode: <small><code>sync</code></small>"
+                  },
+                  "response": [
+                    {
+                      "id": "c497a80f-5b85-45d3-84a5-87207b18845f",
+                      "name": "Paginated set of `ProviderSizeResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/sizes?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "sizes"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providerSizes\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"code\": \"<string>\",\n        \"series\": \"<string>\",\n        \"category\": \"<string>\",\n        \"cpus\": \"<integer>\",\n        \"disk_type\": \"<string>\",\n        \"architecture\": \"<string>\",\n        \"ram\": \"<integer>\",\n        \"disk\": \"<integer>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providerSizes\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"code\": \"<string>\",\n        \"series\": \"<string>\",\n        \"category\": \"<string>\",\n        \"cpus\": \"<integer>\",\n        \"disk_type\": \"<string>\",\n        \"architecture\": \"<string>\",\n        \"ram\": \"<integer>\",\n        \"disk\": \"<integer>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-c497a80f-5b85-45d3-84a5-87207b18845f"
+                    },
+                    {
+                      "id": "62dd12ba-1c6c-42cd-89c8-2fba4f690bfa",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/sizes?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "sizes"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-62dd12ba-1c6c-42cd-89c8-2fba4f690bfa"
+                    },
+                    {
+                      "id": "ae4d3b08-f546-4d0f-aae2-a6aca75c0944",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/sizes?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "sizes"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-ae4d3b08-f546-4d0f-aae2-a6aca75c0944"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-47a57095-bdec-4e45-831d-1266c4f7a265"
+                }
+              ],
+              "id": "0ac24043-c672-49fb-b388-31ef98369739",
+              "createdAt": "2026-07-28T02:04:02.000Z",
+              "updatedAt": "2026-07-28T02:04:02.000Z",
+              "uid": "35240-0ac24043-c672-49fb-b388-31ef98369739"
+            },
+            {
+              "name": "regions",
+              "item": [
+                {
+                  "name": "{providerRegion}",
+                  "item": [
+                    {
+                      "name": "sizes",
+                      "item": [
+                        {
+                          "name": "{providerSize}",
+                          "item": [
+                            {
+                              "name": "Get provider region size",
+                              "id": "c7b1f805-75b6-4fc1-ae1c-4d6eb488caa4",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes/:providerSize",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "providers",
+                                    ":provider",
+                                    "regions",
+                                    ":providerRegion",
+                                    "sizes",
+                                    ":providerSize"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "d9eb27fa-2baf-43ab-8caa-a5368207f5b1",
+                                      "key": "provider",
+                                      "value": "<integer>",
+                                      "description": "(Required) The provider ID"
+                                    },
+                                    {
+                                      "id": "f91a6c75-79af-469b-9b3d-f909c4c413db",
+                                      "key": "providerRegion",
+                                      "value": "<integer>",
+                                      "description": "(Required) The provider region ID"
+                                    },
+                                    {
+                                      "id": "278a2123-75fa-48fc-bf65-d8f44fff5237",
+                                      "key": "providerSize",
+                                      "value": "<string>",
+                                      "description": "(Required) The provider size forge id"
+                                    }
+                                  ]
+                                },
+                                "description": "Show the provider region size.\n\nProcessing mode: <small><code>sync</code></small>"
+                              },
+                              "response": [
+                                {
+                                  "id": "38a4a566-8615-4e52-b84b-4ae8ec75f103",
+                                  "name": "`ProviderRegionSizeResource`",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/vnd.api+json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes/:providerSize",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "providers",
+                                        ":provider",
+                                        "regions",
+                                        ":providerRegion",
+                                        "sizes",
+                                        ":providerSize"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "provider"
+                                        },
+                                        {
+                                          "key": "providerRegion"
+                                        },
+                                        {
+                                          "key": "providerSize"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/vnd.api+json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"providerSizes\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\"\n    }\n  }\n}",
+                                  "createdAt": "2026-07-28T02:04:02.000Z",
+                                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                                  "uid": "35240-38a4a566-8615-4e52-b84b-4ae8ec75f103"
+                                },
+                                {
+                                  "id": "9c09a19f-f6f4-499c-ac76-8be880e4dea9",
+                                  "name": "Authorization error",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes/:providerSize",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "providers",
+                                        ":provider",
+                                        "regions",
+                                        ":providerRegion",
+                                        "sizes",
+                                        ":providerSize"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "provider"
+                                        },
+                                        {
+                                          "key": "providerRegion"
+                                        },
+                                        {
+                                          "key": "providerSize"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Forbidden",
+                                  "code": 403,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:02.000Z",
+                                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                                  "uid": "35240-9c09a19f-f6f4-499c-ac76-8be880e4dea9"
+                                },
+                                {
+                                  "id": "572b311a-8321-46f7-a661-b257305f723d",
+                                  "name": "Not found",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: bearer",
+                                        "key": "Authorization",
+                                        "value": "Bearer <token>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes/:providerSize",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "providers",
+                                        ":provider",
+                                        "regions",
+                                        ":providerRegion",
+                                        "sizes",
+                                        ":providerSize"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "provider"
+                                        },
+                                        {
+                                          "key": "providerRegion"
+                                        },
+                                        {
+                                          "key": "providerSize"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"message\": \"<string>\"\n}",
+                                  "createdAt": "2026-07-28T02:04:02.000Z",
+                                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                                  "uid": "35240-572b311a-8321-46f7-a661-b257305f723d"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T02:04:02.000Z",
+                              "updatedAt": "2026-07-28T02:04:02.000Z",
+                              "uid": "35240-c7b1f805-75b6-4fc1-ae1c-4d6eb488caa4"
+                            }
+                          ],
+                          "id": "48c4eff9-e255-4ef9-9840-d5b376cffd25",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-48c4eff9-e255-4ef9-9840-d5b376cffd25"
+                        },
+                        {
+                          "name": "List provider region sizes",
+                          "id": "f13899f4-ef24-48ca-9ef6-bdb337881bc6",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes?page[size]=30&page[cursor]=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "regions",
+                                ":providerRegion",
+                                "sizes"
+                              ],
+                              "query": [
+                                {
+                                  "description": "The number of results that will be returned per page.",
+                                  "key": "page[size]",
+                                  "value": "30"
+                                },
+                                {
+                                  "description": "The cursor to start the pagination from.",
+                                  "key": "page[cursor]",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "fcd3fefc-72d5-4d80-824e-58c4d3f741c1",
+                                  "key": "provider",
+                                  "value": "<integer>",
+                                  "description": "(Required) The provider ID"
+                                },
+                                {
+                                  "id": "7fbc810e-c560-4fc2-b6e3-a3311fdc2653",
+                                  "key": "providerRegion",
+                                  "value": "<integer>",
+                                  "description": "(Required) The provider region ID"
+                                }
+                              ]
+                            },
+                            "description": "Show all provider region sizes\n\nProcessing mode: <small><code>sync</code></small>"
+                          },
+                          "response": [
+                            {
+                              "id": "816fa4be-0f0d-4569-817c-73a4c6e2fe8b",
+                              "name": "Paginated set of `ProviderRegionSizeResource`",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/vnd.api+json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes?page[size]=30&page[cursor]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "providers",
+                                    ":provider",
+                                    "regions",
+                                    ":providerRegion",
+                                    "sizes"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "provider"
+                                    },
+                                    {
+                                      "key": "providerRegion"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/vnd.api+json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providerSizes\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providerSizes\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                              "createdAt": "2026-07-28T02:04:02.000Z",
+                              "updatedAt": "2026-07-28T02:04:02.000Z",
+                              "uid": "35240-816fa4be-0f0d-4569-817c-73a4c6e2fe8b"
+                            },
+                            {
+                              "id": "ab354e12-35bd-4c18-8607-42f10f667468",
+                              "name": "Authorization error",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes?page[size]=30&page[cursor]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "providers",
+                                    ":provider",
+                                    "regions",
+                                    ":providerRegion",
+                                    "sizes"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "provider"
+                                    },
+                                    {
+                                      "key": "providerRegion"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:02.000Z",
+                              "updatedAt": "2026-07-28T02:04:02.000Z",
+                              "uid": "35240-ab354e12-35bd-4c18-8607-42f10f667468"
+                            },
+                            {
+                              "id": "faf10b2d-5320-4ea3-94b8-8026a92554a8",
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion/sizes?page[size]=30&page[cursor]=<string>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "providers",
+                                    ":provider",
+                                    "regions",
+                                    ":providerRegion",
+                                    "sizes"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "The number of results that will be returned per page.",
+                                      "key": "page[size]",
+                                      "value": "30"
+                                    },
+                                    {
+                                      "description": "The cursor to start the pagination from.",
+                                      "key": "page[cursor]",
+                                      "value": "<string>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "provider"
+                                    },
+                                    {
+                                      "key": "providerRegion"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T02:04:02.000Z",
+                              "updatedAt": "2026-07-28T02:04:02.000Z",
+                              "uid": "35240-faf10b2d-5320-4ea3-94b8-8026a92554a8"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-f13899f4-ef24-48ca-9ef6-bdb337881bc6"
+                        }
+                      ],
+                      "id": "bc0df05d-126a-42fd-a426-f99e05c6889c",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-bc0df05d-126a-42fd-a426-f99e05c6889c"
+                    },
+                    {
+                      "name": "Get provider region",
+                      "id": "631df873-b534-47a3-94aa-6f03641d0084",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "regions",
+                            ":providerRegion"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4fb6cac6-b600-4e74-b87b-effddf969a77",
+                              "key": "provider",
+                              "value": "<integer>",
+                              "description": "(Required) The provider ID"
+                            },
+                            {
+                              "id": "204e2f85-196f-494b-8f8b-36b5d85d3755",
+                              "key": "providerRegion",
+                              "value": "<integer>",
+                              "description": "(Required) The provider region ID"
+                            }
+                          ]
+                        },
+                        "description": "Show the provider region.\n\nProcessing mode: <small><code>sync</code></small>"
+                      },
+                      "response": [
+                        {
+                          "id": "e5da5813-b631-4c2d-9e0a-b24790d9fd50",
+                          "name": "`ProviderRegionResource`",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/vnd.api+json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "regions",
+                                ":providerRegion"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerRegion"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/vnd.api+json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"providerRegions\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"code\": \"<string>\",\n      \"alternate_code\": \"<string,null>\"\n    }\n  }\n}",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-e5da5813-b631-4c2d-9e0a-b24790d9fd50"
+                        },
+                        {
+                          "id": "17cec3bd-43b8-473d-82bf-bd2cceb5c845",
+                          "name": "Authorization error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "regions",
+                                ":providerRegion"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerRegion"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Forbidden",
+                          "code": 403,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-17cec3bd-43b8-473d-82bf-bd2cceb5c845"
+                        },
+                        {
+                          "id": "f4c1b1d5-4517-4e31-9b1f-9e30e9940e68",
+                          "name": "Not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/providers/:provider/regions/:providerRegion",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "providers",
+                                ":provider",
+                                "regions",
+                                ":providerRegion"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "provider"
+                                },
+                                {
+                                  "key": "providerRegion"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"message\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T02:04:02.000Z",
+                          "updatedAt": "2026-07-28T02:04:02.000Z",
+                          "uid": "35240-f4c1b1d5-4517-4e31-9b1f-9e30e9940e68"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-631df873-b534-47a3-94aa-6f03641d0084"
+                    }
+                  ],
+                  "id": "663c142a-d798-46a5-97a3-d1ffbe2f30bc",
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-663c142a-d798-46a5-97a3-d1ffbe2f30bc"
+                },
+                {
+                  "name": "List provider regions",
+                  "id": "b6fba775-3723-4239-b0fc-d95612690869",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/providers/:provider/regions?page[size]=30&page[cursor]=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "providers",
+                        ":provider",
+                        "regions"
+                      ],
+                      "query": [
+                        {
+                          "description": "The number of results that will be returned per page.",
+                          "key": "page[size]",
+                          "value": "30"
+                        },
+                        {
+                          "description": "The cursor to start the pagination from.",
+                          "key": "page[cursor]",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "67550d7e-b2fa-412d-80ff-a9179522c469",
+                          "key": "provider",
+                          "value": "<integer>",
+                          "description": "(Required) The provider ID"
+                        }
+                      ]
+                    },
+                    "description": "Show all provider regions\n\nProcessing mode: <small><code>sync</code></small>"
+                  },
+                  "response": [
+                    {
+                      "id": "8aeb4d5c-ff69-41de-818d-8f0387d2ab91",
+                      "name": "Paginated set of `ProviderRegionResource`",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/vnd.api+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/regions?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "regions"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/vnd.api+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providerRegions\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"code\": \"<string>\",\n        \"alternate_code\": \"<string,null>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providerRegions\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"code\": \"<string>\",\n        \"alternate_code\": \"<string,null>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-8aeb4d5c-ff69-41de-818d-8f0387d2ab91"
+                    },
+                    {
+                      "id": "1cff2382-59c1-444d-aa39-2d7c7d5d0382",
+                      "name": "Authorization error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/regions?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "regions"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-1cff2382-59c1-444d-aa39-2d7c7d5d0382"
+                    },
+                    {
+                      "id": "2b1d9dfd-3018-4fcf-94a4-ef021318366f",
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/providers/:provider/regions?page[size]=30&page[cursor]=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "providers",
+                            ":provider",
+                            "regions"
+                          ],
+                          "query": [
+                            {
+                              "description": "The number of results that will be returned per page.",
+                              "key": "page[size]",
+                              "value": "30"
+                            },
+                            {
+                              "description": "The cursor to start the pagination from.",
+                              "key": "page[cursor]",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "provider"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"message\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:04:02.000Z",
+                      "updatedAt": "2026-07-28T02:04:02.000Z",
+                      "uid": "35240-2b1d9dfd-3018-4fcf-94a4-ef021318366f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-b6fba775-3723-4239-b0fc-d95612690869"
+                }
+              ],
+              "id": "327c5c19-91e3-4fbc-8185-fa24de94ec16",
+              "createdAt": "2026-07-28T02:04:02.000Z",
+              "updatedAt": "2026-07-28T02:04:02.000Z",
+              "uid": "35240-327c5c19-91e3-4fbc-8185-fa24de94ec16"
+            },
+            {
+              "name": "Get provider",
+              "id": "65c49679-330a-46cb-ad28-41c5fea6d0d9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/providers/:provider",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "providers",
+                    ":provider"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2b485183-4997-4ff2-8ff7-20fc0f78d08f",
+                      "key": "provider",
+                      "value": "<integer>",
+                      "description": "(Required) The provider ID"
+                    }
+                  ]
+                },
+                "description": "Show the provider.\n\nProcessing mode: <small><code>sync</code></small>"
+              },
+              "response": [
+                {
+                  "id": "70689857-0117-4c1c-9428-ec7bc90a2bb9",
+                  "name": "`ProviderResource`",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/vnd.api+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/providers/:provider",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "providers",
+                        ":provider"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/vnd.api+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"type\": \"providers\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"<uri>\",\n        \"rel\": \"<string>\",\n        \"describedby\": \"<string>\",\n        \"title\": \"<string>\",\n        \"type\": \"<string>\",\n        \"hreflang\": \"<string>\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"simple_name\": \"<string,null>\",\n      \"currency\": \"<string>\",\n      \"currency_symbol\": \"<string>\",\n      \"default_size_code\": \"<string,null>\",\n      \"default_region_code\": \"<string,null>\"\n    }\n  }\n}",
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-70689857-0117-4c1c-9428-ec7bc90a2bb9"
+                },
+                {
+                  "id": "bb1ca7ce-717c-4a53-8766-ea0ba1691596",
+                  "name": "Authorization error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/providers/:provider",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "providers",
+                        ":provider"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-bb1ca7ce-717c-4a53-8766-ea0ba1691596"
+                },
+                {
+                  "id": "d8a10b0b-a841-4240-aee2-eb18c984afd7",
+                  "name": "Not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/providers/:provider",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "providers",
+                        ":provider"
+                      ],
+                      "variable": [
+                        {
+                          "key": "provider"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T02:04:02.000Z",
+                  "updatedAt": "2026-07-28T02:04:02.000Z",
+                  "uid": "35240-d8a10b0b-a841-4240-aee2-eb18c984afd7"
+                }
+              ],
+              "createdAt": "2026-07-28T02:04:02.000Z",
+              "updatedAt": "2026-07-28T02:04:02.000Z",
+              "uid": "35240-65c49679-330a-46cb-ad28-41c5fea6d0d9"
+            }
+          ],
+          "id": "873695c6-1881-4970-b56d-bcf498728f12",
+          "createdAt": "2026-07-28T02:04:02.000Z",
+          "updatedAt": "2026-07-28T02:04:02.000Z",
+          "uid": "35240-873695c6-1881-4970-b56d-bcf498728f12"
+        },
+        {
+          "name": "List providers",
+          "id": "b3451b31-7262-4140-b008-9f30fe889980",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/providers?page[size]=30&page[cursor]=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "providers"
+              ],
+              "query": [
+                {
+                  "description": "The number of results that will be returned per page.",
+                  "key": "page[size]",
+                  "value": "30"
+                },
+                {
+                  "description": "The cursor to start the pagination from.",
+                  "key": "page[cursor]",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Show all providers\n\nProcessing mode: <small><code>sync</code></small>"
+          },
+          "response": [
+            {
+              "id": "31172ac3-4906-4281-b67d-3e799a01b1d5",
+              "name": "Paginated set of `ProviderResource`",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/providers?page[size]=30&page[cursor]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "providers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of results that will be returned per page.",
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "description": "The cursor to start the pagination from.",
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providers\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"simple_name\": \"<string,null>\",\n        \"currency\": \"<string>\",\n        \"currency_symbol\": \"<string>\",\n        \"default_size_code\": \"<string,null>\",\n        \"default_region_code\": \"<string,null>\"\n      }\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"providers\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"<uri>\",\n          \"rel\": \"<string>\",\n          \"describedby\": \"<string>\",\n          \"title\": \"<string>\",\n          \"type\": \"<string>\",\n          \"hreflang\": \"<string>\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"simple_name\": \"<string,null>\",\n        \"currency\": \"<string>\",\n        \"currency_symbol\": \"<string>\",\n        \"default_size_code\": \"<string,null>\",\n        \"default_region_code\": \"<string,null>\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"<string>\",\n    \"last\": \"<string>\",\n    \"prev\": \"<string>\",\n    \"next\": \"<string>\"\n  },\n  \"meta\": {\n    \"path\": \"<string,null>\",\n    \"per_page\": \"<integer>\",\n    \"next_cursor\": \"<string,null>\",\n    \"prev_cursor\": \"<string,null>\"\n  }\n}",
+              "createdAt": "2026-07-28T02:04:02.000Z",
+              "updatedAt": "2026-07-28T02:04:02.000Z",
+              "uid": "35240-31172ac3-4906-4281-b67d-3e799a01b1d5"
+            },
+            {
+              "id": "ee8cb051-5008-4355-90d7-9cfd7aef92a7",
+              "name": "Authorization error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/providers?page[size]=30&page[cursor]=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "providers"
+                  ],
+                  "query": [
+                    {
+                      "description": "The number of results that will be returned per page.",
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "description": "The cursor to start the pagination from.",
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:04:02.000Z",
+              "updatedAt": "2026-07-28T02:04:02.000Z",
+              "uid": "35240-ee8cb051-5008-4355-90d7-9cfd7aef92a7"
+            }
+          ],
+          "createdAt": "2026-07-28T02:04:02.000Z",
+          "updatedAt": "2026-07-28T02:04:02.000Z",
+          "uid": "35240-b3451b31-7262-4140-b008-9f30fe889980"
+        }
+      ],
+      "id": "5f692422-091b-4c10-adbc-97cc3a4c9f73",
+      "createdAt": "2026-07-28T02:04:02.000Z",
+      "updatedAt": "2026-07-28T02:04:02.000Z",
+      "uid": "35240-5f692422-091b-4c10-adbc-97cc3a4c9f73"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://cloud.laravel.com/api"
+    }
+  ]
+}
