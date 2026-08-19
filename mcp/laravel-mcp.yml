@@ -19,15 +19,8 @@ server:
   repository: https://github.com/laravel/boost
   docs: https://laravel.com/docs/13.x/boost
   hosted_url: null
-  registration_example: |
-    {
-      "mcpServers": {
-        "laravel-boost": {
-          "command": "php",
-          "args": ["artisan", "boost:mcp"]
-        }
-      }
-    }
+  registration_example: "{\n  \"mcpServers\": {\n    \"laravel-boost\": {\n      \"command\": \"php\"\
+    ,\n      \"args\": [\"artisan\", \"boost:mcp\"]\n    }\n  }\n}\n"
 supported_agents:
 - Claude Code
 - Cursor
@@ -54,9 +47,9 @@ tools:
 - name: Read Log Entries
   description: Read the last N log entries.
 - name: Search Docs
-  description: Query the Laravel hosted documentation API service to retrieve documentation based on
-    installed packages. Backed by a knowledge base of over 17,000 pieces of Laravel-specific information
-    with semantic/embedding search.
+  description: Query the Laravel hosted documentation API service to retrieve documentation based on installed
+    packages. Backed by a knowledge base of over 17,000 pieces of Laravel-specific information with semantic/embedding
+    search.
 related:
   agent_skills: skills/_index.yml
   library_for_building_servers:
@@ -66,3 +59,12 @@ related:
 gaps:
 - No hosted or remote MCP server is published for the Laravel Forge API or the Laravel Cloud API, despite
   both shipping complete OpenAPI 3.1 descriptions that a server could be generated from.
+deployment:
+  mode: none
+  endpoint: https://laravel.com/docs/13.x/boost
+  verified: probed
+  probe: dead
+  note: the endpoint this manifest claimed did not answer; recorded as none rather than deleted so the
+    claim stays auditable
+  checked: '2026-08-12'
+  source: catalog MCP census

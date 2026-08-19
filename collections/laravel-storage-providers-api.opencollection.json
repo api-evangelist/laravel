@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Storage Providers API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Storage Providers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List storage providers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/storage-providers",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[provider]",
+                "value": "",
+                "type": "query",
+                "description": "The storage provider type."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show all storage providers for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create storage provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/storage-providers",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new storage provider for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get storage provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/storage-providers/:storageConfiguration",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "storageConfiguration",
+                "value": "",
+                "type": "path",
+                "description": "The storage configuration ID"
+              }
+            ]
+          },
+          "docs": "Show a specific storage provider for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update storage provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/storage-providers/:storageConfiguration",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "storageConfiguration",
+                "value": "",
+                "type": "path",
+                "description": "The storage configuration ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a storage provider for the organization.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete storage provider",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/storage-providers/:storageConfiguration",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "storageConfiguration",
+                "value": "",
+                "type": "path",
+                "description": "The storage configuration ID"
+              }
+            ]
+          },
+          "docs": "Delete a storage provider from the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

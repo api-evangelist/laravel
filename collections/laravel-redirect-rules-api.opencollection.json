@@ -1,0 +1,205 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Redirect Rules API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Redirect Rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List site redirect rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/redirect-rules",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[from]",
+                "value": "",
+                "type": "query",
+                "description": "The source URL path for the redirect rule."
+              },
+              {
+                "name": "filter[to]",
+                "value": "",
+                "type": "query",
+                "description": "The destination URL path for the redirect rule."
+              },
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query",
+                "description": "The type of the redirect rule."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "The status of the redirect rule."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all redirect rules associated with the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create site redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/redirect-rules",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new redirect rule to the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get site redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/redirect-rules/:redirectRule",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "redirectRule",
+                "value": "",
+                "type": "path",
+                "description": "The redirect rule ID"
+              }
+            ]
+          },
+          "docs": "Get a specific redirect rule associated with the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete site redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/redirect-rules/:redirectRule",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "redirectRule",
+                "value": "",
+                "type": "path",
+                "description": "The redirect rule ID"
+              }
+            ]
+          },
+          "docs": "Remove a redirect rule from the site.\n\nProcessing mode: <small><code>async</code></small>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

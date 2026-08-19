@@ -1,0 +1,1487 @@
+{
+  "item": [
+    {
+      "id": "584c6485-4ef9-40fd-aa1d-94acd34b4c3e",
+      "name": "Storage Providers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6de7da9-dd02-40e5-ad14-30173b37eea2",
+          "name": "List storage providers",
+          "request": {
+            "name": "List storage providers",
+            "description": {
+              "content": "Show all storage providers for the organization.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "storage-providers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[provider]",
+                  "value": "<string>",
+                  "description": "The storage provider type."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "4301aec8-b402-4e42-9f69-8d7113cc7dad",
+              "name": "Paginated set of `StorageProviderResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[provider]",
+                      "value": "s3"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"storageProviders\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://SEuMiDiTLopPBxkkMpNTBxbnyaVqcAaW.yzugYx\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"provider\": \"custom\",\n        \"provider_name\": \"OVH\",\n        \"region\": \"string\",\n        \"bucket\": \"string\",\n        \"directory\": \"string\",\n        \"endpoint\": \"string\",\n        \"assume_role\": false,\n        \"in_use\": true,\n        \"created_at\": \"1994-01-27T11:01:54.764Z\",\n        \"updated_at\": \"1984-04-13T19:11:27.333Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"storageProviders\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://jVBfBqf.iysr-WnIiyJC5Xmz.NDwl\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"provider\": \"hetzner\",\n        \"provider_name\": \"Hetzner\",\n        \"region\": \"string\",\n        \"bucket\": \"string\",\n        \"directory\": \"string\",\n        \"endpoint\": \"string\",\n        \"assume_role\": true,\n        \"in_use\": false,\n        \"created_at\": \"1980-03-15T03:19:10.662Z\",\n        \"updated_at\": \"1964-11-10T20:47:08.983Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 3358,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e671f33-98bf-41eb-af3c-fe3ada5a5341",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[provider]",
+                      "value": "s3"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d84622aa-68fe-4726-a1b4-cc709420584e",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[provider]",
+                      "value": "s3"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e85336a-5d38-4fdd-a517-eb083bbbda6f",
+          "name": "Create storage provider",
+          "request": {
+            "name": "Create storage provider",
+            "description": {
+              "content": "Create a new storage provider for the organization.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "storage-providers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"region\": \"<string>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"endpoint\": \"<uri>\",\n  \"access_key\": \"<string,null>\",\n  \"secret_key\": \"<string,null>\",\n  \"assume_role\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "408d2c74-0d18-4a0b-9593-9d58e90da703",
+              "name": "`StorageProviderResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"s3\",\n  \"region\": \"<string>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"endpoint\": \"<uri>\",\n  \"access_key\": \"<string,null>\",\n  \"secret_key\": \"<string,null>\",\n  \"assume_role\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"storageProviders\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://lUYYqrQCbyxDIVqEgpSI.xnrby\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"string\",\n      \"provider\": \"hetzner\",\n      \"provider_name\": \"Amazon S3\",\n      \"region\": \"string\",\n      \"bucket\": \"string\",\n      \"directory\": \"string\",\n      \"endpoint\": \"string\",\n      \"assume_role\": false,\n      \"in_use\": false,\n      \"created_at\": \"1949-04-25T11:47:27.143Z\",\n      \"updated_at\": \"1948-05-26T12:13:01.251Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98a2639a-8ea0-4d02-862c-2bd366c2b0c7",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"s3\",\n  \"region\": \"<string>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"endpoint\": \"<uri>\",\n  \"access_key\": \"<string,null>\",\n  \"secret_key\": \"<string,null>\",\n  \"assume_role\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d0a64f9-e31b-405b-9074-517b049a3805",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"s3\",\n  \"region\": \"<string>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"endpoint\": \"<uri>\",\n  \"access_key\": \"<string,null>\",\n  \"secret_key\": \"<string,null>\",\n  \"assume_role\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f9eaa44-e5f2-46df-9973-f9ee814ca331",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"s3\",\n  \"region\": \"<string>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"endpoint\": \"<uri>\",\n  \"access_key\": \"<string,null>\",\n  \"secret_key\": \"<string,null>\",\n  \"assume_role\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "71ff624c-8766-4993-96ea-2bafcb85d631",
+          "name": "Get storage provider",
+          "request": {
+            "name": "Get storage provider",
+            "description": {
+              "content": "Show a specific storage provider for the organization.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "storage-providers",
+                ":storageConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "storageConfiguration",
+                  "description": "(Required) The storage configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "75e0e36c-0e28-4be6-8e6b-78812b717e91",
+              "name": "`StorageProviderResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"storageProviders\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://lUYYqrQCbyxDIVqEgpSI.xnrby\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"string\",\n      \"provider\": \"hetzner\",\n      \"provider_name\": \"Amazon S3\",\n      \"region\": \"string\",\n      \"bucket\": \"string\",\n      \"directory\": \"string\",\n      \"endpoint\": \"string\",\n      \"assume_role\": false,\n      \"in_use\": false,\n      \"created_at\": \"1949-04-25T11:47:27.143Z\",\n      \"updated_at\": \"1948-05-26T12:13:01.251Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "482b1dbd-71d6-4566-a125-eb45359f447d",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9653f7cb-c068-4f4a-a50e-729b15ce6264",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a2cb5c4-28f0-4173-8313-6a1513ddb1e4",
+          "name": "Update storage provider",
+          "request": {
+            "name": "Update storage provider",
+            "description": {
+              "content": "Update a storage provider for the organization.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "storage-providers",
+                ":storageConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "storageConfiguration",
+                  "description": "(Required) The storage configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"region\": \"<string>\",\n  \"bucket\": \"<string,null>\",\n  \"endpoint\": \"<uri>\",\n  \"access_key\": \"<string,null>\",\n  \"secret_key\": \"<string,null>\",\n  \"use_ec2_assumed_role\": \"<boolean>\",\n  \"directory\": \"<string,null>\",\n  \"assume_role\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3924c07f-5a1e-46d9-858e-c426d0cec4df",
+              "name": "`StorageProviderResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"provider\": \"s3\",\n  \"region\": \"string\",\n  \"bucket\": \"string\",\n  \"endpoint\": \"https://vJXQWhesoxOHHZgkdwmFfhZRquIKRWBC.kgamY6SV6-OV\",\n  \"access_key\": \"string\",\n  \"secret_key\": \"string\",\n  \"use_ec2_assumed_role\": true,\n  \"directory\": \"string\",\n  \"assume_role\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"storageProviders\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://lUYYqrQCbyxDIVqEgpSI.xnrby\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"string\",\n      \"provider\": \"hetzner\",\n      \"provider_name\": \"Amazon S3\",\n      \"region\": \"string\",\n      \"bucket\": \"string\",\n      \"directory\": \"string\",\n      \"endpoint\": \"string\",\n      \"assume_role\": false,\n      \"in_use\": false,\n      \"created_at\": \"1949-04-25T11:47:27.143Z\",\n      \"updated_at\": \"1948-05-26T12:13:01.251Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fad412b-c36b-4526-9145-dd81e8f188d6",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"provider\": \"s3\",\n  \"region\": \"string\",\n  \"bucket\": \"string\",\n  \"endpoint\": \"https://vJXQWhesoxOHHZgkdwmFfhZRquIKRWBC.kgamY6SV6-OV\",\n  \"access_key\": \"string\",\n  \"secret_key\": \"string\",\n  \"use_ec2_assumed_role\": true,\n  \"directory\": \"string\",\n  \"assume_role\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35291bb1-d0e3-4303-9fcb-200c7c68f190",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"provider\": \"s3\",\n  \"region\": \"string\",\n  \"bucket\": \"string\",\n  \"endpoint\": \"https://vJXQWhesoxOHHZgkdwmFfhZRquIKRWBC.kgamY6SV6-OV\",\n  \"access_key\": \"string\",\n  \"secret_key\": \"string\",\n  \"use_ec2_assumed_role\": true,\n  \"directory\": \"string\",\n  \"assume_role\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0802bd3-32d5-4ce8-864c-265d1feaed53",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"string\",\n  \"provider\": \"s3\",\n  \"region\": \"string\",\n  \"bucket\": \"string\",\n  \"endpoint\": \"https://vJXQWhesoxOHHZgkdwmFfhZRquIKRWBC.kgamY6SV6-OV\",\n  \"access_key\": \"string\",\n  \"secret_key\": \"string\",\n  \"use_ec2_assumed_role\": true,\n  \"directory\": \"string\",\n  \"assume_role\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "100c8ca6-d4cd-4479-9909-a8f3c853c1cf",
+          "name": "Delete storage provider",
+          "request": {
+            "name": "Delete storage provider",
+            "description": {
+              "content": "Delete a storage provider from the organization.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "storage-providers",
+                ":storageConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "storageConfiguration",
+                  "description": "(Required) The storage configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "55fb1522-fbf5-481d-b0bd-f9fdde2058a1",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fb93bba0-00aa-4837-b7d1-8c0508cdc1fe",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a69aa73-4417-4773-9755-6b647a7f11df",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0726573-14f6-420b-ac8d-2a66ab5edfde",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "storage-providers",
+                    ":storageConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "storageConfiguration",
+                      "description": "(Required) The storage configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dd74b6f3-f7f9-411a-b4b7-146da1b22da5",
+    "name": "Laravel Cloud Applications Storage Providers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

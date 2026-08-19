@@ -1,0 +1,798 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Deployments API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/environments/:environment/deployments",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[branch_name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[commit_hash]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all deployments for the given environment."
+        },
+        {
+          "info": {
+            "name": "Initiate deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/deployments",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ]
+          },
+          "docs": "Initiate a deployment for the given environment."
+        },
+        {
+          "info": {
+            "name": "Get deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/deployments/:deployment",
+            "params": [
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "The deployment identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the details of a specific deployment."
+        },
+        {
+          "info": {
+            "name": "Get deployment logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/deployments/:deployment/logs",
+            "params": [
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "The deployment identifier"
+              }
+            ]
+          },
+          "docs": "Get the build and deploy logs for a specific deployment."
+        },
+        {
+          "info": {
+            "name": "List site webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/webhooks",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all webhooks for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create site webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/webhooks",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new webhook for the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get site webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/webhooks/:deploymentWebhook",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "deploymentWebhook",
+                "value": "",
+                "type": "path",
+                "description": "The deployment webhook ID"
+              }
+            ]
+          },
+          "docs": "Get a specific webhook associated with the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete site webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/webhooks/:deploymentWebhook",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "deploymentWebhook",
+                "value": "",
+                "type": "path",
+                "description": "The deployment webhook ID"
+              }
+            ]
+          },
+          "docs": "Delete a specific webhook from the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "List deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[commit_hash]",
+                "value": "",
+                "type": "query",
+                "description": "The commit hash of the deployment."
+              },
+              {
+                "name": "filter[commit_message]",
+                "value": "",
+                "type": "query",
+                "description": "The commit message of the deployment."
+              },
+              {
+                "name": "filter[commit_author]",
+                "value": "",
+                "type": "query",
+                "description": "The commit author of the deployment."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show all recent deployments for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Trigger a new deployment for the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get deployment status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/status",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update deployment state",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/status",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Reset the deployment state for the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get deployment script",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/script",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update deployment script",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/script",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get the deployment trigger URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/deploy-hook",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update deployment trigger URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/deploy-hook",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Regenerate the deployment hook token used for triggering deployment on the deployment URL.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create push to deploy configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/push-to-deploy",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Enable push to deploy for the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete push to deploy configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/push-to-deploy",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Disable push to deploy for the site.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/:deployment",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "The deployment ID"
+              }
+            ]
+          },
+          "docs": "Show a specific deployment.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get deployment output",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deployments/:deployment/log",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "deployment",
+                "value": "",
+                "type": "path",
+                "description": "The deployment ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get deploy key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deploy-key",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Get the deploy key for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create deploy key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deploy-key",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Create a new deploy key for the site. If the site already has a deploy key, the existing key is returned.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete deploy key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/deploy-key",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Remove the deploy key for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

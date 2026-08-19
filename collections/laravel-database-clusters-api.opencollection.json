@@ -1,0 +1,173 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Database Clusters API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List database types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/types"
+          },
+          "docs": "List all available database types with their configuration schemas."
+        },
+        {
+          "info": {
+            "name": "List database clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/clusters",
+            "params": [
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[region]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all database clusters for the authenticated organization. The `schemas` relationship is deprecated."
+        },
+        {
+          "info": {
+            "name": "Create database cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/databases/clusters",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new database cluster. A default database will also be created and returned on the `databases` relationship. `schemas` is deprecated."
+        },
+        {
+          "info": {
+            "name": "Get database cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific database cluster. The `schemas` relationship is deprecated."
+        },
+        {
+          "info": {
+            "name": "Update database cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a database cluster."
+        },
+        {
+          "info": {
+            "name": "Delete database cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              }
+            ]
+          },
+          "docs": "Delete a database cluster."
+        },
+        {
+          "info": {
+            "name": "Get database cluster metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/metrics",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metrics for a specific database cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

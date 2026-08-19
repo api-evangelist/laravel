@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Bucket Keys API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bucket Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List object storage keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/buckets/:filesystem/keys",
+            "params": [
+              {
+                "name": "filesystem",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all keys for a specific object storage bucket."
+        },
+        {
+          "info": {
+            "name": "Create object storage key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/buckets/:filesystem/keys",
+            "params": [
+              {
+                "name": "filesystem",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new key for an object storage bucket."
+        },
+        {
+          "info": {
+            "name": "Get object storage key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/bucket-keys/:filesystemKey",
+            "params": [
+              {
+                "name": "filesystemKey",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem key identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific object storage key."
+        },
+        {
+          "info": {
+            "name": "Update object storage key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/bucket-keys/:filesystemKey",
+            "params": [
+              {
+                "name": "filesystemKey",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem key identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an object storage key."
+        },
+        {
+          "info": {
+            "name": "Delete object storage key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/bucket-keys/:filesystemKey",
+            "params": [
+              {
+                "name": "filesystemKey",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem key identifier"
+              }
+            ]
+          },
+          "docs": "Delete an object storage key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

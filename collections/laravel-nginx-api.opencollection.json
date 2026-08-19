@@ -1,0 +1,198 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Nginx API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Nginx",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Nginx templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/nginx/templates",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "The name of the template."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all nginx templates for the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create Nginx template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/nginx/templates",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new nginx template on the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get Nginx template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/nginx/templates/:nginxTemplate",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "nginxTemplate",
+                "value": "",
+                "type": "path",
+                "description": "The nginx template ID"
+              }
+            ]
+          },
+          "docs": "Get a specific nginx template associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update Nginx template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/nginx/templates/:nginxTemplate",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "nginxTemplate",
+                "value": "",
+                "type": "path",
+                "description": "The nginx template ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the specified nginx template on the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete Nginx template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/nginx/templates/:nginxTemplate",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "nginxTemplate",
+                "value": "",
+                "type": "path",
+                "description": "The nginx template ID"
+              }
+            ]
+          },
+          "docs": "Delete the specified nginx template from the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

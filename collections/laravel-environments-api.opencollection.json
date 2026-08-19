@@ -1,0 +1,343 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Environments API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/applications/:application/environments",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[slug]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all environments for the given application."
+        },
+        {
+          "info": {
+            "name": "Create environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/applications/:application/environments",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new environment."
+        },
+        {
+          "info": {
+            "name": "List environment logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/environments/:environment/logs",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "case_sensitive",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "whole_word",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "instances[]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from a previous response. Pass this to fetch the next page of logs."
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of logs for the given environment."
+        },
+        {
+          "info": {
+            "name": "Get environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/environments/:environment",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific environment."
+        },
+        {
+          "info": {
+            "name": "Update environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/environments/:environment",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an environment."
+        },
+        {
+          "info": {
+            "name": "Delete environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/environments/:environment",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ]
+          },
+          "docs": "Delete an environment."
+        },
+        {
+          "info": {
+            "name": "Start environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/start",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start an environment and trigger a deployment."
+        },
+        {
+          "info": {
+            "name": "Stop environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/stop",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ]
+          },
+          "docs": "Stop an environment and cancel any in-progress deployment."
+        },
+        {
+          "info": {
+            "name": "Purge edge cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/purge-edge-cache",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ]
+          },
+          "docs": "Purge the edge cache for all domains associated with the environment."
+        },
+        {
+          "info": {
+            "name": "Add environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/variables",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add environment variables to an environment."
+        },
+        {
+          "info": {
+            "name": "Delete environment variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/variables/delete",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove specific environment variables by key name. This operation is atomic: if any of the specified keys do not exist, no variables will be deleted and an error will be returned indicating which keys were missing."
+        },
+        {
+          "info": {
+            "name": "Get environment metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/environments/:environment/metrics",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metrics for a specific environment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

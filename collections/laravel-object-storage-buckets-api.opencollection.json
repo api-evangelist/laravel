@@ -1,0 +1,138 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Object Storage Buckets API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Object Storage Buckets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List object storage buckets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/buckets",
+            "params": [
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[visibility]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all object storage buckets for the authenticated organization."
+        },
+        {
+          "info": {
+            "name": "Create object storage bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/buckets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new object storage bucket with an initial key."
+        },
+        {
+          "info": {
+            "name": "Get object storage bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/buckets/:filesystem",
+            "params": [
+              {
+                "name": "filesystem",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific object storage bucket."
+        },
+        {
+          "info": {
+            "name": "Update object storage bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/buckets/:filesystem",
+            "params": [
+              {
+                "name": "filesystem",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an object storage bucket."
+        },
+        {
+          "info": {
+            "name": "Delete object storage bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/buckets/:filesystem",
+            "params": [
+              {
+                "name": "filesystem",
+                "value": "",
+                "type": "path",
+                "description": "The filesystem identifier"
+              }
+            ]
+          },
+          "docs": "Delete an object storage bucket."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

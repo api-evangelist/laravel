@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Usage API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/usage",
+            "params": [
+              {
+                "name": "period",
+                "value": "0",
+                "type": "query",
+                "description": "The billing period offset. 0 returns the current billing period, 1 returns the previous period, and so on. Periods are not necessarily month-long — they match your billing cycle. Must be between 0 and 3."
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get billing and usage data for the authenticated organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2000 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Sites API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/sites",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show all sites the current token has access to.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "List sites for Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/sites",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show all sites for the organization.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/sites/:site",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Show the specified site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "List sites for server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "The name of the site."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all sites associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new site to the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create site on a load balancer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/balancer",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new site to the load balancer.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a site on the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Remove a site from the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "List site certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/certificates",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "List all certificates for a given site, across all of its domains.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "List domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "The status of the domain."
+              },
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query",
+                "description": "The type of domain."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show all domains for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new domain to the site\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "Show the specified domain for the site\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing domain for the site\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "Remove a domain from the site\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get domain DNS configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/configurations",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "Show the DNS configuration instructions for a domain.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create domain action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/actions",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run an action on a domain, defined by the action type parameter.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get domain Nginx configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/nginx",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update domain Nginx configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/nginx",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get active domain certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificate",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "Get the currently active certificate for a given domain.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "List domain certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificates",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "List all certificates for a given domain.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create domain certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificates",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new certificate for a given domain.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get active domain certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificates/active",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              }
+            ]
+          },
+          "docs": "Get the currently active certificate for a given domain.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get domain certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificates/:certificate",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              },
+              {
+                "name": "certificate",
+                "value": "",
+                "type": "path",
+                "description": "The certificate ID"
+              }
+            ]
+          },
+          "docs": "Get a specific certificate for a given domain.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete domain certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificates/:certificate",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              },
+              {
+                "name": "certificate",
+                "value": "",
+                "type": "path",
+                "description": "The certificate ID"
+              }
+            ]
+          },
+          "docs": "Delete a specific certificate for a given domain.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create domain certificate action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/domains/:domainRecord/certificates/:certificate/actions",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "domainRecord",
+                "value": "",
+                "type": "path",
+                "description": "The domain record ID"
+              },
+              {
+                "name": "certificate",
+                "value": "",
+                "type": "path",
+                "description": "The certificate ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run an action on a domain certificate, defined by the action type parameter.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get healthcheck endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/healthcheck",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "Show the healthcheck endpoint that has been set for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update healthcheck endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/healthcheck",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the healthcheck endpoint for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get .env content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/environment",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update .env content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/environment",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get Nginx configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/nginx",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update Nginx configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/nginx",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get composer credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/composer/credentials",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create composer credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/composer/credentials",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get composer credential for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/composer/credentials/:repository",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "repository",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update composer credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/composer/credentials/:repository",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "repository",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete composer credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/composer/credentials/:repository",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "repository",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get NPM credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/npm/credentials",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create NPM credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/npm/credentials",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get NPM credential for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/npm/credentials/:registry",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "registry",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update NPM credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/npm/credentials/:registry",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "registry",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete npm credentials for the site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/npm/credentials/:registry",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "registry",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "List load balancing nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/load-balancing-nodes",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update load balancing nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/load-balancing-nodes",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get Nginx access log content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/logs/nginx-access",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete Nginx access log content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/logs/nginx-access",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get Nginx error log content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/logs/nginx-error",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete Nginx error log content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/logs/nginx-error",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get site log content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/logs/application",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete site log content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/logs/application",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ]
+          },
+          "docs": "\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "List heartbeats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/heartbeats",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              }
+            ]
+          },
+          "docs": "Show all heartbeats for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/heartbeats",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new heartbeat for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/heartbeats/:heartbeat",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "heartbeat",
+                "value": "",
+                "type": "path",
+                "description": "The heartbeat ID"
+              }
+            ]
+          },
+          "docs": "Show a specific heartbeat for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/heartbeats/:heartbeat",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "heartbeat",
+                "value": "",
+                "type": "path",
+                "description": "The heartbeat ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a specific heartbeat for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete heartbeat",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/sites/:site/heartbeats/:heartbeat",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "site",
+                "value": "",
+                "type": "path",
+                "description": "The site ID"
+              },
+              {
+                "name": "heartbeat",
+                "value": "",
+                "type": "path",
+                "description": "The heartbeat ID"
+              }
+            ]
+          },
+          "docs": "Delete a specific heartbeat for the site.\n\nProcessing mode: <small><code>sync</code></small>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

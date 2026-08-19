@@ -1,0 +1,505 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Databases API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Databases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List databases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/databases",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all databases for a specific database cluster."
+        },
+        {
+          "info": {
+            "name": "Create a database",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/databases",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new database in a database cluster."
+        },
+        {
+          "info": {
+            "name": "Get a database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/databases/:schema",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "path",
+                "description": "The schema identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific database."
+        },
+        {
+          "info": {
+            "name": "Delete a database",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/databases/:schema",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "path",
+                "description": "The schema identifier"
+              }
+            ]
+          },
+          "docs": "Delete a database from a database cluster."
+        },
+        {
+          "info": {
+            "name": "List database schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/schemas",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "The name of the database schema."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "The status of the database schema."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all database schemas associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create database schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/schemas",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new database schema to the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get database schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/schemas/:database",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database ID"
+              }
+            ]
+          },
+          "docs": "Get a specific database schema associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete database schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/schemas/:database",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database ID"
+              }
+            ]
+          },
+          "docs": "Remove a database schema from the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update database schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/schemas/synchronizations",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ]
+          },
+          "docs": "Synchronize all database schemas on the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "List database users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/users",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "The number of results that will be returned per page."
+              },
+              {
+                "name": "page[cursor]",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to start the pagination from."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "The name of the database user."
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query",
+                "description": "The status of the database user."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all database users associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Create database user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/users",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new database user to the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Get database user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/users/:databaseUser",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "databaseUser",
+                "value": "",
+                "type": "path",
+                "description": "The database user ID"
+              }
+            ]
+          },
+          "docs": "Get a specific database user associated with the server.\n\nProcessing mode: <small><code>sync</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update database user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/users/:databaseUser",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "databaseUser",
+                "value": "",
+                "type": "path",
+                "description": "The database user ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a database user on the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Delete database user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/users/:databaseUser",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              },
+              {
+                "name": "databaseUser",
+                "value": "",
+                "type": "path",
+                "description": "The database user ID"
+              }
+            ]
+          },
+          "docs": "Remove a database user from the server.\n\nProcessing mode: <small><code>async</code></small>"
+        },
+        {
+          "info": {
+            "name": "Update the password for the database",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://cloud.laravel.com/api/orgs/:organization/servers/:server/database/password",
+            "params": [
+              {
+                "name": "organization",
+                "value": "",
+                "type": "path",
+                "description": "The organization slug"
+              },
+              {
+                "name": "server",
+                "value": "",
+                "type": "path",
+                "description": "The server ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the password for the database on the server.\nIt will only update the password Forge thinks is the password, it will not change the password on the server itself.\nThis should only be used if you have changed the password on the server itself and want to update Forge.\n\nProcessing mode: <small><code>sync</code></small>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

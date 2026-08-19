@@ -1,0 +1,1307 @@
+{
+  "item": [
+    {
+      "id": "d1714b22-814b-4403-a72c-82384393484a",
+      "name": "Firewall Rules",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d4cae0aa-d489-496c-a952-6bd3a0c68f4a",
+          "name": "List server firewall rules",
+          "request": {
+            "name": "List server firewall rules",
+            "description": {
+              "content": "List all firewall rules associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "firewall-rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "The name of the firewall rule."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "The status of the firewall rule."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[ip_address]",
+                  "value": "<string>",
+                  "description": "The IP address or subnet for the firewall rule."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[type]",
+                  "value": "<string>",
+                  "description": "The type of the firewall rule."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[port]",
+                  "value": "<string>",
+                  "description": "The port or port range for the firewall rule."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "7aeedf8e-6ac3-45c1-9d4c-49fc968d6d6c",
+              "name": "Paginated set of `RuleResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "Allow MySQL"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "filter[ip_address]",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "filter[type]",
+                      "value": "allow"
+                    },
+                    {
+                      "key": "filter[port]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"rules\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://ShiTBpBYfSAOZcUEHmprGeCUodkg.mvCzWfI8rYEGnHBcZUAkmJXuyeig\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"Allow HTTP\",\n        \"port\": \"80\",\n        \"type\": \"allow\",\n        \"ip_address\": \"192.168.1.1\",\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"rules\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://CsdFXRoQEfpagVFwBRxwO.dkNOh0d2Bha7bufMYvqXsejdIEJW,KQTZZCBy\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"Allow HTTP\",\n        \"port\": \"80\",\n        \"type\": \"allow\",\n        \"ip_address\": \"192.168.1.1\",\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 8764,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "decc1eb2-8b6f-48e3-8ac3-27261480f6d9",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "Allow MySQL"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "filter[ip_address]",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "filter[type]",
+                      "value": "allow"
+                    },
+                    {
+                      "key": "filter[port]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b197ffbc-b203-42b4-aa39-c5f645bf3da7",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "Allow MySQL"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "filter[ip_address]",
+                      "value": "192.168.1.1"
+                    },
+                    {
+                      "key": "filter[type]",
+                      "value": "allow"
+                    },
+                    {
+                      "key": "filter[port]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf28f3ef-6584-451c-b010-01b0038dc6b0",
+          "name": "Create server firewall rule",
+          "request": {
+            "name": "Create server firewall rule",
+            "description": {
+              "content": "Add a new firewall rule to the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "firewall-rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af1967a0-1ace-40bb-98db-281c8e9a9c19",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2ef36ed7-ac90-4724-b627-ed1fc4af1465",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06b378f4-b518-4553-a5a0-468f11d6108f",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d1ccbc5-6dcf-43af-a903-8ab0e9b24698",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<Error: Could not resolve allOf schema\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19271239-4da6-46be-99b0-f257bf5b6353",
+          "name": "Get server firewall rule",
+          "request": {
+            "name": "Get server firewall rule",
+            "description": {
+              "content": "Get a specific firewall rule associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "firewall-rules",
+                ":rule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "rule",
+                  "description": "(Required) The rule ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "deb84856-bbad-4eb3-9f2a-975156efa338",
+              "name": "`RuleResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules",
+                    ":rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "rule",
+                      "description": "(Required) The rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"rules\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://ExDaLUUNCWd.uzszEKEZ33kFmVj+QXyzFgAj5zW22rh.dLoqHh+m8QAAjqvQ+F3gg1o0w7Y+uytmyaIEXuqhs7ou3nRMk\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"Allow HTTP\",\n      \"port\": \"80\",\n      \"type\": \"allow\",\n      \"ip_address\": \"192.168.1.1\",\n      \"status\": \"installed\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3961657-edcd-46b1-85aa-492ab489bafe",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules",
+                    ":rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "rule",
+                      "description": "(Required) The rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a53b7fe-f6ad-441f-bf86-1fa9158415a3",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules",
+                    ":rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "rule",
+                      "description": "(Required) The rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5203b296-1e64-4bd5-b0d7-5cbd953b0267",
+          "name": "Delete server firewall rule",
+          "request": {
+            "name": "Delete server firewall rule",
+            "description": {
+              "content": "Remove a firewall rule from the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "firewall-rules",
+                ":rule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "rule",
+                  "description": "(Required) The rule ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "d5f235b8-5c51-4520-81e7-a296d67fec28",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules",
+                    ":rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "rule",
+                      "description": "(Required) The rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7538f1a5-61a4-4a1c-a86b-4b77b01107d9",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules",
+                    ":rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "rule",
+                      "description": "(Required) The rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d76f471-24a1-4b7e-85aa-b6dd18be5d7c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "firewall-rules",
+                    ":rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "rule",
+                      "description": "(Required) The rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0d0caaff-29cc-4221-9df2-ec36c6e06f6e",
+    "name": "Laravel Cloud Applications Firewall Rules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

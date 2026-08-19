@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/applications",
+            "params": [
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[region]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[slug]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all applications for the authenticated organization."
+        },
+        {
+          "info": {
+            "name": "Create application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/applications",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new application."
+        },
+        {
+          "info": {
+            "name": "Get application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/applications/:application",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific application."
+        },
+        {
+          "info": {
+            "name": "Update application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/applications/:application",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an application."
+        },
+        {
+          "info": {
+            "name": "Delete application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/applications/:application",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              }
+            ]
+          },
+          "docs": "Delete an application and all of its environments."
+        },
+        {
+          "info": {
+            "name": "Upload application avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/applications/:application/avatar",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "avatar",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload or replace the avatar for an application."
+        },
+        {
+          "info": {
+            "name": "Delete application avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/applications/:application/avatar",
+            "params": [
+              {
+                "name": "application",
+                "value": "",
+                "type": "path",
+                "description": "The application identifier"
+              }
+            ]
+          },
+          "docs": "Remove the avatar from an application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

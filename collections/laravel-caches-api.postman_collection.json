@@ -1,0 +1,1615 @@
+{
+  "item": [
+    {
+      "id": "1ba239c1-0a07-4759-9688-7773943f1352",
+      "name": "Caches",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f875d3a-ca94-423c-a58d-e154169b188f",
+          "name": "List all available cache types with their configuration options",
+          "request": {
+            "name": "List all available cache types with their configuration options",
+            "description": {},
+            "url": {
+              "path": [
+                "caches",
+                "types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a661d718-9ec0-40da-b93a-50eabeb4f8a6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"label\": \"string\",\n      \"regions\": [\n        \"me-central-1\",\n        \"us-east-2\"\n      ],\n      \"sizes\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\"\n        }\n      ],\n      \"supports_auto_upgrade\": false\n    },\n    {\n      \"type\": \"string\",\n      \"label\": \"string\",\n      \"regions\": [\n        \"ca-central-1\",\n        \"us-east-1\"\n      ],\n      \"sizes\": [\n        {\n          \"value\": \"string\",\n          \"label\": \"string\"\n        },\n        {\n          \"value\": \"string\",\n          \"label\": \"string\"\n        }\n      ],\n      \"supports_auto_upgrade\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a24ffc79-03bb-4729-85d0-32feb3eec85f",
+          "name": "List caches",
+          "request": {
+            "name": "List caches",
+            "description": {
+              "content": "Get a list of all caches for the authenticated organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[type]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[region]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a377453b-4343-40c0-8427-aec139eab81b",
+              "name": "Paginated set of `CacheResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"caches\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"aws_elasticache_redis\",\n        \"status\": \"available\",\n        \"region\": \"ca-central-1\",\n        \"size\": \"500gb\",\n        \"auto_upgrade_enabled\": true,\n        \"is_public\": true,\n        \"uses_hibernation\": true,\n        \"hibernation_timeout\": 5930,\n        \"created_at\": \"1983-01-05T08:39:03.273Z\",\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5814,\n          \"protocol\": \"fake\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"caches\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"aws_elasticache_valkey\",\n        \"status\": \"available\",\n        \"region\": \"me-central-1\",\n        \"size\": \"valkey-pro.250mb\",\n        \"auto_upgrade_enabled\": false,\n        \"is_public\": false,\n        \"uses_hibernation\": true,\n        \"hibernation_timeout\": 2430,\n        \"created_at\": \"1958-08-02T09:26:56.649Z\",\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 6520,\n          \"protocol\": \"redis\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"current_page\": 5696,\n    \"from\": 3891,\n    \"last_page\": 5046,\n    \"links\": [\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": true\n      },\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": false\n      }\n    ],\n    \"path\": \"string\",\n    \"per_page\": 76,\n    \"to\": 7179,\n    \"total\": 6084\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://JRIVyChHOh.rixPxLK9H5iXPZhgvQs,F2GoTBzQInM+2Sc1ZJFqCYDxWzuNR3MHIWb6\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"running\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"string\",\n        \"node_version\": \"20\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": true,\n        \"uses_hibernation\": true,\n        \"hibernation_wake_up_interval\": 7542,\n        \"uses_push_to_deploy\": false,\n        \"uses_deploy_hook\": false,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 2524,\n              \"include_subdomains\": true,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"ai_search\",\n              \"ai_crawler\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"ban\",\n              \"per_minute\": 750,\n              \"4xx\": false\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": false\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"1953-01-18T23:56:56.301Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://dknVi.fguLnEPLbks7QsHCc2a.2dAaR0+gzfyP\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"deploying\",\n        \"created_from_automation\": true,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.5\",\n        \"build_command\": \"string\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": false,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 2619,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": true,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 5848,\n              \"include_subdomains\": true,\n              \"preload\": false\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"search_engine_crawler\",\n              \"accessibility\"\n            ],\n            \"rate_limit\": {\n              \"429\": false,\n              \"level\": \"throttle\",\n              \"per_minute\": 500,\n              \"4xx\": false\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": true\n          },\n          \"content_converter\": false\n        },\n        \"created_at\": \"1951-10-06T08:36:55.989Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43e0108f-da7a-4b51-ac1c-f67808bfa8db",
+              "name": "An error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0fd2d0d-dad0-43cf-b15d-fc99129720f7",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[region]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b22fee3d-1ee6-4d28-864e-bff41e43948b",
+          "name": "Create cache",
+          "request": {
+            "name": "Create cache",
+            "description": {
+              "content": "Create a new cache.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caches"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"region\": \"<string>\",\n  \"size\": \"<string>\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"<string>\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c57a55cd-aae9-43a5-a96b-fab4a42a9586",
+              "name": "`CacheResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"region\": \"ca-central-1\",\n  \"size\": \"elasticache.cache.r7g.12xlarge\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-lru\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"caches\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"type\": \"laravel_valkey\",\n      \"status\": \"creating\",\n      \"region\": \"eu-central-1\",\n      \"size\": \"elasticache.cache.r7g.8xlarge\",\n      \"auto_upgrade_enabled\": true,\n      \"is_public\": false,\n      \"uses_hibernation\": true,\n      \"hibernation_timeout\": 9417,\n      \"created_at\": \"1991-11-12T07:50:30.800Z\",\n      \"connection\": {\n        \"hostname\": \"string\",\n        \"port\": 3635,\n        \"protocol\": \"fake\",\n        \"\": {\n          \"username\": \"string\",\n          \"password\": \"string\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://oqAhinrrVnxNAaVRxjJGdaEhqsDcR.snxzZmSOaMS5TmoyaNlhz0VdR.dmdgL1Nl\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"string\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": true,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 2039,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": true,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 8371,\n              \"include_subdomains\": false,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"ai_assistant\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"challenge\",\n              \"per_minute\": 300,\n              \"4xx\": false\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": false\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"2005-12-02T05:01:13.256Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://UxObXcXfYWJUodvwD.urkNtuns5k1dWT-tW3scc0MzlL2vOfnDp95l6YCr3zsMEefzmheRCk.CTXACk\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"string\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": false,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 3623,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": false,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 5192,\n              \"include_subdomains\": true,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"feed_fetcher\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"challenge\",\n              \"per_minute\": 750,\n              \"4xx\": true\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": true\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"2020-08-29T02:46:02.603Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f339beea-39f2-4bd9-9992-cc44472e03d5",
+              "name": "An error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"region\": \"ca-central-1\",\n  \"size\": \"elasticache.cache.r7g.12xlarge\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-lru\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac31f870-d073-4099-95f8-773060719fa7",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"region\": \"ca-central-1\",\n  \"size\": \"elasticache.cache.r7g.12xlarge\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-lru\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a0d453c-3d43-47b4-bd37-e0aa1e8be494",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"name\": \"<string>\",\n  \"region\": \"ca-central-1\",\n  \"size\": \"elasticache.cache.r7g.12xlarge\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-lru\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "deafaca2-c6c4-4272-b873-d1c5510a8e0b",
+          "name": "Get cache",
+          "request": {
+            "name": "Get cache",
+            "description": {
+              "content": "Get a specific cache.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caches",
+                ":cache"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cache",
+                  "description": "(Required) The cache identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0ce10a0-fd30-484d-88fb-a51290d03cf1",
+              "name": "`CacheResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"caches\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"type\": \"laravel_valkey\",\n      \"status\": \"creating\",\n      \"region\": \"eu-central-1\",\n      \"size\": \"elasticache.cache.r7g.8xlarge\",\n      \"auto_upgrade_enabled\": true,\n      \"is_public\": false,\n      \"uses_hibernation\": true,\n      \"hibernation_timeout\": 9417,\n      \"created_at\": \"1991-11-12T07:50:30.800Z\",\n      \"connection\": {\n        \"hostname\": \"string\",\n        \"port\": 3635,\n        \"protocol\": \"fake\",\n        \"\": {\n          \"username\": \"string\",\n          \"password\": \"string\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://oqAhinrrVnxNAaVRxjJGdaEhqsDcR.snxzZmSOaMS5TmoyaNlhz0VdR.dmdgL1Nl\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"string\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": true,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 2039,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": true,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 8371,\n              \"include_subdomains\": false,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"ai_assistant\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"challenge\",\n              \"per_minute\": 300,\n              \"4xx\": false\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": false\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"2005-12-02T05:01:13.256Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://UxObXcXfYWJUodvwD.urkNtuns5k1dWT-tW3scc0MzlL2vOfnDp95l6YCr3zsMEefzmheRCk.CTXACk\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"string\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": false,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 3623,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": false,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 5192,\n              \"include_subdomains\": true,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"feed_fetcher\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"challenge\",\n              \"per_minute\": 750,\n              \"4xx\": true\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": true\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"2020-08-29T02:46:02.603Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2481e6da-9ad6-4b6e-ad0f-68ee07012fbb",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "561d2358-5116-421b-8545-a6e51b12a813",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "182fc902-7b02-431d-9674-511f7755ec1b",
+          "name": "Update cache",
+          "request": {
+            "name": "Update cache",
+            "description": {
+              "content": "Update a cache.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caches",
+                ":cache"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cache",
+                  "description": "(Required) The cache identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<string>\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"<string>\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "932107e6-51be-4826-8911-2cc905da84f0",
+              "name": "`CacheResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"12gb\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-ttl\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"caches\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"type\": \"laravel_valkey\",\n      \"status\": \"creating\",\n      \"region\": \"eu-central-1\",\n      \"size\": \"elasticache.cache.r7g.8xlarge\",\n      \"auto_upgrade_enabled\": true,\n      \"is_public\": false,\n      \"uses_hibernation\": true,\n      \"hibernation_timeout\": 9417,\n      \"created_at\": \"1991-11-12T07:50:30.800Z\",\n      \"connection\": {\n        \"hostname\": \"string\",\n        \"port\": 3635,\n        \"protocol\": \"fake\",\n        \"\": {\n          \"username\": \"string\",\n          \"password\": \"string\"\n        }\n      }\n    },\n    \"relationships\": {\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://oqAhinrrVnxNAaVRxjJGdaEhqsDcR.snxzZmSOaMS5TmoyaNlhz0VdR.dmdgL1Nl\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"stopped\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.4\",\n        \"build_command\": \"string\",\n        \"node_version\": \"24\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": true,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 2039,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": true,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 8371,\n              \"include_subdomains\": false,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"ai_assistant\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"challenge\",\n              \"per_minute\": 300,\n              \"4xx\": false\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": false\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"2005-12-02T05:01:13.256Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"environments\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://UxObXcXfYWJUodvwD.urkNtuns5k1dWT-tW3scc0MzlL2vOfnDp95l6YCr3zsMEefzmheRCk.CTXACk\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"status\": \"hibernating\",\n        \"created_from_automation\": false,\n        \"vanity_domain\": \"string\",\n        \"php_major_version\": \"8.2\",\n        \"build_command\": \"string\",\n        \"node_version\": \"22\",\n        \"deploy_command\": \"string\",\n        \"uses_octane\": false,\n        \"uses_hibernation\": false,\n        \"hibernation_wake_up_interval\": 3623,\n        \"uses_push_to_deploy\": true,\n        \"uses_deploy_hook\": false,\n        \"network_settings\": {\n          \"cache\": {\n            \"strategy\": \"string\"\n          },\n          \"response_headers\": {\n            \"frame\": \"string\",\n            \"content_type\": \"string\",\n            \"hsts\": {\n              \"max_age\": 5192,\n              \"include_subdomains\": true,\n              \"preload\": true\n            }\n          },\n          \"firewall\": {\n            \"bot_categories\": [\n              \"social_media_marketing\",\n              \"feed_fetcher\"\n            ],\n            \"rate_limit\": {\n              \"429\": true,\n              \"level\": \"challenge\",\n              \"per_minute\": 750,\n              \"4xx\": true\n            },\n            \"under_attack_mode_started_at\": \"string\",\n            \"block_path\": true\n          },\n          \"content_converter\": true\n        },\n        \"created_at\": \"2020-08-29T02:46:02.603Z\",\n        \"\": {\n          \"environment_variables\": [\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"key\": \"string\",\n              \"value\": \"string\"\n            }\n          ]\n        }\n      },\n      \"relationships\": {\n        \"application\": {\n          \"data\": {\n            \"type\": \"applications\",\n            \"id\": \"string\"\n          }\n        },\n        \"branch\": {\n          \"data\": {\n            \"type\": \"branches\",\n            \"id\": \"string\"\n          }\n        },\n        \"deployments\": {\n          \"data\": [\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"deployments\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"currentDeployment\": {\n          \"data\": {\n            \"type\": \"deployments\",\n            \"id\": \"string\"\n          }\n        },\n        \"domains\": {\n          \"data\": [\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"domains\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"primaryDomain\": {\n          \"data\": {\n            \"type\": \"domains\",\n            \"id\": \"string\"\n          }\n        },\n        \"instances\": {\n          \"data\": [\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"instances\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"database\": {\n          \"data\": {\n            \"type\": \"databaseSchemas\",\n            \"id\": \"string\"\n          }\n        },\n        \"cache\": {\n          \"data\": {\n            \"type\": \"caches\",\n            \"id\": \"string\"\n          }\n        },\n        \"buckets\": {\n          \"data\": [\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystems\",\n              \"id\": \"string\"\n            }\n          ]\n        },\n        \"websocketApplication\": {\n          \"data\": {\n            \"type\": \"websocketApplications\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4ca9e9f-cf72-44dd-9201-2114f5bfef71",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"12gb\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-ttl\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c586c1d4-987b-48df-956e-2119e74e93fd",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"12gb\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-ttl\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dabc93c-f4db-44d2-b7ad-65451ab3a196",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"12gb\",\n  \"auto_upgrade_enabled\": \"<boolean>\",\n  \"is_public\": \"<boolean>\",\n  \"eviction_policy\": \"volatile-ttl\",\n  \"uses_hibernation\": \"<boolean>\",\n  \"hibernation_timeout\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "102b6e96-bbe8-46ca-8e30-833885f4fe96",
+          "name": "Delete cache",
+          "request": {
+            "name": "Delete cache",
+            "description": {
+              "content": "Delete a cache.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caches",
+                ":cache"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cache",
+                  "description": "(Required) The cache identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2353fa31-b60a-4acc-9c2f-394e0190bd81",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b8b86fc4-c2ea-4072-ba3a-f01149192825",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b6197c7-cbe4-405d-8883-4562efc1e776",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b46d3b4-cad4-4bf7-a36e-b065655b4aef",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "810295a7-93ba-40d6-ba8e-eba73fa00d82",
+          "name": "Get cache metrics",
+          "request": {
+            "name": "Get cache metrics",
+            "description": {
+              "content": "Get metrics for a specific cache.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "caches",
+                ":cache",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cache",
+                  "description": "(Required) The cache identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ba5fb0b-b517-4157-a548-b0273d194e9d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "6h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"hits_and_misses\": {\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"average\": [\n        9852.112093126285,\n        413.5309127174047\n      ],\n      \"data\": [\n        {\n          \"x\": \"string\",\n          \"y\": [\n            6083.516329325338,\n            6135.345054738387\n          ]\n        },\n        {\n          \"x\": \"string\",\n          \"y\": [\n            9110.640160271107,\n            4989.505823854818\n          ]\n        }\n      ]\n    },\n    \"throughput\": {\n      \"labels\": [\n        \"string\",\n        \"string\"\n      ],\n      \"average\": [\n        1501.0983931541898,\n        3194.656491955249\n      ],\n      \"data\": [\n        {\n          \"x\": \"string\",\n          \"y\": [\n            7181.57124697171,\n            9561.69414894321\n          ]\n        },\n        {\n          \"x\": \"string\",\n          \"y\": [\n            7156.371153748422,\n            9294.659439372514\n          ]\n        }\n      ]\n    },\n    \"size\": {\n      \"data\": [\n        {\n          \"x\": \"string\",\n          \"y\": 2895.9929230454118\n        },\n        {\n          \"x\": \"string\",\n          \"y\": 2726.9646564055593\n        }\n      ],\n      \"total\": 968.1287857289167\n    },\n    \"bandwidth_usage\": {\n      \"data\": [\n        {\n          \"x\": \"string\",\n          \"y\": 5378.446983757951\n        },\n        {\n          \"x\": \"string\",\n          \"y\": 4653.2890853299405\n        }\n      ],\n      \"total\": 9266.059107457824\n    }\n  },\n  \"meta\": {\n    \"period\": \"string\",\n    \"available_periods\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a80daa5-506a-44d9-af4f-99ea116e420e",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "6h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93c1bd8f-a05f-45a9-94e2-bf730a146106",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "6h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e922bcfc-4f80-4559-aac5-bd34601cb47e",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "caches",
+                    ":cache",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "6h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cache",
+                      "description": "(Required) The cache identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "64915964-2767-4693-885c-77903e34afc3",
+    "name": "Laravel Cloud Applications Caches API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

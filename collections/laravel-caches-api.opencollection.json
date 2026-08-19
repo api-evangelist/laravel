@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Caches API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Caches",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all available cache types with their configuration options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/caches/types"
+          },
+          "docs": "List all available cache types with their configuration options"
+        },
+        {
+          "info": {
+            "name": "List caches",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/caches",
+            "params": [
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[region]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all caches for the authenticated organization."
+        },
+        {
+          "info": {
+            "name": "Create cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/caches",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new cache."
+        },
+        {
+          "info": {
+            "name": "Get cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/caches/:cache",
+            "params": [
+              {
+                "name": "cache",
+                "value": "",
+                "type": "path",
+                "description": "The cache identifier"
+              }
+            ]
+          },
+          "docs": "Get a specific cache."
+        },
+        {
+          "info": {
+            "name": "Update cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/caches/:cache",
+            "params": [
+              {
+                "name": "cache",
+                "value": "",
+                "type": "path",
+                "description": "The cache identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a cache."
+        },
+        {
+          "info": {
+            "name": "Delete cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/caches/:cache",
+            "params": [
+              {
+                "name": "cache",
+                "value": "",
+                "type": "path",
+                "description": "The cache identifier"
+              }
+            ]
+          },
+          "docs": "Delete a cache."
+        },
+        {
+          "info": {
+            "name": "Get cache metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/caches/:cache/metrics",
+            "params": [
+              {
+                "name": "cache",
+                "value": "",
+                "type": "path",
+                "description": "The cache identifier"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metrics for a specific cache."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

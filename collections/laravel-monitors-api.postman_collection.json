@@ -1,0 +1,1293 @@
+{
+  "item": [
+    {
+      "id": "d295c81b-2ff7-425b-84be-bb163d7f7361",
+      "name": "Monitors",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84cdaa64-acf2-4174-805f-4c6d9a9f78d9",
+          "name": "List server monitors",
+          "request": {
+            "name": "List server monitors",
+            "description": {
+              "content": "List all monitors associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "The status of the monitor."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[state]",
+                  "value": "<string>",
+                  "description": "The state of the monitor."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[type]",
+                  "value": "<string>",
+                  "description": "The type of the monitor."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[notify]",
+                  "value": "<string>",
+                  "description": "The email address to notify when the monitor is in an alert state."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1452837a-921d-486f-b769-16146b6cc1fd",
+              "name": "Paginated set of `MonitorResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "filter[state]",
+                      "value": "OK"
+                    },
+                    {
+                      "key": "filter[type]",
+                      "value": "cpu_load"
+                    },
+                    {
+                      "key": "filter[notify]",
+                      "value": "taylor@laravel.com"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"monitors\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://CMxhArxxDFgraz.fhmwbayX+t3vUBdYB64KWnnRc3xvbq6\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"type\": \"cpu_load\",\n        \"operator\": \"gte\",\n        \"threshold\": 90,\n        \"minutes\": 1,\n        \"notify\": \"taylor@laravel.com\",\n        \"status\": \"installed\",\n        \"state\": \"OK\",\n        \"state_changed_at\": \"2025-07-30T09:00:00Z\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"monitors\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://cKBvsmpIU.cfSwC,7.yXQQ8y4HtUL-wysCalnewCBRtvuKj\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"type\": \"cpu_load\",\n        \"operator\": \"gte\",\n        \"threshold\": 90,\n        \"minutes\": 1,\n        \"notify\": \"taylor@laravel.com\",\n        \"status\": \"installed\",\n        \"state\": \"OK\",\n        \"state_changed_at\": \"2025-07-30T09:00:00Z\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 6885,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7cc132e-ff7e-4215-ae97-eca4b048a280",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "filter[state]",
+                      "value": "OK"
+                    },
+                    {
+                      "key": "filter[type]",
+                      "value": "cpu_load"
+                    },
+                    {
+                      "key": "filter[notify]",
+                      "value": "taylor@laravel.com"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4206beaf-5936-4979-801d-9de632757b10",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "filter[state]",
+                      "value": "OK"
+                    },
+                    {
+                      "key": "filter[type]",
+                      "value": "cpu_load"
+                    },
+                    {
+                      "key": "filter[notify]",
+                      "value": "taylor@laravel.com"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21cb653e-bc23-436a-bcfd-dccd827f2cb9",
+          "name": "Create server monitor",
+          "request": {
+            "name": "Create server monitor",
+            "description": {
+              "content": "Add a new monitor to the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "monitors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"operator\": \"<string>\",\n  \"threshold\": \"<number>\",\n  \"notify\": \"<email>\",\n  \"minutes\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "403fb20a-c3b0-453c-9327-d14116fb2a90",
+              "name": "`MonitorResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"cpu_load\",\n  \"operator\": \"gte\",\n  \"threshold\": 90,\n  \"notify\": \"taylor@laravel.com\",\n  \"minutes\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"monitors\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://AYroXCzavJpYMzhq.uinfQPwNsKdz7lX+cXBgcwWIlD8AgTUp+ZH1gSkGgWm9+.J\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"type\": \"cpu_load\",\n      \"operator\": \"gte\",\n      \"threshold\": 90,\n      \"minutes\": 1,\n      \"notify\": \"taylor@laravel.com\",\n      \"status\": \"installed\",\n      \"state\": \"OK\",\n      \"state_changed_at\": \"2025-07-30T09:00:00Z\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e1afc60-f80d-49d0-87ae-f72f1baecb6d",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"cpu_load\",\n  \"operator\": \"gte\",\n  \"threshold\": 90,\n  \"notify\": \"taylor@laravel.com\",\n  \"minutes\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c443fa12-4a4f-4a94-a381-d4c5679d9e75",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"cpu_load\",\n  \"operator\": \"gte\",\n  \"threshold\": 90,\n  \"notify\": \"taylor@laravel.com\",\n  \"minutes\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddd54af2-236b-4108-9148-80600f5ece2e",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"cpu_load\",\n  \"operator\": \"gte\",\n  \"threshold\": 90,\n  \"notify\": \"taylor@laravel.com\",\n  \"minutes\": 1\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b39ac0f7-e236-4ce3-bc1f-b83cdbac9a42",
+          "name": "Get server monitor",
+          "request": {
+            "name": "Get server monitor",
+            "description": {
+              "content": "Get a specific monitor associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "monitors",
+                ":monitor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "monitor",
+                  "description": "(Required) The monitor ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "033bc67d-8907-4c74-9058-2174c2287992",
+              "name": "`MonitorResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors",
+                    ":monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "monitor",
+                      "description": "(Required) The monitor ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"monitors\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://AYroXCzavJpYMzhq.uinfQPwNsKdz7lX+cXBgcwWIlD8AgTUp+ZH1gSkGgWm9+.J\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"type\": \"cpu_load\",\n      \"operator\": \"gte\",\n      \"threshold\": 90,\n      \"minutes\": 1,\n      \"notify\": \"taylor@laravel.com\",\n      \"status\": \"installed\",\n      \"state\": \"OK\",\n      \"state_changed_at\": \"2025-07-30T09:00:00Z\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5e7586f-d03a-4ead-be92-b69e1bc918d5",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors",
+                    ":monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "monitor",
+                      "description": "(Required) The monitor ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66d50ee7-ed68-408f-a973-ac16d6285de7",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors",
+                    ":monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "monitor",
+                      "description": "(Required) The monitor ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e1984de-657c-4592-a4dd-bf79f98c8b92",
+          "name": "Delete server monitor",
+          "request": {
+            "name": "Delete server monitor",
+            "description": {
+              "content": "Remove a monitor from the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "monitors",
+                ":monitor"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "monitor",
+                  "description": "(Required) The monitor ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "d38749d4-c869-4fd7-b68b-10b96703e098",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors",
+                    ":monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "monitor",
+                      "description": "(Required) The monitor ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a042c72b-48a1-4be0-8743-fd26b96e97d2",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors",
+                    ":monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "monitor",
+                      "description": "(Required) The monitor ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab945957-08d4-418c-9d2d-ff4e3f75251b",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "monitors",
+                    ":monitor"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "monitor",
+                      "description": "(Required) The monitor ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c4987c1d-2025-4431-9d4a-445e7940f85b",
+    "name": "Laravel Cloud Applications Monitors API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

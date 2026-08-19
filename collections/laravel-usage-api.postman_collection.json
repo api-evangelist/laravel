@@ -1,0 +1,295 @@
+{
+  "item": [
+    {
+      "id": "41a2bcf5-b703-4112-bc78-95344c9c2352",
+      "name": "Usage",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f75d1da-0d71-4aaf-b907-02715476f8ca",
+          "name": "Get usage",
+          "request": {
+            "name": "Get usage",
+            "description": {
+              "content": "Get billing and usage data for the authenticated organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "period",
+                  "value": "<integer,null>",
+                  "description": "The billing period offset. 0 returns the current billing period, 1 returns the previous period, and so on. Periods are not necessarily month-long — they match your billing cycle. Must be between 0 and 3."
+                },
+                {
+                  "disabled": false,
+                  "key": "environment",
+                  "value": "<string,null>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7cd0d865-1716-40f8-9307-e2ab6b2ab33d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "0"
+                    },
+                    {
+                      "key": "environment",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"summary\": {\n      \"current_spend_cents\": 1951,\n      \"bandwidth\": {\n        \"cost_cents\": 5914,\n        \"usage_percentage\": 9888,\n        \"allowance_bytes\": 9265\n      },\n      \"credits\": {\n        \"used_cents\": 6545,\n        \"total_cents\": 1820\n      },\n      \"alert\": {\n        \"threshold_cents\": 5410,\n        \"remaining_percentage\": 2467\n      }\n    },\n    \"resources\": {\n      \"total_cost_cents\": 5383,\n      \"databases\": [\n        {\n          \"key_0\": {}\n        },\n        {\n          \"key_0\": {}\n        }\n      ],\n      \"caches\": [\n        {\n          \"key_0\": {},\n          \"key_1\": {}\n        },\n        {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        }\n      ],\n      \"buckets\": [\n        {\n          \"key_0\": {}\n        },\n        {\n          \"key_0\": {},\n          \"key_1\": {}\n        }\n      ],\n      \"websockets\": [\n        {\n          \"key_0\": {}\n        },\n        {\n          \"key_0\": {}\n        }\n      ]\n    },\n    \"addons\": {\n      \"total_cost_cents\": 8026,\n      \"items\": [\n        {\n          \"name\": \"string\",\n          \"total_cents\": 9407\n        },\n        {\n          \"name\": \"string\",\n          \"total_cents\": 4606\n        }\n      ]\n    },\n    \"application_totals\": {\n      \"total_cost_cents\": 453,\n      \"application_count\": 6916,\n      \"applications\": [\n        {\n          \"key_0\": {},\n          \"key_1\": {}\n        },\n        {\n          \"key_0\": {},\n          \"key_1\": {},\n          \"key_2\": {}\n        }\n      ]\n    },\n    \"environment_usage\": {\n      \"total_cost_cents\": 3208,\n      \"items\": [\n        {\n          \"key_0\": {},\n          \"key_1\": {}\n        },\n        {\n          \"key_0\": {},\n          \"key_1\": {}\n        }\n      ]\n    },\n    \"private_cloud\": {\n      \"total_cost_cents\": 4316,\n      \"sections\": {\n        \"key_0\": [\n          {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          {\n            \"key_0\": {},\n            \"key_1\": {}\n          }\n        ],\n        \"key_1\": [\n          {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          {\n            \"key_0\": {},\n            \"key_1\": {}\n          }\n        ],\n        \"key_2\": [\n          {\n            \"key_0\": {}\n          },\n          {\n            \"key_0\": {}\n          }\n        ]\n      },\n      \"instances\": {\n        \"key_0\": [\n          {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          },\n          {\n            \"key_0\": {},\n            \"key_1\": {}\n          }\n        ],\n        \"key_1\": [\n          {\n            \"key_0\": {},\n            \"key_1\": {}\n          },\n          {\n            \"key_0\": {},\n            \"key_1\": {},\n            \"key_2\": {}\n          }\n        ]\n      }\n    }\n  },\n  \"meta\": {\n    \"currency\": \"string\",\n    \"period\": 5884,\n    \"available_periods\": [\n      {\n        \"from\": \"string\",\n        \"to\": \"string\"\n      },\n      {\n        \"from\": \"string\",\n        \"to\": \"string\"\n      }\n    ],\n    \"last_updated_at\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86d5fc2d-b902-4b15-b8a8-245cba0c1f90",
+              "name": "An error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "0"
+                    },
+                    {
+                      "key": "environment",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b00cbfb4-1d70-4e71-aa65-ff7fc08a5c6e",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "0"
+                    },
+                    {
+                      "key": "environment",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff4194b7-25a6-4c68-949a-2e024052faa6",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "period",
+                      "value": "0"
+                    },
+                    {
+                      "key": "environment",
+                      "value": "<string,null>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8f82ad41-878e-4407-9c80-e448a93cd9c7",
+    "name": "Laravel Cloud Applications Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

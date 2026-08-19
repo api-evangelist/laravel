@@ -1,0 +1,313 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Instances API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/environments/:environment/instances",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[scaling_type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all instances for the given environment."
+        },
+        {
+          "info": {
+            "name": "Create instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/instances",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new instance for an environment."
+        },
+        {
+          "info": {
+            "name": "List instance sizes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/instances/sizes"
+          },
+          "docs": "List all available instance sizes grouped by category."
+        },
+        {
+          "info": {
+            "name": "Get instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/instances/:instance",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the details of a specific instance."
+        },
+        {
+          "info": {
+            "name": "Update instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/instances/:instance",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an instance."
+        },
+        {
+          "info": {
+            "name": "Delete instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/instances/:instance",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ]
+          },
+          "docs": "Delete an instance."
+        },
+        {
+          "info": {
+            "name": "Pause a managed queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/instances/:instance/pause",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ]
+          },
+          "docs": "Stop dispatching jobs to the queue's workers; queued messages are retained until it is resumed."
+        },
+        {
+          "info": {
+            "name": "Resume a managed queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/instances/:instance/resume",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ]
+          },
+          "docs": "Resume dispatching jobs to the queue's workers after it was paused."
+        },
+        {
+          "info": {
+            "name": "Purge a managed queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/instances/:instance/purge",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ]
+          },
+          "docs": "Permanently delete all messages currently in the queue. This cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Set the default managed queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/instances/:instance/default",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ]
+          },
+          "docs": "Make this queue the environment's default, used when a job does not specify a queue."
+        },
+        {
+          "info": {
+            "name": "List managed queue failed jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/instances/:instance/failed-jobs",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              }
+            ]
+          },
+          "docs": "Get a list of the jobs that have failed on the given managed queue."
+        },
+        {
+          "info": {
+            "name": "Retry a managed queue failed job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/instances/:instance/failed-jobs/:jobId/retry",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the failed job."
+              }
+            ]
+          },
+          "docs": "Re-queue a failed job so it is processed again."
+        },
+        {
+          "info": {
+            "name": "Delete a managed queue failed job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/instances/:instance/failed-jobs/:jobId",
+            "params": [
+              {
+                "name": "instance",
+                "value": "",
+                "type": "path",
+                "description": "The instance identifier"
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the failed job."
+              }
+            ]
+          },
+          "docs": "Permanently remove a failed job from the given managed queue."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

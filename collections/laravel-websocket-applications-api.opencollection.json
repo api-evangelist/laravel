@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications WebSocket Applications API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WebSocket Applications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WebSocket applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/websocket-servers/:websocketServer/applications",
+            "params": [
+              {
+                "name": "websocketServer",
+                "value": "",
+                "type": "path",
+                "description": "The websocket server identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all applications for a specific WebSocket cluster."
+        },
+        {
+          "info": {
+            "name": "Create WebSocket application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/websocket-servers/:websocketServer/applications",
+            "params": [
+              {
+                "name": "websocketServer",
+                "value": "",
+                "type": "path",
+                "description": "The websocket server identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new application for a WebSocket cluster."
+        },
+        {
+          "info": {
+            "name": "Get WebSocket application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/websocket-applications/:websocketApplication",
+            "params": [
+              {
+                "name": "websocketApplication",
+                "value": "",
+                "type": "path",
+                "description": "The websocket application identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific WebSocket application including credentials."
+        },
+        {
+          "info": {
+            "name": "Update WebSocket application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/websocket-applications/:websocketApplication",
+            "params": [
+              {
+                "name": "websocketApplication",
+                "value": "",
+                "type": "path",
+                "description": "The websocket application identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a WebSocket application."
+        },
+        {
+          "info": {
+            "name": "Delete WebSocket application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/websocket-applications/:websocketApplication",
+            "params": [
+              {
+                "name": "websocketApplication",
+                "value": "",
+                "type": "path",
+                "description": "The websocket application identifier"
+              }
+            ]
+          },
+          "docs": "Delete a WebSocket application."
+        },
+        {
+          "info": {
+            "name": "Get WebSocket application metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/websocket-applications/:websocketApplication/metrics",
+            "params": [
+              {
+                "name": "websocketApplication",
+                "value": "",
+                "type": "path",
+                "description": "The websocket application identifier"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metrics for a specific WebSocket application."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

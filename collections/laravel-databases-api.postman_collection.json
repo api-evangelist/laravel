@@ -1,0 +1,4579 @@
+{
+  "item": [
+    {
+      "id": "a84d3d20-f4d2-40ee-9905-b5f27e859d5b",
+      "name": "Databases",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2f119962-9e69-4f07-be8b-219120be3b7f",
+          "name": "List databases",
+          "request": {
+            "name": "List databases",
+            "description": {
+              "content": "Get a list of all databases for a specific database cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "databases",
+                "clusters",
+                ":database",
+                "databases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "database",
+                  "description": "(Required) The database identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "71e31974-9c90-4776-8c7b-599d31623051",
+              "name": "Paginated set of `DatabaseSchemaResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"string\",\n        \"created_at\": \"2007-03-06T01:08:31.635Z\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"string\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"databaseSchemas\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"status\": \"string\",\n        \"created_at\": \"1993-11-06T17:50:39.787Z\"\n      },\n      \"relationships\": {\n        \"database\": {\n          \"data\": {\n            \"type\": \"databases\",\n            \"id\": \"string\"\n          }\n        },\n        \"environments\": {\n          \"data\": [\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"environments\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"current_page\": 3520,\n    \"from\": 7825,\n    \"last_page\": 9269,\n    \"links\": [\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": true\n      },\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": false\n      }\n    ],\n    \"path\": \"string\",\n    \"per_page\": 5479,\n    \"to\": 426,\n    \"total\": 9716\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"laravel_mysql_84\",\n        \"status\": \"archiving\",\n        \"region\": \"eu-central-1\",\n        \"created_at\": \"1991-03-13T21:18:39.877Z\",\n        \"config\": {\n          \"cu_min\": 0.25,\n          \"cu_max\": 8,\n          \"suspend_seconds\": 5895,\n          \"retention_days\": 7062\n        },\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"neon_serverless_postgres_18\",\n        \"status\": \"updating\",\n        \"region\": \"eu-west-2\",\n        \"created_at\": \"1976-08-17T06:02:40.416Z\",\n        \"config\": {\n          \"cu_min\": 4,\n          \"cu_max\": 1,\n          \"suspend_seconds\": 967,\n          \"retention_days\": 1479\n        },\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"pgsql\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d96f702-f5ec-4a5c-9e49-c2c6222a84f6",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7472fb81-3f4d-4452-925a-0ae004aed7e9",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "945b29d6-992e-4789-8b01-620dfe954ad0",
+          "name": "Create a database",
+          "request": {
+            "name": "Create a database",
+            "description": {
+              "content": "Create a new database in a database cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "databases",
+                "clusters",
+                ":database",
+                "databases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "database",
+                  "description": "(Required) The database identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d4099f7-d56f-4756-8f1e-2be5980661dc",
+              "name": "`DatabaseSchemaResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"databaseSchemas\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1982-07-15T10:52:10.330Z\"\n    },\n    \"relationships\": {\n      \"database\": {\n        \"data\": {\n          \"type\": \"databases\",\n          \"id\": \"string\"\n        }\n      },\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"laravel_mysql_84\",\n        \"status\": \"restore_failed\",\n        \"region\": \"eu-central-1\",\n        \"created_at\": \"1963-08-23T23:01:50.353Z\",\n        \"config\": {\n          \"cu_min\": 0.5,\n          \"cu_max\": 4,\n          \"suspend_seconds\": 2768,\n          \"retention_days\": 8955\n        },\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"aws_rds_mysql_8\",\n        \"status\": \"upgrading\",\n        \"region\": \"ap-southeast-2\",\n        \"created_at\": \"1958-03-31T01:51:08.966Z\",\n        \"config\": {\n          \"cu_min\": 0.5,\n          \"cu_max\": 1,\n          \"suspend_seconds\": 6906,\n          \"retention_days\": 7873\n        },\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "809d2f97-b046-43da-a19c-7cae32e75785",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d30590c-df8d-4bef-bb35-3ff71608c070",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16079758-5024-471f-95e3-d398901ae6a2",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76f145a4-33f9-4efd-877f-f3e6df5ccfc3",
+          "name": "Get a database",
+          "request": {
+            "name": "Get a database",
+            "description": {
+              "content": "Get a specific database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "databases",
+                "clusters",
+                ":database",
+                "databases",
+                ":schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "database",
+                  "description": "(Required) The database identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schema",
+                  "description": "(Required) The schema identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "075bb851-17ff-4575-8033-d5f386e2d4e1",
+              "name": "`DatabaseSchemaResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"databaseSchemas\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1982-07-15T10:52:10.330Z\"\n    },\n    \"relationships\": {\n      \"database\": {\n        \"data\": {\n          \"type\": \"databases\",\n          \"id\": \"string\"\n        }\n      },\n      \"environments\": {\n        \"data\": [\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"laravel_mysql_84\",\n        \"status\": \"restore_failed\",\n        \"region\": \"eu-central-1\",\n        \"created_at\": \"1963-08-23T23:01:50.353Z\",\n        \"config\": {\n          \"cu_min\": 0.5,\n          \"cu_max\": 4,\n          \"suspend_seconds\": 2768,\n          \"retention_days\": 8955\n        },\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"aws_rds_mysql_8\",\n        \"status\": \"upgrading\",\n        \"region\": \"ap-southeast-2\",\n        \"created_at\": \"1958-03-31T01:51:08.966Z\",\n        \"config\": {\n          \"cu_min\": 0.5,\n          \"cu_max\": 1,\n          \"suspend_seconds\": 6906,\n          \"retention_days\": 7873\n        },\n        \"connection\": {\n          \"hostname\": \"string\",\n          \"port\": 5432,\n          \"protocol\": \"mysql\",\n          \"driver\": \"mysql\",\n          \"\": {\n            \"username\": \"string\",\n            \"password\": \"string\"\n          }\n        }\n      },\n      \"relationships\": {\n        \"schemas\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        \"databases\": {\n          \"data\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0827e300-c97b-4a2f-9a11-fffe0e8ad243",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2eb0de3-f26c-44d9-8b2b-642f72f74663",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e674385-feac-429a-b5a1-f89ce29d09e8",
+          "name": "Delete a database",
+          "request": {
+            "name": "Delete a database",
+            "description": {
+              "content": "Delete a database from a database cluster.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "databases",
+                "clusters",
+                ":database",
+                "databases",
+                ":schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "database",
+                  "description": "(Required) The database identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "schema",
+                  "description": "(Required) The schema identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9e31ebf-059d-4b0e-b1c2-68c6eeefe4fc",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93906b53-4a09-411d-bf02-4896869f0dfc",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "962d4b2a-7851-41a1-8c46-04a3be82b594",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ced5686a-3997-48cd-983f-4d64677b65eb",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "databases",
+                    "clusters",
+                    ":database",
+                    "databases",
+                    ":schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "database",
+                      "description": "(Required) The database identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "schema",
+                      "description": "(Required) The schema identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28646aef-1b76-4eb6-a343-739edae37339",
+          "name": "List database schemas",
+          "request": {
+            "name": "List database schemas",
+            "description": {
+              "content": "List all database schemas associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "The name of the database schema."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "The status of the database schema."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "d96da5ad-7b3a-486c-9156-1e69525efc6d",
+              "name": "Paginated set of `DatabaseResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://WWwqDoGmfECXOlxAbiGGdxt.pbrLya7CieUt+Kz.bktofwSi6fisZ1hMm6Tw+5XR-KEG2Tk.tUtm4nSwLTd4XaY6dG3Rt8PoBZhk\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"forge\",\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"databases\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://QuKZj.jtfgtvlopVNNUoKqnaPDdWrq+BRW2Sssp1R9aMH-c0oFCzu-nf.\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"forge\",\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 918,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed8e47c3-b11c-496f-a530-3f30a530cef9",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f59913b7-8ebe-4bb2-af3d-307d1c7d116e",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe15f25d-db6c-47d2-aafd-b5435c7ab669",
+          "name": "Create database schema",
+          "request": {
+            "name": "Create database schema",
+            "description": {
+              "content": "Add a new database schema to the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"user\": \"<string,null>\",\n  \"password\": \"<string,null>\",\n  \"backup_configuration_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "493abe07-3316-4e55-9208-1f6e032b421f",
+              "name": "`DatabaseResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"forge\",\n  \"user\": \"james\",\n  \"password\": \"password\",\n  \"backup_configuration_ids\": [\n    1,\n    2\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"databases\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://ALoCZdJtcilwFgbuz.xxldV1QJjSq,jOL5+mK6nbt51NXX0ZLaZr95\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"forge\",\n      \"status\": \"installed\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3202e375-74bb-4446-98d3-a4d674030b60",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"forge\",\n  \"user\": \"james\",\n  \"password\": \"password\",\n  \"backup_configuration_ids\": [\n    1,\n    2\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b176572d-d32d-4f94-a6b3-35d1ffcd3713",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"forge\",\n  \"user\": \"james\",\n  \"password\": \"password\",\n  \"backup_configuration_ids\": [\n    1,\n    2\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb648398-25a8-41dd-897b-ae86636cf8ae",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"forge\",\n  \"user\": \"james\",\n  \"password\": \"password\",\n  \"backup_configuration_ids\": [\n    1,\n    2\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25ea7d06-be05-4b32-be94-3f64325b0427",
+          "name": "Get database schema",
+          "request": {
+            "name": "Get database schema",
+            "description": {
+              "content": "Get a specific database schema associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "schemas",
+                ":database"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "database",
+                  "description": "(Required) The database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "01bbd3b2-9b52-4d59-bdcf-0caa12fecbb2",
+              "name": "`DatabaseResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    ":database"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "database",
+                      "description": "(Required) The database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"databases\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://ALoCZdJtcilwFgbuz.xxldV1QJjSq,jOL5+mK6nbt51NXX0ZLaZr95\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"forge\",\n      \"status\": \"installed\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e193b61a-7d83-4b34-a105-f1a8a2c6ce1a",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    ":database"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "database",
+                      "description": "(Required) The database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6a183c8-8fee-4d23-bfaa-0382b091afcb",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    ":database"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "database",
+                      "description": "(Required) The database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54223c57-c1c6-49b7-b0c4-113ed58eba1f",
+          "name": "Delete database schema",
+          "request": {
+            "name": "Delete database schema",
+            "description": {
+              "content": "Remove a database schema from the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "schemas",
+                ":database"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "database",
+                  "description": "(Required) The database ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "9791ef09-0a1e-485d-a06f-50963f1cb116",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    ":database"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "database",
+                      "description": "(Required) The database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "099ba5cf-e35a-4704-b0d6-8e0dcc560d82",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    ":database"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "database",
+                      "description": "(Required) The database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bbc2986-227d-4d65-866e-6ac8c2e66af7",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    ":database"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "database",
+                      "description": "(Required) The database ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b1e33d61-eb14-4d25-96e2-988f04fa00c5",
+          "name": "Update database schemas",
+          "request": {
+            "name": "Update database schemas",
+            "description": {
+              "content": "Synchronize all database schemas on the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "schemas",
+                "synchronizations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "f6bbb32a-6b3f-4185-9627-17d7b6cc0d67",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    "synchronizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "729b3e60-6b76-4606-b2c8-350bb88f38ba",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    "synchronizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93b71264-0b0f-4e89-be8a-c28dc4b2ce40",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "schemas",
+                    "synchronizations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f74e5eb5-2f97-4586-a3ba-4ac8e9b4d474",
+          "name": "List database users",
+          "request": {
+            "name": "List database users",
+            "description": {
+              "content": "List all database users associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "The name of the database user."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "The status of the database user."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "9ec3df56-ef60-427a-a592-93785e2cc88c",
+              "name": "Paginated set of `DatabaseUserResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"databaseUsers\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://qhMDiNlWBlOytwzfeygsvSHFBLLJTD.twgp.xwN5LyCqJuzQSydcYmXvct8lN.0PT7ch8zDivOzaDflaKUgjE,jcJRHaECmsz4fla\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"forge\",\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"databaseUsers\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://MqbvovCeTVjQNccHqDsuqreUXnOSk.qxkrrz6DXcFv57PhUAtp.IW\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"forge\",\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\",\n        \"updated_at\": \"2025-07-30T09:00:00Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 6898,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "106b2ba2-245c-4841-8a06-4ddf464c2552",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2768a66-2147-4edb-8b2b-fd6f64ccaccd",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb3bdc9a-20da-470d-b093-11aa22ddf7c3",
+          "name": "Create database user",
+          "request": {
+            "name": "Create database user",
+            "description": {
+              "content": "Add a new database user to the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"password\": \"<string>\",\n  \"read_only\": \"<boolean>\",\n  \"database_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3b88ebe-c657-4743-a329-f35fa0442a07",
+              "name": "`DatabaseUserResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"james\",\n  \"password\": \"password\",\n  \"read_only\": true,\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"databaseUsers\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://ViaTrHYZMzZubnhuZlhLdJQDUvAdZPWz.jlkk4EGYPTTan4ocJ0mvQYgxczCqYqy-uclkZU8ioOVYTFQ+zZvXJRnPBve\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"forge\",\n      \"status\": \"installed\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0021901-d39c-4b2f-9d96-afddf10f6c2e",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"james\",\n  \"password\": \"password\",\n  \"read_only\": true,\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d421f05-6a4a-4dab-a958-8e2ed698caa7",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"james\",\n  \"password\": \"password\",\n  \"read_only\": true,\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14b22d9a-c154-42e7-8e4b-d649a6bc28c6",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"james\",\n  \"password\": \"password\",\n  \"read_only\": true,\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01c60cc5-66ab-49db-a4e4-c03f4122f225",
+          "name": "Get database user",
+          "request": {
+            "name": "Get database user",
+            "description": {
+              "content": "Get a specific database user associated with the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "users",
+                ":databaseUser"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "databaseUser",
+                  "description": "(Required) The database user ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "24b01fa3-f03b-499d-abc0-ad9aa179d7a6",
+              "name": "`DatabaseUserResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"databaseUsers\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"https://ViaTrHYZMzZubnhuZlhLdJQDUvAdZPWz.jlkk4EGYPTTan4ocJ0mvQYgxczCqYqy-uclkZU8ioOVYTFQ+zZvXJRnPBve\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"forge\",\n      \"status\": \"installed\",\n      \"created_at\": \"2025-07-29T09:00:00Z\",\n      \"updated_at\": \"2025-07-30T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8be2c08-ca80-489d-b11b-eb4dc62000ca",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93aa08f0-60f8-41e2-872b-b2543327d3e6",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b58ff934-ca55-4985-8d24-0fdcd284767d",
+          "name": "Update database user",
+          "request": {
+            "name": "Update database user",
+            "description": {
+              "content": "Update a database user on the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "users",
+                ":databaseUser"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "databaseUser",
+                  "description": "(Required) The database user ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<string,null>\",\n  \"database_ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4be4fe85-7b1b-4d4a-9a73-82b1831b0d6e",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"password\",\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aa7d8b2e-1dec-4550-8a0c-296ab7ca9f0d",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"password\",\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c8b09d9-19fb-413c-a66e-8b577a105f1e",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"password\",\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00f8840e-14f3-4a4e-ac47-70330cc63a61",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"password\",\n  \"database_ids\": [\n    1,\n    2,\n    3\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25bb421c-0082-4e22-91e5-9993cc2fa915",
+          "name": "Delete database user",
+          "request": {
+            "name": "Delete database user",
+            "description": {
+              "content": "Remove a database user from the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "users",
+                ":databaseUser"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "databaseUser",
+                  "description": "(Required) The database user ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "035d51b2-08d6-4d08-9907-fa0e6eb1c103",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "35532f84-b84b-469e-ad52-638e82274d8b",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5128cd79-7e9d-4fd5-91f4-a2492ebe1d07",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "users",
+                    ":databaseUser"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "databaseUser",
+                      "description": "(Required) The database user ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb5a73c8-2522-4061-9efa-8922e248e617",
+          "name": "Update the password for the database",
+          "request": {
+            "name": "Update the password for the database",
+            "description": {
+              "content": "Update the password for the database on the server.\nIt will only update the password Forge thinks is the password, it will not change the password on the server itself.\nThis should only be used if you have changed the password on the server itself and want to update Forge.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27451221-caab-4e0e-aa28-8b48fbb0f360",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "46263839-fd74-4ed2-ae19-9fcfbdb24c06",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9906349-94c0-4061-8e7b-3da9828a336e",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04658fd0-fdd5-4a88-895b-34c748e5b5b6",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "password"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "15a0815f-cd4c-4dc7-b57e-fe0484435568",
+    "name": "Laravel Cloud Applications Databases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

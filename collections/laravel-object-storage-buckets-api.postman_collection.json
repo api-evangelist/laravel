@@ -1,0 +1,1295 @@
+{
+  "item": [
+    {
+      "id": "7fdc2f80-f6f7-4ccb-882b-3f78ca592aad",
+      "name": "Object Storage Buckets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "015f11e0-05cb-4cff-b123-36e133e69276",
+          "name": "List object storage buckets",
+          "request": {
+            "name": "List object storage buckets",
+            "description": {
+              "content": "Get a list of all object storage buckets for the authenticated organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "buckets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[type]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[visibility]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40453949-283e-4062-a341-46ec56f5688c",
+              "name": "Paginated set of `FilesystemResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[visibility]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"deleted\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"eu\",\n        \"endpoint\": \"string\",\n        \"url\": \"string\",\n        \"allowed_origins\": null,\n        \"cors_settings\": null,\n        \"created_at\": \"1967-08-22T21:38:50.802Z\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystems\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"cloudflare_r2\",\n        \"status\": \"unknown\",\n        \"visibility\": \"private\",\n        \"jurisdiction\": \"default\",\n        \"endpoint\": \"string\",\n        \"url\": \"string\",\n        \"allowed_origins\": null,\n        \"cors_settings\": null,\n        \"created_at\": \"2008-11-05T14:30:27.257Z\"\n      },\n      \"relationships\": {\n        \"keys\": {\n          \"data\": [\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"filesystemKeys\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"current_page\": 3455,\n    \"from\": 9369,\n    \"last_page\": 87,\n    \"links\": [\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": true\n      },\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": false\n      }\n    ],\n    \"path\": \"string\",\n    \"per_page\": 4621,\n    \"to\": 1892,\n    \"total\": 3815\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_only\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"1947-09-17T22:47:45.468Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_write\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"1983-02-04T18:21:49.635Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3824e032-4dad-41ea-8d41-9af4ea8a5cb8",
+              "name": "An error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[visibility]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e303a63-ea84-4331-ae94-0c191399b02e",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[visibility]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15e1ff54-a6eb-4ac9-9244-64601064b9f1",
+          "name": "Create object storage bucket",
+          "request": {
+            "name": "Create object storage bucket",
+            "description": {
+              "content": "Create a new object storage bucket with an initial key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "buckets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"jurisdiction\": \"<string>\",\n  \"key_name\": \"<string>\",\n  \"key_permission\": \"<string>\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"<string>\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0db41ba-579d-427e-b07e-68647ff2256f",
+              "name": "`FilesystemResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"jurisdiction\": \"default\",\n  \"key_name\": \"<string>\",\n  \"key_permission\": \"read_only\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"GET\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"filesystems\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"type\": \"cloudflare_r2\",\n      \"status\": \"deleted\",\n      \"visibility\": \"private\",\n      \"jurisdiction\": \"eu\",\n      \"endpoint\": \"string\",\n      \"url\": \"string\",\n      \"allowed_origins\": null,\n      \"cors_settings\": null,\n      \"created_at\": \"1976-04-08T16:24:49.797Z\"\n    },\n    \"relationships\": {\n      \"keys\": {\n        \"data\": [\n          {\n            \"type\": \"filesystemKeys\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"filesystemKeys\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_write\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"2025-08-22T15:22:04.253Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_only\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"1978-04-14T20:54:02.498Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c818dcf2-49ec-47ef-bebc-a77480f600fa",
+              "name": "An error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"jurisdiction\": \"default\",\n  \"key_name\": \"<string>\",\n  \"key_permission\": \"read_only\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"GET\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63e16f23-fc4f-48ec-be7a-5b003eeb9e9f",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"jurisdiction\": \"default\",\n  \"key_name\": \"<string>\",\n  \"key_permission\": \"read_only\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"GET\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b600a0e-9c22-42fb-b7b6-fffc9dc2dc0e",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"jurisdiction\": \"default\",\n  \"key_name\": \"<string>\",\n  \"key_permission\": \"read_only\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"GET\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "880151c1-82e8-4cc5-b9e7-b9985b8eda55",
+          "name": "Get object storage bucket",
+          "request": {
+            "name": "Get object storage bucket",
+            "description": {
+              "content": "Get a specific object storage bucket.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "buckets",
+                ":filesystem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filesystem",
+                  "description": "(Required) The filesystem identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b9543eb1-1e15-400f-81d5-049854914b9b",
+              "name": "`FilesystemResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"filesystems\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"type\": \"cloudflare_r2\",\n      \"status\": \"deleted\",\n      \"visibility\": \"private\",\n      \"jurisdiction\": \"eu\",\n      \"endpoint\": \"string\",\n      \"url\": \"string\",\n      \"allowed_origins\": null,\n      \"cors_settings\": null,\n      \"created_at\": \"1976-04-08T16:24:49.797Z\"\n    },\n    \"relationships\": {\n      \"keys\": {\n        \"data\": [\n          {\n            \"type\": \"filesystemKeys\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"filesystemKeys\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_write\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"2025-08-22T15:22:04.253Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_only\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"1978-04-14T20:54:02.498Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7d496a7-517a-44e2-ae3b-ea2a5773fb30",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3590b601-14c2-4d6f-889f-043d5d351c07",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec4ec671-9b81-4020-9f63-1e132b842529",
+          "name": "Update object storage bucket",
+          "request": {
+            "name": "Update object storage bucket",
+            "description": {
+              "content": "Update an object storage bucket.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "buckets",
+                ":filesystem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filesystem",
+                  "description": "(Required) The filesystem identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"<string>\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"<string>\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c5c84a0-00b1-4436-924d-82784cbbe00f",
+              "name": "`FilesystemResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"HEAD\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"filesystems\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"type\": \"cloudflare_r2\",\n      \"status\": \"deleted\",\n      \"visibility\": \"private\",\n      \"jurisdiction\": \"eu\",\n      \"endpoint\": \"string\",\n      \"url\": \"string\",\n      \"allowed_origins\": null,\n      \"cors_settings\": null,\n      \"created_at\": \"1976-04-08T16:24:49.797Z\"\n    },\n    \"relationships\": {\n      \"keys\": {\n        \"data\": [\n          {\n            \"type\": \"filesystemKeys\",\n            \"id\": \"string\"\n          },\n          {\n            \"type\": \"filesystemKeys\",\n            \"id\": \"string\"\n          }\n        ]\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_write\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"2025-08-22T15:22:04.253Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"filesystemKeys\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"permission\": \"read_only\",\n        \"access_key_id\": \"string\",\n        \"access_key_secret\": \"string\",\n        \"created_at\": \"1978-04-14T20:54:02.498Z\"\n      },\n      \"relationships\": {\n        \"filesystem\": {\n          \"data\": {\n            \"type\": \"filesystems\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a829cda-a36b-42e6-966a-32e192161b63",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"HEAD\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a8e62d9-56d8-4b99-a30b-7cb4a0727698",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"HEAD\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff21a2c7-e71d-42cb-b947-2597aa4b5dcd",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"visibility\": \"private\",\n  \"allowed_origins\": [\n    \"<uri>\",\n    \"<uri>\"\n  ],\n  \"cors_settings\": {\n    \"allowed_origins\": [\n      \"<uri>\",\n      \"<uri>\"\n    ],\n    \"allowed_methods\": [\n      \"HEAD\"\n    ],\n    \"allowed_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"expose_headers\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"max_age_seconds\": \"<integer,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e5501fb-1ee4-4762-b51b-687bf379307a",
+          "name": "Delete object storage bucket",
+          "request": {
+            "name": "Delete object storage bucket",
+            "description": {
+              "content": "Delete an object storage bucket.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "buckets",
+                ":filesystem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "filesystem",
+                  "description": "(Required) The filesystem identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "80979f22-fb61-443d-94e8-2ef558ffca14",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3debc55-eab4-4c7c-a54b-08c847e89f52",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "512da7c3-00f5-4fa5-a463-29e911372a36",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be6a84bb-20b4-4e39-a116-ddc5e4ead976",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "buckets",
+                    ":filesystem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "filesystem",
+                      "description": "(Required) The filesystem identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bd364d88-e989-4907-85a7-d5697281dcca",
+    "name": "Laravel Cloud Applications Object Storage Buckets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Domains API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/environments/:environment/domains",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[hostname_status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[ssl_status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[origin_status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all domains for the given environment."
+        },
+        {
+          "info": {
+            "name": "Create domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/environments/:environment/domains",
+            "params": [
+              {
+                "name": "environment",
+                "value": "",
+                "type": "path",
+                "description": "The environment identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new domain for the given environment. After creating the domain, you'll have to add the required DNS records to your DNS provider. This might be a 2-step process, depending on the verification method used. You can check the required DNS records in the response of this endpoint, and you can verify the domain using the \"verify\" query parameter in the \"Get domain\" endpoint."
+        },
+        {
+          "info": {
+            "name": "Get domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/domains/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain identifier"
+              },
+              {
+                "name": "verify",
+                "value": "",
+                "type": "query",
+                "description": "Whether the domain's DNS records should be verified and validated."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Show a specific domain."
+        },
+        {
+          "info": {
+            "name": "Update domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/domains/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a specific domain."
+        },
+        {
+          "info": {
+            "name": "Delete domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/domains/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain identifier"
+              }
+            ]
+          },
+          "docs": "Delete a specific domain."
+        },
+        {
+          "info": {
+            "name": "Verify a domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/domains/:domain/verify",
+            "params": [
+              {
+                "name": "domain",
+                "value": "",
+                "type": "path",
+                "description": "The domain identifier"
+              }
+            ]
+          },
+          "docs": "Checks whether the DNS records for a given domain have been properly set up."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

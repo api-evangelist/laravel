@@ -1,0 +1,3335 @@
+{
+  "item": [
+    {
+      "id": "b5d81c7a-994e-4bbd-a07b-2e57215e0904",
+      "name": "Backups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a3a267d-57eb-42a0-bac9-14b98dd8fc1d",
+          "name": "List backup configurations",
+          "request": {
+            "name": "List backup configurations",
+            "description": {
+              "content": "List all backup configurations for the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "The name of the backup configuration."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "The status of the backup configuration."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "8dd69aa3-9c88-4f90-a0fe-2f95462aa665",
+              "name": "Paginated set of `BackupConfigurationResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "daily-backup"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"backupConfigurations\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://YKUnWpaALUZSXDisIZv.gdzvBOdtwD1JztBp8AwVRukbm.W4XK2RNpwKUMjSSozPmFPLlAdgBYYcKjkI7dGQL\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"storage_provider_id\": 3534,\n        \"provider\": \"string\",\n        \"bucket\": \"string\",\n        \"directory\": \"string\",\n        \"schedule\": \"string\",\n        \"displayable_schedule\": \"string\",\n        \"next_run_time\": \"string\",\n        \"status\": \"string\",\n        \"day_of_week\": 3883,\n        \"time\": \"string\",\n        \"cron_schedule\": \"string\",\n        \"database_ids\": [],\n        \"include_new_databases\": false,\n        \"retention\": 1530,\n        \"notify_email\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"backupConfigurations\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://XrW.qqdpgARhbeiZqro,U9m1GakNBUDespMdujJAh0KbXtcTNEuJOu.iBramlQ\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"name\": \"string\",\n        \"storage_provider_id\": 8124,\n        \"provider\": \"string\",\n        \"bucket\": \"string\",\n        \"directory\": \"string\",\n        \"schedule\": \"string\",\n        \"displayable_schedule\": \"string\",\n        \"next_run_time\": \"string\",\n        \"status\": \"string\",\n        \"day_of_week\": 6488,\n        \"time\": \"string\",\n        \"cron_schedule\": \"string\",\n        \"database_ids\": [],\n        \"include_new_databases\": false,\n        \"retention\": 2956,\n        \"notify_email\": \"string\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 5564,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "505a6e1e-b2db-485b-95a4-e123343e8a18",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "daily-backup"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac836a26-dc82-4255-be0f-96ca9c8ea2e1",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "daily-backup"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "installed"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb42863c-a9ad-4ac9-b0a9-ce5fd32dc510",
+          "name": "Create backup configuration",
+          "request": {
+            "name": "Create backup configuration",
+            "description": {
+              "content": "Create a new backup configuration for the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"<string>\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4255c920-47ff-426a-b5f1-922f937a449a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"daily\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "26fe4894-b644-424c-b0c7-183442d83a15",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"daily\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aaccf2df-71a2-4f01-b25d-86e05a2ba5ec",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"daily\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6031e639-ec99-44e9-bced-df6ece1edbc5",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"daily\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73ab505c-215a-42f8-ac5d-ddb0f932567a",
+          "name": "Get backup configuration",
+          "request": {
+            "name": "Get backup configuration",
+            "description": {
+              "content": "Get a specific backup configuration for the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "257f35d9-7eb7-4ee5-9a08-32e3ef5ec5e8",
+              "name": "`BackupConfigurationResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"backupConfigurations\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://ZnfpcPNZnVRBZL.wxZvByVMi7AUOqoNJQzIJpRC\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"name\": \"string\",\n      \"storage_provider_id\": 5772,\n      \"provider\": \"string\",\n      \"bucket\": \"string\",\n      \"directory\": \"string\",\n      \"schedule\": \"string\",\n      \"displayable_schedule\": \"string\",\n      \"next_run_time\": \"string\",\n      \"status\": \"string\",\n      \"day_of_week\": 8776,\n      \"time\": \"string\",\n      \"cron_schedule\": \"string\",\n      \"database_ids\": [],\n      \"include_new_databases\": false,\n      \"retention\": 8209,\n      \"notify_email\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "707af44e-4558-485c-a48d-34f1e606f3fb",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a2caa58-8ad7-4b94-b59a-14986783692e",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88733749-c8e2-41b8-beae-c7f7112e46a6",
+          "name": "Update backup configuration",
+          "request": {
+            "name": "Update backup configuration",
+            "description": {
+              "content": "Update an existing backup configuration for the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"<string>\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1ed8dbf-16c0-4421-851d-b592750cdaae",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"weekly\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "235549d9-51b6-447d-ad9d-f8c0d50b9ac1",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"weekly\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72689ea1-b361-45b3-92ef-2a590fb3c181",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"weekly\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b33c8e5-5700-4625-ac3f-deaad9971a29",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"storage_provider_id\": \"<integer>\",\n  \"frequency\": \"weekly\",\n  \"retention\": \"<integer>\",\n  \"database_ids\": [\n    \"<integer>\"\n  ],\n  \"name\": \"<string,null>\",\n  \"bucket\": \"<string,null>\",\n  \"directory\": \"<string,null>\",\n  \"day\": \"<string>\",\n  \"time\": \"<string>\",\n  \"cron\": \"<string>\",\n  \"include_new_databases\": \"<boolean>\",\n  \"notification_email\": \"<string,null-email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee747eca-043a-443b-ae53-1e3e2ca0a9b7",
+          "name": "Delete backup configuration",
+          "request": {
+            "name": "Delete backup configuration",
+            "description": {
+              "content": "Delete a backup configuration from the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "0ea1986c-78a0-43c8-b917-3990981ba813",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b64be9d9-a3b8-418d-88aa-9cab0e7ab7aa",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0671fdf-ed59-4a42-a0d5-b7994fb2c5c8",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "31e499cc-1840-4bef-8c6e-a5e9206ba5d4",
+          "name": "List backups",
+          "request": {
+            "name": "List backups",
+            "description": {
+              "content": "List all backup instances for the backup configuration.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration",
+                "instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[status]",
+                  "value": "<string>",
+                  "description": "The status of the backup."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "24907a9a-449a-4eaf-b186-901173947afc",
+              "name": "Paginated set of `BackupResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "finished"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"backups\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"http://vvfTXNoEUUvpzmPdStYuNrQYt.ivaLVKHpKtJw\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"status\": \"string\",\n        \"is_partial\": \"string\",\n        \"size\": 2699,\n        \"finished_at\": 4768\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"backups\",\n      \"links\": {\n        \"self\": {\n          \"href\": \"https://EuFjHJgTodKOBKf.clsgaBrAERlcJkv,QV02tQJShe5IlNNydbexLslrN5mNrlRI\",\n          \"rel\": \"string\",\n          \"describedby\": \"string\",\n          \"title\": \"string\",\n          \"type\": \"string\",\n          \"hreflang\": \"string\",\n          \"meta\": {}\n        }\n      },\n      \"attributes\": {\n        \"status\": \"string\",\n        \"is_partial\": \"string\",\n        \"size\": 3518,\n        \"finished_at\": 1675\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 1730,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33b51089-46a8-4bbe-b649-93a3748dc8f0",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "finished"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbbdf1d3-a1af-409a-97e2-e84a19679a76",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[status]",
+                      "value": "finished"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85a059d1-1ec1-4ea2-8b05-bd2e348379cc",
+          "name": "Create backup",
+          "request": {
+            "name": "Create backup",
+            "description": {
+              "content": "Manually create a backup for the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration",
+                "instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": [
+            {
+              "id": "b2e28669-9fa8-41d0-b558-ac5883e98b82",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69fbd5a5-8c68-4220-9fb4-204e2231a8bb",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c6e580a-9f15-40f1-ab75-ffdc4bb87def",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ddec27da-2c21-4d12-b164-cb5fdc69db27",
+          "name": "Get backup",
+          "request": {
+            "name": "Get backup",
+            "description": {
+              "content": "Get a specific backup instance associated with the backup configuration.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration",
+                "instances",
+                ":backup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backup",
+                  "description": "(Required) The backup ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "3f800582-4fba-47c9-8fbd-94ca7f10092a",
+              "name": "`BackupResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"backups\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://DsSOJLXZZgQiPRHfwHodzgTRZelo.wgrzxuR0h,WIhrpD0KZD\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"status\": \"string\",\n      \"is_partial\": \"string\",\n      \"size\": 5222,\n      \"finished_at\": 8254\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35cbe4ed-b5ca-4969-b71d-3e2d9bd46b3a",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29846a0d-79e2-4328-b088-70f24d7cb3cf",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d94c8b7-7238-4c20-afeb-d072d4792587",
+          "name": "Delete backup",
+          "request": {
+            "name": "Delete backup",
+            "description": {
+              "content": "Delete a backup instance from the server.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration",
+                "instances",
+                ":backup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backup",
+                  "description": "(Required) The backup ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "3091bf16-18cc-4cbb-b31f-c7d20fd7f9ef",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58d48129-2bab-40a3-bae0-b5e48dc6982a",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "473ddfbc-a879-419d-91e2-44a9449d2077",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d494c934-9f22-4eee-8cdc-e5d9a530cf9f",
+          "name": "Create a database restore from backup",
+          "request": {
+            "name": "Create a database restore from backup",
+            "description": {
+              "content": "Restore the given database from the backup.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "database",
+                "backups",
+                ":backupConfiguration",
+                "instances",
+                ":backup",
+                "restores"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backupConfiguration",
+                  "description": "(Required) The backup configuration ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backup",
+                  "description": "(Required) The backup ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "25411b74-02c5-4b8e-8520-ee3733feb0ca",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup",
+                    "restores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27be2e2f-a768-4106-89c6-2b6c91e6af05",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup",
+                    "restores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e086f15-ca7d-435e-a2b0-fa95b827f8cb",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup",
+                    "restores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81080ac0-f969-4cee-bcf0-1996ea726ebc",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "database",
+                    "backups",
+                    ":backupConfiguration",
+                    "instances",
+                    ":backup",
+                    "restores"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backupConfiguration",
+                      "description": "(Required) The backup configuration ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backup",
+                      "description": "(Required) The backup ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dae34cef-f7e6-42bf-b684-4f8562c4f738",
+    "name": "Laravel Cloud Applications Backups API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

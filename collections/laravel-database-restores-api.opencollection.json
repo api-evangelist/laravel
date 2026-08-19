@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Database Restores API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database Restores",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a database restore",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/restore",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Restore a database cluster from a point in time or snapshot. Returns the newly created database."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

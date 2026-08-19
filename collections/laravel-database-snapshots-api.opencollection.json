@@ -1,0 +1,114 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications Database Snapshots API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database Snapshots",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List database snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/snapshots",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all snapshots for a specific database cluster."
+        },
+        {
+          "info": {
+            "name": "Create a database snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/databases/clusters/:database/snapshots",
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The database identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new manual snapshot for a database cluster."
+        },
+        {
+          "info": {
+            "name": "Get a database snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/database-snapshots/:databaseSnapshot",
+            "params": [
+              {
+                "name": "databaseSnapshot",
+                "value": "",
+                "type": "path",
+                "description": "The database snapshot identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific database snapshot."
+        },
+        {
+          "info": {
+            "name": "Delete a database snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/database-snapshots/:databaseSnapshot",
+            "params": [
+              {
+                "name": "databaseSnapshot",
+                "value": "",
+                "type": "path",
+                "description": "The database snapshot identifier"
+              }
+            ]
+          },
+          "docs": "Delete a database snapshot"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

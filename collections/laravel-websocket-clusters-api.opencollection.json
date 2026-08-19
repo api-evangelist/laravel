@@ -1,0 +1,162 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Laravel Cloud Applications WebSocket Clusters API",
+    "version": "0.0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "WebSocket Clusters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List WebSocket clusters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/websocket-servers",
+            "params": [
+              {
+                "name": "filter[type]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[region]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[status]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a list of all WebSocket clusters for the authenticated organization."
+        },
+        {
+          "info": {
+            "name": "Create WebSocket cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud.laravel.com/api/websocket-servers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new WebSocket cluster with a default application."
+        },
+        {
+          "info": {
+            "name": "Get WebSocket cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/websocket-servers/:websocketServer",
+            "params": [
+              {
+                "name": "websocketServer",
+                "value": "",
+                "type": "path",
+                "description": "The websocket server identifier"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a specific WebSocket cluster."
+        },
+        {
+          "info": {
+            "name": "Update WebSocket cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud.laravel.com/api/websocket-servers/:websocketServer",
+            "params": [
+              {
+                "name": "websocketServer",
+                "value": "",
+                "type": "path",
+                "description": "The websocket server identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a WebSocket cluster."
+        },
+        {
+          "info": {
+            "name": "Delete WebSocket cluster",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud.laravel.com/api/websocket-servers/:websocketServer",
+            "params": [
+              {
+                "name": "websocketServer",
+                "value": "",
+                "type": "path",
+                "description": "The websocket server identifier"
+              }
+            ]
+          },
+          "docs": "Delete a WebSocket cluster and all its applications."
+        },
+        {
+          "info": {
+            "name": "Get WebSocket cluster metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud.laravel.com/api/websocket-servers/:websocketServer/metrics",
+            "params": [
+              {
+                "name": "websocketServer",
+                "value": "",
+                "type": "path",
+                "description": "The websocket server identifier"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get metrics for a specific WebSocket cluster."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

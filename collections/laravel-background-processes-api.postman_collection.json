@@ -1,0 +1,3223 @@
+{
+  "item": [
+    {
+      "id": "d4265db5-f8b0-4fa1-ac83-1d1242ed12b7",
+      "name": "Background Processes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b61ef6ad-5480-4fd4-82fc-2e4b81818573",
+          "name": "List background processes",
+          "request": {
+            "name": "List background processes",
+            "description": {
+              "content": "Get a list of all background processes for the given instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instances",
+                ":instance",
+                "background-processes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance",
+                  "description": "(Required) The instance identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e6f19419-7d30-4d1c-a32a-cb4bd0fadde0",
+              "name": "Paginated set of `BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"background_processes\",\n      \"attributes\": {\n        \"type\": \"worker\",\n        \"processes\": 6383,\n        \"command\": \"string\",\n        \"config\": [],\n        \"strategy_type\": \"growth_rate\",\n        \"strategy_threshold\": 3169,\n        \"created_at\": \"1960-10-25T03:23:40.762Z\"\n      },\n      \"relationships\": {\n        \"instance\": {\n          \"data\": {\n            \"type\": \"instances\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"background_processes\",\n      \"attributes\": {\n        \"type\": \"worker\",\n        \"processes\": 386,\n        \"command\": \"string\",\n        \"config\": [],\n        \"strategy_type\": \"growth_rate\",\n        \"strategy_threshold\": 3616,\n        \"created_at\": \"2020-07-17T17:14:00.177Z\"\n      },\n      \"relationships\": {\n        \"instance\": {\n          \"data\": {\n            \"type\": \"instances\",\n            \"id\": \"string\"\n          }\n        }\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"current_page\": 5577,\n    \"from\": 2947,\n    \"last_page\": 7102,\n    \"links\": [\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": true\n      },\n      {\n        \"url\": \"string\",\n        \"label\": \"string\",\n        \"active\": true\n      }\n    ],\n    \"path\": \"string\",\n    \"per_page\": 4434,\n    \"to\": 2766,\n    \"total\": 2509\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"app\",\n        \"size\": \"flex-1gb\",\n        \"scaling_type\": \"auto\",\n        \"min_replicas\": 4891,\n        \"max_replicas\": 170,\n        \"queue_status\": \"available\",\n        \"paused\": true,\n        \"is_default\": false,\n        \"visibility_timeout\": 8061,\n        \"polling_interval\": 3847,\n        \"shutdown_timeout\": 4949,\n        \"uses_scheduler\": false,\n        \"sleep_with_app\": false,\n        \"scaling_cpu_threshold_percentage\": 3077,\n        \"scaling_memory_threshold_percentage\": 474,\n        \"created_at\": \"1955-09-10T06:20:17.691Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"queue\",\n        \"size\": \"dedicated.m-4vcpu-32gb\",\n        \"scaling_type\": \"auto\",\n        \"min_replicas\": 8182,\n        \"max_replicas\": 7452,\n        \"queue_status\": \"deleted\",\n        \"paused\": false,\n        \"is_default\": false,\n        \"visibility_timeout\": 7974,\n        \"polling_interval\": 305,\n        \"shutdown_timeout\": 8838,\n        \"uses_scheduler\": false,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 4865,\n        \"scaling_memory_threshold_percentage\": 7639,\n        \"created_at\": \"2013-06-08T17:45:41.463Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "397e2528-b1b2-4761-b640-65fd20bbf490",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef9b67e3-4759-4de7-a39b-0874aeda2e23",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15ed6631-6706-4051-92c7-d11b5b5e302b",
+          "name": "Create background process",
+          "request": {
+            "name": "Create background process",
+            "description": {
+              "content": "Create a new background process for an instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "instances",
+                ":instance",
+                "background-processes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instance",
+                  "description": "(Required) The instance identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"processes\": \"<integer>\",\n  \"command\": \"<string>\",\n  \"config\": {\n    \"connection\": \"<string>\",\n    \"queue\": \"<string>\",\n    \"tries\": \"<integer>\",\n    \"backoff\": \"<integer>\",\n    \"sleep\": \"<integer>\",\n    \"rest\": \"<integer>\",\n    \"timeout\": \"<integer>\",\n    \"force\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d15f3fb3-2019-438f-9c4e-700716329496",
+              "name": "`BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"worker\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"background_processes\",\n    \"attributes\": {\n      \"type\": \"worker\",\n      \"processes\": 4163,\n      \"command\": \"string\",\n      \"config\": [],\n      \"strategy_type\": \"queue_size\",\n      \"strategy_threshold\": 3866,\n      \"created_at\": \"1964-07-14T20:39:16.503Z\"\n    },\n    \"relationships\": {\n      \"instance\": {\n        \"data\": {\n          \"type\": \"instances\",\n          \"id\": \"string\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"app\",\n        \"size\": \"flex.c-1vcpu-256mb\",\n        \"scaling_type\": \"none\",\n        \"min_replicas\": 9141,\n        \"max_replicas\": 5265,\n        \"queue_status\": \"updating\",\n        \"paused\": true,\n        \"is_default\": false,\n        \"visibility_timeout\": 1106,\n        \"polling_interval\": 3731,\n        \"shutdown_timeout\": 4675,\n        \"uses_scheduler\": true,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 822,\n        \"scaling_memory_threshold_percentage\": 6190,\n        \"created_at\": \"1978-11-12T12:29:38.693Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"queue\",\n        \"size\": \"mq-pro-8gb\",\n        \"scaling_type\": \"custom\",\n        \"min_replicas\": 4085,\n        \"max_replicas\": 5923,\n        \"queue_status\": \"updating\",\n        \"paused\": true,\n        \"is_default\": true,\n        \"visibility_timeout\": 8845,\n        \"polling_interval\": 9440,\n        \"shutdown_timeout\": 5159,\n        \"uses_scheduler\": false,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 3075,\n        \"scaling_memory_threshold_percentage\": 7365,\n        \"created_at\": \"1986-10-23T02:14:12.491Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dd45c4e-c4e1-4c6c-9ba1-dfc282270342",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"worker\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "806da6c7-0edc-4997-82c7-018f5833c671",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"worker\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0837b067-d53f-48be-982e-72f43049c341",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "instances",
+                    ":instance",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instance",
+                      "description": "(Required) The instance identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"worker\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96e30c48-13f7-480f-921c-8e813a523d53",
+          "name": "Get background process",
+          "request": {
+            "name": "Get background process",
+            "description": {
+              "content": "Get the details of a specific background process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "background-processes",
+                ":backgroundProcess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "462d6ded-6cdd-4338-b06a-8d80820d1ba9",
+              "name": "`BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"background_processes\",\n    \"attributes\": {\n      \"type\": \"worker\",\n      \"processes\": 4163,\n      \"command\": \"string\",\n      \"config\": [],\n      \"strategy_type\": \"queue_size\",\n      \"strategy_threshold\": 3866,\n      \"created_at\": \"1964-07-14T20:39:16.503Z\"\n    },\n    \"relationships\": {\n      \"instance\": {\n        \"data\": {\n          \"type\": \"instances\",\n          \"id\": \"string\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"app\",\n        \"size\": \"flex.c-1vcpu-256mb\",\n        \"scaling_type\": \"none\",\n        \"min_replicas\": 9141,\n        \"max_replicas\": 5265,\n        \"queue_status\": \"updating\",\n        \"paused\": true,\n        \"is_default\": false,\n        \"visibility_timeout\": 1106,\n        \"polling_interval\": 3731,\n        \"shutdown_timeout\": 4675,\n        \"uses_scheduler\": true,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 822,\n        \"scaling_memory_threshold_percentage\": 6190,\n        \"created_at\": \"1978-11-12T12:29:38.693Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"queue\",\n        \"size\": \"mq-pro-8gb\",\n        \"scaling_type\": \"custom\",\n        \"min_replicas\": 4085,\n        \"max_replicas\": 5923,\n        \"queue_status\": \"updating\",\n        \"paused\": true,\n        \"is_default\": true,\n        \"visibility_timeout\": 8845,\n        \"polling_interval\": 9440,\n        \"shutdown_timeout\": 5159,\n        \"uses_scheduler\": false,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 3075,\n        \"scaling_memory_threshold_percentage\": 7365,\n        \"created_at\": \"1986-10-23T02:14:12.491Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66d742a9-612f-4a3f-81a9-ab18ac6d8ae7",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbb6c155-3a29-4864-899c-a0e8dd78587b",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6d8d14f2-3d3e-4b48-ba1b-69c1917c80ab",
+          "name": "Update background process",
+          "request": {
+            "name": "Update background process",
+            "description": {
+              "content": "Update a background process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "background-processes",
+                ":backgroundProcess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"processes\": \"<integer>\",\n  \"command\": \"<string>\",\n  \"config\": {\n    \"connection\": \"<string>\",\n    \"queue\": \"<string>\",\n    \"tries\": \"<integer>\",\n    \"backoff\": \"<integer>\",\n    \"sleep\": \"<integer>\",\n    \"rest\": \"<integer>\",\n    \"timeout\": \"<integer>\",\n    \"force\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7dcecdf1-e3f6-4f3b-a51b-3b46f385c9e9",
+              "name": "`BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"custom\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"background_processes\",\n    \"attributes\": {\n      \"type\": \"worker\",\n      \"processes\": 4163,\n      \"command\": \"string\",\n      \"config\": [],\n      \"strategy_type\": \"queue_size\",\n      \"strategy_threshold\": 3866,\n      \"created_at\": \"1964-07-14T20:39:16.503Z\"\n    },\n    \"relationships\": {\n      \"instance\": {\n        \"data\": {\n          \"type\": \"instances\",\n          \"id\": \"string\"\n        }\n      }\n    }\n  },\n  \"included\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"app\",\n        \"size\": \"flex.c-1vcpu-256mb\",\n        \"scaling_type\": \"none\",\n        \"min_replicas\": 9141,\n        \"max_replicas\": 5265,\n        \"queue_status\": \"updating\",\n        \"paused\": true,\n        \"is_default\": false,\n        \"visibility_timeout\": 1106,\n        \"polling_interval\": 3731,\n        \"shutdown_timeout\": 4675,\n        \"uses_scheduler\": true,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 822,\n        \"scaling_memory_threshold_percentage\": 6190,\n        \"created_at\": \"1978-11-12T12:29:38.693Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"instances\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"type\": \"queue\",\n        \"size\": \"mq-pro-8gb\",\n        \"scaling_type\": \"custom\",\n        \"min_replicas\": 4085,\n        \"max_replicas\": 5923,\n        \"queue_status\": \"updating\",\n        \"paused\": true,\n        \"is_default\": true,\n        \"visibility_timeout\": 8845,\n        \"polling_interval\": 9440,\n        \"shutdown_timeout\": 5159,\n        \"uses_scheduler\": false,\n        \"sleep_with_app\": true,\n        \"scaling_cpu_threshold_percentage\": 3075,\n        \"scaling_memory_threshold_percentage\": 7365,\n        \"created_at\": \"1986-10-23T02:14:12.491Z\"\n      },\n      \"relationships\": {\n        \"environment\": {\n          \"data\": {\n            \"type\": \"environments\",\n            \"id\": \"string\"\n          }\n        },\n        \"backgroundProcesses\": {\n          \"data\": [\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            },\n            {\n              \"type\": \"background_processes\",\n              \"id\": \"string\"\n            }\n          ]\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f2e7dc9-0ccc-414f-8fce-c6df6b711b22",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"custom\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f28912de-129f-4234-8892-9b34ee102d31",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"custom\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15e9bcb5-a498-4c9b-9df1-3d23ccdcd4c8",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"custom\",\n  \"processes\": \"<integer>\",\n  \"command\": \"php artisan my:command\",\n  \"config\": {\n    \"connection\": \"redis\",\n    \"queue\": \"default,emails\",\n    \"tries\": 3,\n    \"backoff\": 30,\n    \"sleep\": 3,\n    \"rest\": 0,\n    \"timeout\": 60,\n    \"force\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3ec815da-63d1-4062-a868-22a498e290c6",
+          "name": "Delete background process",
+          "request": {
+            "name": "Delete background process",
+            "description": {
+              "content": "Delete a background process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "background-processes",
+                ":backgroundProcess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed777079-5206-4d92-adb1-a0d5da6754e3",
+              "name": "No content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc0f5081-45f3-4dd9-bc8a-f306c0ff2281",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "197af94f-e64a-40da-a2d4-c0ba7567d12f",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56dd2793-e6e7-4b51-a813-70d39c99cf23",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "30774d8d-f8d7-4fc1-96f7-8d71b9d7c4d7",
+          "name": "List background processes",
+          "request": {
+            "name": "List background processes",
+            "description": {
+              "content": "List all background processes on the server.\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "background-processes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "30",
+                  "description": "The number of results that will be returned per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[cursor]",
+                  "value": "<string>",
+                  "description": "The cursor to start the pagination from."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[user]",
+                  "value": "<string>",
+                  "description": "The user that the process is running as."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[site_id]",
+                  "value": "<string>",
+                  "description": "The site ID that the process is running for."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[directory]",
+                  "value": "<string>",
+                  "description": "The directory that the process is running in."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "96172bd5-eddd-4b70-9184-37a9db14d8c0",
+              "name": "Paginated set of `BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[directory]",
+                      "value": "/home/forge/forge.laravel.com"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"backgroundProcesses\",\n      \"attributes\": {\n        \"command\": \"php artisan queue:work database\",\n        \"user\": \"forge\",\n        \"directory\": \"/home/forge/forge.laravel.com\",\n        \"processes\": 3,\n        \"status\": \"installed\",\n        \"created_at\": \"2025-07-29T09:00:00Z\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"backgroundProcesses\",\n      \"attributes\": {\n        \"command\": \"php artisan queue:work database\",\n        \"user\": \"forge\",\n        \"directory\": \"/home/forge/forge.laravel.com\",\n        \"processes\": 3,\n        \"status\": \"starting\",\n        \"created_at\": \"2025-07-29T09:00:00Z\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"string\",\n    \"last\": \"string\",\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"path\": \"string\",\n    \"per_page\": 4972,\n    \"next_cursor\": \"string\",\n    \"prev_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e77f162-a3b4-4871-9215-45ef5bf7a9d3",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[directory]",
+                      "value": "/home/forge/forge.laravel.com"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "728deaa8-93eb-4d48-b2cb-b097fae69d3c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "30"
+                    },
+                    {
+                      "key": "page[cursor]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user]",
+                      "value": "forge"
+                    },
+                    {
+                      "key": "filter[site_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[directory]",
+                      "value": "/home/forge/forge.laravel.com"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9d9653f-dac4-49c1-bc1c-7147dec8a7a2",
+          "name": "Create background process",
+          "request": {
+            "name": "Create background process",
+            "description": {
+              "content": "Create a new background process from a template.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "background-processes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"command\": \"<string>\",\n  \"user\": \"<string>\",\n  \"processes\": \"<integer>\",\n  \"site_id\": \"<integer>\",\n  \"directory\": \"<string,null>\",\n  \"startsecs\": \"<integer>\",\n  \"stopwaitsecs\": \"<integer>\",\n  \"stopsignal\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bcf17fcc-2fe3-4c6a-a06c-8acfa46dd6da",
+              "name": "`BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom command runner\",\n  \"command\": \"php artisan custom:command\",\n  \"user\": \"forge\",\n  \"processes\": 1,\n  \"site_id\": 12345,\n  \"directory\": \"/home/forge/my-site.com/current/\",\n  \"startsecs\": 10,\n  \"stopwaitsecs\": 10,\n  \"stopsignal\": \"SIGTERM\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"backgroundProcesses\",\n    \"attributes\": {\n      \"command\": \"php artisan queue:work database\",\n      \"user\": \"forge\",\n      \"directory\": \"/home/forge/forge.laravel.com\",\n      \"processes\": 3,\n      \"status\": \"restarting\",\n      \"created_at\": \"2025-07-29T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39aeb9fd-cadf-4931-9a42-49406634f499",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom command runner\",\n  \"command\": \"php artisan custom:command\",\n  \"user\": \"forge\",\n  \"processes\": 1,\n  \"site_id\": 12345,\n  \"directory\": \"/home/forge/my-site.com/current/\",\n  \"startsecs\": 10,\n  \"stopwaitsecs\": 10,\n  \"stopsignal\": \"SIGTERM\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef2e4727-2a56-4e92-ad5a-16e9b9dee648",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom command runner\",\n  \"command\": \"php artisan custom:command\",\n  \"user\": \"forge\",\n  \"processes\": 1,\n  \"site_id\": 12345,\n  \"directory\": \"/home/forge/my-site.com/current/\",\n  \"startsecs\": 10,\n  \"stopwaitsecs\": 10,\n  \"stopsignal\": \"SIGTERM\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3d74dd2-6d26-42cf-b1a6-d4ca9626c37f",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Custom command runner\",\n  \"command\": \"php artisan custom:command\",\n  \"user\": \"forge\",\n  \"processes\": 1,\n  \"site_id\": 12345,\n  \"directory\": \"/home/forge/my-site.com/current/\",\n  \"startsecs\": 10,\n  \"stopwaitsecs\": 10,\n  \"stopsignal\": \"SIGTERM\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a1a463e-ae60-4019-ae85-e0c7b5583f54",
+          "name": "Get background process",
+          "request": {
+            "name": "Get background process",
+            "description": {
+              "content": "\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "background-processes",
+                ":backgroundProcess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "0cdc24d3-490f-4aab-a6f5-651fb75b7d5b",
+              "name": "`BackgroundProcessResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"backgroundProcesses\",\n    \"attributes\": {\n      \"command\": \"php artisan queue:work database\",\n      \"user\": \"forge\",\n      \"directory\": \"/home/forge/forge.laravel.com\",\n      \"processes\": 3,\n      \"status\": \"restarting\",\n      \"created_at\": \"2025-07-29T09:00:00Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "939e5d64-d702-49fb-a40b-d66441ddc298",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70939982-f7f7-4d0c-ba10-50d5971663ca",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a637208-81de-4d5f-b2a0-439c7ef6a26c",
+          "name": "Update background process",
+          "request": {
+            "name": "Update background process",
+            "description": {
+              "content": "Update the supervisor configuration for a background process.\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "background-processes",
+                ":backgroundProcess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"config\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6cef559a-7771-4bc1-9ab7-77f67fdafc47",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"config\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "737644b7-695d-4bd2-b7fc-db740a0452d6",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"config\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff37a5e4-a9f1-448b-b0da-ce7de86edfb0",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"config\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b273724a-53fd-4f15-875a-45fef56a2153",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"config\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ba3cb7b-9c63-42f7-9c02-aeb7b1fd1b95",
+          "name": "Delete background process",
+          "request": {
+            "name": "Delete background process",
+            "description": {
+              "content": "\n\nProcessing mode: <small><code>async</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "background-processes",
+                ":backgroundProcess"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": [
+            {
+              "id": "97f21ec7-c4c1-4a61-bccd-0c9c5a8dbfea",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c0a613b3-0689-483d-b171-39c0366e8dc4",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c041abe-13e0-4cb1-abcc-21edbb4fb623",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "388a6f40-6067-4ced-9050-59258d1aca3a",
+          "name": "Get background process log",
+          "request": {
+            "name": "Get background process log",
+            "description": {
+              "content": "\n\nProcessing mode: <small><code>sync</code></small>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orgs",
+                ":organization",
+                "servers",
+                ":server",
+                "background-processes",
+                ":backgroundProcess",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization",
+                  "description": "(Required) The organization slug"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "server",
+                  "description": "(Required) The server ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "backgroundProcess",
+                  "description": "(Required) The background process ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": [
+            {
+              "id": "1230244a-0dcd-40d3-a3b8-9ff60e87625e",
+              "name": "`BackgroundProcessLogResource`",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"backgroundProcessLogs\",\n    \"links\": {\n      \"self\": {\n        \"href\": \"http://hRz.azgKY21oBsPchCG5\",\n        \"rel\": \"string\",\n        \"describedby\": \"string\",\n        \"title\": \"string\",\n        \"type\": \"string\",\n        \"hreflang\": \"string\",\n        \"meta\": {}\n      }\n    },\n    \"attributes\": {\n      \"content\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "777b91ff-67ff-4b6c-8242-97bac7f7e7f9",
+              "name": "Authorization error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa62e47b-6cf0-45d2-b2e5-47e1c643b633",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orgs",
+                    ":organization",
+                    "servers",
+                    ":server",
+                    "background-processes",
+                    ":backgroundProcess",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization",
+                      "description": "(Required) The organization slug"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "server",
+                      "description": "(Required) The server ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "backgroundProcess",
+                      "description": "(Required) The background process ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud.laravel.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "04356f89-19f7-48dd-a690-62216257733a",
+    "name": "Laravel Cloud Applications Background Processes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
