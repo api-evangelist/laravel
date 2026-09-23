@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Laravel Cloud Applications Dedicated Clusters API
+  title: Laravel Cloud Dedicated Clusters API
   version: 0.0.1
 servers:
 - url: https://cloud.laravel.com/api
@@ -132,47 +132,6 @@ paths:
                 - message
 components:
   schemas:
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    ClusterStatus:
-      type: string
-      enum:
-      - draft
-      - active
-      - maintenance
-      - inactive
-      title: ClusterStatus
-    TenancyType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      title: TenancyType
-    ClusterType:
-      type: string
-      description: 'When implementing a new cluster type, make sure to: - Adjust the different is{...} methods - Adjust the needsItsCNAMERecordsSynced method - Check if Zone@toSyncClusterVanityDomainTo() needs to be adjusted
-
-        '
-      enum:
-      - applications
-      - mysql-databases
-      - rds-databases
-      - redis-caches
-      - elasticache-clusters
-      - reverb-websocket-servers
-      title: ClusterType
     ClusterResource:
       type: object
       properties:
@@ -211,6 +170,47 @@ components:
       - id
       - type
       title: ClusterResource
+    ClusterType:
+      type: string
+      description: 'When implementing a new cluster type, make sure to: - Adjust the different is{...} methods - Adjust the needsItsCNAMERecordsSynced method - Check if Zone@toSyncClusterVanityDomainTo() needs to be adjusted
+
+        '
+      enum:
+      - applications
+      - mysql-databases
+      - rds-databases
+      - redis-caches
+      - elasticache-clusters
+      - reverb-websocket-servers
+      title: ClusterType
+    TenancyType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      title: TenancyType
+    ClusterStatus:
+      type: string
+      enum:
+      - draft
+      - active
+      - maintenance
+      - inactive
+      title: ClusterStatus
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
   securitySchemes:
     http:
       type: http

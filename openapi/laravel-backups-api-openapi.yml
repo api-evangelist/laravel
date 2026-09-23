@@ -1,11 +1,13 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Laravel Cloud Applications Backups API
+  title: Forge Backups API
   version: 0.0.1
+  description: Laravel Forge - API Documentation
 servers:
-- url: https://cloud.laravel.com/api
+- url: https://forge.laravel.com/api
 security:
 - http: []
+- oauth2: []
 tags:
 - name: Backups
 paths:
@@ -15,7 +17,7 @@ paths:
       description: 'List all backup configurations for the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: List backup configurations
       tags:
       - Backups
@@ -143,7 +145,7 @@ paths:
       description: 'Create a new backup configuration for the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Create backup configuration
       tags:
       - Backups
@@ -190,7 +192,7 @@ paths:
       description: 'Get a specific backup configuration for the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: Get backup configuration
       tags:
       - Backups
@@ -243,7 +245,7 @@ paths:
       description: 'Update an existing backup configuration for the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Update backup configuration
       tags:
       - Backups
@@ -295,7 +297,7 @@ paths:
       description: 'Delete a backup configuration from the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Delete backup configuration
       tags:
       - Backups
@@ -340,7 +342,7 @@ paths:
       description: 'List all backup instances for the backup configuration.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: List backups
       tags:
       - Backups
@@ -465,7 +467,7 @@ paths:
       description: 'Manually create a backup for the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Create backup
       tags:
       - Backups
@@ -510,7 +512,7 @@ paths:
       description: 'Get a specific backup instance associated with the backup configuration.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: Get backup
       tags:
       - Backups
@@ -569,7 +571,7 @@ paths:
       description: 'Delete a backup instance from the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Delete backup
       tags:
       - Backups
@@ -620,7 +622,7 @@ paths:
       description: 'Restore the given database from the backup.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Create a database restore from backup
       tags:
       - Backups
@@ -675,14 +677,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    BackupFrequency:
-      type: string
-      enum:
-      - hourly
-      - daily
-      - weekly
-      - custom
-      title: BackupFrequency
     BackupConfigurationResource:
       type: object
       properties:
@@ -769,144 +763,6 @@ components:
       - type
       - links
       title: BackupConfigurationResource
-    RestoreBackupRequest:
-      type: object
-      properties:
-        database_id:
-          type: integer
-      required:
-      - database_id
-      title: RestoreBackupRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    CreateBackupConfigurationRequest:
-      type: object
-      properties:
-        storage_provider_id:
-          type: integer
-        name:
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-        bucket:
-          type:
-          - string
-          - 'null'
-        directory:
-          type:
-          - string
-          - 'null'
-        frequency:
-          $ref: '#/components/schemas/BackupFrequency'
-        day:
-          type: string
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - '5'
-          - '6'
-        time:
-          type: string
-          enum:
-          - 00:00
-          - 00:30
-          - 01:00
-          - 01:30
-          - 02:00
-          - 02:30
-          - 03:00
-          - 03:30
-          - 04:00
-          - 04:30
-          - 05:00
-          - 05:30
-          - 06:00
-          - 06:30
-          - 07:00
-          - 07:30
-          - 08:00
-          - 08:30
-          - 09:00
-          - 09:30
-          - '10:00'
-          - '10:30'
-          - '11:00'
-          - '11:30'
-          - '12:00'
-          - '12:30'
-          - '13:00'
-          - '13:30'
-          - '14:00'
-          - '14:30'
-          - '15:00'
-          - '15:30'
-          - '16:00'
-          - '16:30'
-          - '17:00'
-          - '17:30'
-          - '18:00'
-          - '18:30'
-          - '19:00'
-          - '19:30'
-          - '20:00'
-          - '20:30'
-          - '21:00'
-          - '21:30'
-          - '22:00'
-          - '22:30'
-          - '23:00'
-          - '23:30'
-        cron:
-          type: string
-        include_new_databases:
-          type: boolean
-        retention:
-          type: integer
-          minimum: 1
-          maximum: 8760
-        notification_email:
-          type:
-          - string
-          - 'null'
-          format: email
-        database_ids:
-          type: array
-          items:
-            type: integer
-          minItems: 1
-      required:
-      - storage_provider_id
-      - frequency
-      - retention
-      - database_ids
-      title: CreateBackupConfigurationRequest
     UpdateBackupConfigurationRequest:
       type: object
       properties:
@@ -1051,19 +907,153 @@ components:
       - type
       - links
       title: BackupResource
+    CreateBackupConfigurationRequest:
+      type: object
+      properties:
+        storage_provider_id:
+          type: integer
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+        bucket:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        frequency:
+          $ref: '#/components/schemas/BackupFrequency'
+        day:
+          type: string
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+        time:
+          type: string
+          enum:
+          - 00:00
+          - 00:30
+          - 01:00
+          - 01:30
+          - 02:00
+          - 02:30
+          - 03:00
+          - 03:30
+          - 04:00
+          - 04:30
+          - 05:00
+          - 05:30
+          - 06:00
+          - 06:30
+          - 07:00
+          - 07:30
+          - 08:00
+          - 08:30
+          - 09:00
+          - 09:30
+          - '10:00'
+          - '10:30'
+          - '11:00'
+          - '11:30'
+          - '12:00'
+          - '12:30'
+          - '13:00'
+          - '13:30'
+          - '14:00'
+          - '14:30'
+          - '15:00'
+          - '15:30'
+          - '16:00'
+          - '16:30'
+          - '17:00'
+          - '17:30'
+          - '18:00'
+          - '18:30'
+          - '19:00'
+          - '19:30'
+          - '20:00'
+          - '20:30'
+          - '21:00'
+          - '21:30'
+          - '22:00'
+          - '22:30'
+          - '23:00'
+          - '23:30'
+        cron:
+          type: string
+        include_new_databases:
+          type: boolean
+        retention:
+          type: integer
+          minimum: 1
+          maximum: 8760
+        notification_email:
+          type:
+          - string
+          - 'null'
+          format: email
+        database_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+      required:
+      - storage_provider_id
+      - frequency
+      - retention
+      - database_ids
+      title: CreateBackupConfigurationRequest
+    RestoreBackupRequest:
+      type: object
+      properties:
+        database_id:
+          type: integer
+      required:
+      - database_id
+      title: RestoreBackupRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    BackupFrequency:
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - custom
+      title: BackupFrequency
   responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -1096,9 +1086,88 @@ components:
                 description: Error overview.
             required:
             - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http
-      description: The Bearer Token generated on the Cloud UI.
       scheme: bearer
-      bearerFormat: bearer
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://forge.laravel.com/oauth/authorize
+          tokenUrl: https://forge.laravel.com/oauth/token
+          scopes:
+            organization:view: Allow members to view the organization
+            organization:manage: Allow members to manage the organization
+            organization:delete: Allow members to delete the organization
+            server:view: Allow members to view servers
+            server:create: Allow members to create servers
+            server:delete: Allow members to delete servers
+            server:archive: Allow members to archive servers
+            server:transfer: Allow members to transfer servers to another Forge account
+            server:manage-meta: Allow members to change server settings such as name and IP address
+            server:manage-packages: Allow members to configure and remove server and site package authentication
+            server:manage-php: Allow members to install and change PHP installations
+            server:manage-logs: Allow members to clear server and site logs
+            server:manage-network: Allow members to change the server‘s firewall
+            server:manage-nginx-templates: Allow members to manage Nginx templates
+            server:manage-services: Allow members to start, stop and restart services
+            server:manage-password: Allow members to reset the sudo password
+            server:create-keys: Allow members to add SSH keys to servers
+            server:delete-keys: Allow members to remove SSH keys from servers
+            server:create-monitors: Allow members to create server monitors
+            server:delete-monitors: Allow members to delete server monitors
+            server:create-databases: Allow members to create databases and database users
+            server:delete-databases: Allow members to delete databases and database users
+            server:create-backups: Allow members to create database backup configurations
+            server:delete-backups: Allow members to delete database backup configurations
+            server:create-daemons: Allow members to create daemons
+            server:delete-daemons: Allow members to delete daemons
+            server:create-schedulers: Allow members to create scheduled jobs
+            server:delete-schedulers: Allow members to delete scheduled jobs
+            server:web-terminal: Allow members to start web terminal sessions
+            site:create: Allow members to create sites
+            site:delete: Allow members to delete sites
+            site:meta: Allow members to update site meta data such as domain name and aliases
+            site:manage-commands: Allow members to run arbitrary commands from the site‘s root directory
+            site:manage-deploys: Allow members to deploy the site and update the deployment script
+            site:manage-nginx: Allow members to manage the site‘s Nginx configuration file
+            site:manage-project: Allow members to install Git repositories, phpMyAdmin and WordPress applications
+            site:manage-environment: Allow members to update the site‘s environment file
+            site:manage-notifications: Allow members to configure deployment notifications
+            site:manage-queues: Allow members to configure queue workers
+            site:manage-redirects: Allow members to configure URL redirects
+            site:manage-security: Allow members to configure HTTP Basic Authentication
+            site:manage-ssl: Allow members to configure SSL and Let‘s Encrypt certificates
+            site:manage-integrations: Allow members to manage site integrations
+            site:manage-heartbeats: Allow members to manage heartbeats
+            credential:view: Allow members to view credentials
+            credential:manage: Allow members to manage credentials
+            team:view: Allow members to view teams
+            team:create: Allow members to create teams
+            team:delete: Allow members to delete teams and team members
+            recipe:view: Allow members to view recipes
+            recipe:manage: Allow members to manage recipes
+            billing:manage: Allow members to manage the organization's subscription
+            storage:manage: Allow members to manage the organization's storage providers.
+            integrations:manage: Allow members to manage the organization's integrations
+            user:view: Allow members to view user details
+            resources:view: Allow members to view resources
+            resources:create-databases: Allow members to create managed database & cache clusters
+            resources:delete-databases: Allow members to delete managed database & cache clusters
+            resources:manage-databases: Allow members to manage managed database & cache clusters settings
+            resources:create-buckets: Allow members to create object storage buckets
+            resources:delete-buckets: Allow members to delete object storage buckets
+            resources:manage-buckets: Allow members to manage object storage buckets and their access keys

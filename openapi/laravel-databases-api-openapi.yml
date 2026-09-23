@@ -1,11 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Laravel Cloud Applications Databases API
+  title: Laravel Databases API
   version: 0.0.1
+  description: 'Operations tagged Databases across 2 of this provider''s published API definitions: laravel-cloud-openapi.json, laravel-forge-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://cloud.laravel.com/api
-security:
-- http: []
+- url: https://forge.laravel.com/api
 tags:
 - name: Databases
 paths:
@@ -132,6 +132,8 @@ paths:
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
           $ref: '#/components/responses/AuthorizationException'
+      security:
+      - http: []
     post:
       operationId: public.databases.clusters.databases.store
       description: Create a new database in a database cluster.
@@ -177,6 +179,10 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
         '422':
           $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
+    servers:
+    - url: https://cloud.laravel.com/api
   /databases/clusters/{database}/databases/{schema}:
     get:
       operationId: public.databases.clusters.databases.show
@@ -231,6 +237,8 @@ paths:
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
           $ref: '#/components/responses/AuthorizationException'
+      security:
+      - http: []
     delete:
       operationId: public.databases.clusters.databases.destroy
       description: Delete a database from a database cluster.
@@ -261,13 +269,17 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
         '422':
           $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
+    servers:
+    - url: https://cloud.laravel.com/api
   /orgs/{organization}/servers/{server}/database/schemas:
     get:
       operationId: organizations.servers.database.schemas.index
       description: 'List all database schemas associated with the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: List database schemas
       tags:
       - Databases
@@ -395,7 +407,7 @@ paths:
       description: 'Add a new database schema to the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Create database schema
       tags:
       - Databases
@@ -445,13 +457,15 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/database/schemas/{database}:
     get:
       operationId: organizations.servers.database.schemas.show
       description: 'Get a specific database schema associated with the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: Get database schema
       tags:
       - Databases
@@ -504,7 +518,7 @@ paths:
       description: 'Remove a database schema from the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Delete database schema
       tags:
       - Databases
@@ -543,13 +557,15 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/database/schemas/synchronizations:
     post:
       operationId: organizations.servers.database.schemas.synchronizations.store
       description: 'Synchronize all database schemas on the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Update database schemas
       tags:
       - Databases
@@ -582,13 +598,15 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/database/users:
     get:
       operationId: organizations.servers.database.users.index
       description: 'List all database users associated with the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: List database users
       tags:
       - Databases
@@ -716,7 +734,7 @@ paths:
       description: 'Add a new database user to the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Create database user
       tags:
       - Databases
@@ -766,13 +784,15 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/database/users/{databaseUser}:
     get:
       operationId: organizations.servers.database.users.show
       description: 'Get a specific database user associated with the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: Get database user
       tags:
       - Databases
@@ -825,7 +845,7 @@ paths:
       description: 'Update a database user on the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Update database user
       tags:
       - Databases
@@ -876,7 +896,7 @@ paths:
       description: 'Remove a database user from the server.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Delete database user
       tags:
       - Databases
@@ -915,6 +935,8 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/database/password:
     put:
       operationId: organizations.servers.database.password.update
@@ -925,7 +947,7 @@ paths:
         This should only be used if you have changed the password on the server itself and want to update Forge.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: Update the password for the database
       tags:
       - Databases
@@ -966,22 +988,113 @@ paths:
         metadata:
           noindex: true
       x-processingMode: sync
+    servers:
+    - url: https://forge.laravel.com/api
 components:
   schemas:
-    CloudRegion:
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    StoreDatabaseSchemaRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+      required:
+      - name
+      title: StoreDatabaseSchemaRequest
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    BotControlCategory:
       type: string
       enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql_84
+      - laravel_mysql_8
+      - aws_rds_mysql_8
+      - aws_rds_postgres_18
+      - neon_serverless_postgres_18
+      - neon_serverless_postgres_17
+      - neon_serverless_postgres_16
+      title: DatabaseType
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
     Link:
       type: object
       properties:
@@ -1007,15 +1120,27 @@ components:
       required:
       - href
       title: Link
-    UpdateDatabasePasswordRequest:
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    DatabaseResourceIdentifier:
       type: object
       properties:
-        password:
+        type:
           type: string
-          maxLength: 255
+          enum:
+          - databases
+        id:
+          type: string
       required:
-      - password
-      title: UpdateDatabasePasswordRequest
+      - type
+      - id
+      title: DatabaseResourceIdentifier
     BranchResourceIdentifier:
       type: object
       properties:
@@ -1079,67 +1204,337 @@ components:
       - id
       - type
       title: DatabaseSchemaResource
-    ApplicationResourceIdentifier:
+    DatabaseSchemaResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - applications
+          - databaseSchemas
         id:
           type: string
       required:
       - type
       - id
-      title: ApplicationResourceIdentifier
-    FilesystemResourceIdentifier:
+      title: DatabaseSchemaResourceIdentifier
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    DatabaseStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - restarting
+      - upgrading
+      - moving
+      - available
+      - stopped
+      - restoring
+      - restore_failed
+      - disabled
+      - snapshotting_before_archiving
+      - archiving
+      - archived
+      - deleting
+      - deleted
+      - unknown
+      title: DatabaseStatus
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - filesystems
+          - environments
         id:
           type: string
       required:
       - type
       - id
-      title: FilesystemResourceIdentifier
-    CreateDatabaseRequest:
+      title: EnvironmentResourceIdentifier
+    DatabaseResource:
       type: object
       properties:
-        name:
+        id:
           type: string
-          description: The name of the database to create.
-          examples:
-          - forge
-          maxLength: 63
-        user:
-          type:
-          - string
-          - 'null'
-          description: The name of the database user to create. Only needed if a new user should be created alongside the database.
-          examples:
-          - james
-        password:
-          type:
-          - string
-          - 'null'
-          description: The password for the database user. Only used if the user is provided.
-          examples:
-          - password
-          maxLength: 255
-        backup_configuration_ids:
-          type: array
-          description: The backup configurations the database should be added to.
-          examples:
-          - - 1
-            - 2
-          items:
-            type: integer
+        type:
+          type: string
+          enum:
+          - databases
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/DatabaseType'
+            status:
+              $ref: '#/components/schemas/DatabaseStatus'
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            config:
+              description: Configuration object. Fields vary based on database type.
+              oneOf:
+              - title: Neon Serverless Postgres
+                type: object
+                description: Configuration for Neon Serverless Postgres databases
+                properties:
+                  cu_min:
+                    type: number
+                    description: Minimum compute units for auto-scaling
+                    enum:
+                    - 0.25
+                    - 0.5
+                    - 1
+                    - 2
+                    - 4
+                    - 8
+                    - 10
+                  cu_max:
+                    type: number
+                    description: Maximum compute units for auto-scaling
+                    enum:
+                    - 0.25
+                    - 0.5
+                    - 1
+                    - 2
+                    - 4
+                    - 8
+                    - 10
+                  suspend_seconds:
+                    type: integer
+                    description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
+                  retention_days:
+                    type: integer
+                    description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
+                required:
+                - cu_min
+                - cu_max
+                - suspend_seconds
+                - retention_days
+              - title: Laravel MySQL
+                type: object
+                description: Configuration for Laravel MySQL databases
+                properties:
+                  size:
+                    type: string
+                    description: Instance size for the database cluster
+                    enum:
+                    - mysql-flex-512mb
+                    - mysql-flex-1gb
+                    - mysql-flex-2gb
+                    - db-flex.m-1vcpu-512mb
+                    - db-flex.m-1vcpu-1gb
+                    - db-flex.m-1vcpu-2gb
+                    - db-flex.m-1vcpu-4gb
+                    - db-pro.m-1vcpu-4gb
+                    - db-pro.m-2vcpu-8gb
+                    - db-pro.m-4vcpu-16gb
+                    - db-pro.m-8vcpu-32gb
+                    - mysql-pro-4gb
+                    - mysql-pro-8gb
+                    - mysql-pro-16gb
+                    - mysql-pro-32gb
+                  storage:
+                    type: integer
+                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
+                  is_public:
+                    type: boolean
+                    description: Whether the database is publicly accessible
+                  uses_scheduled_snapshots:
+                    type: boolean
+                    description: Whether scheduled backups are enabled
+                  retention_days:
+                    type: integer
+                    description: 'Days to retain backup data (min: 0, max: 30)'
+                  maintenance_window:
+                    type:
+                    - string
+                    - 'null'
+                    description: UTC maintenance window for automated updates
+                    examples:
+                    - sun:06:00-sun:06:30
+                  suspend_seconds:
+                    type: integer
+                    description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
+                required:
+                - size
+                - storage
+                - is_public
+                - uses_scheduled_snapshots
+                - retention_days
+              - title: AWS RDS
+                type: object
+                description: Configuration for AWS RDS MySQL databases
+                properties:
+                  size:
+                    type: string
+                    description: Instance size for the database cluster
+                    enum:
+                    - db.m8g.large
+                    - db.m8g.xlarge
+                    - db.m8g.2xlarge
+                    - db.m8g.4xlarge
+                    - db.m8g.8xlarge
+                    - db.m8g.12xlarge
+                    - db.m8g.16xlarge
+                    - db.m8g.24xlarge
+                    - db.m8g.48xlarge
+                    - db.m7g.large
+                    - db.m7g.xlarge
+                    - db.m7g.2xlarge
+                    - db.m7g.4xlarge
+                    - db.m7g.8xlarge
+                    - db.m7g.12xlarge
+                    - db.m7g.16xlarge
+                    - db.t4g.micro
+                    - db.t4g.small
+                    - db.t4g.medium
+                    - db.t4g.large
+                    - db.t4g.xlarge
+                    - db.t4g.2xlarge
+                    - db.r8g.large
+                    - db.r8g.xlarge
+                    - db.r8g.2xlarge
+                    - db.r8g.4xlarge
+                    - db.r8g.8xlarge
+                    - db.r8g.12xlarge
+                    - db.r8g.16xlarge
+                  storage:
+                    type: integer
+                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
+                  is_public:
+                    type: boolean
+                    description: Whether the database is publicly accessible
+                  uses_pitr:
+                    type: boolean
+                    description: Whether point-in-time recovery is enabled
+                  retention_days:
+                    type: integer
+                    description: 'Days to retain backup data (min: 0, max: 30)'
+                  maintenance_window:
+                    type:
+                    - string
+                    - 'null'
+                    description: UTC maintenance window for automated updates
+                    examples:
+                    - sun:06:00-sun:06:30
+                  deployment_option:
+                    type: string
+                    description: Deployment configuration (single-az or multi-az)
+                    enum:
+                    - single-az
+                    - single-az-with-read-replicas
+                    - multi-az
+                  read_replicas:
+                    type:
+                    - integer
+                    - 'null'
+                    description: The number of configured read replicas
+                required:
+                - size
+                - storage
+                - is_public
+                - uses_pitr
+                - retention_days
+                - deployment_option
+              discriminator:
+                propertyName: type
+                mapping:
+                  laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
+                  laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
+                  aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
+                  aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
+                  neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
+                  neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
+                  neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
+            connection:
+              type: object
+              properties:
+                hostname:
+                  type: string
+                port:
+                  type: integer
+                  enum:
+                  - 3306
+                  - 5432
+                protocol:
+                  type: string
+                  enum:
+                  - mysql
+                  - postgres
+                driver:
+                  type: string
+                  enum:
+                  - mysql
+                  - pgsql
+                ? ''
+                : anyOf:
+                  - type: object
+                    properties:
+                      username:
+                        type: string
+                      password:
+                        type: string
+                    required:
+                    - username
+                    - password
+                  - type: array
+                    items:
+                      type: string
+                    minItems: 0
+                    maxItems: 0
+                    additionalItems: false
+              required:
+              - hostname
+              - port
+              - protocol
+              - driver
+              - null
+          required:
+          - name
+          - type
+          - status
+          - region
+          - created_at
+          - config
+          - connection
+        relationships:
+          type: object
+          properties:
+            schemas:
+              type: object
+              description: 'TODO: Remove the schemas relationship by March 2026.'
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
+              required:
+              - data
+            databases:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
+              required:
+              - data
       required:
-      - name
-      title: CreateDatabaseRequest
+      - id
+      - type
+      title: DatabaseResource
     EnvironmentResource:
       type: object
       properties:
@@ -1425,19 +1820,33 @@ components:
       - type
       - links
       title: EnvironmentResource
-    InstanceResourceIdentifier:
+    DomainResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - instances
+          - domains
         id:
           type: string
       required:
       - type
       - id
-      title: InstanceResourceIdentifier
+      title: DomainResourceIdentifier
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
     CacheResourceIdentifier:
       type: object
       properties:
@@ -1451,297 +1860,6 @@ components:
       - type
       - id
       title: CacheResourceIdentifier
-    DatabaseResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - databases
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/DatabaseType'
-            status:
-              $ref: '#/components/schemas/DatabaseStatus'
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            config:
-              description: Configuration object. Fields vary based on database type.
-              oneOf:
-              - title: Neon Serverless Postgres
-                type: object
-                description: Configuration for Neon Serverless Postgres databases
-                properties:
-                  cu_min:
-                    type: number
-                    description: Minimum compute units for auto-scaling
-                    enum:
-                    - 0.25
-                    - 0.5
-                    - 1
-                    - 2
-                    - 4
-                    - 8
-                    - 10
-                  cu_max:
-                    type: number
-                    description: Maximum compute units for auto-scaling
-                    enum:
-                    - 0.25
-                    - 0.5
-                    - 1
-                    - 2
-                    - 4
-                    - 8
-                    - 10
-                  suspend_seconds:
-                    type: integer
-                    description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
-                  retention_days:
-                    type: integer
-                    description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
-                required:
-                - cu_min
-                - cu_max
-                - suspend_seconds
-                - retention_days
-              - title: Laravel MySQL
-                type: object
-                description: Configuration for Laravel MySQL databases
-                properties:
-                  size:
-                    type: string
-                    description: Instance size for the database cluster
-                    enum:
-                    - mysql-flex-512mb
-                    - mysql-flex-1gb
-                    - mysql-flex-2gb
-                    - db-flex.m-1vcpu-512mb
-                    - db-flex.m-1vcpu-1gb
-                    - db-flex.m-1vcpu-2gb
-                    - db-flex.m-1vcpu-4gb
-                    - db-pro.m-1vcpu-4gb
-                    - db-pro.m-2vcpu-8gb
-                    - db-pro.m-4vcpu-16gb
-                    - db-pro.m-8vcpu-32gb
-                    - mysql-pro-4gb
-                    - mysql-pro-8gb
-                    - mysql-pro-16gb
-                    - mysql-pro-32gb
-                  storage:
-                    type: integer
-                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-                  is_public:
-                    type: boolean
-                    description: Whether the database is publicly accessible
-                  uses_scheduled_snapshots:
-                    type: boolean
-                    description: Whether scheduled backups are enabled
-                  retention_days:
-                    type: integer
-                    description: 'Days to retain backup data (min: 0, max: 30)'
-                  maintenance_window:
-                    type:
-                    - string
-                    - 'null'
-                    description: UTC maintenance window for automated updates
-                    examples:
-                    - sun:06:00-sun:06:30
-                  suspend_seconds:
-                    type: integer
-                    description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
-                required:
-                - size
-                - storage
-                - is_public
-                - uses_scheduled_snapshots
-                - retention_days
-              - title: AWS RDS
-                type: object
-                description: Configuration for AWS RDS MySQL databases
-                properties:
-                  size:
-                    type: string
-                    description: Instance size for the database cluster
-                    enum:
-                    - db.m8g.large
-                    - db.m8g.xlarge
-                    - db.m8g.2xlarge
-                    - db.m8g.4xlarge
-                    - db.m8g.8xlarge
-                    - db.m8g.12xlarge
-                    - db.m8g.16xlarge
-                    - db.m8g.24xlarge
-                    - db.m8g.48xlarge
-                    - db.m7g.large
-                    - db.m7g.xlarge
-                    - db.m7g.2xlarge
-                    - db.m7g.4xlarge
-                    - db.m7g.8xlarge
-                    - db.m7g.12xlarge
-                    - db.m7g.16xlarge
-                    - db.t4g.micro
-                    - db.t4g.small
-                    - db.t4g.medium
-                    - db.t4g.large
-                    - db.t4g.xlarge
-                    - db.t4g.2xlarge
-                    - db.r8g.large
-                    - db.r8g.xlarge
-                    - db.r8g.2xlarge
-                    - db.r8g.4xlarge
-                    - db.r8g.8xlarge
-                    - db.r8g.12xlarge
-                    - db.r8g.16xlarge
-                  storage:
-                    type: integer
-                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-                  is_public:
-                    type: boolean
-                    description: Whether the database is publicly accessible
-                  uses_pitr:
-                    type: boolean
-                    description: Whether point-in-time recovery is enabled
-                  retention_days:
-                    type: integer
-                    description: 'Days to retain backup data (min: 0, max: 30)'
-                  maintenance_window:
-                    type:
-                    - string
-                    - 'null'
-                    description: UTC maintenance window for automated updates
-                    examples:
-                    - sun:06:00-sun:06:30
-                  deployment_option:
-                    type: string
-                    description: Deployment configuration (single-az or multi-az)
-                    enum:
-                    - single-az
-                    - single-az-with-read-replicas
-                    - multi-az
-                  read_replicas:
-                    type:
-                    - integer
-                    - 'null'
-                    description: The number of configured read replicas
-                required:
-                - size
-                - storage
-                - is_public
-                - uses_pitr
-                - retention_days
-                - deployment_option
-              discriminator:
-                propertyName: type
-                mapping:
-                  laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
-                  laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
-                  aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
-                  aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
-                  neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
-                  neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
-                  neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
-            connection:
-              type: object
-              properties:
-                hostname:
-                  type: string
-                port:
-                  type: integer
-                  enum:
-                  - 3306
-                  - 5432
-                protocol:
-                  type: string
-                  enum:
-                  - mysql
-                  - postgres
-                driver:
-                  type: string
-                  enum:
-                  - mysql
-                  - pgsql
-                ? ''
-                : anyOf:
-                  - type: object
-                    properties:
-                      username:
-                        type: string
-                      password:
-                        type: string
-                    required:
-                    - username
-                    - password
-                  - type: array
-                    items:
-                      type: string
-                    minItems: 0
-                    maxItems: 0
-                    additionalItems: false
-              required:
-              - hostname
-              - port
-              - protocol
-              - driver
-              - null
-          required:
-          - name
-          - type
-          - status
-          - region
-          - created_at
-          - config
-          - connection
-        relationships:
-          type: object
-          properties:
-            schemas:
-              type: object
-              description: 'TODO: Remove the schemas relationship by March 2026.'
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
-              required:
-              - data
-            databases:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: DatabaseResource
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
     RateLimitLevel:
       type: string
       enum:
@@ -1749,61 +1867,54 @@ components:
       - throttle
       - ban
       title: RateLimitLevel
-    DatabaseResourceIdentifier:
+    InstanceResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - databases
+          - instances
         id:
           type: string
       required:
       - type
       - id
-      title: DatabaseResourceIdentifier
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    DatabaseSchemaResourceIdentifier:
+      title: InstanceResourceIdentifier
+    CreateDatabaseRequest:
       type: object
       properties:
-        type:
+        name:
           type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    UpdateDatabaseUserRequest:
-      type: object
-      properties:
+          description: The name of the database to create.
+          examples:
+          - forge
+          maxLength: 63
+        user:
+          type:
+          - string
+          - 'null'
+          description: The name of the database user to create. Only needed if a new user should be created alongside the database.
+          examples:
+          - james
         password:
           type:
           - string
           - 'null'
-          description: The password for the database user.
+          description: The password for the database user. Only used if the user is provided.
           examples:
           - password
           maxLength: 255
-        database_ids:
+        backup_configuration_ids:
           type: array
-          description: The IDs of the databases to assign the user to.
+          description: The backup configurations the database should be added to.
           examples:
           - - 1
             - 2
-            - 3
           items:
             type: integer
-      title: UpdateDatabaseUserRequest
+      required:
+      - name
+      title: CreateDatabaseRequest
     DatabaseResource_2:
       type: object
       properties:
@@ -1860,75 +1971,6 @@ components:
       - type
       - links
       title: DatabaseResource
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    CreateDatabaseUserRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the database user to create.
-          examples:
-          - james
-        password:
-          type: string
-          description: The password for the database user.
-          examples:
-          - password
-          maxLength: 255
-        read_only:
-          type: boolean
-          description: Whether the user should have read-only access to the databases.
-          examples:
-          - true
-        database_ids:
-          type: array
-          description: The IDs of the databases to assign the user to.
-          examples:
-          - - 1
-            - 2
-            - 3
-          items:
-            type: integer
-      required:
-      - name
-      - password
-      title: CreateDatabaseUserRequest
-    StoreDatabaseSchemaRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: StoreDatabaseSchemaRequest
     DatabaseUserResource:
       type: object
       properties:
@@ -1986,87 +2028,89 @@ components:
       - type
       - links
       title: DatabaseUserResource
-    DatabaseStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - restarting
-      - upgrading
-      - moving
-      - available
-      - stopped
-      - restoring
-      - restore_failed
-      - disabled
-      - snapshotting_before_archiving
-      - archiving
-      - archived
-      - deleting
-      - deleted
-      - unknown
-      title: DatabaseStatus
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    NodeVersion:
-      type: string
-      enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    EnvironmentResourceIdentifier:
+    CreateDatabaseUserRequest:
       type: object
       properties:
-        type:
+        name:
           type: string
-          enum:
-          - environments
-        id:
+          description: The name of the database user to create.
+          examples:
+          - james
+        password:
           type: string
+          description: The password for the database user.
+          examples:
+          - password
+          maxLength: 255
+        read_only:
+          type: boolean
+          description: Whether the user should have read-only access to the databases.
+          examples:
+          - true
+        database_ids:
+          type: array
+          description: The IDs of the databases to assign the user to.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
       required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
+      - name
+      - password
+      title: CreateDatabaseUserRequest
+    UpdateDatabasePasswordRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          maxLength: 255
+      required:
+      - password
+      title: UpdateDatabasePasswordRequest
+    UpdateDatabaseUserRequest:
+      type: object
+      properties:
+        password:
+          type:
+          - string
+          - 'null'
+          description: The password for the database user.
+          examples:
+          - password
+          maxLength: 255
+        database_ids:
+          type: array
+          description: The IDs of the databases to assign the user to.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
+      title: UpdateDatabaseUserRequest
   responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -2091,29 +2135,81 @@ components:
                 description: Error overview.
             required:
             - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http
       description: The Bearer Token generated on the Cloud UI.
       scheme: bearer
       bearerFormat: bearer
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://forge.laravel.com/oauth/authorize
+          tokenUrl: https://forge.laravel.com/oauth/token
+          scopes:
+            organization:view: Allow members to view the organization
+            organization:manage: Allow members to manage the organization
+            organization:delete: Allow members to delete the organization
+            server:view: Allow members to view servers
+            server:create: Allow members to create servers
+            server:delete: Allow members to delete servers
+            server:archive: Allow members to archive servers
+            server:transfer: Allow members to transfer servers to another Forge account
+            server:manage-meta: Allow members to change server settings such as name and IP address
+            server:manage-packages: Allow members to configure and remove server and site package authentication
+            server:manage-php: Allow members to install and change PHP installations
+            server:manage-logs: Allow members to clear server and site logs
+            server:manage-network: Allow members to change the server‘s firewall
+            server:manage-nginx-templates: Allow members to manage Nginx templates
+            server:manage-services: Allow members to start, stop and restart services
+            server:manage-password: Allow members to reset the sudo password
+            server:create-keys: Allow members to add SSH keys to servers
+            server:delete-keys: Allow members to remove SSH keys from servers
+            server:create-monitors: Allow members to create server monitors
+            server:delete-monitors: Allow members to delete server monitors
+            server:create-databases: Allow members to create databases and database users
+            server:delete-databases: Allow members to delete databases and database users
+            server:create-backups: Allow members to create database backup configurations
+            server:delete-backups: Allow members to delete database backup configurations
+            server:create-daemons: Allow members to create daemons
+            server:delete-daemons: Allow members to delete daemons
+            server:create-schedulers: Allow members to create scheduled jobs
+            server:delete-schedulers: Allow members to delete scheduled jobs
+            server:web-terminal: Allow members to start web terminal sessions
+            site:create: Allow members to create sites
+            site:delete: Allow members to delete sites
+            site:meta: Allow members to update site meta data such as domain name and aliases
+            site:manage-commands: Allow members to run arbitrary commands from the site‘s root directory
+            site:manage-deploys: Allow members to deploy the site and update the deployment script
+            site:manage-nginx: Allow members to manage the site‘s Nginx configuration file
+            site:manage-project: Allow members to install Git repositories, phpMyAdmin and WordPress applications
+            site:manage-environment: Allow members to update the site‘s environment file
+            site:manage-notifications: Allow members to configure deployment notifications
+            site:manage-queues: Allow members to configure queue workers
+            site:manage-redirects: Allow members to configure URL redirects
+            site:manage-security: Allow members to configure HTTP Basic Authentication
+            site:manage-ssl: Allow members to configure SSL and Let‘s Encrypt certificates
+            site:manage-integrations: Allow members to manage site integrations
+            site:manage-heartbeats: Allow members to manage heartbeats
+            credential:view: Allow members to view credentials
+            credential:manage: Allow members to manage credentials
+            team:view: Allow members to view teams
+            team:create: Allow members to create teams
+            team:delete: Allow members to delete teams and team members
+            recipe:view: Allow members to view recipes
+            recipe:manage: Allow members to manage recipes
+            billing:manage: Allow members to manage the organization's subscription
+            storage:manage: Allow members to manage the organization's storage providers.
+            integrations:manage: Allow members to manage the organization's integrations
+            user:view: Allow members to view user details
+            resources:view: Allow members to view resources
+            resources:create-databases: Allow members to create managed database & cache clusters
+            resources:delete-databases: Allow members to delete managed database & cache clusters
+            resources:manage-databases: Allow members to manage managed database & cache clusters settings
+            resources:create-buckets: Allow members to create object storage buckets
+            resources:delete-buckets: Allow members to delete object storage buckets
+            resources:manage-buckets: Allow members to manage object storage buckets and their access keys
+x-refined-from:
+- laravel-cloud-openapi.json
+- laravel-forge-openapi.json

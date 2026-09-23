@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Laravel Cloud Applications Database Restores API
+  title: Laravel Cloud Database Restores API
   version: 0.0.1
 servers:
 - url: https://cloud.laravel.com/api
@@ -55,20 +55,41 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    StoreDatabaseRestoreRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the new database created from the restore.
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        restore_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The point in time to restore the database to. Must not be used with database_snapshot_id.
+        database_snapshot_id:
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      title: StoreDatabaseRestoreRequest
     DatabaseResource:
       type: object
       properties:
@@ -347,41 +368,6 @@ components:
       - id
       - type
       title: DatabaseResource
-    StoreDatabaseRestoreRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the new database created from the restore.
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        restore_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The point in time to restore the database to. Must not be used with database_snapshot_id.
-        database_snapshot_id:
-          type:
-          - string
-          - 'null'
-      required:
-      - name
-      title: StoreDatabaseRestoreRequest
-    DatabaseResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databases
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
     DatabaseType:
       type: string
       enum:
@@ -443,6 +429,20 @@ components:
       - id
       - type
       title: DatabaseSchemaResource
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
     DatabaseSchemaResourceIdentifier:
       type: object
       properties:
@@ -456,19 +456,19 @@ components:
       - type
       - id
       title: DatabaseSchemaResourceIdentifier
-    EnvironmentResourceIdentifier:
+    DatabaseResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - environments
+          - databases
         id:
           type: string
       required:
       - type
       - id
-      title: EnvironmentResourceIdentifier
+      title: DatabaseResourceIdentifier
     DatabaseStatus:
       type: string
       enum:
@@ -490,6 +490,26 @@ components:
       - unknown
       title: DatabaseStatus
   responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
     AuthorizationException:
       description: Authorization error
       content:
@@ -514,26 +534,6 @@ components:
                 description: Error overview.
             required:
             - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

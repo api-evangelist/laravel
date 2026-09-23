@@ -1,11 +1,11 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Laravel Cloud Applications Background Processes API
+  title: Laravel Background Processes API
   version: 0.0.1
+  description: 'Operations tagged Background Processes across 2 of this provider''s published API definitions: laravel-cloud-openapi.json, laravel-forge-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://cloud.laravel.com/api
-security:
-- http: []
+- url: https://forge.laravel.com/api
 tags:
 - name: Background Processes
 paths:
@@ -127,6 +127,8 @@ paths:
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
           $ref: '#/components/responses/AuthorizationException'
+      security:
+      - http: []
     post:
       operationId: public.instances.background-processes.store
       description: Create a new background process for an instance.
@@ -168,6 +170,10 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
         '422':
           $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
+    servers:
+    - url: https://cloud.laravel.com/api
   /background-processes/{backgroundProcess}:
     get:
       operationId: public.background-processes.show
@@ -213,6 +219,8 @@ paths:
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
           $ref: '#/components/responses/AuthorizationException'
+      security:
+      - http: []
     patch:
       operationId: public.background-processes.update
       description: Update a background process.
@@ -255,6 +263,8 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
         '422':
           $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
     delete:
       operationId: public.background-processes.destroy
       description: Delete a background process.
@@ -279,13 +289,17 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
         '422':
           $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
+    servers:
+    - url: https://cloud.laravel.com/api
   /orgs/{organization}/servers/{server}/background-processes:
     get:
       operationId: organizations.servers.background-processes.index
       description: 'List all background processes on the server.
 
 
-        Processing mode: <small><code>sync</code></small>'
+        Processing mode: sync'
       summary: List background processes
       tags:
       - Background Processes
@@ -416,7 +430,7 @@ paths:
       description: 'Create a new background process from a template.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Create background process
       tags:
       - Background Processes
@@ -466,13 +480,12 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/background-processes/{backgroundProcess}:
     get:
       operationId: organizations.servers.background-processes.show
-      description: '
-
-
-        Processing mode: <small><code>sync</code></small>'
+      description: 'Processing mode: sync'
       summary: Get background process
       tags:
       - Background Processes
@@ -525,7 +538,7 @@ paths:
       description: 'Update the supervisor configuration for a background process.
 
 
-        Processing mode: <small><code>async</code></small>'
+        Processing mode: async'
       summary: Update background process
       tags:
       - Background Processes
@@ -574,10 +587,7 @@ paths:
       x-processingMode: async
     delete:
       operationId: organizations.servers.background-processes.destroy
-      description: '
-
-
-        Processing mode: <small><code>async</code></small>'
+      description: 'Processing mode: async'
       summary: Delete background process
       tags:
       - Background Processes
@@ -616,13 +626,12 @@ paths:
         metadata:
           noindex: true
       x-processingMode: async
+    servers:
+    - url: https://forge.laravel.com/api
   /orgs/{organization}/servers/{server}/background-processes/{backgroundProcess}/log:
     get:
       operationId: organizations.servers.background-processes.log.show
-      description: '
-
-
-        Processing mode: <small><code>sync</code></small>'
+      description: 'Processing mode: sync'
       summary: Get background process log
       tags:
       - Background Processes
@@ -670,106 +679,23 @@ paths:
         metadata:
           noindex: true
       x-processingMode: sync
+    servers:
+    - url: https://forge.laravel.com/api
 components:
   schemas:
-    UpdateBackgroundProcessRequest:
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/DaemonType'
-        processes:
-          type: integer
-          minimum: 1
-          maximum: 10
-        command:
           type: string
-          description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
-          examples:
-          - php artisan my:command
-        config:
-          type: object
-          properties:
-            connection:
-              type: string
-              description: The queue connection name. Only applicable for 'worker' type background processes.
-              examples:
-              - redis
-            queue:
-              type: string
-              description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
-              examples:
-              - default,emails
-            tries:
-              type: integer
-              description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
-              examples:
-              - 3
-            backoff:
-              type: integer
-              description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
-              examples:
-              - 30
-            sleep:
-              type: integer
-              description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
-              examples:
-              - 3
-            rest:
-              type: integer
-              description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
-              examples:
-              - 0
-            timeout:
-              type: integer
-              description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
-              examples:
-              - 60
-            force:
-              type: boolean
-              description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
-              examples:
-              - false
-      title: UpdateBackgroundProcessRequest
-    InstanceType:
-      type: string
-      enum:
-      - app
-      - service
-      - queue
-      - managed_queue
-      title: InstanceType
-    Link:
-      type: object
-      properties:
-        href:
+          enum:
+          - environments
+        id:
           type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
       required:
-      - href
-      title: Link
-    DaemonStrategyType:
-      type: string
-      enum:
-      - none
-      - growth_rate
-      - queue_size
-      title: DaemonStrategyType
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
     CreateBackgroundProcessRequest:
       type: object
       properties:
@@ -831,165 +757,22 @@ components:
       - type
       - processes
       title: CreateBackgroundProcessRequest
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    BackgroundProcessResource_2:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - backgroundProcesses
-        attributes:
-          type: object
-          properties:
-            command:
-              type: string
-              description: The command that the background process is running.
-              examples:
-              - php artisan queue:work database
-            user:
-              type: string
-              description: The user that the background process is running as.
-              examples:
-              - forge
-            directory:
-              type:
-              - string
-              - 'null'
-              description: The directory that the background process is running in.
-              examples:
-              - /home/forge/forge.laravel.com
-            processes:
-              type: integer
-              description: The number of processes that the background process is running.
-              examples:
-              - 3
-            status:
-              type: string
-              description: The status of the background process.
-              enum:
-              - installing
-              - installed
-              - removing
-              - restarting
-              - starting
-              - stopping
-              examples:
-              - running
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time the background process was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-          required:
-          - command
-          - user
-          - directory
-          - processes
-          - status
-          - created_at
-      required:
-      - id
-      - type
-      title: BackgroundProcessResource
-    BackgroundProcessResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - background_processes
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BackgroundProcessResourceIdentifier
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
     DaemonType:
       type: string
       enum:
       - worker
       - custom
       title: DaemonType
-    CreateBackgroundProcessRequest_2:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the background process.
-          examples:
-          - Custom command runner
-        site_id:
-          type: integer
-          description: The site to associate the background process with.
-          examples:
-          - 12345
-        command:
-          type: string
-          description: The command to run.
-          examples:
-          - php artisan custom:command
-        user:
-          type: string
-          description: The user to run the background process as.
-          enum:
-          - root
-          - forge
-          examples:
-          - forge
-        directory:
-          type:
-          - string
-          - 'null'
-          description: The directory to run the background process from.
-          examples:
-          - /home/forge/my-site.com/current/
-        processes:
-          type: integer
-          description: The number of processes to run.
-          examples:
-          - 1
-          minimum: 1
-        startsecs:
-          type: integer
-          description: The number of seconds to wait before starting the process.
-          examples:
-          - 10
-          minimum: 0
-        stopwaitsecs:
-          type: integer
-          description: The number of seconds to wait before stopping the process.
-          examples:
-          - 10
-          minimum: 0
-        stopsignal:
-          type:
-          - string
-          - 'null'
-          description: The signal to send to stop the process.
-          examples:
-          - SIGTERM
-      required:
-      - name
-      - command
-      - user
-      - processes
-      title: CreateBackgroundProcessRequest
     BackgroundProcessResource:
       type: object
       properties:
@@ -1046,24 +829,76 @@ components:
       - id
       - type
       title: BackgroundProcessResource
-    InstanceScalingType:
-      type: string
-      enum:
-      - none
-      - custom
-      - auto
-      title: InstanceScalingType
-    UpdateBackgroundProcessRequest_2:
+    BackgroundProcessResourceIdentifier:
       type: object
       properties:
-        name:
+        type:
           type: string
-          description: The name of the background process.
-        config:
+          enum:
+          - background_processes
+        id:
           type: string
-          description: The supervisor configuration of the background process.
       required:
-      - name
+      - type
+      - id
+      title: BackgroundProcessResourceIdentifier
+    UpdateBackgroundProcessRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/DaemonType'
+        processes:
+          type: integer
+          minimum: 1
+          maximum: 10
+        command:
+          type: string
+          description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
+          examples:
+          - php artisan my:command
+        config:
+          type: object
+          properties:
+            connection:
+              type: string
+              description: The queue connection name. Only applicable for 'worker' type background processes.
+              examples:
+              - redis
+            queue:
+              type: string
+              description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
+              examples:
+              - default,emails
+            tries:
+              type: integer
+              description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            backoff:
+              type: integer
+              description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
+              examples:
+              - 30
+            sleep:
+              type: integer
+              description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            rest:
+              type: integer
+              description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
+              examples:
+              - 0
+            timeout:
+              type: integer
+              description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
+              examples:
+              - 60
+            force:
+              type: boolean
+              description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
+              examples:
+              - false
       title: UpdateBackgroundProcessRequest
     InstanceResource:
       type: object
@@ -1235,6 +1070,180 @@ components:
       - mq-dedicated-4gb
       - mq-dedicated-8gb
       title: InstanceSize
+    DaemonStrategyType:
+      type: string
+      enum:
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
+    InstanceScalingType:
+      type: string
+      enum:
+      - none
+      - custom
+      - auto
+      title: InstanceScalingType
+    InstanceType:
+      type: string
+      enum:
+      - app
+      - service
+      - queue
+      - managed_queue
+      title: InstanceType
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    CreateBackgroundProcessRequest_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the background process.
+          examples:
+          - Custom command runner
+        site_id:
+          type: integer
+          description: The site to associate the background process with.
+          examples:
+          - 12345
+        command:
+          type: string
+          description: The command to run.
+          examples:
+          - php artisan custom:command
+        user:
+          type: string
+          description: The user to run the background process as.
+          enum:
+          - root
+          - forge
+          examples:
+          - forge
+        directory:
+          type:
+          - string
+          - 'null'
+          description: The directory to run the background process from.
+          examples:
+          - /home/forge/my-site.com/current/
+        processes:
+          type: integer
+          description: The number of processes to run.
+          examples:
+          - 1
+          minimum: 1
+        startsecs:
+          type: integer
+          description: The number of seconds to wait before starting the process.
+          examples:
+          - 10
+          minimum: 0
+        stopwaitsecs:
+          type: integer
+          description: The number of seconds to wait before stopping the process.
+          examples:
+          - 10
+          minimum: 0
+        stopsignal:
+          type:
+          - string
+          - 'null'
+          description: The signal to send to stop the process.
+          examples:
+          - SIGTERM
+      required:
+      - name
+      - command
+      - user
+      - processes
+      title: CreateBackgroundProcessRequest
+    BackgroundProcessResource_2:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backgroundProcesses
+        attributes:
+          type: object
+          properties:
+            command:
+              type: string
+              description: The command that the background process is running.
+              examples:
+              - php artisan queue:work database
+            user:
+              type: string
+              description: The user that the background process is running as.
+              examples:
+              - forge
+            directory:
+              type:
+              - string
+              - 'null'
+              description: The directory that the background process is running in.
+              examples:
+              - /home/forge/forge.laravel.com
+            processes:
+              type: integer
+              description: The number of processes that the background process is running.
+              examples:
+              - 3
+            status:
+              type: string
+              description: The status of the background process.
+              enum:
+              - installing
+              - installed
+              - removing
+              - restarting
+              - starting
+              - stopping
+              examples:
+              - running
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the background process was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+          required:
+          - command
+          - user
+          - directory
+          - processes
+          - status
+          - created_at
+      required:
+      - id
+      - type
+      title: BackgroundProcessResource
+    UpdateBackgroundProcessRequest_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the background process.
+        config:
+          type: string
+          description: The supervisor configuration of the background process.
+      required:
+      - name
+      title: UpdateBackgroundProcessRequest
     BackgroundProcessLogResource:
       type: object
       properties:
@@ -1265,54 +1274,32 @@ components:
       - type
       - links
       title: BackgroundProcessLogResource
-    EnvironmentResourceIdentifier:
+    Link:
       type: object
       properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
         type:
           type: string
-          enum:
-          - environments
-        id:
-          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
       required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
+      - href
+      title: Link
   responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -1333,9 +1320,105 @@ components:
             required:
             - message
             - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http
       description: The Bearer Token generated on the Cloud UI.
       scheme: bearer
       bearerFormat: bearer
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://forge.laravel.com/oauth/authorize
+          tokenUrl: https://forge.laravel.com/oauth/token
+          scopes:
+            organization:view: Allow members to view the organization
+            organization:manage: Allow members to manage the organization
+            organization:delete: Allow members to delete the organization
+            server:view: Allow members to view servers
+            server:create: Allow members to create servers
+            server:delete: Allow members to delete servers
+            server:archive: Allow members to archive servers
+            server:transfer: Allow members to transfer servers to another Forge account
+            server:manage-meta: Allow members to change server settings such as name and IP address
+            server:manage-packages: Allow members to configure and remove server and site package authentication
+            server:manage-php: Allow members to install and change PHP installations
+            server:manage-logs: Allow members to clear server and site logs
+            server:manage-network: Allow members to change the server‘s firewall
+            server:manage-nginx-templates: Allow members to manage Nginx templates
+            server:manage-services: Allow members to start, stop and restart services
+            server:manage-password: Allow members to reset the sudo password
+            server:create-keys: Allow members to add SSH keys to servers
+            server:delete-keys: Allow members to remove SSH keys from servers
+            server:create-monitors: Allow members to create server monitors
+            server:delete-monitors: Allow members to delete server monitors
+            server:create-databases: Allow members to create databases and database users
+            server:delete-databases: Allow members to delete databases and database users
+            server:create-backups: Allow members to create database backup configurations
+            server:delete-backups: Allow members to delete database backup configurations
+            server:create-daemons: Allow members to create daemons
+            server:delete-daemons: Allow members to delete daemons
+            server:create-schedulers: Allow members to create scheduled jobs
+            server:delete-schedulers: Allow members to delete scheduled jobs
+            server:web-terminal: Allow members to start web terminal sessions
+            site:create: Allow members to create sites
+            site:delete: Allow members to delete sites
+            site:meta: Allow members to update site meta data such as domain name and aliases
+            site:manage-commands: Allow members to run arbitrary commands from the site‘s root directory
+            site:manage-deploys: Allow members to deploy the site and update the deployment script
+            site:manage-nginx: Allow members to manage the site‘s Nginx configuration file
+            site:manage-project: Allow members to install Git repositories, phpMyAdmin and WordPress applications
+            site:manage-environment: Allow members to update the site‘s environment file
+            site:manage-notifications: Allow members to configure deployment notifications
+            site:manage-queues: Allow members to configure queue workers
+            site:manage-redirects: Allow members to configure URL redirects
+            site:manage-security: Allow members to configure HTTP Basic Authentication
+            site:manage-ssl: Allow members to configure SSL and Let‘s Encrypt certificates
+            site:manage-integrations: Allow members to manage site integrations
+            site:manage-heartbeats: Allow members to manage heartbeats
+            credential:view: Allow members to view credentials
+            credential:manage: Allow members to manage credentials
+            team:view: Allow members to view teams
+            team:create: Allow members to create teams
+            team:delete: Allow members to delete teams and team members
+            recipe:view: Allow members to view recipes
+            recipe:manage: Allow members to manage recipes
+            billing:manage: Allow members to manage the organization's subscription
+            storage:manage: Allow members to manage the organization's storage providers.
+            integrations:manage: Allow members to manage the organization's integrations
+            user:view: Allow members to view user details
+            resources:view: Allow members to view resources
+            resources:create-databases: Allow members to create managed database & cache clusters
+            resources:delete-databases: Allow members to delete managed database & cache clusters
+            resources:manage-databases: Allow members to manage managed database & cache clusters settings
+            resources:create-buckets: Allow members to create object storage buckets
+            resources:delete-buckets: Allow members to delete object storage buckets
+            resources:manage-buckets: Allow members to manage object storage buckets and their access keys
+x-refined-from:
+- laravel-cloud-openapi.json
+- laravel-forge-openapi.json
