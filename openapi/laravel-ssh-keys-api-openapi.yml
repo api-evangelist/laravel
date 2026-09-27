@@ -361,87 +361,6 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    ServerKeyResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - serverKeys
-        attributes:
-          type: object
-          properties:
-            public_key:
-              type: string
-            fingerprint:
-              type: string
-          required:
-          - public_key
-          - fingerprint
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ServerKeyResource
-    KeyResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - keys
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            user:
-              type: string
-            status:
-              type: string
-            created_by:
-              type:
-              - integer
-              - 'null'
-              description: The user that created the key.
-            created_at:
-              type: string
-              format: date-time
-              description: The date the key was created.
-            updated_at:
-              type: string
-              format: date-time
-              description: The date the key was last updated.
-          required:
-          - name
-          - user
-          - status
-          - created_by
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: KeyResource
     CreateSshKeyRequest:
       type: object
       properties:
@@ -492,7 +411,100 @@ components:
       required:
       - href
       title: Link
+    KeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - keys
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            user:
+              type: string
+            status:
+              type: string
+            created_by:
+              type:
+              - integer
+              - 'null'
+              description: The user that created the key.
+            created_at:
+              type: string
+              format: date-time
+              description: The date the key was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: The date the key was last updated.
+          required:
+          - name
+          - user
+          - status
+          - created_by
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: KeyResource
+    ServerKeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - serverKeys
+        attributes:
+          type: object
+          properties:
+            public_key:
+              type: string
+            fingerprint:
+              type: string
+          required:
+          - public_key
+          - fingerprint
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ServerKeyResource
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -513,18 +525,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

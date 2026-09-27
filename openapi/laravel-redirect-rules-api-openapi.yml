@@ -322,62 +322,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    CreateRedirectRequest:
-      type: object
-      properties:
-        from:
-          type: string
-          description: The source URL path for the redirect rule.
-          examples:
-          - /old-path
-          maxLength: 1000
-        to:
-          type: string
-          description: The destination URL path for the redirect rule.
-          examples:
-          - /new-path
-          maxLength: 1000
-        type:
-          description: The type of the redirect rule.
-          examples:
-          - permanent
-          $ref: '#/components/schemas/RedirectRuleType'
-      required:
-      - from
-      - to
-      - type
-      title: CreateRedirectRequest
-    RedirectRuleType:
-      type: string
-      enum:
-      - redirect
-      - permanent
-      title: RedirectRuleType
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
     RedirectRuleResource:
       type: object
       properties:
@@ -445,7 +389,75 @@ components:
       - type
       - links
       title: RedirectRuleResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    CreateRedirectRequest:
+      type: object
+      properties:
+        from:
+          type: string
+          description: The source URL path for the redirect rule.
+          examples:
+          - /old-path
+          maxLength: 1000
+        to:
+          type: string
+          description: The destination URL path for the redirect rule.
+          examples:
+          - /new-path
+          maxLength: 1000
+        type:
+          description: The type of the redirect rule.
+          examples:
+          - permanent
+          $ref: '#/components/schemas/RedirectRuleType'
+      required:
+      - from
+      - to
+      - type
+      title: CreateRedirectRequest
+    RedirectRuleType:
+      type: string
+      enum:
+      - redirect
+      - permanent
+      title: RedirectRuleType
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -466,18 +478,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

@@ -309,12 +309,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    RuleType:
-      type: string
-      enum:
-      - allow
-      - deny
-      title: RuleType
     Link:
       type: object
       properties:
@@ -358,6 +352,12 @@ components:
       - name
       - type
       title: CreateFirewallRuleRequest
+    RuleType:
+      type: string
+      enum:
+      - allow
+      - deny
+      title: RuleType
     RuleResource:
       type: object
       properties:
@@ -434,8 +434,8 @@ components:
       - links
       title: RuleResource
   responses:
-    ModelNotFoundException:
-      description: Not found
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:
@@ -466,8 +466,8 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
+    ModelNotFoundException:
+      description: Not found
       content:
         application/json:
           schema:

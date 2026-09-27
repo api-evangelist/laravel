@@ -622,38 +622,6 @@ paths:
     - url: https://forge.laravel.com/api
 components:
   schemas:
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
-    ExitCode:
-      type: integer
-      enum:
-      - 0
-      - 1
-      title: ExitCode
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
     DeploymentResource:
       type: object
       properties:
@@ -761,89 +729,6 @@ components:
       - type
       - links
       title: DeploymentResource
-    CommandStatus:
-      type: string
-      enum:
-      - pending
-      - command.created
-      - command.running
-      - command.failure
-      - command.success
-      title: CommandStatus
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    DeploymentStatus:
-      type: string
-      enum:
-      - pending
-      - build.pending
-      - build.created
-      - build.queued
-      - build.running
-      - build.succeeded
-      - build.failed
-      - cancelled
-      - failed
-      - deployment.pending
-      - deployment.created
-      - deployment.queued
-      - deployment.running
-      - deployment.succeeded
-      - deployment.failed
-      title: DeploymentStatus
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
     Link:
       type: object
       properties:
@@ -869,6 +754,19 @@ components:
       required:
       - href
       title: Link
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
     EnvironmentStatus:
       type: string
       enum:
@@ -877,113 +775,32 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
-    BranchResourceIdentifier:
+    FilesystemResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - filesystems
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
-    CommandResource:
+      title: FilesystemResourceIdentifier
+    CacheResourceIdentifier:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
-          - commands
-        attributes:
-          type: object
-          properties:
-            command:
-              type: string
-            output:
-              type:
-              - string
-              - 'null'
-            status:
-              $ref: '#/components/schemas/CommandStatus'
-            exit_code:
-              anyOf:
-              - $ref: '#/components/schemas/ExitCode'
-              - type: 'null'
-            failure_reason:
-              type:
-              - string
-              - 'null'
-            started_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            finished_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - command
-          - output
-          - status
-          - exit_code
-          - failure_reason
-          - started_at
-          - finished_at
-          - created_at
-        relationships:
-          type: object
-          properties:
-            environment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            deployment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DeploymentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            initiator:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/UserResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+          - caches
+        id:
+          type: string
       required:
-      - id
       - type
-      - links
-      title: CommandResource
+      - id
+      title: CacheResourceIdentifier
     DatabaseSchemaResourceIdentifier:
       type: object
       properties:
@@ -997,36 +814,15 @@ components:
       - type
       - id
       title: DatabaseSchemaResourceIdentifier
-    CreateCommandRequest:
-      type: object
-      properties:
-        command:
-          type: string
-          minLength: 1
-          maxLength: 150000
-      required:
-      - command
-      title: CreateCommandRequest
-    NodeVersion:
-      type: string
+    RateLimitPerMinute:
+      type: integer
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
     UserResource:
       type: object
       properties:
@@ -1059,19 +855,6 @@ components:
       - id
       - type
       title: UserResource
-    UserResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - users
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: UserResourceIdentifier
     DomainResourceIdentifier:
       type: object
       properties:
@@ -1085,6 +868,52 @@ components:
       - type
       - id
       title: DomainResourceIdentifier
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    BranchResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
     EnvironmentResource:
       type: object
       properties:
@@ -1370,26 +1199,26 @@ components:
       - type
       - links
       title: EnvironmentResource
-    CacheResourceIdentifier:
+    WebsocketApplicationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - caches
+          - websocketApplications
         id:
           type: string
       required:
       - type
       - id
-      title: CacheResourceIdentifier
-    RateLimitLevel:
+      title: WebsocketApplicationResourceIdentifier
+    NodeVersion:
       type: string
       enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
     InstanceResourceIdentifier:
       type: object
       properties:
@@ -1403,6 +1232,209 @@ components:
       - type
       - id
       title: InstanceResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DeploymentStatus:
+      type: string
+      enum:
+      - pending
+      - build.pending
+      - build.created
+      - build.queued
+      - build.running
+      - build.succeeded
+      - build.failed
+      - cancelled
+      - failed
+      - deployment.pending
+      - deployment.created
+      - deployment.queued
+      - deployment.running
+      - deployment.succeeded
+      - deployment.failed
+      title: DeploymentStatus
+    CommandStatus:
+      type: string
+      enum:
+      - pending
+      - command.created
+      - command.running
+      - command.failure
+      - command.success
+      title: CommandStatus
+    ExitCode:
+      type: integer
+      enum:
+      - 0
+      - 1
+      title: ExitCode
+    CreateCommandRequest:
+      type: object
+      properties:
+        command:
+          type: string
+          minLength: 1
+          maxLength: 150000
+      required:
+      - command
+      title: CreateCommandRequest
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    CommandResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - commands
+        attributes:
+          type: object
+          properties:
+            command:
+              type: string
+            output:
+              type:
+              - string
+              - 'null'
+            status:
+              $ref: '#/components/schemas/CommandStatus'
+            exit_code:
+              anyOf:
+              - $ref: '#/components/schemas/ExitCode'
+              - type: 'null'
+            failure_reason:
+              type:
+              - string
+              - 'null'
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            finished_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - command
+          - output
+          - status
+          - exit_code
+          - failure_reason
+          - started_at
+          - finished_at
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            deployment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DeploymentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            initiator:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/UserResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: CommandResource
+    CommandOutputResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - commandOutputs
+        attributes:
+          type: object
+          properties:
+            output:
+              type: string
+              description: The output of the command execution.
+              examples:
+              - Now using node v22.0.0 (npm v10.5.1)
+          required:
+          - output
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: CommandOutputResource
     UserResource_2:
       type: object
       properties:
@@ -1457,6 +1489,15 @@ components:
       required:
       - command
       title: RunSiteCommandRequest
+    CommandStatus_2:
+      type: string
+      enum:
+      - waiting
+      - running
+      - finished
+      - timeout
+      - failed
+      title: CommandStatus
     CommandResource_2:
       type: object
       properties:
@@ -1550,68 +1591,7 @@ components:
       - type
       - links
       title: CommandResource
-    CommandStatus_2:
-      type: string
-      enum:
-      - waiting
-      - running
-      - finished
-      - timeout
-      - failed
-      title: CommandStatus
-    CommandOutputResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - commandOutputs
-        attributes:
-          type: object
-          properties:
-            output:
-              type: string
-              description: The output of the command execution.
-              examples:
-              - Now using node v22.0.0 (npm v10.5.1)
-          required:
-          - output
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: CommandOutputResource
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1636,6 +1616,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

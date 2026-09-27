@@ -730,7 +730,45 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    CustomRoleResource:
+    CreateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: CreateRoleRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    PredefinedRoleResource:
       type: object
       properties:
         id:
@@ -738,7 +776,7 @@ components:
         type:
           type: string
           enum:
-          - customRoles
+          - predefinedRoles
         attributes:
           type: object
           properties:
@@ -781,7 +819,7 @@ components:
       - id
       - type
       - links
-      title: CustomRoleResource
+      title: PredefinedRoleResource
     UpdateRoleRequest:
       type: object
       properties:
@@ -861,20 +899,7 @@ components:
       - resources:delete-buckets
       - resources:manage-buckets
       title: Permission
-    CreateRoleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      title: CreateRoleRequest
-    PredefinedRoleResource:
+    CustomRoleResource:
       type: object
       properties:
         id:
@@ -882,7 +907,7 @@ components:
         type:
           type: string
           enum:
-          - predefinedRoles
+          - customRoles
         attributes:
           type: object
           properties:
@@ -925,45 +950,7 @@ components:
       - id
       - type
       - links
-      title: PredefinedRoleResource
-    PermissionResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - permissions
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: PermissionResourceIdentifier
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
+      title: CustomRoleResource
     PermissionResource:
       type: object
       properties:
@@ -992,7 +979,32 @@ components:
       - type
       - links
       title: PermissionResource
+    PermissionResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - permissions
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: PermissionResourceIdentifier
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1013,18 +1025,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

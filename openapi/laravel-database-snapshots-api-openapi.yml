@@ -242,6 +242,44 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
+    DatabaseResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databases
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseResourceIdentifier
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     DatabaseResource:
       type: object
       properties:
@@ -520,84 +558,22 @@ components:
       - id
       - type
       title: DatabaseResource
-    DatabaseSnapshotStatus:
-      type: string
-      enum:
-      - pending
-      - creating
-      - available
-      - failed
-      - deleting
-      title: DatabaseSnapshotStatus
-    DatabaseSnapshotType:
-      type: string
-      enum:
-      - manual
-      - scheduled
-      title: DatabaseSnapshotType
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    Link:
+    StoreDatabaseSnapshotRequest:
       type: object
       properties:
-        href:
+        name:
           type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
+          minLength: 1
+          maxLength: 100
+        description:
+          type:
+          - string
+          - 'null'
+          minLength: 3
+          maxLength: 40
       required:
-      - href
-      title: Link
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
+      - name
+      title: StoreDatabaseSnapshotRequest
     DatabaseSnapshotResource:
       type: object
       properties:
@@ -679,35 +655,45 @@ components:
       - type
       - links
       title: DatabaseSnapshotResource
-    DatabaseResourceIdentifier:
+    DatabaseSnapshotStatus:
+      type: string
+      enum:
+      - pending
+      - creating
+      - available
+      - failed
+      - deleting
+      title: DatabaseSnapshotStatus
+    DatabaseSchemaResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - databases
+          - databaseSchemas
         id:
           type: string
       required:
       - type
       - id
-      title: DatabaseResourceIdentifier
-    StoreDatabaseSnapshotRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-        description:
-          type:
-          - string
-          - 'null'
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: StoreDatabaseSnapshotRequest
+      title: DatabaseSchemaResourceIdentifier
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql_84
+      - laravel_mysql_8
+      - aws_rds_mysql_8
+      - aws_rds_postgres_18
+      - neon_serverless_postgres_18
+      - neon_serverless_postgres_17
+      - neon_serverless_postgres_16
+      title: DatabaseType
+    DatabaseSnapshotType:
+      type: string
+      enum:
+      - manual
+      - scheduled
+      title: DatabaseSnapshotType
     DatabaseStatus:
       type: string
       enum:
@@ -728,7 +714,33 @@ components:
       - deleted
       - unknown
       title: DatabaseStatus
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -749,18 +761,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

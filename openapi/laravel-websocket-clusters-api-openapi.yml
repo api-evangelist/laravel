@@ -411,6 +411,144 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
+    WebsocketServerMaxConnection:
+      type: integer
+      enum:
+      - 100
+      - 200
+      - 500
+      - 2000
+      - 5000
+      - 10000
+      title: WebsocketServerMaxConnection
+    WebsocketServerType:
+      type: string
+      enum:
+      - reverb
+      title: WebsocketServerType
+    StoreWebsocketServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        type:
+          $ref: '#/components/schemas/WebsocketServerType'
+        region:
+          $ref: '#/components/schemas/CloudRegion'
+        max_connections:
+          type: integer
+      required:
+      - name
+      - type
+      - region
+      - max_connections
+      title: StoreWebsocketServerRequest
+    WebsocketServerConnectionDistributionStrategy:
+      type: string
+      enum:
+      - evenly
+      - custom
+      title: WebsocketServerConnectionDistributionStrategy
+    WebsocketServerResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketServers
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketServerResourceIdentifier
+    MetricPeriod:
+      type: string
+      enum:
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    WebsocketApplicationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            app_id:
+              type: string
+            allowed_origins:
+              type: array
+              items: {}
+            ping_interval:
+              type: integer
+            activity_timeout:
+              type: integer
+            max_message_size:
+              type: integer
+            max_connections:
+              type: integer
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            ? ''
+            : anyOf:
+              - type: object
+                properties:
+                  key:
+                    type: string
+                  secret:
+                    type: string
+                required:
+                - key
+                - secret
+              - type: array
+                items:
+                  type: string
+                minItems: 0
+                maxItems: 0
+                additionalItems: false
+          required:
+          - name
+          - app_id
+          - allowed_origins
+          - ping_interval
+          - activity_timeout
+          - max_message_size
+          - max_connections
+          - created_at
+          - null
+        relationships:
+          type: object
+          properties:
+            server:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/WebsocketServerResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: WebsocketApplicationResource
     WebsocketApplicationResourceIdentifier:
       type: object
       properties:
@@ -424,26 +562,6 @@ components:
       - type
       - id
       title: WebsocketApplicationResourceIdentifier
-    WebsocketServerType:
-      type: string
-      enum:
-      - reverb
-      title: WebsocketServerType
-    WebsocketServerConnectionDistributionStrategy:
-      type: string
-      enum:
-      - evenly
-      - custom
-      title: WebsocketServerConnectionDistributionStrategy
-    MetricPeriod:
-      type: string
-      enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
     UpdateWebsocketServerRequest:
       type: object
       properties:
@@ -537,145 +655,7 @@ components:
       - ap-southeast-2
       - ap-northeast-1
       title: CloudRegion
-    WebsocketServerMaxConnection:
-      type: integer
-      enum:
-      - 100
-      - 200
-      - 500
-      - 2000
-      - 5000
-      - 10000
-      title: WebsocketServerMaxConnection
-    StoreWebsocketServerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        type:
-          $ref: '#/components/schemas/WebsocketServerType'
-        region:
-          $ref: '#/components/schemas/CloudRegion'
-        max_connections:
-          type: integer
-      required:
-      - name
-      - type
-      - region
-      - max_connections
-      title: StoreWebsocketServerRequest
-    WebsocketApplicationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            app_id:
-              type: string
-            allowed_origins:
-              type: array
-              items: {}
-            ping_interval:
-              type: integer
-            activity_timeout:
-              type: integer
-            max_message_size:
-              type: integer
-            max_connections:
-              type: integer
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            ? ''
-            : anyOf:
-              - type: object
-                properties:
-                  key:
-                    type: string
-                  secret:
-                    type: string
-                required:
-                - key
-                - secret
-              - type: array
-                items:
-                  type: string
-                minItems: 0
-                maxItems: 0
-                additionalItems: false
-          required:
-          - name
-          - app_id
-          - allowed_origins
-          - ping_interval
-          - activity_timeout
-          - max_message_size
-          - max_connections
-          - created_at
-          - null
-        relationships:
-          type: object
-          properties:
-            server:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/WebsocketServerResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: WebsocketApplicationResource
-    WebsocketServerResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketServers
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketServerResourceIdentifier
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     AuthorizationException:
       description: Authorization error
       content:
@@ -700,6 +680,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

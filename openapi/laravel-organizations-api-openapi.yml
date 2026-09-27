@@ -518,6 +518,31 @@ components:
       required:
       - name
       title: CreateServerProviderNetworkRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     VpcResource:
       type: object
       properties:
@@ -659,32 +684,19 @@ components:
       - type
       - links
       title: OrganizationResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -705,18 +717,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

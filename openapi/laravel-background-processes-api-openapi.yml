@@ -683,6 +683,115 @@ paths:
     - url: https://forge.laravel.com/api
 components:
   schemas:
+    UpdateBackgroundProcessRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/DaemonType'
+        processes:
+          type: integer
+          minimum: 1
+          maximum: 10
+        command:
+          type: string
+          description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
+          examples:
+          - php artisan my:command
+        config:
+          type: object
+          properties:
+            connection:
+              type: string
+              description: The queue connection name. Only applicable for 'worker' type background processes.
+              examples:
+              - redis
+            queue:
+              type: string
+              description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
+              examples:
+              - default,emails
+            tries:
+              type: integer
+              description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            backoff:
+              type: integer
+              description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
+              examples:
+              - 30
+            sleep:
+              type: integer
+              description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
+              examples:
+              - 3
+            rest:
+              type: integer
+              description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
+              examples:
+              - 0
+            timeout:
+              type: integer
+              description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
+              examples:
+              - 60
+            force:
+              type: boolean
+              description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
+              examples:
+              - false
+      title: UpdateBackgroundProcessRequest
+    DaemonStrategyType:
+      type: string
+      enum:
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    BackgroundProcessResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - background_processes
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BackgroundProcessResourceIdentifier
+    InstanceType:
+      type: string
+      enum:
+      - app
+      - service
+      - queue
+      - managed_queue
+      title: InstanceType
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
     EnvironmentResourceIdentifier:
       type: object
       properties:
@@ -696,6 +805,130 @@ components:
       - type
       - id
       title: EnvironmentResourceIdentifier
+    InstanceSize:
+      type: string
+      enum:
+      - flex-512mb
+      - flex-1gb
+      - flex-2gb
+      - flex.c-1vcpu-256mb
+      - flex.g-1vcpu-512mb
+      - flex.m-1vcpu-1gb
+      - flex.c-2vcpu-512mb
+      - flex.g-2vcpu-1gb
+      - flex.m-2vcpu-2gb
+      - flex.c-4vcpu-1gb
+      - flex.g-4vcpu-2gb
+      - flex.m-4vcpu-4gb
+      - flex.c-8vcpu-2gb
+      - flex.g-8vcpu-4gb
+      - flex.m-8vcpu-8gb
+      - pro.c-1vcpu-1gb
+      - pro.g-1vcpu-2gb
+      - pro.m-1vcpu-4gb
+      - pro.c-2vcpu-2gb
+      - pro.g-2vcpu-4gb
+      - pro.m-2vcpu-8gb
+      - pro.c-4vcpu-4gb
+      - pro.g-4vcpu-8gb
+      - pro.m-4vcpu-16gb
+      - pro.c-8vcpu-8gb
+      - pro.g-8vcpu-16gb
+      - pro.m-8vcpu-32gb
+      - dedicated.c-1vcpu-2gb
+      - dedicated.g-1vcpu-4gb
+      - dedicated.m-1vcpu-8gb
+      - dedicated.c-2vcpu-4gb
+      - dedicated.g-2vcpu-8gb
+      - dedicated.m-2vcpu-16gb
+      - dedicated.c-4vcpu-8gb
+      - dedicated.g-4vcpu-16gb
+      - dedicated.m-4vcpu-32gb
+      - dedicated.c-8vcpu-16gb
+      - dedicated.g-8vcpu-32gb
+      - dedicated.m-8vcpu-64gb
+      - mq-pro-256mb
+      - mq-pro-512mb
+      - mq-pro-1gb
+      - mq-pro-2gb
+      - mq-pro-4gb
+      - mq-pro-8gb
+      - mq-dedicated-256mb
+      - mq-dedicated-512mb
+      - mq-dedicated-1gb
+      - mq-dedicated-2gb
+      - mq-dedicated-4gb
+      - mq-dedicated-8gb
+      title: InstanceSize
+    BackgroundProcessResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - background_processes
+        attributes:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/DaemonType'
+            processes:
+              type: integer
+            command:
+              type: string
+            config:
+              type: array
+              items: {}
+            strategy_type:
+              $ref: '#/components/schemas/DaemonStrategyType'
+            strategy_threshold:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - type
+          - processes
+          - command
+          - config
+          - strategy_type
+          - strategy_threshold
+          - created_at
+        relationships:
+          type: object
+          properties:
+            instance:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: BackgroundProcessResource
+    InstanceScalingType:
+      type: string
+      enum:
+      - none
+      - custom
+      - auto
+      title: InstanceScalingType
+    DaemonType:
+      type: string
+      enum:
+      - worker
+      - custom
+      title: DaemonType
     CreateBackgroundProcessRequest:
       type: object
       properties:
@@ -757,149 +990,6 @@ components:
       - type
       - processes
       title: CreateBackgroundProcessRequest
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
-    DaemonType:
-      type: string
-      enum:
-      - worker
-      - custom
-      title: DaemonType
-    BackgroundProcessResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - background_processes
-        attributes:
-          type: object
-          properties:
-            type:
-              $ref: '#/components/schemas/DaemonType'
-            processes:
-              type: integer
-            command:
-              type: string
-            config:
-              type: array
-              items: {}
-            strategy_type:
-              $ref: '#/components/schemas/DaemonStrategyType'
-            strategy_threshold:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - type
-          - processes
-          - command
-          - config
-          - strategy_type
-          - strategy_threshold
-          - created_at
-        relationships:
-          type: object
-          properties:
-            instance:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: BackgroundProcessResource
-    BackgroundProcessResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - background_processes
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BackgroundProcessResourceIdentifier
-    UpdateBackgroundProcessRequest:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/DaemonType'
-        processes:
-          type: integer
-          minimum: 1
-          maximum: 10
-        command:
-          type: string
-          description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
-          examples:
-          - php artisan my:command
-        config:
-          type: object
-          properties:
-            connection:
-              type: string
-              description: The queue connection name. Only applicable for 'worker' type background processes.
-              examples:
-              - redis
-            queue:
-              type: string
-              description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
-              examples:
-              - default,emails
-            tries:
-              type: integer
-              description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
-              examples:
-              - 3
-            backoff:
-              type: integer
-              description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
-              examples:
-              - 30
-            sleep:
-              type: integer
-              description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
-              examples:
-              - 3
-            rest:
-              type: integer
-              description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
-              examples:
-              - 0
-            timeout:
-              type: integer
-              description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
-              examples:
-              - 60
-            force:
-              type: boolean
-              description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
-              examples:
-              - false
-      title: UpdateBackgroundProcessRequest
     InstanceResource:
       type: object
       properties:
@@ -1015,96 +1105,43 @@ components:
       - id
       - type
       title: InstanceResource
-    InstanceSize:
-      type: string
-      enum:
-      - flex-512mb
-      - flex-1gb
-      - flex-2gb
-      - flex.c-1vcpu-256mb
-      - flex.g-1vcpu-512mb
-      - flex.m-1vcpu-1gb
-      - flex.c-2vcpu-512mb
-      - flex.g-2vcpu-1gb
-      - flex.m-2vcpu-2gb
-      - flex.c-4vcpu-1gb
-      - flex.g-4vcpu-2gb
-      - flex.m-4vcpu-4gb
-      - flex.c-8vcpu-2gb
-      - flex.g-8vcpu-4gb
-      - flex.m-8vcpu-8gb
-      - pro.c-1vcpu-1gb
-      - pro.g-1vcpu-2gb
-      - pro.m-1vcpu-4gb
-      - pro.c-2vcpu-2gb
-      - pro.g-2vcpu-4gb
-      - pro.m-2vcpu-8gb
-      - pro.c-4vcpu-4gb
-      - pro.g-4vcpu-8gb
-      - pro.m-4vcpu-16gb
-      - pro.c-8vcpu-8gb
-      - pro.g-8vcpu-16gb
-      - pro.m-8vcpu-32gb
-      - dedicated.c-1vcpu-2gb
-      - dedicated.g-1vcpu-4gb
-      - dedicated.m-1vcpu-8gb
-      - dedicated.c-2vcpu-4gb
-      - dedicated.g-2vcpu-8gb
-      - dedicated.m-2vcpu-16gb
-      - dedicated.c-4vcpu-8gb
-      - dedicated.g-4vcpu-16gb
-      - dedicated.m-4vcpu-32gb
-      - dedicated.c-8vcpu-16gb
-      - dedicated.g-8vcpu-32gb
-      - dedicated.m-8vcpu-64gb
-      - mq-pro-256mb
-      - mq-pro-512mb
-      - mq-pro-1gb
-      - mq-pro-2gb
-      - mq-pro-4gb
-      - mq-pro-8gb
-      - mq-dedicated-256mb
-      - mq-dedicated-512mb
-      - mq-dedicated-1gb
-      - mq-dedicated-2gb
-      - mq-dedicated-4gb
-      - mq-dedicated-8gb
-      title: InstanceSize
-    DaemonStrategyType:
-      type: string
-      enum:
-      - none
-      - growth_rate
-      - queue_size
-      title: DaemonStrategyType
-    InstanceScalingType:
-      type: string
-      enum:
-      - none
-      - custom
-      - auto
-      title: InstanceScalingType
-    InstanceType:
-      type: string
-      enum:
-      - app
-      - service
-      - queue
-      - managed_queue
-      title: InstanceType
-    InstanceResourceIdentifier:
+    UpdateBackgroundProcessRequest_2:
       type: object
       properties:
+        name:
+          type: string
+          description: The name of the background process.
+        config:
+          type: string
+          description: The supervisor configuration of the background process.
+      required:
+      - name
+      title: UpdateBackgroundProcessRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
         type:
           type: string
-          enum:
-          - instances
-        id:
-          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
       required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
+      - href
+      title: Link
     CreateBackgroundProcessRequest_2:
       type: object
       properties:
@@ -1232,18 +1269,6 @@ components:
       - id
       - type
       title: BackgroundProcessResource
-    UpdateBackgroundProcessRequest_2:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the background process.
-        config:
-          type: string
-          description: The supervisor configuration of the background process.
-      required:
-      - name
-      title: UpdateBackgroundProcessRequest
     BackgroundProcessLogResource:
       type: object
       properties:
@@ -1274,52 +1299,7 @@ components:
       - type
       - links
       title: BackgroundProcessLogResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     AuthorizationException:
       description: Authorization error
       content:
@@ -1344,6 +1324,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

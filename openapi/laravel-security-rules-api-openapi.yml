@@ -379,6 +379,31 @@ paths:
       x-processingMode: async
 components:
   schemas:
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     UpdateSecurityRuleRequest:
       type: object
       properties:
@@ -420,6 +445,46 @@ components:
       - name
       - credentials
       title: UpdateSecurityRuleRequest
+    CreateSecurityRuleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the security rule.
+          examples:
+          - Restricted Access
+          maxLength: 255
+        path:
+          type: string
+          description: The path for the security rule.
+          examples:
+          - /admin
+          maxLength: 255
+        credentials:
+          type: array
+          description: The credentials for the security rule.
+          items:
+            type: object
+            properties:
+              username:
+                type: string
+                description: The usernames for the credential.
+                examples:
+                - admin
+                maxLength: 50
+              password:
+                type: string
+                description: The passwords for the credential.
+                examples:
+                - secret123
+            required:
+            - username
+            - password
+          minItems: 1
+      required:
+      - name
+      - credentials
+      title: CreateSecurityRuleRequest
     SecurityRuleResource:
       type: object
       properties:
@@ -481,72 +546,19 @@ components:
       - type
       - links
       title: SecurityRuleResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    CreateSecurityRuleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the security rule.
-          examples:
-          - Restricted Access
-          maxLength: 255
-        path:
-          type: string
-          description: The path for the security rule.
-          examples:
-          - /admin
-          maxLength: 255
-        credentials:
-          type: array
-          description: The credentials for the security rule.
-          items:
+  responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              username:
+              message:
                 type: string
-                description: The usernames for the credential.
-                examples:
-                - admin
-                maxLength: 50
-              password:
-                type: string
-                description: The passwords for the credential.
-                examples:
-                - secret123
+                description: Error overview.
             required:
-            - username
-            - password
-          minItems: 1
-      required:
-      - name
-      - credentials
-      title: CreateSecurityRuleRequest
-  responses:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -567,18 +579,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

@@ -311,88 +311,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    CreateMonitorRequest:
-      type: object
-      properties:
-        type:
-          description: The type of the monitor.
-          examples:
-          - cpu_load
-          $ref: '#/components/schemas/MonitorMetricType'
-        operator:
-          description: The operator used against the threshold.
-          examples:
-          - gte
-          $ref: '#/components/schemas/MonitorOperator'
-        threshold:
-          type: number
-          description: The threshold to alert on once breached.
-          examples:
-          - 90
-        minutes:
-          type: integer
-          description: The frequency in minutes to evaluate the monitor.
-          examples:
-          - 1
-          minimum: 1
-          maximum: 60
-        notify:
-          type: string
-          format: email
-          description: The email address to notify when the monitor is in an alert state.
-          examples:
-          - taylor@laravel.com
-      required:
-      - type
-      - operator
-      - threshold
-      - notify
-      title: CreateMonitorRequest
-    MonitorState:
-      type: string
-      enum:
-      - OK
-      - ALERT
-      - UNKNOWN
-      title: MonitorState
-    ResourceState:
-      type: string
-      enum:
-      - installing
-      - installed
-      - removing
-      - restarting
-      - stopping
-      - stopped
-      - starting
-      - syncing
-      - updating
-      - disabling
-      - disabled
-      - enabling
-      - running
-      - restoring
-      - deleting
-      - failed
-      - success
-      - failed-unknown
-      - failed-runner
-      - renewing
-      title: ResourceState
-    MonitorMetricType:
-      type: string
-      enum:
-      - cpu_load
-      - disk
-      - free_memory
-      - used_memory
-      title: MonitorMetricType
-    MonitorOperator:
-      type: string
-      enum:
-      - gte
-      - lte
-      title: MonitorOperator
     Link:
       type: object
       properties:
@@ -418,6 +336,30 @@ components:
       required:
       - href
       title: Link
+    ResourceState:
+      type: string
+      enum:
+      - installing
+      - installed
+      - removing
+      - restarting
+      - stopping
+      - stopped
+      - starting
+      - syncing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      - running
+      - restoring
+      - deleting
+      - failed
+      - success
+      - failed-unknown
+      - failed-runner
+      - renewing
+      title: ResourceState
     MonitorResource:
       type: object
       properties:
@@ -510,7 +452,77 @@ components:
       - type
       - links
       title: MonitorResource
+    CreateMonitorRequest:
+      type: object
+      properties:
+        type:
+          description: The type of the monitor.
+          examples:
+          - cpu_load
+          $ref: '#/components/schemas/MonitorMetricType'
+        operator:
+          description: The operator used against the threshold.
+          examples:
+          - gte
+          $ref: '#/components/schemas/MonitorOperator'
+        threshold:
+          type: number
+          description: The threshold to alert on once breached.
+          examples:
+          - 90
+        minutes:
+          type: integer
+          description: The frequency in minutes to evaluate the monitor.
+          examples:
+          - 1
+          minimum: 1
+          maximum: 60
+        notify:
+          type: string
+          format: email
+          description: The email address to notify when the monitor is in an alert state.
+          examples:
+          - taylor@laravel.com
+      required:
+      - type
+      - operator
+      - threshold
+      - notify
+      title: CreateMonitorRequest
+    MonitorState:
+      type: string
+      enum:
+      - OK
+      - ALERT
+      - UNKNOWN
+      title: MonitorState
+    MonitorOperator:
+      type: string
+      enum:
+      - gte
+      - lte
+      title: MonitorOperator
+    MonitorMetricType:
+      type: string
+      enum:
+      - cpu_load
+      - disk
+      - free_memory
+      - used_memory
+      title: MonitorMetricType
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -531,18 +543,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

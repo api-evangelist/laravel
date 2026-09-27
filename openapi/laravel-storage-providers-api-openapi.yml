@@ -338,16 +338,66 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    BackupProvider:
-      type: string
-      enum:
-      - s3
-      - spaces
-      - hetzner
-      - ovh
-      - scaleway
-      - custom
-      title: BackupProvider
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    CreateStorageConfigurationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        provider:
+          $ref: '#/components/schemas/BackupProvider'
+        region:
+          type: string
+        bucket:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        endpoint:
+          type: string
+          format: uri
+        access_key:
+          type:
+          - string
+          - 'null'
+        secret_key:
+          type:
+          - string
+          - 'null'
+        assume_role:
+          type: boolean
+      required:
+      - name
+      - provider
+      title: CreateStorageConfigurationRequest
     StorageProviderResource:
       type: object
       properties:
@@ -429,6 +479,16 @@ components:
       - type
       - links
       title: StorageProviderResource
+    BackupProvider:
+      type: string
+      enum:
+      - s3
+      - spaces
+      - hetzner
+      - ovh
+      - scaleway
+      - custom
+      title: BackupProvider
     UpdateStorageConfigurationRequest:
       type: object
       properties:
@@ -464,67 +524,19 @@ components:
       - name
       - provider
       title: UpdateStorageConfigurationRequest
-    CreateStorageConfigurationRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        provider:
-          $ref: '#/components/schemas/BackupProvider'
-        region:
-          type: string
-        bucket:
-          type:
-          - string
-          - 'null'
-        directory:
-          type:
-          - string
-          - 'null'
-        endpoint:
-          type: string
-          format: uri
-        access_key:
-          type:
-          - string
-          - 'null'
-        secret_key:
-          type:
-          - string
-          - 'null'
-        assume_role:
-          type: boolean
-      required:
-      - name
-      - provider
-      title: CreateStorageConfigurationRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -545,18 +557,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

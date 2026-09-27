@@ -677,197 +677,39 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    BackupConfigurationResource:
+    Link:
       type: object
       properties:
-        id:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
           type: string
         type:
           type: string
-          enum:
-          - backupConfigurations
-        attributes:
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
           type: object
-          properties:
-            name:
-              type: string
-            storage_provider_id:
-              type:
-              - integer
-              - 'null'
-            provider:
-              type: string
-            bucket:
-              type:
-              - string
-              - 'null'
-            directory:
-              type: string
-            schedule:
-              type: string
-            displayable_schedule:
-              type: string
-            next_run_time:
-              type: string
-            status:
-              type: string
-            day_of_week:
-              type:
-              - integer
-              - 'null'
-            time:
-              type:
-              - string
-              - 'null'
-            cron_schedule:
-              type:
-              - string
-              - 'null'
-            database_ids:
-              type: array
-              items: {}
-            include_new_databases:
-              type: boolean
-            retention:
-              type: integer
-            notify_email:
-              type:
-              - string
-              - 'null'
-          required:
-          - name
-          - storage_provider_id
-          - provider
-          - bucket
-          - directory
-          - schedule
-          - displayable_schedule
-          - next_run_time
-          - status
-          - day_of_week
-          - time
-          - cron_schedule
-          - database_ids
-          - include_new_databases
-          - retention
-          - notify_email
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
-      - id
-      - type
-      - links
-      title: BackupConfigurationResource
-    UpdateBackupConfigurationRequest:
-      type: object
-      properties:
-        storage_provider_id:
-          type: integer
-        name:
-          type:
-          - string
-          - 'null'
-          maxLength: 255
-        bucket:
-          type:
-          - string
-          - 'null'
-        directory:
-          type:
-          - string
-          - 'null'
-        frequency:
-          $ref: '#/components/schemas/BackupFrequency'
-        day:
-          type: string
-          enum:
-          - '0'
-          - '1'
-          - '2'
-          - '3'
-          - '4'
-          - '5'
-          - '6'
-        time:
-          type: string
-          enum:
-          - 00:00
-          - 00:30
-          - 01:00
-          - 01:30
-          - 02:00
-          - 02:30
-          - 03:00
-          - 03:30
-          - 04:00
-          - 04:30
-          - 05:00
-          - 05:30
-          - 06:00
-          - 06:30
-          - 07:00
-          - 07:30
-          - 08:00
-          - 08:30
-          - 09:00
-          - 09:30
-          - '10:00'
-          - '10:30'
-          - '11:00'
-          - '11:30'
-          - '12:00'
-          - '12:30'
-          - '13:00'
-          - '13:30'
-          - '14:00'
-          - '14:30'
-          - '15:00'
-          - '15:30'
-          - '16:00'
-          - '16:30'
-          - '17:00'
-          - '17:30'
-          - '18:00'
-          - '18:30'
-          - '19:00'
-          - '19:30'
-          - '20:00'
-          - '20:30'
-          - '21:00'
-          - '21:30'
-          - '22:00'
-          - '22:30'
-          - '23:00'
-          - '23:30'
-        cron:
-          type: string
-        include_new_databases:
-          type: boolean
-        retention:
-          type: integer
-          minimum: 1
-          maximum: 8760
-        notification_email:
-          type:
-          - string
-          - 'null'
-          format: email
-        database_ids:
-          type: array
-          items:
-            type: integer
-          minItems: 1
-      required:
-      - storage_provider_id
-      - frequency
-      - retention
-      - database_ids
-      title: UpdateBackupConfigurationRequest
+      - href
+      title: Link
+    BackupFrequency:
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - custom
+      title: BackupFrequency
     BackupResource:
       type: object
       properties:
@@ -1012,6 +854,92 @@ components:
       - retention
       - database_ids
       title: CreateBackupConfigurationRequest
+    BackupConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backupConfigurations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            storage_provider_id:
+              type:
+              - integer
+              - 'null'
+            provider:
+              type: string
+            bucket:
+              type:
+              - string
+              - 'null'
+            directory:
+              type: string
+            schedule:
+              type: string
+            displayable_schedule:
+              type: string
+            next_run_time:
+              type: string
+            status:
+              type: string
+            day_of_week:
+              type:
+              - integer
+              - 'null'
+            time:
+              type:
+              - string
+              - 'null'
+            cron_schedule:
+              type:
+              - string
+              - 'null'
+            database_ids:
+              type: array
+              items: {}
+            include_new_databases:
+              type: boolean
+            retention:
+              type: integer
+            notify_email:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - storage_provider_id
+          - provider
+          - bucket
+          - directory
+          - schedule
+          - displayable_schedule
+          - next_run_time
+          - status
+          - day_of_week
+          - time
+          - cron_schedule
+          - database_ids
+          - include_new_databases
+          - retention
+          - notify_email
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackupConfigurationResource
     RestoreBackupRequest:
       type: object
       properties:
@@ -1020,40 +948,124 @@ components:
       required:
       - database_id
       title: RestoreBackupRequest
-    Link:
+    UpdateBackupConfigurationRequest:
       type: object
       properties:
-        href:
+        storage_provider_id:
+          type: integer
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 255
+        bucket:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        frequency:
+          $ref: '#/components/schemas/BackupFrequency'
+        day:
           type: string
-          format: uri
-        rel:
+          enum:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+          - '6'
+        time:
           type: string
-        describedby:
+          enum:
+          - 00:00
+          - 00:30
+          - 01:00
+          - 01:30
+          - 02:00
+          - 02:30
+          - 03:00
+          - 03:30
+          - 04:00
+          - 04:30
+          - 05:00
+          - 05:30
+          - 06:00
+          - 06:30
+          - 07:00
+          - 07:30
+          - 08:00
+          - 08:30
+          - 09:00
+          - 09:30
+          - '10:00'
+          - '10:30'
+          - '11:00'
+          - '11:30'
+          - '12:00'
+          - '12:30'
+          - '13:00'
+          - '13:30'
+          - '14:00'
+          - '14:30'
+          - '15:00'
+          - '15:30'
+          - '16:00'
+          - '16:30'
+          - '17:00'
+          - '17:30'
+          - '18:00'
+          - '18:30'
+          - '19:00'
+          - '19:30'
+          - '20:00'
+          - '20:30'
+          - '21:00'
+          - '21:30'
+          - '22:00'
+          - '22:30'
+          - '23:00'
+          - '23:30'
+        cron:
           type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
+        include_new_databases:
+          type: boolean
+        retention:
+          type: integer
+          minimum: 1
+          maximum: 8760
+        notification_email:
+          type:
+          - string
+          - 'null'
+          format: email
+        database_ids:
+          type: array
+          items:
+            type: integer
+          minItems: 1
       required:
-      - href
-      title: Link
-    BackupFrequency:
-      type: string
-      enum:
-      - hourly
-      - daily
-      - weekly
-      - custom
-      title: BackupFrequency
+      - storage_provider_id
+      - frequency
+      - retention
+      - database_ids
+      title: UpdateBackupConfigurationRequest
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1074,18 +1086,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

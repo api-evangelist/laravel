@@ -883,123 +883,6 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    RoleResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - predefinedRoles
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: RoleResourceIdentifier
-    OrganizationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - organizations
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: OrganizationResourceIdentifier
-    TeamResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - teams
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: TeamResourceIdentifier
-    CreateTeamRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        users:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              role:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                required:
-                - id
-            required:
-            - id
-        invites:
-          type: array
-          items:
-            type: object
-            properties:
-              email:
-                type: string
-                format: email
-              role:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                required:
-                - id
-            required:
-            - email
-      required:
-      - name
-      title: CreateTeamRequest
-    UpdateTeamMemberRequest:
-      type: object
-      properties:
-        role_id:
-          type: integer
-          description: The ID of the role to assign to the team member.
-          examples:
-          - 3
-      required:
-      - role_id
-      title: UpdateTeamMemberRequest
-    UpdateTeamRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        users:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              role:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                required:
-                - id
-            required:
-            - id
-      required:
-      - name
-      title: UpdateTeamRequest
     OrganizationResource:
       type: object
       properties:
@@ -1043,84 +926,19 @@ components:
       - type
       - links
       title: OrganizationResource
-    CreateTeamInviteRequest:
-      type: object
-      properties:
-        role_id:
-          type: integer
-        email:
-          type: string
-          format: email
-      required:
-      - role_id
-      - email
-      title: CreateTeamInviteRequest
-    PermissionResourceIdentifier:
+    TeamResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - permissions
+          - teams
         id:
           type: string
       required:
       - type
       - id
-      title: PermissionResourceIdentifier
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    PermissionResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - permissions
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PermissionResource
+      title: TeamResourceIdentifier
     RoleResource:
       type: object
       properties:
@@ -1165,6 +983,124 @@ components:
       - id
       - type
       title: RoleResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    UpdateTeamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              role:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                - id
+            required:
+            - id
+      required:
+      - name
+      title: UpdateTeamRequest
+    MembershipResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - memberships
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            role:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/RoleResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: MembershipResource
+    RoleResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - predefinedRoles
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: RoleResourceIdentifier
     TeamInvitationResource:
       type: object
       properties:
@@ -1235,7 +1171,74 @@ components:
       - type
       - links
       title: TeamInvitationResource
-    MembershipResource:
+    CreateTeamRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              role:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                - id
+            required:
+            - id
+        invites:
+          type: array
+          items:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              role:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                required:
+                - id
+            required:
+            - email
+      required:
+      - name
+      title: CreateTeamRequest
+    OrganizationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - organizations
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: OrganizationResourceIdentifier
+    CreateTeamInviteRequest:
+      type: object
+      properties:
+        role_id:
+          type: integer
+        email:
+          type: string
+          format: email
+      required:
+      - role_id
+      - email
+      title: CreateTeamInviteRequest
+    PermissionResource:
       type: object
       properties:
         id:
@@ -1243,41 +1246,14 @@ components:
         type:
           type: string
           enum:
-          - memberships
+          - permissions
         attributes:
           type: object
           properties:
             name:
               type: string
-            email:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            updated_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
           required:
           - name
-          - email
-          - created_at
-          - updated_at
-        relationships:
-          type: object
-          properties:
-            role:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/RoleResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
         links:
           type: object
           properties:
@@ -1289,7 +1265,31 @@ components:
       - id
       - type
       - links
-      title: MembershipResource
+      title: PermissionResource
+    UpdateTeamMemberRequest:
+      type: object
+      properties:
+        role_id:
+          type: integer
+          description: The ID of the role to assign to the team member.
+          examples:
+          - 3
+      required:
+      - role_id
+      title: UpdateTeamMemberRequest
+    PermissionResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - permissions
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: PermissionResourceIdentifier
     TeamResource:
       type: object
       properties:
@@ -1331,6 +1331,18 @@ components:
       - links
       title: TeamResource
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1351,18 +1363,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:

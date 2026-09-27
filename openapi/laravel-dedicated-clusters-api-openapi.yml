@@ -132,6 +132,33 @@ paths:
                 - message
 components:
   schemas:
+    ClusterStatus:
+      type: string
+      enum:
+      - draft
+      - active
+      - maintenance
+      - inactive
+      title: ClusterStatus
+    ClusterType:
+      type: string
+      description: 'When implementing a new cluster type, make sure to: - Adjust the different is{...} methods - Adjust the needsItsCNAMERecordsSynced method - Check if Zone@toSyncClusterVanityDomainTo() needs to be adjusted
+
+        '
+      enum:
+      - applications
+      - mysql-databases
+      - rds-databases
+      - redis-caches
+      - elasticache-clusters
+      - reverb-websocket-servers
+      title: ClusterType
+    TenancyType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      title: TenancyType
     ClusterResource:
       type: object
       properties:
@@ -170,33 +197,6 @@ components:
       - id
       - type
       title: ClusterResource
-    ClusterType:
-      type: string
-      description: 'When implementing a new cluster type, make sure to: - Adjust the different is{...} methods - Adjust the needsItsCNAMERecordsSynced method - Check if Zone@toSyncClusterVanityDomainTo() needs to be adjusted
-
-        '
-      enum:
-      - applications
-      - mysql-databases
-      - rds-databases
-      - redis-caches
-      - elasticache-clusters
-      - reverb-websocket-servers
-      title: ClusterType
-    TenancyType:
-      type: string
-      enum:
-      - shared
-      - dedicated
-      title: TenancyType
-    ClusterStatus:
-      type: string
-      enum:
-      - draft
-      - active
-      - maintenance
-      - inactive
-      title: ClusterStatus
     CloudRegion:
       type: string
       enum:

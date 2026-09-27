@@ -1017,12 +1017,42 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    MaintenanceModeStatus:
-      type: string
-      enum:
-      - disabling
-      - enabling
-      title: MaintenanceModeStatus
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    EnableOctaneRequest:
+      type: object
+      properties:
+        port:
+          type: string
+        server:
+          $ref: '#/components/schemas/OctaneServer'
+      required:
+      - port
+      - server
+      title: EnableOctaneRequest
     InertiaIntegrationResource:
       type: object
       properties:
@@ -1066,6 +1096,173 @@ components:
       - type
       - links
       title: InertiaIntegrationResource
+    LaravelMaintenanceIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - laravelMaintenanceIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              description: Whether the maintenance mode integration is enabled.
+            status:
+              anyOf:
+              - description: The status of the maintenance mode integration.
+                examples:
+                - enabling
+                $ref: '#/components/schemas/MaintenanceModeStatus'
+              - type: 'null'
+            laravel_installed:
+              type: boolean
+              description: Whether Laravel is installed on the site.
+          required:
+          - enabled
+          - status
+          - laravel_installed
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: LaravelMaintenanceIntegrationResource
+    ReverbIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - reverbIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            reverb_installed:
+              type: boolean
+            host:
+              type:
+              - string
+              - 'null'
+            port:
+              type:
+              - integer
+              - 'null'
+            connections:
+              type:
+              - integer
+              - 'null'
+          required:
+          - enabled
+          - reverb_installed
+          - host
+          - port
+          - connections
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ReverbIntegrationResource
+    PulseIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - pulseIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            pulse_installed:
+              type: boolean
+          required:
+          - enabled
+          - pulse_installed
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PulseIntegrationResource
+    EnableMaintenanceModeRequest:
+      type: object
+      properties:
+        secret:
+          type:
+          - string
+          - 'null'
+          description: The secret phrase that allows access to the application while in maintenance mode.
+          examples:
+          - my-secret-phrase
+        status:
+          description: The HTTP status code that should be returned while in maintenance mode.
+          examples:
+          - 503
+          $ref: '#/components/schemas/MaintenanceModeStatusCode'
+        redirect:
+          type:
+          - string
+          - 'null'
+          description: The redirect URL to which all requests should be sent while in maintenance mode.
+          examples:
+          - https://example.com/maintenance
+      required:
+      - status
+      title: EnableMaintenanceModeRequest
     JobResource:
       type: object
       properties:
@@ -1126,17 +1323,22 @@ components:
       - type
       - links
       title: JobResource
-    EnableOctaneRequest:
+    EnableReverbRequest:
       type: object
       properties:
+        host:
+          type: string
         port:
           type: string
-        server:
-          $ref: '#/components/schemas/OctaneServer'
+        connections:
+          type: integer
+          minimum: 1
+          maximum: 50000
       required:
+      - host
       - port
-      - server
-      title: EnableOctaneRequest
+      - connections
+      title: EnableReverbRequest
     OctaneServer:
       type: string
       enum:
@@ -1144,7 +1346,7 @@ components:
       - roadrunner
       - frankenphp
       title: OctaneServer
-    LaravelMaintenanceIntegrationResource:
+    LaravelSchedulerIntegrationResource:
       type: object
       properties:
         id:
@@ -1152,27 +1354,29 @@ components:
         type:
           type: string
           enum:
-          - laravelMaintenanceIntegrations
+          - laravelSchedulerIntegrations
         attributes:
           type: object
           properties:
             enabled:
               type: boolean
-              description: Whether the maintenance mode integration is enabled.
-            status:
-              anyOf:
-              - description: The status of the maintenance mode integration.
-                examples:
-                - enabling
-                $ref: '#/components/schemas/MaintenanceModeStatus'
-              - type: 'null'
             laravel_installed:
-              type: boolean
-              description: Whether Laravel is installed on the site.
+              type: string
           required:
           - enabled
-          - status
           - laravel_installed
+        relationships:
+          type: object
+          properties:
+            job:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/JobResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
         links:
           type: object
           properties:
@@ -1184,32 +1388,7 @@ components:
       - id
       - type
       - links
-      title: LaravelMaintenanceIntegrationResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
+      title: LaravelSchedulerIntegrationResource
     BackgroundProcessResource:
       type: object
       properties:
@@ -1273,189 +1452,6 @@ components:
       - id
       - type
       title: BackgroundProcessResource
-    BackgroundProcessResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - backgroundProcesses
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BackgroundProcessResourceIdentifier
-    LaravelSchedulerIntegrationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - laravelSchedulerIntegrations
-        attributes:
-          type: object
-          properties:
-            enabled:
-              type: boolean
-            laravel_installed:
-              type: string
-          required:
-          - enabled
-          - laravel_installed
-        relationships:
-          type: object
-          properties:
-            job:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/JobResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: LaravelSchedulerIntegrationResource
-    EnableMaintenanceModeRequest:
-      type: object
-      properties:
-        secret:
-          type:
-          - string
-          - 'null'
-          description: The secret phrase that allows access to the application while in maintenance mode.
-          examples:
-          - my-secret-phrase
-        status:
-          description: The HTTP status code that should be returned while in maintenance mode.
-          examples:
-          - 503
-          $ref: '#/components/schemas/MaintenanceModeStatusCode'
-        redirect:
-          type:
-          - string
-          - 'null'
-          description: The redirect URL to which all requests should be sent while in maintenance mode.
-          examples:
-          - https://example.com/maintenance
-      required:
-      - status
-      title: EnableMaintenanceModeRequest
-    HorizonIntegrationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - horizonIntegrations
-        attributes:
-          type: object
-          properties:
-            enabled:
-              type: string
-            horizon_installed:
-              type: boolean
-          required:
-          - enabled
-          - horizon_installed
-        relationships:
-          type: object
-          properties:
-            backgroundProcess:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: HorizonIntegrationResource
-    PulseIntegrationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - pulseIntegrations
-        attributes:
-          type: object
-          properties:
-            enabled:
-              type: string
-            pulse_installed:
-              type: boolean
-          required:
-          - enabled
-          - pulse_installed
-        relationships:
-          type: object
-          properties:
-            backgroundProcess:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PulseIntegrationResource
-    EnableReverbRequest:
-      type: object
-      properties:
-        host:
-          type: string
-        port:
-          type: string
-        connections:
-          type: integer
-          minimum: 1
-          maximum: 50000
-      required:
-      - host
-      - port
-      - connections
-      title: EnableReverbRequest
     MaintenanceModeStatusCode:
       type: integer
       enum:
@@ -1464,64 +1460,6 @@ components:
       - 410
       - 503
       title: MaintenanceModeStatusCode
-    ReverbIntegrationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - reverbIntegrations
-        attributes:
-          type: object
-          properties:
-            enabled:
-              type: string
-            reverb_installed:
-              type: boolean
-            host:
-              type:
-              - string
-              - 'null'
-            port:
-              type:
-              - integer
-              - 'null'
-            connections:
-              type:
-              - integer
-              - 'null'
-          required:
-          - enabled
-          - reverb_installed
-          - host
-          - port
-          - connections
-        relationships:
-          type: object
-          properties:
-            backgroundProcess:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ReverbIntegrationResource
     JobResourceIdentifier:
       type: object
       properties:
@@ -1535,6 +1473,25 @@ components:
       - type
       - id
       title: JobResourceIdentifier
+    MaintenanceModeStatus:
+      type: string
+      enum:
+      - disabling
+      - enabling
+      title: MaintenanceModeStatus
+    BackgroundProcessResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - backgroundProcesses
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BackgroundProcessResourceIdentifier
     OctaneIntegrationResource:
       type: object
       properties:
@@ -1583,27 +1540,50 @@ components:
       - type
       - links
       title: OctaneIntegrationResource
+    HorizonIntegrationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - horizonIntegrations
+        attributes:
+          type: object
+          properties:
+            enabled:
+              type: string
+            horizon_installed:
+              type: boolean
+          required:
+          - enabled
+          - horizon_installed
+        relationships:
+          type: object
+          properties:
+            backgroundProcess:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: HorizonIntegrationResource
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1628,6 +1608,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

@@ -404,29 +404,6 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    UpdateApplicationRequest:
-      type: object
-      properties:
-        source_control_provider_type:
-          description: The source control provider. This parameter will be required starting March 9, 2026.
-          $ref: '#/components/schemas/SourceControlProviderType'
-        name:
-          type: string
-          pattern: ^[\p{Latin}0-9 _.'-]+$
-          minLength: 3
-          maxLength: 40
-        slug:
-          type: string
-          minLength: 3
-        default_environment_id:
-          type: string
-        repository:
-          type: string
-        slack_channel:
-          type:
-          - string
-          - 'null'
-      title: UpdateApplicationRequest
     ApplicationResource:
       type: object
       properties:
@@ -528,84 +505,6 @@ components:
       - id
       - type
       title: ApplicationResource
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
-    CreateApplicationRequest:
-      type: object
-      properties:
-        source_control_provider_type:
-          description: The source control provider. This parameter will be required starting March 9, 2026.
-          $ref: '#/components/schemas/SourceControlProviderType'
-        repository:
-          type: string
-        name:
-          type: string
-          pattern: ^[\p{Latin}0-9 _.,'\-&()!#+:@]+$
-          minLength: 3
-          maxLength: 40
-        region:
-          $ref: '#/components/schemas/CloudRegion'
-        cluster_id:
-          type:
-          - string
-          - 'null'
-          description: The identifier of a dedicated cluster to deploy to. Only fill it if your organization has a dedicated cluster and you want to use it for this application.
-      required:
-      - repository
-      - name
-      - region
-      title: CreateApplicationRequest
-    SourceControlProviderType:
-      type: string
-      enum:
-      - github
-      - gitlab
-      - bitbucket
-      title: SourceControlProviderType
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    RepositoryResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - repositories
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-      required:
-      - id
-      - type
-      title: RepositoryResource
     DeploymentResource:
       type: object
       properties:
@@ -713,116 +612,6 @@ components:
       - type
       - links
       title: DeploymentResource
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    OrganizationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - organizations
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: OrganizationResourceIdentifier
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    OrganizationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - organizations
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            slug:
-              type: string
-          required:
-          - name
-          - slug
-      required:
-      - id
-      - type
-      title: OrganizationResource
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    DeploymentStatus:
-      type: string
-      enum:
-      - pending
-      - build.pending
-      - build.created
-      - build.queued
-      - build.running
-      - build.succeeded
-      - build.failed
-      - cancelled
-      - failed
-      - deployment.pending
-      - deployment.created
-      - deployment.queued
-      - deployment.running
-      - deployment.succeeded
-      - deployment.failed
-      title: DeploymentStatus
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
     Link:
       type: object
       properties:
@@ -848,6 +637,19 @@ components:
       required:
       - href
       title: Link
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
     EnvironmentStatus:
       type: string
       enum:
@@ -856,19 +658,32 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
-    BranchResourceIdentifier:
+    FilesystemResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - filesystems
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
+      title: FilesystemResourceIdentifier
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
     DatabaseSchemaResourceIdentifier:
       type: object
       properties:
@@ -882,52 +697,94 @@ components:
       - type
       - id
       title: DatabaseSchemaResourceIdentifier
-    NodeVersion:
-      type: string
-      enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    EnvironmentResourceIdentifier:
+    RepositoryResource:
       type: object
       properties:
-        type:
-          type: string
-          enum:
-          - environments
         id:
           type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    RepositoryResourceIdentifier:
-      type: object
-      properties:
         type:
           type: string
           enum:
           - repositories
-        id:
-          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
       required:
-      - type
       - id
-      title: RepositoryResourceIdentifier
-    UserResourceIdentifier:
+      - type
+      title: RepositoryResource
+    UpdateApplicationRequest:
+      type: object
+      properties:
+        source_control_provider_type:
+          description: The source control provider. This parameter will be required starting March 9, 2026.
+          $ref: '#/components/schemas/SourceControlProviderType'
+        name:
+          type: string
+          pattern: ^[\p{Latin}0-9 _.'-]+$
+          minLength: 3
+          maxLength: 40
+        slug:
+          type: string
+          minLength: 3
+        default_environment_id:
+          type: string
+        repository:
+          type: string
+        slack_channel:
+          type:
+          - string
+          - 'null'
+      title: UpdateApplicationRequest
+    OrganizationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - users
+          - organizations
         id:
           type: string
       required:
       - type
       - id
-      title: UserResourceIdentifier
+      title: OrganizationResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - organizations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+          required:
+          - name
+          - slug
+      required:
+      - id
+      - type
+      title: OrganizationResource
     DomainResourceIdentifier:
       type: object
       properties:
@@ -941,6 +798,65 @@ components:
       - type
       - id
       title: DomainResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    RepositoryResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - repositories
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: RepositoryResourceIdentifier
+    BranchResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
     EnvironmentResource:
       type: object
       properties:
@@ -1226,6 +1142,19 @@ components:
       - type
       - links
       title: EnvironmentResource
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
     CloudRegion:
       type: string
       enum:
@@ -1240,26 +1169,38 @@ components:
       - ap-southeast-2
       - ap-northeast-1
       title: CloudRegion
-    CacheResourceIdentifier:
+    CreateApplicationRequest:
       type: object
       properties:
-        type:
+        source_control_provider_type:
+          description: The source control provider. This parameter will be required starting March 9, 2026.
+          $ref: '#/components/schemas/SourceControlProviderType'
+        repository:
           type: string
-          enum:
-          - caches
-        id:
+        name:
           type: string
+          pattern: ^[\p{Latin}0-9 _.,'\-&()!#+:@]+$
+          minLength: 3
+          maxLength: 40
+        region:
+          $ref: '#/components/schemas/CloudRegion'
+        cluster_id:
+          type:
+          - string
+          - 'null'
+          description: The identifier of a dedicated cluster to deploy to. Only fill it if your organization has a dedicated cluster and you want to use it for this application.
       required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    RateLimitLevel:
+      - repository
+      - name
+      - region
+      title: CreateApplicationRequest
+    NodeVersion:
       type: string
       enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
     InstanceResourceIdentifier:
       type: object
       properties:
@@ -1273,27 +1214,66 @@ components:
       - type
       - id
       title: InstanceResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DeploymentStatus:
+      type: string
+      enum:
+      - pending
+      - build.pending
+      - build.created
+      - build.queued
+      - build.running
+      - build.succeeded
+      - build.failed
+      - cancelled
+      - failed
+      - deployment.pending
+      - deployment.created
+      - deployment.queued
+      - deployment.running
+      - deployment.succeeded
+      - deployment.failed
+      title: DeploymentStatus
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    SourceControlProviderType:
+      type: string
+      enum:
+      - github
+      - gitlab
+      - bitbucket
+      title: SourceControlProviderType
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1318,6 +1298,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

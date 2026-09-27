@@ -2667,315 +2667,6 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    UpdateServerNetworkRequest:
-      type: object
-      properties:
-        servers:
-          type: array
-          description: The server IDs that should be in this server's network.
-          examples:
-          - - 1
-            - 2
-            - 3
-          items:
-            type: integer
-            description: A server ID to include in the network.
-            examples:
-            - 1
-      required:
-      - servers
-      title: UpdateServerNetworkRequest
-    SupervisorServiceActionRequest:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/SupervisorAction'
-      required:
-      - action
-      title: SupervisorServiceActionRequest
-    NginxAction:
-      type: string
-      description: '| |
-
-        |---|
-
-        | `reboot` <br/> Reboot the Nginx service |
-
-        | `stop` <br/> Stop the Nginx service |'
-      enum:
-      - reboot
-      - stop
-      title: NginxAction
-    UpdatePhpCliVersionRequest:
-      type: object
-      properties:
-        php_version:
-          type: string
-          description: The PHP version to update the CLI to.
-          enum:
-          - '5.6'
-          - '7.0'
-          - '7.1'
-          - '7.2'
-          - '7.3'
-          - '7.4'
-          - '8.0'
-          - '8.1'
-          - '8.2'
-          - '8.3'
-          - '8.4'
-          - '8.5'
-          examples:
-          - '7.4'
-      required:
-      - php_version
-      title: UpdatePhpCliVersionRequest
-    UpdatePhpCliRequest:
-      type: object
-      properties:
-        config:
-          type: string
-      required:
-      - config
-      title: UpdatePhpCliRequest
-    ArchiveRequest:
-      type: object
-      properties:
-        server_id:
-          type: integer
-      required:
-      - server_id
-      title: ArchiveRequest
-    UpdateServerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the server.
-          examples:
-          - production-web-01
-        ip_address:
-          type: string
-          description: The IP address of the server.
-          examples:
-          - 192.168.1.1
-        private_ip_address:
-          type: string
-          description: The private IP address of the server.
-          examples:
-          - 10.0.0.1
-        timezone:
-          type: string
-          description: The timezone of the server.
-          examples:
-          - America/New_York
-        tags:
-          type: array
-          description: The tags of the server.
-          examples:
-          - - production
-            - web
-          items:
-            type: string
-            examples:
-            - production
-      title: UpdateServerRequest
-    BackgroundProcessAction:
-      type: string
-      description: '| |
-
-        |---|
-
-        | `restart` <br/> Restart the background process |
-
-        | `stop` <br/> Stop the background process |
-
-        | `start` <br/> Start the background process |
-
-        | `empty-log` <br/> Empty the background process log |'
-      enum:
-      - restart
-      - stop
-      - start
-      - empty-log
-      title: BackgroundProcessAction
-    PostgresAction:
-      type: string
-      description: '| |
-
-        |---|
-
-        | `reboot` <br/> Reboot the Postgres service |
-
-        | `stop` <br/> Stop the Postgres service |'
-      enum:
-      - reboot
-      - stop
-      title: PostgresAction
-    ShareServerRequest:
-      type: object
-      properties:
-        server_id:
-          type: integer
-          description: The server ID
-          examples:
-          - 12345
-      required:
-      - server_id
-      title: ShareServerRequest
-    PhpPoolConfigurationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - phpPoolConfigurations
-        attributes:
-          type: object
-          properties:
-            configuration:
-              type: string
-          required:
-          - configuration
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PhpPoolConfigurationResource
-    NginxServiceActionRequest:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/NginxAction'
-      required:
-      - action
-      title: NginxServiceActionRequest
-    DatabaseType:
-      type: string
-      enum:
-      - mysql
-      - mysql8
-      - mysql84
-      - mysql9
-      - mariadb
-      - mariadb106
-      - mariadb1011
-      - mariadb114
-      - postgres
-      - postgres13
-      - postgres14
-      - postgres15
-      - postgres16
-      - postgres17
-      - postgres18
-      title: DatabaseType
-    CreatePhpVersionRequest:
-      type: object
-      properties:
-        version:
-          $ref: '#/components/schemas/PhpVersion'
-        cli_default:
-          type: boolean
-        site_default:
-          type: boolean
-      required:
-      - version
-      title: CreatePhpVersionRequest
-    TagResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - tags
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: TagResourceIdentifier
-    PostgresServiceActionRequest:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/PostgresAction'
-      required:
-      - action
-      title: PostgresServiceActionRequest
-    UpdatePhpFpmRequest:
-      type: object
-      properties:
-        config:
-          type: string
-      required:
-      - config
-      title: UpdatePhpFpmRequest
-    BackgroundProcessActionRequest:
-      type: object
-      properties:
-        action:
-          description: 'The action to perform on the background process.
-
-
-            | |
-
-            |---|
-
-            | `restart` <br/> Restart the background process |
-
-            | `stop` <br/> Stop the background process |
-
-            | `start` <br/> Start the background process |
-
-            | `empty-log` <br/> Empty the background process log |'
-          examples:
-          - restart
-          $ref: '#/components/schemas/BackgroundProcessAction'
-      required:
-      - action
-      title: BackgroundProcessActionRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    MysqlServiceActionRequest:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/MysqlAction'
-      required:
-      - action
-      title: MysqlServiceActionRequest
     ServerResource:
       type: object
       properties:
@@ -3128,6 +2819,125 @@ components:
       - type
       - links
       title: ServerResource
+    NginxServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/NginxAction'
+      required:
+      - action
+      title: NginxServiceActionRequest
+    PostgresServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/PostgresAction'
+      required:
+      - action
+      title: PostgresServiceActionRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    PhpPoolConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpPoolConfigurations
+        attributes:
+          type: object
+          properties:
+            configuration:
+              type: string
+          required:
+          - configuration
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpPoolConfigurationResource
+    ServerType:
+      type: string
+      enum:
+      - app
+      - web
+      - loadbalancer
+      - database
+      - cache
+      - worker
+      - meilisearch
+      - openclaw
+      title: ServerType
+    ServerActionRequest:
+      type: object
+      properties:
+        action:
+          description: 'The action to perform on the server.
+
+
+            | |
+
+            |---|
+
+            | `reboot` <br/> Reboot the server. |
+
+            | `power-cycle` <br/> Power-cycle the server. |'
+          examples:
+          - reboot
+          $ref: '#/components/schemas/ServerAction'
+      required:
+      - action
+      title: ServerActionRequest
+    UpdateServerNetworkRequest:
+      type: object
+      properties:
+        servers:
+          type: array
+          description: The server IDs that should be in this server's network.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
+            description: A server ID to include in the network.
+            examples:
+            - 1
+      required:
+      - servers
+      title: UpdateServerNetworkRequest
     CreateServerRequest:
       type: object
       properties:
@@ -3249,19 +3059,212 @@ components:
       - type
       - ubuntu_version
       title: CreateServerRequest
-    MysqlAction:
+    EventOutputResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - eventOutputs
+        attributes:
+          type: object
+          properties:
+            output:
+              type: string
+          required:
+          - output
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: EventOutputResource
+    UpdateServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the server.
+          examples:
+          - production-web-01
+        ip_address:
+          type: string
+          description: The IP address of the server.
+          examples:
+          - 192.168.1.1
+        private_ip_address:
+          type: string
+          description: The private IP address of the server.
+          examples:
+          - 10.0.0.1
+        timezone:
+          type: string
+          description: The timezone of the server.
+          examples:
+          - America/New_York
+        tags:
+          type: array
+          description: The tags of the server.
+          examples:
+          - - production
+            - web
+          items:
+            type: string
+            examples:
+            - production
+      title: UpdateServerRequest
+    RedisServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/RedisAction'
+      required:
+      - action
+      title: RedisServiceActionRequest
+    UpdatePhpCliVersionRequest:
+      type: object
+      properties:
+        php_version:
+          type: string
+          description: The PHP version to update the CLI to.
+          enum:
+          - '5.6'
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+          examples:
+          - '7.4'
+      required:
+      - php_version
+      title: UpdatePhpCliVersionRequest
+    UpdatePhpPoolRequest:
+      type: object
+      properties:
+        config:
+          type: string
+        user:
+          type:
+          - string
+          - 'null'
+      required:
+      - config
+      title: UpdatePhpPoolRequest
+    PhpOpcacheResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpOpcaches
+        attributes:
+          type: object
+          properties:
+            opcache_enabled:
+              type: boolean
+          required:
+          - opcache_enabled
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpOpcacheResource
+    NginxAction:
       type: string
       description: '| |
 
         |---|
 
-        | `reboot` <br/> Reboot the MySQL service |
+        | `reboot` <br/> Reboot the Nginx service |
 
-        | `stop` <br/> Stop the MySQL service |'
+        | `stop` <br/> Stop the Nginx service |'
       enum:
       - reboot
       - stop
-      title: MysqlAction
+      title: NginxAction
+    PhpCliConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpCliConfigurations
+        attributes:
+          type: object
+          properties:
+            configuration:
+              type: string
+          required:
+          - configuration
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpCliConfigurationResource
+    PhpMaxUploadSizeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - phpMaxUploadSizes
+        attributes:
+          type: object
+          properties:
+            max_upload_size:
+              type:
+              - integer
+              - 'null'
+          required:
+          - max_upload_size
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PhpMaxUploadSizeResource
     SupervisorAction:
       type: string
       description: '| |
@@ -3272,6 +3275,153 @@ components:
       enum:
       - reboot
       title: SupervisorAction
+    DatabaseType:
+      type: string
+      enum:
+      - mysql
+      - mysql8
+      - mysql84
+      - mysql9
+      - mariadb
+      - mariadb106
+      - mariadb1011
+      - mariadb114
+      - postgres
+      - postgres13
+      - postgres14
+      - postgres15
+      - postgres16
+      - postgres17
+      - postgres18
+      title: DatabaseType
+    BackgroundProcessActionRequest:
+      type: object
+      properties:
+        action:
+          description: 'The action to perform on the background process.
+
+
+            | |
+
+            |---|
+
+            | `restart` <br/> Restart the background process |
+
+            | `stop` <br/> Stop the background process |
+
+            | `start` <br/> Start the background process |
+
+            | `empty-log` <br/> Empty the background process log |'
+          examples:
+          - restart
+          $ref: '#/components/schemas/BackgroundProcessAction'
+      required:
+      - action
+      title: BackgroundProcessActionRequest
+    TagResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - tags
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: TagResourceIdentifier
+    ArchiveRequest:
+      type: object
+      properties:
+        server_id:
+          type: integer
+      required:
+      - server_id
+      title: ArchiveRequest
+    UserResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - users
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: UserResource
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    UpdatePhpCliRequest:
+      type: object
+      properties:
+        config:
+          type: string
+      required:
+      - config
+      title: UpdatePhpCliRequest
+    BackgroundProcessAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `restart` <br/> Restart the background process |
+
+        | `stop` <br/> Stop the background process |
+
+        | `start` <br/> Start the background process |
+
+        | `empty-log` <br/> Empty the background process log |'
+      enum:
+      - restart
+      - stop
+      - start
+      - empty-log
+      title: BackgroundProcessAction
     PhpFpmConfigurationResource:
       type: object
       properties:
@@ -3313,17 +3463,6 @@ components:
       - reboot
       - power-cycle
       title: ServerAction
-    PhpServiceActionRequest:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/PhpAction'
-        version:
-          $ref: '#/components/schemas/PhpVersion'
-      required:
-      - action
-      - version
-      title: PhpServiceActionRequest
     PhpVersionResource:
       type: object
       properties:
@@ -3380,76 +3519,6 @@ components:
       - type
       - links
       title: PhpVersionResource
-    PhpCliConfigurationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - phpCliConfigurations
-        attributes:
-          type: object
-          properties:
-            configuration:
-              type: string
-          required:
-          - configuration
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PhpCliConfigurationResource
-    EventOutputResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - eventOutputs
-        attributes:
-          type: object
-          properties:
-            output:
-              type: string
-          required:
-          - output
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: EventOutputResource
-    PhpAction:
-      type: string
-      description: '| |
-
-        |---|
-
-        | `reboot` <br/> Reboot PHP-FPM for a specific version |
-
-        | `reload` <br/> Gracefully reload PHP-FPM for a specific version |'
-      enum:
-      - reboot
-      - reload
-      title: PhpAction
     PhpMaxExecutionTimeResource:
       type: object
       properties:
@@ -3480,137 +3549,66 @@ components:
       - type
       - links
       title: PhpMaxExecutionTimeResource
-    PhpOpcacheResource:
+    PhpVersion:
+      type: string
+      enum:
+      - php5
+      - php56-old
+      - php56
+      - php70
+      - php71
+      - php72
+      - php73
+      - php74
+      - php80
+      - php81
+      - php82
+      - php83
+      - php84
+      - php85
+      title: PhpVersion
+    MysqlServiceActionRequest:
       type: object
       properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - phpOpcaches
-        attributes:
-          type: object
-          properties:
-            opcache_enabled:
-              type: boolean
-          required:
-          - opcache_enabled
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+        action:
+          $ref: '#/components/schemas/MysqlAction'
       required:
-      - id
-      - type
-      - links
-      title: PhpOpcacheResource
-    RedisAction:
+      - action
+      title: MysqlServiceActionRequest
+    PhpAction:
       type: string
       description: '| |
 
         |---|
 
-        | `reboot` <br/> Reboot the Redis service |'
+        | `reboot` <br/> Reboot PHP-FPM for a specific version |
+
+        | `reload` <br/> Gracefully reload PHP-FPM for a specific version |'
       enum:
       - reboot
-      title: RedisAction
-    PhpMaxUploadSizeResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - phpMaxUploadSizes
-        attributes:
-          type: object
-          properties:
-            max_upload_size:
-              type:
-              - integer
-              - 'null'
-          required:
-          - max_upload_size
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PhpMaxUploadSizeResource
-    ServerActionRequest:
+      - reload
+      title: PhpAction
+    PostgresAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the Postgres service |
+
+        | `stop` <br/> Stop the Postgres service |'
+      enum:
+      - reboot
+      - stop
+      title: PostgresAction
+    SupervisorServiceActionRequest:
       type: object
       properties:
         action:
-          description: 'The action to perform on the server.
-
-
-            | |
-
-            |---|
-
-            | `reboot` <br/> Reboot the server. |
-
-            | `power-cycle` <br/> Power-cycle the server. |'
-          examples:
-          - reboot
-          $ref: '#/components/schemas/ServerAction'
+          $ref: '#/components/schemas/SupervisorAction'
       required:
       - action
-      title: ServerActionRequest
-    UserResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - users
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            email:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            updated_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - email
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: UserResource
+      title: SupervisorServiceActionRequest
     TagResource:
       type: object
       properties:
@@ -3645,44 +3643,37 @@ components:
       - id
       - type
       title: TagResource
-    RedisServiceActionRequest:
-      type: object
-      properties:
-        action:
-          $ref: '#/components/schemas/RedisAction'
-      required:
-      - action
-      title: RedisServiceActionRequest
-    PhpVersion:
-      type: string
-      enum:
-      - php5
-      - php56-old
-      - php56
-      - php70
-      - php71
-      - php72
-      - php73
-      - php74
-      - php80
-      - php81
-      - php82
-      - php83
-      - php84
-      - php85
-      title: PhpVersion
-    UpdatePhpPoolRequest:
+    UpdatePhpFpmRequest:
       type: object
       properties:
         config:
           type: string
-        user:
-          type:
-          - string
-          - 'null'
       required:
       - config
-      title: UpdatePhpPoolRequest
+      title: UpdatePhpFpmRequest
+    ShareServerRequest:
+      type: object
+      properties:
+        server_id:
+          type: integer
+          description: The server ID
+          examples:
+          - 12345
+      required:
+      - server_id
+      title: ShareServerRequest
+    CreatePhpVersionRequest:
+      type: object
+      properties:
+        version:
+          $ref: '#/components/schemas/PhpVersion'
+        cli_default:
+          type: boolean
+        site_default:
+          type: boolean
+      required:
+      - version
+      title: CreatePhpVersionRequest
     EventResource:
       type: object
       properties:
@@ -3749,31 +3740,29 @@ components:
       - type
       - links
       title: EventResource
-    ServerType:
+    MysqlAction:
       type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the MySQL service |
+
+        | `stop` <br/> Stop the MySQL service |'
       enum:
-      - app
-      - web
-      - loadbalancer
-      - database
-      - cache
-      - worker
-      - meilisearch
-      - openclaw
-      title: ServerType
-    UserResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - users
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: UserResourceIdentifier
+      - reboot
+      - stop
+      title: MysqlAction
+    RedisAction:
+      type: string
+      description: '| |
+
+        |---|
+
+        | `reboot` <br/> Reboot the Redis service |'
+      enum:
+      - reboot
+      title: RedisAction
     UpdatePhpSettingsRequest:
       type: object
       properties:
@@ -3792,27 +3781,18 @@ components:
           - boolean
           - 'null'
       title: UpdatePhpSettingsRequest
+    PhpServiceActionRequest:
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/PhpAction'
+        version:
+          $ref: '#/components/schemas/PhpVersion'
+      required:
+      - action
+      - version
+      title: PhpServiceActionRequest
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -3837,6 +3817,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

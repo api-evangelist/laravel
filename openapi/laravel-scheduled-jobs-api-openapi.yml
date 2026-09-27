@@ -703,16 +703,6 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    HeartbeatGracePeriod:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 5
-      - 10
-      - 30
-      - 60
-      title: HeartbeatGracePeriod
     JobResource:
       type: object
       properties:
@@ -773,6 +763,31 @@ components:
       - type
       - links
       title: JobResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     CreateScheduledJobRequest:
       type: object
       properties:
@@ -822,31 +837,6 @@ components:
       - user
       - frequency
       title: CreateScheduledJobRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
     CronFrequency:
       type: string
       enum:
@@ -886,7 +876,29 @@ components:
       - type
       - links
       title: JobOutputResource
+    HeartbeatGracePeriod:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 5
+      - 10
+      - 30
+      - 60
+      title: HeartbeatGracePeriod
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -907,18 +919,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:
