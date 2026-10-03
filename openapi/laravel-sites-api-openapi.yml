@@ -3515,6 +3515,409 @@ paths:
       x-processingMode: sync
 components:
   schemas:
+    MaintenanceModeStatus:
+      type: string
+      enum:
+      - disabling
+      - enabling
+      title: MaintenanceModeStatus
+    CreateComposerCredentialRequest:
+      type: object
+      properties:
+        repository:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+      required:
+      - repository
+      - username
+      - password
+      title: CreateComposerCredentialRequest
+    CertificateResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - certificates
+        attributes:
+          type: object
+          properties:
+            type:
+              description: The type of certificate.
+              examples:
+              - letsencrypt
+              $ref: '#/components/schemas/CertificateType'
+            verification_method:
+              anyOf:
+              - description: The verification method for Let's Encrypt certificates.
+                examples:
+                - http-01
+                $ref: '#/components/schemas/CertificateVerificationMethod'
+              - type: 'null'
+            key_type:
+              anyOf:
+              - description: The key type for Let's Encrypt certificates.
+                examples:
+                - ecdsa
+                $ref: '#/components/schemas/CertificateKeyType'
+              - type: 'null'
+            preferred_chain:
+              type:
+              - string
+              - 'null'
+              description: The preferred chain for Let's Encrypt certificates.
+              enum:
+              - ISRG Root X1
+              - null
+              examples:
+              - ISRG Root X1
+            request_status:
+              description: The certificate request status.
+              examples:
+              - '''creating'''
+              $ref: '#/components/schemas/CertificateRequestStatus'
+            status:
+              description: The status of the certificate.
+              examples:
+              - '''installed'''
+              $ref: '#/components/schemas/ResourceState'
+            active:
+              type: boolean
+              description: Whether the certificate is currently active.
+              examples:
+              - true
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the certificate was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the certificate was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - type
+          - verification_method
+          - key_type
+          - preferred_chain
+          - request_status
+          - status
+          - active
+          - created_at
+          - updated_at
+      required:
+      - id
+      - type
+      title: CertificateResource
+    HeartbeatStatus:
+      type: string
+      enum:
+      - pending
+      - beating
+      - missing
+      title: HeartbeatStatus
+    UpdateNpmCredentialRequest:
+      type: object
+      properties:
+        registry:
+          type: string
+        token:
+          type: string
+        scopes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      required:
+      - registry
+      - token
+      title: UpdateNpmCredentialRequest
+    DomainRecordCertificateAction:
+      type: string
+      enum:
+      - enable
+      - disable
+      title: DomainRecordCertificateAction
+    NginxAccessLogResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - nginxAccessLogs
+        attributes:
+          type: object
+          properties:
+            content:
+              type: string
+          required:
+          - content
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: NginxAccessLogResource
+    UpdateHeartbeatRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the heartbeat.
+          examples:
+          - My Heartbeat
+          maxLength: 255
+        grace_period:
+          description: The duration (in minutes) after which a heartbeat is considered missing.
+          examples:
+          - 2
+          $ref: '#/components/schemas/HeartbeatGracePeriod'
+        frequency:
+          description: The interval (in minutes) at which the client is expected to send a ping.
+          examples:
+          - 1
+          $ref: '#/components/schemas/HeartbeatFrequency'
+        custom_frequency:
+          type: string
+          description: A cron expression representing the custom frequency at which the client is expected to send a ping, if the frequency is set to -1.
+          examples:
+          - '* * * * *'
+      required:
+      - name
+      - grace_period
+      - frequency
+      title: UpdateHeartbeatRequest
+    SecurityRuleResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - securityRules
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: SecurityRuleResourceIdentifier
+    CertificateRequestStatus:
+      type: string
+      enum:
+      - verifying
+      - creating
+      - created
+      title: CertificateRequestStatus
+    UpdateSiteRequest:
+      type: object
+      properties:
+        root_path:
+          type:
+          - string
+          - 'null'
+        directory:
+          type:
+          - string
+          - 'null'
+        type:
+          $ref: '#/components/schemas/SiteType'
+        php_version:
+          $ref: '#/components/schemas/PhpVersion'
+        push_to_deploy:
+          type: boolean
+          description: Automatically trigger a new deployment when changes are pushed to the environment's Git branch.
+          default: false
+        repository_branch:
+          type:
+          - string
+          - 'null'
+        deployment_retention:
+          description: The number of zero downtime deployment releases that should be retained for the site.
+          examples:
+          - 5
+          anyOf:
+          - type: integer
+            minimum: 1
+            maximum: 100
+          - type: string
+      title: UpdateSiteRequest
+    ComposerCredentialResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            repository:
+              type: string
+            username:
+              type: string
+            password:
+              type: string
+          required:
+          - repository
+          - username
+          - password
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ComposerCredentialResource
+    DomainRecordConfigurationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            type:
+              type: string
+              description: The type of DNS record.
+              enum:
+              - A
+              - CNAME
+              - TXT
+              examples:
+              - A
+            name:
+              type: string
+              description: The name of the DNS record.
+              examples:
+              - example.com
+            value:
+              type: string
+              description: The value (IP address, CNAME target, TXT value) of the DNS record.
+              examples:
+              - 192.168.0.1
+            ttl:
+              type:
+              - integer
+              - 'null'
+              description: The recommended TTL (Time to Live) for the DNS record, in seconds.
+              examples:
+              - 3600
+          required:
+          - type
+          - name
+          - value
+          - ttl
+      required:
+      - id
+      - type
+      title: DomainRecordConfigurationResource
+    HeartbeatResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - heartbeats
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the heartbeat.
+            status:
+              anyOf:
+              - $ref: '#/components/schemas/HeartbeatStatus'
+              - type: 'null'
+            grace_period:
+              $ref: '#/components/schemas/HeartbeatGracePeriod'
+            frequency:
+              $ref: '#/components/schemas/HeartbeatFrequency'
+            custom_frequency:
+              type:
+              - string
+              - 'null'
+            ping_url:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - status
+          - grace_period
+          - frequency
+          - custom_frequency
+          - ping_url
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: HeartbeatResource
+    CreateNpmCredentialRequest:
+      type: object
+      properties:
+        registry:
+          type: string
+        token:
+          type: string
+        scopes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      required:
+      - registry
+      - token
+      title: CreateNpmCredentialRequest
+    UpdateEnvironmentRequest:
+      type: object
+      properties:
+        environment:
+          type: string
+        cache:
+          type: boolean
+        queues:
+          type: boolean
+        encryption_key:
+          type:
+          - string
+          - 'null'
+      required:
+      - environment
+      title: UpdateEnvironmentRequest
     ServerResource:
       type: object
       properties:
@@ -3667,24 +4070,7 @@ components:
       - type
       - links
       title: ServerResource
-    CreateSiteDomainMode:
-      type: string
-      enum:
-      - on-forge
-      - custom
-      title: CreateSiteDomainMode
-    DomainActionRequest:
-      type: object
-      properties:
-        action:
-          description: The action to perform on the domain.
-          examples:
-          - '''enable'''
-          $ref: '#/components/schemas/DomainRecordAction'
-      required:
-      - action
-      title: DomainActionRequest
-    DeploymentResource:
+    TagResource:
       type: object
       properties:
         id:
@@ -3692,79 +4078,131 @@ components:
         type:
           type: string
           enum:
-          - deployments
+          - tags
         attributes:
           type: object
           properties:
-            commit:
-              type: object
-              description: The commit information for the deployment.
-              properties:
-                hash:
-                  type:
-                  - string
-                  - 'null'
-                  description: The commit hash.
-                author:
-                  type:
-                  - string
-                  - 'null'
-                  description: The commit author.
-                message:
-                  type:
-                  - string
-                  - 'null'
-                  description: The commit message.
-                branch:
-                  type:
-                  - string
-                  - 'null'
-                  description: The commit branch.
-              required:
-              - hash
-              - author
-              - message
-              - branch
-            type:
+            name:
               type: string
-            status:
-              $ref: '#/components/schemas/DeploymentStatus'
-            started_at:
-              type: string
-              format: date-time
-              description: The date and time the deployment started.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            ended_at:
-              type: string
-              format: date-time
-              description: The date and time the deployment ended.
-              examples:
-              - '2025-07-29T09:00:00Z'
             created_at:
               type: string
               format: date-time
-              description: The date and time the deployment was created.
+              description: The date and time the tag was created.
               examples:
               - '2025-07-29T09:00:00Z'
             updated_at:
               type: string
               format: date-time
-              description: The date and time the deployment was last updated.
+              description: The date and time the tag was last updated.
               examples:
-              - '2025-07-29T09:00:00Z'
+              - '2025-07-30T09:00:00Z'
           required:
-          - commit
-          - type
-          - status
-          - started_at
-          - ended_at
+          - name
           - created_at
           - updated_at
       required:
       - id
       - type
-      title: DeploymentResource
+      title: TagResource
+    CreateDomainCertificateRequest:
+      type: object
+      properties:
+        enable:
+          type: boolean
+          description: Whether to enable the certificate upon installation.
+          examples:
+          - false
+        type:
+          type: string
+          description: The type of certificate to create.
+          enum:
+          - letsencrypt
+          - csr
+          - existing
+          - clone
+          examples:
+          - letsencrypt
+        letsencrypt:
+          type: object
+          description: The configuration for a Let's Encrypt certificate.
+          properties:
+            verification_method:
+              description: The verification method to use for the Let's Encrypt certificate.
+              examples:
+              - dns-01
+              $ref: '#/components/schemas/CertificateVerificationMethod'
+            key_type:
+              description: The type of key to use for the Let's Encrypt certificate.
+              examples:
+              - ecdsa
+              $ref: '#/components/schemas/CertificateKeyType'
+            preferred_chain:
+              type:
+              - string
+              - 'null'
+              description: The preferred chain for the Let's Encrypt certificate.
+              enum:
+              - ISRG Root X1
+              - null
+              examples:
+              - ISRG Root X1
+        existing:
+          type: object
+          description: The configuration for an existing certificate.
+          properties:
+            key:
+              type: string
+              description: The private key for an existing certificate.
+            certificate:
+              type: string
+              description: The certificate chain for an existing certificate.
+        csr:
+          type: object
+          description: The configuration for a CSR (Certificate Signing Request).
+          properties:
+            domain:
+              type: string
+              description: The domain to generate a CSR for.
+            sans:
+              type:
+              - string
+              - 'null'
+              description: The SANs for the CSR, comma-separated.
+            country:
+              type: string
+              description: The country for the CSR.
+            state:
+              type: string
+              description: The state for the CSR.
+            city:
+              type: string
+              description: The city for the CSR.
+            organization:
+              type: string
+              description: The organization for the CSR.
+            department:
+              type: string
+              description: The department for the CSR.
+        clone:
+          type: object
+          properties:
+            certificate_id:
+              type: integer
+              description: The ID of the certificate to clone.
+      required:
+      - type
+      title: CreateDomainCertificateRequest
+    DomainCertificateActionRequest:
+      type: object
+      properties:
+        action:
+          description: The action to perform on the domain.
+          examples:
+          - '''enable'''
+          $ref: '#/components/schemas/DomainRecordCertificateAction'
+      required:
+      - action
+      title: DomainCertificateActionRequest
     Link:
       type: object
       properties:
@@ -3790,19 +4228,372 @@ components:
       required:
       - href
       title: Link
-    DeploymentResourceIdentifier:
+    PhpVersion:
+      type: string
+      enum:
+      - php5
+      - php56-old
+      - php56
+      - php70
+      - php71
+      - php72
+      - php73
+      - php74
+      - php80
+      - php81
+      - php82
+      - php83
+      - php84
+      - php85
+      title: PhpVersion
+    SiteStatus:
+      type: string
+      enum:
+      - installed
+      - creating
+      - removing
+      - installing
+      - uninstalling
+      - deployed
+      - never-deployed
+      - deploying
+      - failed
+      - maintenance
+      title: SiteStatus
+    NodeBalancerMethod:
+      type: string
+      enum:
+      - round_robin
+      - least_conn
+      - ip_hash
+      title: NodeBalancerMethod
+    DomainRecordAction:
+      type: string
+      enum:
+      - enable
+      - disable
+      - mark-as-primary
+      title: DomainRecordAction
+    ServerResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - servers
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
+      title: ServerResourceIdentifier
+    LoadBalancingNodeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - loadBalancingNodes
+        attributes:
+          type: object
+          properties:
+            server_id: {}
+            port:
+              type: integer
+            weight:
+              type: integer
+            backup:
+              type: boolean
+            down:
+              type: boolean
+          required:
+          - server_id
+          - port
+          - weight
+          - backup
+          - down
+      required:
+      - id
+      - type
+      title: LoadBalancingNodeResource
+    CertificateType:
+      type: string
+      enum:
+      - letsencrypt
+      - csr
+      - existing
+      title: CertificateType
+    AppType:
+      type: string
+      enum:
+      - Statamic
+      - WordPress
+      - phpMyAdmin
+      - Laravel
+      - Symfony
+      - PHP
+      - Next.js
+      - Nuxt.js
+      - Static HTML
+      - Custom
+      - Craft
+      - Minecraft
+      title: AppType
+    NginxErrorLogResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - nginxErrorLogs
+        attributes:
+          type: object
+          properties:
+            content:
+              type: string
+          required:
+          - content
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: NginxErrorLogResource
+    NpmCredentialResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            registry:
+              type: string
+            token:
+              type: string
+            scopes:
+              type: array
+              items: {}
+          required:
+          - registry
+          - token
+          - scopes
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: NpmCredentialResource
+    CreateLoadBalancerSiteRequest:
+      type: object
+      properties:
+        domain:
+          type: string
+        allow_wildcard_subdomains:
+          type: boolean
+        balancer_method:
+          $ref: '#/components/schemas/NodeBalancerMethod'
+        balancer_keepalive_max_connections:
+          type: integer
+          minimum: 0
+          maximum: 256
+        balancing:
+          type: array
+          items:
+            type: object
+            properties:
+              server_id:
+                type: integer
+              port:
+                type: integer
+                minimum: 1
+                maximum: 65535
+              weight:
+                type: integer
+                minimum: 1
+              backup:
+                type: boolean
+              down:
+                type: boolean
+          minItems: 1
+      required:
+      - domain
+      title: CreateLoadBalancerSiteRequest
+    NginxConfigResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - nginxConfigs
+        attributes:
+          type: object
+          properties:
+            content:
+              type:
+              - string
+              - 'null'
+          required:
+          - content
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: NginxConfigResource
+    UpdateNginxConfigurationRequest:
+      type: object
+      properties:
+        config:
+          type: string
+      required:
+      - config
+      title: UpdateNginxConfigurationRequest
+    DomainRecordResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - domainRecords
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the domain.
+              examples:
+              - forge.laravel.com
+            type:
+              type: string
+              description: The type of domain.
+              enum:
+              - primary
+              - alias
+              examples:
+              - primary
+            status:
+              description: The status of the domain.
+              examples:
+              - enabled
+              $ref: '#/components/schemas/DomainRecordStatus'
+            www_redirect_type:
+              description: The type of `www.` redirection for the domain.
+              examples:
+              - from-www
+              $ref: '#/components/schemas/WwwRedirectType'
+            allow_wildcard_subdomains:
+              type: boolean
+              description: Whether the domain allows wildcard subdomains.
+              examples:
+              - true
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the domain was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the domain was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - type
+          - status
+          - www_redirect_type
+          - allow_wildcard_subdomains
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DomainRecordResource
+    UpdateHealthcheckEndpointRequest:
+      type: object
+      properties:
+        healthcheck_endpoint:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: The endpoint / URL that should be used to perform healthchecks.
+          examples:
+          - https://my-app.com/up
+      title: UpdateHealthcheckEndpointRequest
+    DomainActionRequest:
+      type: object
+      properties:
+        action:
+          description: The action to perform on the domain.
+          examples:
+          - '''enable'''
+          $ref: '#/components/schemas/DomainRecordAction'
+      required:
+      - action
+      title: DomainActionRequest
+    CertificateVerificationMethod:
+      type: string
+      enum:
+      - http-01
+      - dns-01
+      title: CertificateVerificationMethod
+    CreateSiteDomainMode:
+      type: string
+      enum:
+      - on-forge
+      - custom
+      title: CreateSiteDomainMode
+    HeartbeatGracePeriod:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 5
+      - 10
+      - 30
+      - 60
+      title: HeartbeatGracePeriod
     UpdateLoadBalancerRequest:
       type: object
       properties:
@@ -3840,238 +4631,6 @@ components:
       - balancer_method
       - balancing
       title: UpdateLoadBalancerRequest
-    ServerType:
-      type: string
-      enum:
-      - app
-      - web
-      - loadbalancer
-      - database
-      - cache
-      - worker
-      - meilisearch
-      - openclaw
-      title: ServerType
-    UpdateNpmCredentialRequest:
-      type: object
-      properties:
-        registry:
-          type: string
-        token:
-          type: string
-        scopes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      required:
-      - registry
-      - token
-      title: UpdateNpmCredentialRequest
-    ComposerCredentialResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        attributes:
-          type: object
-          properties:
-            repository:
-              type: string
-            username:
-              type: string
-            password:
-              type: string
-          required:
-          - repository
-          - username
-          - password
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ComposerCredentialResource
-    HealthcheckEndpointResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - healthcheckEndpoints
-        attributes:
-          type: object
-          properties:
-            healthcheck_endpoint:
-              type:
-              - string
-              - 'null'
-          required:
-          - healthcheck_endpoint
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: HealthcheckEndpointResource
-    UpdateEnvironmentRequest:
-      type: object
-      properties:
-        environment:
-          type: string
-        cache:
-          type: boolean
-        queues:
-          type: boolean
-        encryption_key:
-          type:
-          - string
-          - 'null'
-      required:
-      - environment
-      title: UpdateEnvironmentRequest
-    DomainRecordStatus:
-      type: string
-      enum:
-      - pending
-      - connecting
-      - enabled
-      - removing
-      - securing
-      - updating
-      - disabling
-      - disabled
-      - enabling
-      title: DomainRecordStatus
-    SourceControlProvider:
-      type: string
-      description: 'All supported source control providers.
-
-        '
-      enum:
-      - github
-      - gitlab
-      - bitbucket
-      - gitlab-custom
-      - custom
-      title: SourceControlProvider
-    RedirectRuleResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - redirect-rules
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: RedirectRuleResourceIdentifier
-    NginxAccessLogResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - nginxAccessLogs
-        attributes:
-          type: object
-          properties:
-            content:
-              type: string
-          required:
-          - content
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: NginxAccessLogResource
-    CreateDomainRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the domain.
-          examples:
-          - laravel.com
-        allow_wildcard_subdomains:
-          type: boolean
-          description: Whether to allow wildcard subdomains for the domain.
-          examples:
-          - false
-        www_redirect_type:
-          description: The type of `www` redirection to apply to the domain.
-          examples:
-          - from-www
-          $ref: '#/components/schemas/WwwRedirectType'
-      required:
-      - name
-      - allow_wildcard_subdomains
-      - www_redirect_type
-      title: CreateDomainRequest
-    NpmCredentialResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        attributes:
-          type: object
-          properties:
-            registry:
-              type: string
-            token:
-              type: string
-            scopes:
-              type: array
-              items: {}
-          required:
-          - registry
-          - token
-          - scopes
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: NpmCredentialResource
     SiteResource:
       type: object
       properties:
@@ -4281,27 +4840,7 @@ components:
       - type
       - links
       title: SiteResource
-    CertificateVerificationMethod:
-      type: string
-      enum:
-      - http-01
-      - dns-01
-      title: CertificateVerificationMethod
-    HeartbeatStatus:
-      type: string
-      enum:
-      - pending
-      - beating
-      - missing
-      title: HeartbeatStatus
-    CertificateType:
-      type: string
-      enum:
-      - letsencrypt
-      - csr
-      - existing
-      title: CertificateType
-    NginxErrorLogResource:
+    DeploymentResource:
       type: object
       properties:
         id:
@@ -4309,237 +4848,110 @@ components:
         type:
           type: string
           enum:
-          - nginxErrorLogs
+          - deployments
         attributes:
           type: object
           properties:
-            content:
-              type: string
-          required:
-          - content
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: NginxErrorLogResource
-    SiteStatus:
-      type: string
-      enum:
-      - installed
-      - creating
-      - removing
-      - installing
-      - uninstalling
-      - deployed
-      - never-deployed
-      - deploying
-      - failed
-      - maintenance
-      title: SiteStatus
-    ResourceState:
-      type: string
-      enum:
-      - installing
-      - installed
-      - removing
-      - restarting
-      - stopping
-      - stopped
-      - starting
-      - syncing
-      - updating
-      - disabling
-      - disabled
-      - enabling
-      - running
-      - restoring
-      - deleting
-      - failed
-      - success
-      - failed-unknown
-      - failed-runner
-      - renewing
-      title: ResourceState
-    RepositoryStatus:
-      type: string
-      enum:
-      - installed
-      - installing
-      - removing
-      title: RepositoryStatus
-    CreateComposerCredentialRequest:
-      type: object
-      properties:
-        repository:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-      required:
-      - repository
-      - username
-      - password
-      title: CreateComposerCredentialRequest
-    DomainRecordAction:
-      type: string
-      enum:
-      - enable
-      - disable
-      - mark-as-primary
-      title: DomainRecordAction
-    UpdateHeartbeatRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the heartbeat.
-          examples:
-          - My Heartbeat
-          maxLength: 255
-        grace_period:
-          description: The duration (in minutes) after which a heartbeat is considered missing.
-          examples:
-          - 2
-          $ref: '#/components/schemas/HeartbeatGracePeriod'
-        frequency:
-          description: The interval (in minutes) at which the client is expected to send a ping.
-          examples:
-          - 1
-          $ref: '#/components/schemas/HeartbeatFrequency'
-        custom_frequency:
-          type: string
-          description: A cron expression representing the custom frequency at which the client is expected to send a ping, if the frequency is set to -1.
-          examples:
-          - '* * * * *'
-      required:
-      - name
-      - grace_period
-      - frequency
-      title: UpdateHeartbeatRequest
-    CreateLoadBalancerSiteRequest:
-      type: object
-      properties:
-        domain:
-          type: string
-        allow_wildcard_subdomains:
-          type: boolean
-        balancer_method:
-          $ref: '#/components/schemas/NodeBalancerMethod'
-        balancer_keepalive_max_connections:
-          type: integer
-          minimum: 0
-          maximum: 256
-        balancing:
-          type: array
-          items:
-            type: object
-            properties:
-              server_id:
-                type: integer
-              port:
-                type: integer
-                minimum: 1
-                maximum: 65535
-              weight:
-                type: integer
-                minimum: 1
-              backup:
-                type: boolean
-              down:
-                type: boolean
-          minItems: 1
-      required:
-      - domain
-      title: CreateLoadBalancerSiteRequest
-    TagResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - tags
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: TagResourceIdentifier
-    UpdateNginxConfigurationRequest:
-      type: object
-      properties:
-        config:
-          type: string
-      required:
-      - config
-      title: UpdateNginxConfigurationRequest
-    DomainRecordResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - domainRecords
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the domain.
-              examples:
-              - forge.laravel.com
+            commit:
+              type: object
+              description: The commit information for the deployment.
+              properties:
+                hash:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit hash.
+                author:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit author.
+                message:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit message.
+                branch:
+                  type:
+                  - string
+                  - 'null'
+                  description: The commit branch.
+              required:
+              - hash
+              - author
+              - message
+              - branch
             type:
               type: string
-              description: The type of domain.
-              enum:
-              - primary
-              - alias
-              examples:
-              - primary
             status:
-              description: The status of the domain.
+              $ref: '#/components/schemas/DeploymentStatus'
+            started_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment started.
               examples:
-              - enabled
-              $ref: '#/components/schemas/DomainRecordStatus'
-            www_redirect_type:
-              description: The type of `www.` redirection for the domain.
+              - '2025-07-29T09:00:00Z'
+            ended_at:
+              type: string
+              format: date-time
+              description: The date and time the deployment ended.
               examples:
-              - from-www
-              $ref: '#/components/schemas/WwwRedirectType'
-            allow_wildcard_subdomains:
-              type: boolean
-              description: Whether the domain allows wildcard subdomains.
-              examples:
-              - true
+              - '2025-07-29T09:00:00Z'
             created_at:
               type: string
               format: date-time
-              description: The date and time the domain was created.
+              description: The date and time the deployment was created.
               examples:
               - '2025-07-29T09:00:00Z'
             updated_at:
               type: string
               format: date-time
-              description: The date and time the domain was last updated.
+              description: The date and time the deployment was last updated.
               examples:
-              - '2025-07-30T09:00:00Z'
+              - '2025-07-29T09:00:00Z'
           required:
-          - name
+          - commit
           - type
           - status
-          - www_redirect_type
-          - allow_wildcard_subdomains
+          - started_at
+          - ended_at
           - created_at
           - updated_at
+      required:
+      - id
+      - type
+      title: DeploymentResource
+    RedirectRuleResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - redirect-rules
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: RedirectRuleResourceIdentifier
+    HealthcheckEndpointResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - healthcheckEndpoints
+        attributes:
+          type: object
+          properties:
+            healthcheck_endpoint:
+              type:
+              - string
+              - 'null'
+          required:
+          - healthcheck_endpoint
         links:
           type: object
           properties:
@@ -4552,215 +4964,41 @@ components:
       - id
       - type
       - links
-      title: DomainRecordResource
-    RedirectRuleResource:
+      title: HealthcheckEndpointResource
+    RepositoryStatus:
+      type: string
+      enum:
+      - installed
+      - installing
+      - removing
+      title: RepositoryStatus
+    HeartbeatFrequency:
+      type: integer
+      enum:
+      - 1
+      - 5
+      - 10
+      - 30
+      - 60
+      - 1440
+      - 10080
+      - 312480
+      - -1
+      title: HeartbeatFrequency
+    UpdateComposerCredentialRequest:
       type: object
       properties:
-        id:
+        repository:
           type: string
-        type:
+        username:
           type: string
-          enum:
-          - redirect-rules
-        attributes:
-          type: object
-          properties:
-            from:
-              type: string
-              description: The source URL path for the redirect rule.
-              examples:
-              - /old-path
-            to:
-              type: string
-              description: The destination URL path for the redirect rule.
-              examples:
-              - /new-path
-            type:
-              description: The type of the redirect rule.
-              examples:
-              - permanent
-              $ref: '#/components/schemas/RedirectRuleType'
-            status:
-              type: string
-              description: The status of the redirect rule.
-              enum:
-              - installing
-              - installed
-              - removing
-              examples:
-              - installed
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time the redirect rule was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date and time the redirect rule was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
-          required:
-          - from
-          - to
-          - type
-          - status
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+        password:
+          type: string
       required:
-      - id
-      - type
-      - links
-      title: RedirectRuleResource
-    CertificateResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - certificates
-        attributes:
-          type: object
-          properties:
-            type:
-              description: The type of certificate.
-              examples:
-              - letsencrypt
-              $ref: '#/components/schemas/CertificateType'
-            verification_method:
-              anyOf:
-              - description: The verification method for Let's Encrypt certificates.
-                examples:
-                - http-01
-                $ref: '#/components/schemas/CertificateVerificationMethod'
-              - type: 'null'
-            key_type:
-              anyOf:
-              - description: The key type for Let's Encrypt certificates.
-                examples:
-                - ecdsa
-                $ref: '#/components/schemas/CertificateKeyType'
-              - type: 'null'
-            preferred_chain:
-              type:
-              - string
-              - 'null'
-              description: The preferred chain for Let's Encrypt certificates.
-              enum:
-              - ISRG Root X1
-              - null
-              examples:
-              - ISRG Root X1
-            request_status:
-              description: The certificate request status.
-              examples:
-              - '''creating'''
-              $ref: '#/components/schemas/CertificateRequestStatus'
-            status:
-              description: The status of the certificate.
-              examples:
-              - '''installed'''
-              $ref: '#/components/schemas/ResourceState'
-            active:
-              type: boolean
-              description: Whether the certificate is currently active.
-              examples:
-              - true
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time the certificate was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date and time the certificate was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
-          required:
-          - type
-          - verification_method
-          - key_type
-          - preferred_chain
-          - request_status
-          - status
-          - active
-          - created_at
-          - updated_at
-      required:
-      - id
-      - type
-      title: CertificateResource
-    DomainRecordConfigurationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        attributes:
-          type: object
-          properties:
-            type:
-              type: string
-              description: The type of DNS record.
-              enum:
-              - A
-              - CNAME
-              - TXT
-              examples:
-              - A
-            name:
-              type: string
-              description: The name of the DNS record.
-              examples:
-              - example.com
-            value:
-              type: string
-              description: The value (IP address, CNAME target, TXT value) of the DNS record.
-              examples:
-              - 192.168.0.1
-            ttl:
-              type:
-              - integer
-              - 'null'
-              description: The recommended TTL (Time to Live) for the DNS record, in seconds.
-              examples:
-              - 3600
-          required:
-          - type
-          - name
-          - value
-          - ttl
-      required:
-      - id
-      - type
-      title: DomainRecordConfigurationResource
-    UpdateDomainRequest:
-      type: object
-      properties:
-        www_redirect_type:
-          description: The type of `www` redirection to apply to the domain.
-          $ref: '#/components/schemas/WwwRedirectType'
-        allow_wildcard_subdomains:
-          type:
-          - boolean
-          - 'null'
-          description: Whether to allow wildcard subdomains for the domain.
-      required:
-      - www_redirect_type
-      title: UpdateDomainRequest
+      - repository
+      - username
+      - password
+      title: UpdateComposerCredentialRequest
     ApplicationLogResource:
       type: object
       properties:
@@ -4791,54 +5029,79 @@ components:
       - type
       - links
       title: ApplicationLogResource
-    DomainCertificateActionRequest:
+    SecurityRuleResource:
       type: object
       properties:
-        action:
-          description: The action to perform on the domain.
-          examples:
-          - '''enable'''
-          $ref: '#/components/schemas/DomainRecordCertificateAction'
-      required:
-      - action
-      title: DomainCertificateActionRequest
-    DomainRecordCertificateAction:
-      type: string
-      enum:
-      - enable
-      - disable
-      title: DomainRecordCertificateAction
-    CertificateRequestStatus:
-      type: string
-      enum:
-      - verifying
-      - creating
-      - created
-      title: CertificateRequestStatus
-    NodeBalancerMethod:
-      type: string
-      enum:
-      - round_robin
-      - least_conn
-      - ip_hash
-      title: NodeBalancerMethod
-    CreateNpmCredentialRequest:
-      type: object
-      properties:
-        registry:
+        id:
           type: string
-        token:
+        type:
           type: string
-        scopes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
+          enum:
+          - securityRules
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the security rule.
+              examples:
+              - Restricted Access
+            path:
+              type:
+              - string
+              - 'null'
+              description: The path for the security rule.
+              examples:
+              - /admin
+            status:
+              type:
+              - string
+              - 'null'
+              description: The status of the security rule.
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the security rule was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the security rule was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - path
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - registry
-      - token
-      title: CreateNpmCredentialRequest
+      - id
+      - type
+      - links
+      title: SecurityRuleResource
+    RedirectRuleType:
+      type: string
+      enum:
+      - redirect
+      - permanent
+      title: RedirectRuleType
+    CertificateKeyType:
+      type: string
+      enum:
+      - ecdsa
+      - rsa
+      title: CertificateKeyType
     EnvironmentResource:
       type: object
       properties:
@@ -4868,12 +5131,89 @@ components:
       - type
       - links
       title: EnvironmentResource
-    RedirectRuleType:
+    WwwRedirectType:
       type: string
       enum:
-      - redirect
-      - permanent
-      title: RedirectRuleType
+      - from-www
+      - to-www
+      - none
+      title: WwwRedirectType
+    DomainRecordStatus:
+      type: string
+      enum:
+      - pending
+      - connecting
+      - enabled
+      - removing
+      - securing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      title: DomainRecordStatus
+    SourceControlProvider:
+      type: string
+      description: 'All supported source control providers.
+
+        '
+      enum:
+      - github
+      - gitlab
+      - bitbucket
+      - gitlab-custom
+      - custom
+      title: SourceControlProvider
+    TagResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - tags
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: TagResourceIdentifier
+    ResourceState:
+      type: string
+      enum:
+      - installing
+      - installed
+      - removing
+      - restarting
+      - stopping
+      - stopped
+      - starting
+      - syncing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      - running
+      - restoring
+      - deleting
+      - failed
+      - success
+      - failed-unknown
+      - failed-runner
+      - renewing
+      title: ResourceState
+    UpdateDomainRequest:
+      type: object
+      properties:
+        www_redirect_type:
+          description: The type of `www` redirection to apply to the domain.
+          $ref: '#/components/schemas/WwwRedirectType'
+        allow_wildcard_subdomains:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to allow wildcard subdomains for the domain.
+      required:
+      - www_redirect_type
+      title: UpdateDomainRequest
     SiteType:
       type: string
       enum:
@@ -4889,6 +5229,52 @@ components:
       - other
       - custom
       title: SiteType
+    CreateDomainRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the domain.
+          examples:
+          - laravel.com
+        allow_wildcard_subdomains:
+          type: boolean
+          description: Whether to allow wildcard subdomains for the domain.
+          examples:
+          - false
+        www_redirect_type:
+          description: The type of `www` redirection to apply to the domain.
+          examples:
+          - from-www
+          $ref: '#/components/schemas/WwwRedirectType'
+      required:
+      - name
+      - allow_wildcard_subdomains
+      - www_redirect_type
+      title: CreateDomainRequest
+    ServerType:
+      type: string
+      enum:
+      - app
+      - web
+      - loadbalancer
+      - database
+      - cache
+      - worker
+      - meilisearch
+      - openclaw
+      title: ServerType
+    DeploymentStatus:
+      type: string
+      enum:
+      - cancelled
+      - deploying
+      - failed
+      - failed-build
+      - finished
+      - pending
+      - queued
+      title: DeploymentStatus
     CreateSiteRequest:
       type: object
       properties:
@@ -5017,61 +5403,7 @@ components:
       required:
       - type
       title: CreateSiteRequest
-    HeartbeatGracePeriod:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 5
-      - 10
-      - 30
-      - 60
-      title: HeartbeatGracePeriod
-    PhpVersion:
-      type: string
-      enum:
-      - php5
-      - php56-old
-      - php56
-      - php70
-      - php71
-      - php72
-      - php73
-      - php74
-      - php80
-      - php81
-      - php82
-      - php83
-      - php84
-      - php85
-      title: PhpVersion
-    UpdateHealthcheckEndpointRequest:
-      type: object
-      properties:
-        healthcheck_endpoint:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: The endpoint / URL that should be used to perform healthchecks.
-          examples:
-          - https://my-app.com/up
-      title: UpdateHealthcheckEndpointRequest
-    UpdateComposerCredentialRequest:
-      type: object
-      properties:
-        repository:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-      required:
-      - repository
-      - username
-      - password
-      title: UpdateComposerCredentialRequest
-    TagResource:
+    RedirectRuleResource:
       type: object
       properties:
         id:
@@ -5079,75 +5411,53 @@ components:
         type:
           type: string
           enum:
-          - tags
+          - redirect-rules
         attributes:
           type: object
           properties:
-            name:
+            from:
               type: string
+              description: The source URL path for the redirect rule.
+              examples:
+              - /old-path
+            to:
+              type: string
+              description: The destination URL path for the redirect rule.
+              examples:
+              - /new-path
+            type:
+              description: The type of the redirect rule.
+              examples:
+              - permanent
+              $ref: '#/components/schemas/RedirectRuleType'
+            status:
+              type: string
+              description: The status of the redirect rule.
+              enum:
+              - installing
+              - installed
+              - removing
+              examples:
+              - installed
             created_at:
               type: string
               format: date-time
-              description: The date and time the tag was created.
+              description: The date and time the redirect rule was created.
               examples:
               - '2025-07-29T09:00:00Z'
             updated_at:
               type: string
               format: date-time
-              description: The date and time the tag was last updated.
+              description: The date and time the redirect rule was last updated.
               examples:
               - '2025-07-30T09:00:00Z'
           required:
-          - name
+          - from
+          - to
+          - type
+          - status
           - created_at
           - updated_at
-      required:
-      - id
-      - type
-      title: TagResource
-    CertificateKeyType:
-      type: string
-      enum:
-      - ecdsa
-      - rsa
-      title: CertificateKeyType
-    MaintenanceModeStatus:
-      type: string
-      enum:
-      - disabling
-      - enabling
-      title: MaintenanceModeStatus
-    HeartbeatFrequency:
-      type: integer
-      enum:
-      - 1
-      - 5
-      - 10
-      - 30
-      - 60
-      - 1440
-      - 10080
-      - 312480
-      - -1
-      title: HeartbeatFrequency
-    NginxConfigResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - nginxConfigs
-        attributes:
-          type: object
-          properties:
-            content:
-              type:
-              - string
-              - 'null'
-          required:
-          - content
         links:
           type: object
           properties:
@@ -5159,57 +5469,20 @@ components:
       - id
       - type
       - links
-      title: NginxConfigResource
-    HeartbeatResource:
+      title: RedirectRuleResource
+    DeploymentResourceIdentifier:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
-          - heartbeats
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the heartbeat.
-            status:
-              anyOf:
-              - $ref: '#/components/schemas/HeartbeatStatus'
-              - type: 'null'
-            grace_period:
-              $ref: '#/components/schemas/HeartbeatGracePeriod'
-            frequency:
-              $ref: '#/components/schemas/HeartbeatFrequency'
-            custom_frequency:
-              type:
-              - string
-              - 'null'
-            ping_url:
-              type:
-              - string
-              - 'null'
-          required:
-          - name
-          - status
-          - grace_period
-          - frequency
-          - custom_frequency
-          - ping_url
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+          - deployments
+        id:
+          type: string
       required:
-      - id
       - type
-      - links
-      title: HeartbeatResource
+      - id
+      title: DeploymentResourceIdentifier
     CreateHeartbeatRequest:
       type: object
       properties:
@@ -5239,280 +5512,27 @@ components:
       - grace_period
       - frequency
       title: CreateHeartbeatRequest
-    LoadBalancingNodeResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - loadBalancingNodes
-        attributes:
-          type: object
-          properties:
-            server_id: {}
-            port:
-              type: integer
-            weight:
-              type: integer
-            backup:
-              type: boolean
-            down:
-              type: boolean
-          required:
-          - server_id
-          - port
-          - weight
-          - backup
-          - down
-      required:
-      - id
-      - type
-      title: LoadBalancingNodeResource
-    CreateDomainCertificateRequest:
-      type: object
-      properties:
-        enable:
-          type: boolean
-          description: Whether to enable the certificate upon installation.
-          examples:
-          - false
-        type:
-          type: string
-          description: The type of certificate to create.
-          enum:
-          - letsencrypt
-          - csr
-          - existing
-          - clone
-          examples:
-          - letsencrypt
-        letsencrypt:
-          type: object
-          description: The configuration for a Let's Encrypt certificate.
-          properties:
-            verification_method:
-              description: The verification method to use for the Let's Encrypt certificate.
-              examples:
-              - dns-01
-              $ref: '#/components/schemas/CertificateVerificationMethod'
-            key_type:
-              description: The type of key to use for the Let's Encrypt certificate.
-              examples:
-              - ecdsa
-              $ref: '#/components/schemas/CertificateKeyType'
-            preferred_chain:
-              type:
-              - string
-              - 'null'
-              description: The preferred chain for the Let's Encrypt certificate.
-              enum:
-              - ISRG Root X1
-              - null
-              examples:
-              - ISRG Root X1
-        existing:
-          type: object
-          description: The configuration for an existing certificate.
-          properties:
-            key:
-              type: string
-              description: The private key for an existing certificate.
-            certificate:
-              type: string
-              description: The certificate chain for an existing certificate.
-        csr:
-          type: object
-          description: The configuration for a CSR (Certificate Signing Request).
-          properties:
-            domain:
-              type: string
-              description: The domain to generate a CSR for.
-            sans:
-              type:
-              - string
-              - 'null'
-              description: The SANs for the CSR, comma-separated.
-            country:
-              type: string
-              description: The country for the CSR.
-            state:
-              type: string
-              description: The state for the CSR.
-            city:
-              type: string
-              description: The city for the CSR.
-            organization:
-              type: string
-              description: The organization for the CSR.
-            department:
-              type: string
-              description: The department for the CSR.
-        clone:
-          type: object
-          properties:
-            certificate_id:
-              type: integer
-              description: The ID of the certificate to clone.
-      required:
-      - type
-      title: CreateDomainCertificateRequest
-    ServerResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - servers
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ServerResourceIdentifier
-    DeploymentStatus:
-      type: string
-      enum:
-      - cancelled
-      - deploying
-      - failed
-      - failed-build
-      - finished
-      - pending
-      - queued
-      title: DeploymentStatus
-    UpdateSiteRequest:
-      type: object
-      properties:
-        root_path:
-          type:
-          - string
-          - 'null'
-        directory:
-          type:
-          - string
-          - 'null'
-        type:
-          $ref: '#/components/schemas/SiteType'
-        php_version:
-          $ref: '#/components/schemas/PhpVersion'
-        push_to_deploy:
-          type: boolean
-          description: Automatically trigger a new deployment when changes are pushed to the environment's Git branch.
-          default: false
-        repository_branch:
-          type:
-          - string
-          - 'null'
-        deployment_retention:
-          description: The number of zero downtime deployment releases that should be retained for the site.
-          examples:
-          - 5
-          anyOf:
-          - type: integer
-            minimum: 1
-            maximum: 100
-          - type: string
-      title: UpdateSiteRequest
-    AppType:
-      type: string
-      enum:
-      - Statamic
-      - WordPress
-      - phpMyAdmin
-      - Laravel
-      - Symfony
-      - PHP
-      - Next.js
-      - Nuxt.js
-      - Static HTML
-      - Custom
-      - Craft
-      - Minecraft
-      title: AppType
-    SecurityRuleResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - securityRules
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: SecurityRuleResourceIdentifier
-    SecurityRuleResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - securityRules
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the security rule.
-              examples:
-              - Restricted Access
-            path:
-              type:
-              - string
-              - 'null'
-              description: The path for the security rule.
-              examples:
-              - /admin
-            status:
-              type:
-              - string
-              - 'null'
-              description: The status of the security rule.
-              examples:
-              - installed
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time the security rule was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date and time the security rule was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
-          required:
-          - name
-          - path
-          - status
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: SecurityRuleResource
-    WwwRedirectType:
-      type: string
-      enum:
-      - from-www
-      - to-www
-      - none
-      title: WwwRedirectType
   responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -5537,26 +5557,6 @@ components:
                 description: Error overview.
             required:
             - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

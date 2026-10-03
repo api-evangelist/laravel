@@ -1512,6 +1512,174 @@ paths:
     - url: https://forge.laravel.com/api
 components:
   schemas:
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    UserResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - users
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            avatar_url:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - avatar_url
+          - created_at
+      required:
+      - id
+      - type
+      title: UserResource
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
     DeploymentResource:
       type: object
       properties:
@@ -1619,91 +1787,6 @@ components:
       - type
       - links
       title: DeploymentResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    CacheResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - caches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
     RateLimitPerMinute:
       type: integer
       enum:
@@ -1713,97 +1796,34 @@ components:
       - 750
       - 1000
       title: RateLimitPerMinute
-    UserResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - users
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            email:
-              type: string
-            avatar_url:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - email
-          - avatar_url
-          - created_at
-      required:
-      - id
-      - type
-      title: UserResource
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    UserResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - users
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: UserResourceIdentifier
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    RateLimitLevel:
+    EnvironmentStatus:
       type: string
       enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
     EnvironmentResource:
       type: object
       properties:
@@ -2089,19 +2109,19 @@ components:
       - type
       - links
       title: EnvironmentResource
-    WebsocketApplicationResourceIdentifier:
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - websocketApplications
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: WebsocketApplicationResourceIdentifier
+      title: BranchResourceIdentifier
     NodeVersion:
       type: string
       enum:
@@ -2109,32 +2129,6 @@ components:
       - '22'
       - '24'
       title: NodeVersion
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
     DeploymentStatus:
       type: string
       enum:
@@ -2154,26 +2148,32 @@ components:
       - deployment.succeeded
       - deployment.failed
       title: DeploymentStatus
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
     DeploymentWebhookResource:
       type: object
       properties:
@@ -2218,7 +2218,16 @@ components:
       - type
       - links
       title: DeploymentWebhookResource
-    DeploymentScriptResource:
+    CreateDeploymentWebhookRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+      required:
+      - url
+      title: CreateDeploymentWebhookRequest
+    DeployHookResource:
       type: object
       properties:
         id:
@@ -2226,21 +2235,15 @@ components:
         type:
           type: string
           enum:
-          - deploymentScripts
+          - deploymentHooks
         attributes:
           type: object
           properties:
-            content:
-              type:
-              - string
-              - 'null'
-              description: The content of the deployment script.
-            auto_source:
-              type: boolean
-              description: Make .env variables available to deployment script
+            url:
+              type: string
+              description: The URL to use for the deployment hook.
           required:
-          - content
-          - auto_source
+          - url
         links:
           type: object
           properties:
@@ -2253,7 +2256,7 @@ components:
       - id
       - type
       - links
-      title: DeploymentScriptResource
+      title: DeployHookResource
     DeploymentResource_2:
       type: object
       properties:
@@ -2346,36 +2349,6 @@ components:
       - pending
       - queued
       title: DeploymentStatus
-    DeployHookResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - deploymentHooks
-        attributes:
-          type: object
-          properties:
-            url:
-              type: string
-              description: The URL to use for the deployment hook.
-          required:
-          - url
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: DeployHookResource
     DeploymentOutputResource:
       type: object
       properties:
@@ -2487,16 +2460,63 @@ components:
       required:
       - content
       title: UpdateDeploymentScriptRequest
-    CreateDeploymentWebhookRequest:
+    DeploymentScriptResource:
       type: object
       properties:
-        url:
+        id:
           type: string
-          format: uri
+        type:
+          type: string
+          enum:
+          - deploymentScripts
+        attributes:
+          type: object
+          properties:
+            content:
+              type:
+              - string
+              - 'null'
+              description: The content of the deployment script.
+            auto_source:
+              type: boolean
+              description: Make .env variables available to deployment script
+          required:
+          - content
+          - auto_source
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - url
-      title: CreateDeploymentWebhookRequest
+      - id
+      - type
+      - links
+      title: DeploymentScriptResource
   responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -2521,26 +2541,6 @@ components:
                 description: Error overview.
             required:
             - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

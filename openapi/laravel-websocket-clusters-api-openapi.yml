@@ -411,21 +411,97 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    WebsocketServerMaxConnection:
-      type: integer
-      enum:
-      - 100
-      - 200
-      - 500
-      - 2000
-      - 5000
-      - 10000
-      title: WebsocketServerMaxConnection
-    WebsocketServerType:
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    MetricPeriod:
       type: string
       enum:
-      - reverb
-      title: WebsocketServerType
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    WebsocketServerResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketServers
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketServerResourceIdentifier
+    WebsocketServerResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - websocketServers
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/WebsocketServerType'
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            status:
+              $ref: '#/components/schemas/WebsocketServerStatus'
+            max_connections:
+              $ref: '#/components/schemas/WebsocketServerMaxConnection'
+            connection_distribution_strategy:
+              $ref: '#/components/schemas/WebsocketServerConnectionDistributionStrategy'
+            hostname:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - region
+          - status
+          - max_connections
+          - connection_distribution_strategy
+          - hostname
+          - created_at
+        relationships:
+          type: object
+          properties:
+            applications:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/WebsocketApplicationResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: WebsocketServerResource
     StoreWebsocketServerRequest:
       type: object
       properties:
@@ -446,34 +522,25 @@ components:
       - region
       - max_connections
       title: StoreWebsocketServerRequest
-    WebsocketServerConnectionDistributionStrategy:
+    CloudRegion:
       type: string
       enum:
-      - evenly
-      - custom
-      title: WebsocketServerConnectionDistributionStrategy
-    WebsocketServerResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketServers
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketServerResourceIdentifier
-    MetricPeriod:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    WebsocketServerType:
       type: string
       enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
+      - reverb
+      title: WebsocketServerType
     WebsocketApplicationResource:
       type: object
       properties:
@@ -549,19 +616,16 @@ components:
       - id
       - type
       title: WebsocketApplicationResource
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
+    WebsocketServerMaxConnection:
+      type: integer
+      enum:
+      - 100
+      - 200
+      - 500
+      - 2000
+      - 5000
+      - 10000
+      title: WebsocketServerMaxConnection
     UpdateWebsocketServerRequest:
       type: object
       properties:
@@ -574,6 +638,12 @@ components:
           description: The number of maximum connections allowed for the WebSocket server. If passed, the connection distribution strategy will be set to EVENLY.
           $ref: '#/components/schemas/WebsocketServerMaxConnection'
       title: UpdateWebsocketServerRequest
+    WebsocketServerConnectionDistributionStrategy:
+      type: string
+      enum:
+      - evenly
+      - custom
+      title: WebsocketServerConnectionDistributionStrategy
     WebsocketServerStatus:
       type: string
       enum:
@@ -585,89 +655,7 @@ components:
       - deleted
       - unknown
       title: WebsocketServerStatus
-    WebsocketServerResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - websocketServers
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/WebsocketServerType'
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            status:
-              $ref: '#/components/schemas/WebsocketServerStatus'
-            max_connections:
-              $ref: '#/components/schemas/WebsocketServerMaxConnection'
-            connection_distribution_strategy:
-              $ref: '#/components/schemas/WebsocketServerConnectionDistributionStrategy'
-            hostname:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - region
-          - status
-          - max_connections
-          - connection_distribution_strategy
-          - hostname
-          - created_at
-        relationships:
-          type: object
-          properties:
-            applications:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/WebsocketApplicationResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: WebsocketServerResource
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ModelNotFoundException:
       description: Not found
       content:
@@ -700,6 +688,18 @@ components:
             required:
             - message
             - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http

@@ -360,57 +360,83 @@ paths:
           noindex: true
       x-processingMode: sync
 components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    CreateSshKeyRequest:
+    ServerKeyResource:
       type: object
       properties:
-        name:
-          type: string
-          description: The name of the SSH key.
-          examples:
-          - oliver-macbook
-        key:
-          type: string
-          description: The public SSH key.
-          examples:
-          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
-        user:
-          type:
-          - string
-          - 'null'
-          description: The user associated with the SSH key.
-          default: forge
-          examples:
-          - username
-      required:
-      - name
-      - key
-      title: CreateSshKeyRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
+        id:
           type: string
         type:
           type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
+          enum:
+          - serverKeys
+        attributes:
           type: object
+          properties:
+            public_key:
+              type: string
+            fingerprint:
+              type: string
+          required:
+          - public_key
+          - fingerprint
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - href
-      title: Link
+      - id
+      - type
+      - links
+      title: ServerKeyResource
     KeyResource:
       type: object
       properties:
@@ -461,82 +487,56 @@ components:
       - type
       - links
       title: KeyResource
-    ServerKeyResource:
+    CreateSshKeyRequest:
       type: object
       properties:
-        id:
+        name:
+          type: string
+          description: The name of the SSH key.
+          examples:
+          - oliver-macbook
+        key:
+          type: string
+          description: The public SSH key.
+          examples:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
+        user:
+          type:
+          - string
+          - 'null'
+          description: The user associated with the SSH key.
+          default: forge
+          examples:
+          - username
+      required:
+      - name
+      - key
+      title: CreateSshKeyRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
           type: string
         type:
           type: string
-          enum:
-          - serverKeys
-        attributes:
-          type: object
-          properties:
-            public_key:
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
               type: string
-            fingerprint:
-              type: string
-          required:
-          - public_key
-          - fingerprint
-        links:
+        meta:
           type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
-      - id
-      - type
-      - links
-      title: ServerKeyResource
-  responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
+      - href
+      title: Link
   securitySchemes:
     http:
       type: http

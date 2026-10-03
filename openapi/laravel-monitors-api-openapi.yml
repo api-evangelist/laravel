@@ -311,55 +311,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    ResourceState:
-      type: string
-      enum:
-      - installing
-      - installed
-      - removing
-      - restarting
-      - stopping
-      - stopped
-      - starting
-      - syncing
-      - updating
-      - disabling
-      - disabled
-      - enabling
-      - running
-      - restoring
-      - deleting
-      - failed
-      - success
-      - failed-unknown
-      - failed-runner
-      - renewing
-      title: ResourceState
     MonitorResource:
       type: object
       properties:
@@ -452,6 +403,30 @@ components:
       - type
       - links
       title: MonitorResource
+    ResourceState:
+      type: string
+      enum:
+      - installing
+      - installed
+      - removing
+      - restarting
+      - stopping
+      - stopped
+      - starting
+      - syncing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      - running
+      - restoring
+      - deleting
+      - failed
+      - success
+      - failed-unknown
+      - failed-runner
+      - renewing
+      title: ResourceState
     CreateMonitorRequest:
       type: object
       properties:
@@ -510,9 +485,34 @@ components:
       - free_memory
       - used_memory
       title: MonitorMetricType
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
   responses:
-    AuthorizationException:
-      description: Authorization error
+    ModelNotFoundException:
+      description: Not found
       content:
         application/json:
           schema:
@@ -543,8 +543,8 @@ components:
             required:
             - message
             - errors
-    ModelNotFoundException:
-      description: Not found
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

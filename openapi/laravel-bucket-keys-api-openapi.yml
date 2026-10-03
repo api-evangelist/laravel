@@ -276,11 +276,16 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    FilesystemType:
-      type: string
-      enum:
-      - cloudflare_r2
-      title: FilesystemType
+    UpdateFilesystemKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 40
+      required:
+      - name
+      title: UpdateFilesystemKeyRequest
     FilesystemKeyResource:
       type: object
       properties:
@@ -332,6 +337,28 @@ components:
       - id
       - type
       title: FilesystemKeyResource
+    FilesystemStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: FilesystemStatus
+    FilesystemVisibility:
+      type: string
+      enum:
+      - private
+      - public
+      title: FilesystemVisibility
+    FilesystemKeyPermission:
+      type: string
+      enum:
+      - read_write
+      - read_only
+      title: FilesystemKeyPermission
     FilesystemKeyResourceIdentifier:
       type: object
       properties:
@@ -345,12 +372,30 @@ components:
       - type
       - id
       title: FilesystemKeyResourceIdentifier
+    StoreFilesystemKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 40
+        permission:
+          $ref: '#/components/schemas/FilesystemKeyPermission'
+      required:
+      - name
+      - permission
+      title: StoreFilesystemKeyRequest
     FilesystemJurisdiction:
       type: string
       enum:
       - default
       - eu
       title: FilesystemJurisdiction
+    FilesystemType:
+      type: string
+      enum:
+      - cloudflare_r2
+      title: FilesystemType
     FilesystemResourceIdentifier:
       type: object
       properties:
@@ -430,64 +475,7 @@ components:
       - id
       - type
       title: FilesystemResource
-    FilesystemKeyPermission:
-      type: string
-      enum:
-      - read_write
-      - read_only
-      title: FilesystemKeyPermission
-    FilesystemVisibility:
-      type: string
-      enum:
-      - private
-      - public
-      title: FilesystemVisibility
-    FilesystemStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: FilesystemStatus
-    StoreFilesystemKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-        permission:
-          $ref: '#/components/schemas/FilesystemKeyPermission'
-      required:
-      - name
-      - permission
-      title: StoreFilesystemKeyRequest
-    UpdateFilesystemKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: UpdateFilesystemKeyRequest
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -510,6 +498,18 @@ components:
             - errors
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

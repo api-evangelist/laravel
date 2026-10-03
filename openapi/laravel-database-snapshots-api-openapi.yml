@@ -255,31 +255,176 @@ components:
       - type
       - id
       title: DatabaseResourceIdentifier
-    Link:
+    DatabaseSnapshotStatus:
+      type: string
+      enum:
+      - pending
+      - creating
+      - available
+      - failed
+      - deleting
+      title: DatabaseSnapshotStatus
+    DatabaseSchemaResourceIdentifier:
       type: object
       properties:
-        href:
+        type:
           type: string
-          format: uri
-        rel:
+          enum:
+          - databaseSchemas
+        id:
           type: string
-        describedby:
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    DatabaseSnapshotType:
+      type: string
+      enum:
+      - manual
+      - scheduled
+      title: DatabaseSnapshotType
+    StoreDatabaseSnapshotRequest:
+      type: object
+      properties:
+        name:
           type: string
-        title:
+          minLength: 1
+          maxLength: 100
+        description:
+          type:
+          - string
+          - 'null'
+          minLength: 3
+          maxLength: 40
+      required:
+      - name
+      title: StoreDatabaseSnapshotRequest
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql_84
+      - laravel_mysql_8
+      - aws_rds_mysql_8
+      - aws_rds_postgres_18
+      - neon_serverless_postgres_18
+      - neon_serverless_postgres_17
+      - neon_serverless_postgres_16
+      title: DatabaseType
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    DatabaseStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - restarting
+      - upgrading
+      - moving
+      - available
+      - stopped
+      - restoring
+      - restore_failed
+      - disabled
+      - snapshotting_before_archiving
+      - archiving
+      - archived
+      - deleting
+      - deleted
+      - unknown
+      title: DatabaseStatus
+    DatabaseSnapshotResource:
+      type: object
+      properties:
+        id:
           type: string
         type:
           type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
+          enum:
+          - database_snapshots
+        attributes:
           type: object
+          properties:
+            name:
+              type:
+              - string
+              - 'null'
+            description:
+              type:
+              - string
+              - 'null'
+            type:
+              $ref: '#/components/schemas/DatabaseSnapshotType'
+            status:
+              $ref: '#/components/schemas/DatabaseSnapshotStatus'
+            storage_bytes:
+              type:
+              - integer
+              - 'null'
+            pitr_enabled:
+              type:
+              - boolean
+              - 'null'
+            pitr_ends_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            completed_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - description
+          - type
+          - status
+          - storage_bytes
+          - pitr_enabled
+          - pitr_ends_at
+          - completed_at
+          - created_at
+        relationships:
+          type: object
+          properties:
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - href
-      title: Link
+      - id
+      - type
+      - links
+      title: DatabaseSnapshotResource
     DatabaseResource:
       type: object
       properties:
@@ -558,189 +703,32 @@ components:
       - id
       - type
       title: DatabaseResource
-    StoreDatabaseSnapshotRequest:
+    Link:
       type: object
       properties:
-        name:
+        href:
           type: string
-          minLength: 1
-          maxLength: 100
-        description:
-          type:
-          - string
-          - 'null'
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: StoreDatabaseSnapshotRequest
-    DatabaseSnapshotResource:
-      type: object
-      properties:
-        id:
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
           type: string
         type:
           type: string
-          enum:
-          - database_snapshots
-        attributes:
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
           type: object
-          properties:
-            name:
-              type:
-              - string
-              - 'null'
-            description:
-              type:
-              - string
-              - 'null'
-            type:
-              $ref: '#/components/schemas/DatabaseSnapshotType'
-            status:
-              $ref: '#/components/schemas/DatabaseSnapshotStatus'
-            storage_bytes:
-              type:
-              - integer
-              - 'null'
-            pitr_enabled:
-              type:
-              - boolean
-              - 'null'
-            pitr_ends_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            completed_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - description
-          - type
-          - status
-          - storage_bytes
-          - pitr_enabled
-          - pitr_ends_at
-          - completed_at
-          - created_at
-        relationships:
-          type: object
-          properties:
-            database:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
-      - id
-      - type
-      - links
-      title: DatabaseSnapshotResource
-    DatabaseSnapshotStatus:
-      type: string
-      enum:
-      - pending
-      - creating
-      - available
-      - failed
-      - deleting
-      title: DatabaseSnapshotStatus
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    DatabaseSnapshotType:
-      type: string
-      enum:
-      - manual
-      - scheduled
-      title: DatabaseSnapshotType
-    DatabaseStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - restarting
-      - upgrading
-      - moving
-      - available
-      - stopped
-      - restoring
-      - restore_failed
-      - disabled
-      - snapshotting_before_archiving
-      - archiving
-      - archived
-      - deleting
-      - deleted
-      - unknown
-      title: DatabaseStatus
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
+      - href
+      title: Link
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -763,6 +751,18 @@ components:
             - errors
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

@@ -992,6 +992,61 @@ paths:
     - url: https://forge.laravel.com/api
 components:
   schemas:
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql_84
+      - laravel_mysql_8
+      - aws_rds_mysql_8
+      - aws_rds_postgres_18
+      - neon_serverless_postgres_18
+      - neon_serverless_postgres_17
+      - neon_serverless_postgres_16
+      title: DatabaseType
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    StoreDatabaseSchemaRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+      required:
+      - name
+      title: StoreDatabaseSchemaRequest
     Link:
       type: object
       properties:
@@ -1017,19 +1072,96 @@ components:
       required:
       - href
       title: Link
-    DeploymentResourceIdentifier:
+    InstanceResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - instances
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
+      title: InstanceResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    DatabaseSchemaResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            status:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - status
+          - created_at
+        relationships:
+          type: object
+          properties:
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: DatabaseSchemaResource
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
     DatabaseStatus:
       type: string
       enum:
@@ -1050,6 +1182,54 @@ components:
       - deleted
       - unknown
       title: DatabaseStatus
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
     EnvironmentStatus:
       type: string
       enum:
@@ -1058,6 +1238,26 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
     DatabaseResource:
       type: object
       properties:
@@ -1336,135 +1536,6 @@ components:
       - id
       - type
       title: DatabaseResource
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    CacheResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - caches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    StoreDatabaseSchemaRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: StoreDatabaseSchemaRequest
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    DatabaseResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databases
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
     EnvironmentResource:
       type: object
       properties:
@@ -1750,83 +1821,32 @@ components:
       - type
       - links
       title: EnvironmentResource
-    WebsocketApplicationResourceIdentifier:
+    DatabaseResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - websocketApplications
+          - databases
         id:
           type: string
       required:
       - type
       - id
-      title: WebsocketApplicationResourceIdentifier
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    DatabaseSchemaResource:
+      title: DatabaseResourceIdentifier
+    BranchResourceIdentifier:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
-          - databaseSchemas
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            status:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - status
-          - created_at
-        relationships:
-          type: object
-          properties:
-            database:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
+          - branches
+        id:
+          type: string
       required:
-      - id
       - type
-      title: DatabaseSchemaResource
+      - id
+      title: BranchResourceIdentifier
     NodeVersion:
       type: string
       enum:
@@ -1834,52 +1854,32 @@ components:
       - '22'
       - '24'
       title: NodeVersion
-    InstanceResourceIdentifier:
+    DeploymentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - instances
+          - deployments
         id:
           type: string
       required:
       - type
       - id
-      title: InstanceResourceIdentifier
-    EnvironmentResourceIdentifier:
+      title: DeploymentResourceIdentifier
+    FilesystemResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - environments
+          - filesystems
         id:
           type: string
       required:
       - type
       - id
-      title: EnvironmentResourceIdentifier
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
+      title: FilesystemResourceIdentifier
     UpdateDatabasePasswordRequest:
       type: object
       properties:
@@ -1889,62 +1889,41 @@ components:
       required:
       - password
       title: UpdateDatabasePasswordRequest
-    DatabaseResource_2:
+    CreateDatabaseRequest:
       type: object
       properties:
-        id:
+        name:
           type: string
-        type:
-          type: string
-          enum:
-          - databases
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the database schema.
-              examples:
-              - forge
-            status:
-              type: string
-              description: The status of the database schema.
-              enum:
-              - installing
-              - installed
-              - removing
-              examples:
-              - installed
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time the database schema was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date and time the database schema was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
-          required:
-          - name
-          - status
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+          description: The name of the database to create.
+          examples:
+          - forge
+          maxLength: 63
+        user:
+          type:
+          - string
+          - 'null'
+          description: The name of the database user to create. Only needed if a new user should be created alongside the database.
+          examples:
+          - james
+        password:
+          type:
+          - string
+          - 'null'
+          description: The password for the database user. Only used if the user is provided.
+          examples:
+          - password
+          maxLength: 255
+        backup_configuration_ids:
+          type: array
+          description: The backup configurations the database should be added to.
+          examples:
+          - - 1
+            - 2
+          items:
+            type: integer
       required:
-      - id
-      - type
-      - links
-      title: DatabaseResource
+      - name
+      title: CreateDatabaseRequest
     UpdateDatabaseUserRequest:
       type: object
       properties:
@@ -2023,41 +2002,6 @@ components:
       - type
       - links
       title: DatabaseUserResource
-    CreateDatabaseRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the database to create.
-          examples:
-          - forge
-          maxLength: 63
-        user:
-          type:
-          - string
-          - 'null'
-          description: The name of the database user to create. Only needed if a new user should be created alongside the database.
-          examples:
-          - james
-        password:
-          type:
-          - string
-          - 'null'
-          description: The password for the database user. Only used if the user is provided.
-          examples:
-          - password
-          maxLength: 255
-        backup_configuration_ids:
-          type: array
-          description: The backup configurations the database should be added to.
-          examples:
-          - - 1
-            - 2
-          items:
-            type: integer
-      required:
-      - name
-      title: CreateDatabaseRequest
     CreateDatabaseUserRequest:
       type: object
       properties:
@@ -2090,7 +2034,83 @@ components:
       - name
       - password
       title: CreateDatabaseUserRequest
+    DatabaseResource_2:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - databases
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the database schema.
+              examples:
+              - forge
+            status:
+              type: string
+              description: The status of the database schema.
+              enum:
+              - installing
+              - installed
+              - removing
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the database schema was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the database schema was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DatabaseResource
   responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -2115,26 +2135,6 @@ components:
                 description: Error overview.
             required:
             - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

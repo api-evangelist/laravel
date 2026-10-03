@@ -763,126 +763,129 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    ManagedQueueFailedJobResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        attributes:
-          type: object
-          properties:
-            name:
-              type:
-              - string
-              - 'null'
-              description: The job's display name (typically its class), or null when it cannot be determined from the payload.
-            queue:
-              type: string
-            failed_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            started_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            attempts:
-              type: string
-            exception:
-              type: string
-            retried_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            retry_reserved_until:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - queue
-          - failed_at
-          - started_at
-          - attempts
-          - exception
-          - retried_at
-          - retry_reserved_until
-      required:
-      - id
-      - type
-      title: ManagedQueueFailedJobResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    DeploymentResourceIdentifier:
+    CacheResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - caches
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
-    DaemonStrategyType:
-      type: string
-      enum:
-      - none
-      - growth_rate
-      - queue_size
-      title: DaemonStrategyType
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    FilesystemResourceIdentifier:
+      title: CacheResourceIdentifier
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - filesystems
+          - environments
         id:
           type: string
       required:
       - type
       - id
-      title: FilesystemResourceIdentifier
+      title: EnvironmentResourceIdentifier
+    UpdateInstanceRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 40
+        size:
+          $ref: '#/components/schemas/InstanceSize'
+        scaling_type:
+          $ref: '#/components/schemas/InstanceScalingType'
+        max_replicas:
+          type: integer
+          description: The maximum number of replicas the instance can scale to. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
+          examples:
+          - 10
+        min_replicas:
+          type: integer
+          description: The minimum number of replicas the instance runs. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
+          examples:
+          - 1
+        hibernation_timeout:
+          type:
+          - integer
+          - 'null'
+          description: 'Number of minutes before the application hibernates. Set to null to disable hibernation, or omit it to avoid changing the hibernation settings.
+
+            Takes precedence over the deprecated uses_sleep_mode and sleep_timeout fields.'
+          examples:
+          - 5
+        uses_sleep_mode:
+          type: boolean
+          description: Use hibernation_timeout instead.
+          deprecated: true
+        sleep_timeout:
+          type: integer
+          description: Use hibernation_timeout instead.
+          deprecated: true
+          minimum: 1
+          maximum: 60
+        uses_scheduler:
+          type: boolean
+        sleep_with_app:
+          type: boolean
+          description: Whether worker replicas scale to zero alongside the app cluster, waking when they receive traffic. Only applicable to worker (service) instances.
+          examples:
+          - true
+        uses_octane:
+          type: boolean
+        uses_inertia_ssr:
+          type: boolean
+        scaling_cpu_threshold_percentage:
+          type:
+          - integer
+          - 'null'
+          minimum: 50
+          maximum: 95
+        scaling_memory_threshold_percentage:
+          type:
+          - integer
+          - 'null'
+          minimum: 50
+          maximum: 95
+        visibility_timeout:
+          type: integer
+          minimum: 0
+          maximum: 43200
+        polling_interval:
+          type: integer
+          minimum: 1
+          maximum: 60
+        shutdown_timeout:
+          type: integer
+          minimum: 1
+          maximum: 0
+      title: UpdateInstanceRequest
+    InstanceType:
+      type: string
+      enum:
+      - app
+      - service
+      - queue
+      - managed_queue
+      title: InstanceType
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    DaemonType:
+      type: string
+      enum:
+      - worker
+      - custom
+      title: DaemonType
     InstanceSize:
       type: string
       enum:
@@ -938,47 +941,87 @@ components:
       - mq-dedicated-4gb
       - mq-dedicated-8gb
       title: InstanceSize
-    CacheResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - caches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    DaemonType:
+    DaemonStrategyType:
       type: string
       enum:
-      - worker
-      - custom
-      title: DaemonType
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
     InstanceResource:
       type: object
       properties:
@@ -1094,135 +1137,6 @@ components:
       - id
       - type
       title: InstanceResource
-    CreateInstanceRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-        type:
-          type: string
-          enum:
-          - service
-          - managed_queue
-        size:
-          $ref: '#/components/schemas/InstanceSize'
-        scaling_type:
-          $ref: '#/components/schemas/InstanceScalingType'
-        max_replicas:
-          type: integer
-          description: The maximum number of replicas the instance can scale to. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
-          examples:
-          - 10
-        min_replicas:
-          type: integer
-          description: The minimum number of replicas the instance runs. Only applicable to the `custom` scaling type, and rejected when used with `auto`. Not applicable to managed queues, which always scale to zero when idle.
-          examples:
-          - 1
-        uses_scheduler:
-          type: boolean
-        sleep_with_app:
-          type: boolean
-          description: Whether worker replicas scale to zero alongside the app cluster, waking when they receive traffic. Only applicable to worker (service) instances.
-          examples:
-          - true
-        scaling_cpu_threshold_percentage:
-          type:
-          - integer
-          - 'null'
-          minimum: 50
-          maximum: 95
-        scaling_memory_threshold_percentage:
-          type:
-          - integer
-          - 'null'
-          minimum: 50
-          maximum: 95
-        visibility_timeout:
-          type: integer
-          minimum: 0
-          maximum: 43200
-        polling_interval:
-          type: integer
-          minimum: 1
-          maximum: 60
-        shutdown_timeout:
-          type: integer
-          minimum: 1
-          maximum: 0
-        background_processes:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                $ref: '#/components/schemas/DaemonType'
-              processes:
-                type: integer
-                minimum: 1
-                maximum: 10
-              command:
-                type: string
-                description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
-                examples:
-                - php artisan my:command
-              config:
-                type: object
-                properties:
-                  connection:
-                    type: string
-                    description: The queue connection name. Only applicable for 'worker' type background processes. Managed queues must use 'cloud'.
-                    examples:
-                    - redis
-                  queue:
-                    type: string
-                    description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
-                    examples:
-                    - default,emails
-                  tries:
-                    type: integer
-                    description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
-                    examples:
-                    - 3
-                  backoff:
-                    type: integer
-                    description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
-                    examples:
-                    - 30
-                  sleep:
-                    type: integer
-                    description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
-                    examples:
-                    - 3
-                  rest:
-                    type: integer
-                    description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
-                    examples:
-                    - 0
-                  timeout:
-                    type: integer
-                    description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
-                    examples:
-                    - 60
-                  force:
-                    type: boolean
-                    description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
-                    examples:
-                    - false
-            required:
-            - type
-            - processes
-      required:
-      - name
-      - type
-      - size
-      - scaling_type
-      - min_replicas
-      - visibility_timeout
-      - polling_interval
-      - shutdown_timeout
-      title: CreateInstanceRequest
     DomainResourceIdentifier:
       type: object
       properties:
@@ -1236,95 +1150,117 @@ components:
       - type
       - id
       title: DomainResourceIdentifier
-    ApplicationResourceIdentifier:
+    InstanceScalingType:
+      type: string
+      enum:
+      - none
+      - custom
+      - auto
+      title: InstanceScalingType
+    ManagedQueueFailedJobResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type:
+              - string
+              - 'null'
+              description: The job's display name (typically its class), or null when it cannot be determined from the payload.
+            queue:
+              type: string
+            failed_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            attempts:
+              type: string
+            exception:
+              type: string
+            retried_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            retry_reserved_until:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - queue
+          - failed_at
+          - started_at
+          - attempts
+          - exception
+          - retried_at
+          - retry_reserved_until
+      required:
+      - id
+      - type
+      title: ManagedQueueFailedJobResource
+    DatabaseSchemaResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - applications
+          - databaseSchemas
         id:
           type: string
       required:
       - type
       - id
-      title: ApplicationResourceIdentifier
-    UpdateInstanceRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-        size:
-          $ref: '#/components/schemas/InstanceSize'
-        scaling_type:
-          $ref: '#/components/schemas/InstanceScalingType'
-        max_replicas:
-          type: integer
-          description: The maximum number of replicas the instance can scale to. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
-          examples:
-          - 10
-        min_replicas:
-          type: integer
-          description: The minimum number of replicas the instance runs. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
-          examples:
-          - 1
-        hibernation_timeout:
-          type:
-          - integer
-          - 'null'
-          description: 'Number of minutes before the application hibernates. Set to null to disable hibernation, or omit it to avoid changing the hibernation settings.
-
-            Takes precedence over the deprecated uses_sleep_mode and sleep_timeout fields.'
-          examples:
-          - 5
-        uses_sleep_mode:
-          type: boolean
-          description: Use hibernation_timeout instead.
-          deprecated: true
-        sleep_timeout:
-          type: integer
-          description: Use hibernation_timeout instead.
-          deprecated: true
-          minimum: 1
-          maximum: 60
-        uses_scheduler:
-          type: boolean
-        sleep_with_app:
-          type: boolean
-          description: Whether worker replicas scale to zero alongside the app cluster, waking when they receive traffic. Only applicable to worker (service) instances.
-          examples:
-          - true
-        uses_octane:
-          type: boolean
-        uses_inertia_ssr:
-          type: boolean
-        scaling_cpu_threshold_percentage:
-          type:
-          - integer
-          - 'null'
-          minimum: 50
-          maximum: 95
-        scaling_memory_threshold_percentage:
-          type:
-          - integer
-          - 'null'
-          minimum: 50
-          maximum: 95
-        visibility_timeout:
-          type: integer
-          minimum: 0
-          maximum: 43200
-        polling_interval:
-          type: integer
-          minimum: 1
-          maximum: 60
-        shutdown_timeout:
-          type: integer
-          minimum: 1
-          maximum: 0
-      title: UpdateInstanceRequest
+      title: DatabaseSchemaResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
     BackgroundProcessResource:
       type: object
       properties:
@@ -1381,33 +1317,6 @@ components:
       - id
       - type
       title: BackgroundProcessResource
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
-    InstanceScalingType:
-      type: string
-      enum:
-      - none
-      - custom
-      - auto
-      title: InstanceScalingType
     EnvironmentResource:
       type: object
       properties:
@@ -1693,39 +1602,19 @@ components:
       - type
       - links
       title: EnvironmentResource
-    WebsocketApplicationResourceIdentifier:
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - websocketApplications
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: WebsocketApplicationResourceIdentifier
-    NodeVersion:
-      type: string
-      enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
+      title: BranchResourceIdentifier
     BackgroundProcessResourceIdentifier:
       type: object
       properties:
@@ -1739,58 +1628,189 @@ components:
       - type
       - id
       title: BackgroundProcessResourceIdentifier
-    InstanceType:
+    NodeVersion:
       type: string
       enum:
-      - app
-      - service
-      - queue
-      - managed_queue
-      title: InstanceType
-    EnvironmentResourceIdentifier:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    CreateInstanceRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 40
+        type:
+          type: string
+          enum:
+          - service
+          - managed_queue
+        size:
+          $ref: '#/components/schemas/InstanceSize'
+        scaling_type:
+          $ref: '#/components/schemas/InstanceScalingType'
+        max_replicas:
+          type: integer
+          description: The maximum number of replicas the instance can scale to. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
+          examples:
+          - 10
+        min_replicas:
+          type: integer
+          description: The minimum number of replicas the instance runs. Only applicable to the `custom` scaling type, and rejected when used with `auto`. Not applicable to managed queues, which always scale to zero when idle.
+          examples:
+          - 1
+        uses_scheduler:
+          type: boolean
+        sleep_with_app:
+          type: boolean
+          description: Whether worker replicas scale to zero alongside the app cluster, waking when they receive traffic. Only applicable to worker (service) instances.
+          examples:
+          - true
+        scaling_cpu_threshold_percentage:
+          type:
+          - integer
+          - 'null'
+          minimum: 50
+          maximum: 95
+        scaling_memory_threshold_percentage:
+          type:
+          - integer
+          - 'null'
+          minimum: 50
+          maximum: 95
+        visibility_timeout:
+          type: integer
+          minimum: 0
+          maximum: 43200
+        polling_interval:
+          type: integer
+          minimum: 1
+          maximum: 60
+        shutdown_timeout:
+          type: integer
+          minimum: 1
+          maximum: 0
+        background_processes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                $ref: '#/components/schemas/DaemonType'
+              processes:
+                type: integer
+                minimum: 1
+                maximum: 10
+              command:
+                type: string
+                description: Custom command to run. Required when type is 'custom'. Not applicable for 'worker' type.
+                examples:
+                - php artisan my:command
+              config:
+                type: object
+                properties:
+                  connection:
+                    type: string
+                    description: The queue connection name. Only applicable for 'worker' type background processes. Managed queues must use 'cloud'.
+                    examples:
+                    - redis
+                  queue:
+                    type: string
+                    description: The queue name(s) to process. Can be comma-separated for multiple queues. Only applicable for 'worker' type background processes.
+                    examples:
+                    - default,emails
+                  tries:
+                    type: integer
+                    description: Number of times a job should be attempted. Only applicable for 'worker' type background processes.
+                    examples:
+                    - 3
+                  backoff:
+                    type: integer
+                    description: Number of seconds to wait before retrying a failed job. Only applicable for 'worker' type background processes.
+                    examples:
+                    - 30
+                  sleep:
+                    type: integer
+                    description: Number of seconds to sleep when no jobs are available. Only applicable for 'worker' type background processes.
+                    examples:
+                    - 3
+                  rest:
+                    type: integer
+                    description: Number of seconds to rest between jobs. Only applicable for 'worker' type background processes.
+                    examples:
+                    - 0
+                  timeout:
+                    type: integer
+                    description: Number of seconds a job can run before timing out. Only applicable for 'worker' type background processes.
+                    examples:
+                    - 60
+                  force:
+                    type: boolean
+                    description: Force the worker to run even in maintenance mode. Only applicable for 'worker' type background processes.
+                    examples:
+                    - false
+            required:
+            - type
+            - processes
+      required:
+      - name
+      - type
+      - size
+      - scaling_type
+      - min_replicas
+      - visibility_timeout
+      - polling_interval
+      - shutdown_timeout
+      title: CreateInstanceRequest
+    DeploymentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - environments
+          - deployments
         id:
           type: string
       required:
       - type
       - id
-      title: EnvironmentResourceIdentifier
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
+      title: DeploymentResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
   responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1815,26 +1835,6 @@ components:
                 description: Error overview.
             required:
             - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

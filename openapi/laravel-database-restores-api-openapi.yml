@@ -55,6 +55,45 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
+    DatabaseResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databases
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
     DatabaseSchemaResource:
       type: object
       properties:
@@ -105,19 +144,73 @@ components:
       - id
       - type
       title: DatabaseSchemaResource
-    DatabaseResourceIdentifier:
+    StoreDatabaseRestoreRequest:
       type: object
       properties:
-        type:
+        name:
           type: string
-          enum:
-          - databases
-        id:
-          type: string
+          description: The name of the new database created from the restore.
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        restore_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The point in time to restore the database to. Must not be used with database_snapshot_id.
+        database_snapshot_id:
+          type:
+          - string
+          - 'null'
       required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
+      - name
+      title: StoreDatabaseRestoreRequest
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql_84
+      - laravel_mysql_8
+      - aws_rds_mysql_8
+      - aws_rds_postgres_18
+      - neon_serverless_postgres_18
+      - neon_serverless_postgres_17
+      - neon_serverless_postgres_16
+      title: DatabaseType
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    DatabaseStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - restarting
+      - upgrading
+      - moving
+      - available
+      - stopped
+      - restoring
+      - restore_failed
+      - disabled
+      - snapshotting_before_archiving
+      - archiving
+      - archived
+      - deleting
+      - deleted
+      - unknown
+      title: DatabaseStatus
     DatabaseResource:
       type: object
       properties:
@@ -396,112 +489,7 @@ components:
       - id
       - type
       title: DatabaseResource
-    StoreDatabaseRestoreRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the new database created from the restore.
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        restore_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The point in time to restore the database to. Must not be used with database_snapshot_id.
-        database_snapshot_id:
-          type:
-          - string
-          - 'null'
-      required:
-      - name
-      title: StoreDatabaseRestoreRequest
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    DatabaseStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - restarting
-      - upgrading
-      - moving
-      - available
-      - stopped
-      - restoring
-      - restore_failed
-      - disabled
-      - snapshotting_before_archiving
-      - archiving
-      - archived
-      - deleting
-      - deleted
-      - unknown
-      title: DatabaseStatus
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -524,6 +512,18 @@ components:
             - errors
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

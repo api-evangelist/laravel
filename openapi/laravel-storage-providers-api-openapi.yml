@@ -338,31 +338,51 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    Link:
+    BackupProvider:
+      type: string
+      enum:
+      - s3
+      - spaces
+      - hetzner
+      - ovh
+      - scaleway
+      - custom
+      title: BackupProvider
+    UpdateStorageConfigurationRequest:
       type: object
       properties:
-        href:
+        name:
+          type: string
+          maxLength: 255
+        provider:
+          $ref: '#/components/schemas/BackupProvider'
+        region:
+          type: string
+        bucket:
+          type:
+          - string
+          - 'null'
+        endpoint:
           type: string
           format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
+        access_key:
+          type:
+          - string
+          - 'null'
+        secret_key:
+          type:
+          - string
+          - 'null'
+        use_ec2_assumed_role:
+          type: boolean
+        directory:
+          type:
+          - string
+          - 'null'
       required:
-      - href
-      title: Link
+      - name
+      - provider
+      title: UpdateStorageConfigurationRequest
     CreateStorageConfigurationRequest:
       type: object
       properties:
@@ -479,64 +499,32 @@ components:
       - type
       - links
       title: StorageProviderResource
-    BackupProvider:
-      type: string
-      enum:
-      - s3
-      - spaces
-      - hetzner
-      - ovh
-      - scaleway
-      - custom
-      title: BackupProvider
-    UpdateStorageConfigurationRequest:
+    Link:
       type: object
       properties:
-        name:
-          type: string
-          maxLength: 255
-        provider:
-          $ref: '#/components/schemas/BackupProvider'
-        region:
-          type: string
-        bucket:
-          type:
-          - string
-          - 'null'
-        endpoint:
+        href:
           type: string
           format: uri
-        access_key:
-          type:
-          - string
-          - 'null'
-        secret_key:
-          type:
-          - string
-          - 'null'
-        use_ec2_assumed_role:
-          type: boolean
-        directory:
-          type:
-          - string
-          - 'null'
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
       required:
-      - name
-      - provider
-      title: UpdateStorageConfigurationRequest
+      - href
+      title: Link
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -559,6 +547,18 @@ components:
             - errors
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

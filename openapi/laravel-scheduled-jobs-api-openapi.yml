@@ -763,31 +763,27 @@ components:
       - type
       - links
       title: JobResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
+    HeartbeatGracePeriod:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 5
+      - 10
+      - 30
+      - 60
+      title: HeartbeatGracePeriod
+    CronFrequency:
+      type: string
+      enum:
+      - minutely
+      - hourly
+      - nightly
+      - weekly
+      - monthly
+      - reboot
+      - custom
+      title: CronFrequency
     CreateScheduledJobRequest:
       type: object
       properties:
@@ -837,17 +833,6 @@ components:
       - user
       - frequency
       title: CreateScheduledJobRequest
-    CronFrequency:
-      type: string
-      enum:
-      - minutely
-      - hourly
-      - nightly
-      - weekly
-      - monthly
-      - reboot
-      - custom
-      title: CronFrequency
     JobOutputResource:
       type: object
       properties:
@@ -876,29 +861,32 @@ components:
       - type
       - links
       title: JobOutputResource
-    HeartbeatGracePeriod:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 5
-      - 10
-      - 30
-      - 60
-      title: HeartbeatGracePeriod
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -921,6 +909,18 @@ components:
             - errors
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

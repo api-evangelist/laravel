@@ -730,109 +730,6 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    CreateRoleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      title: CreateRoleRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    PredefinedRoleResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - predefinedRoles
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            updated_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - created_at
-          - updated_at
-        relationships:
-          type: object
-          properties:
-            permissions:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/PermissionResourceIdentifier'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PredefinedRoleResource
-    UpdateRoleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      title: UpdateRoleRequest
     Permission:
       type: string
       enum:
@@ -899,6 +796,72 @@ components:
       - resources:delete-buckets
       - resources:manage-buckets
       title: Permission
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    PermissionResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - permissions
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: PermissionResource
+    UpdateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: UpdateRoleRequest
     CustomRoleResource:
       type: object
       properties:
@@ -951,7 +914,7 @@ components:
       - type
       - links
       title: CustomRoleResource
-    PermissionResource:
+    PredefinedRoleResource:
       type: object
       properties:
         id:
@@ -959,14 +922,38 @@ components:
         type:
           type: string
           enum:
-          - permissions
+          - predefinedRoles
         attributes:
           type: object
           properties:
             name:
               type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
           required:
           - name
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            permissions:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/PermissionResourceIdentifier'
+              required:
+              - data
         links:
           type: object
           properties:
@@ -978,7 +965,20 @@ components:
       - id
       - type
       - links
-      title: PermissionResource
+      title: PredefinedRoleResource
+    CreateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: CreateRoleRequest
     PermissionResourceIdentifier:
       type: object
       properties:
@@ -993,18 +993,6 @@ components:
       - id
       title: PermissionResourceIdentifier
   responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -1027,6 +1015,18 @@ components:
             - errors
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:

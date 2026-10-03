@@ -349,57 +349,6 @@ paths:
       x-processingMode: sync
 components:
   schemas:
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    CreateNginxTemplateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the Nginx template.
-        content:
-          type: string
-          description: The content of the Nginx template.
-      required:
-      - name
-      - content
-      title: CreateNginxTemplateRequest
-    UpdateNginxTemplateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the nginx template.
-        content:
-          type: string
-          description: The content of the nginx template.
-      required:
-      - name
-      - content
-      title: UpdateNginxTemplateRequest
     NginxTemplateResource:
       type: object
       properties:
@@ -443,9 +392,60 @@ components:
       - type
       - links
       title: NginxTemplateResource
+    UpdateNginxTemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the nginx template.
+        content:
+          type: string
+          description: The content of the nginx template.
+      required:
+      - name
+      - content
+      title: UpdateNginxTemplateRequest
+    CreateNginxTemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Nginx template.
+        content:
+          type: string
+          description: The content of the Nginx template.
+      required:
+      - name
+      - content
+      title: CreateNginxTemplateRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
   responses:
-    AuthorizationException:
-      description: Authorization error
+    ModelNotFoundException:
+      description: Not found
       content:
         application/json:
           schema:
@@ -476,8 +476,8 @@ components:
             required:
             - message
             - errors
-    ModelNotFoundException:
-      description: Not found
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:
