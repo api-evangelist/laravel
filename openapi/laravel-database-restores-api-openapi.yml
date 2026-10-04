@@ -55,95 +55,6 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    DatabaseResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databases
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    DatabaseSchemaResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            status:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - status
-          - created_at
-        relationships:
-          type: object
-          properties:
-            database:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: DatabaseSchemaResource
     StoreDatabaseRestoreRequest:
       type: object
       properties:
@@ -166,51 +77,6 @@ components:
       required:
       - name
       title: StoreDatabaseRestoreRequest
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    DatabaseStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - restarting
-      - upgrading
-      - moving
-      - available
-      - stopped
-      - restoring
-      - restore_failed
-      - disabled
-      - snapshotting_before_archiving
-      - archiving
-      - archived
-      - deleting
-      - deleted
-      - unknown
-      title: DatabaseStatus
     DatabaseResource:
       type: object
       properties:
@@ -489,27 +355,141 @@ components:
       - id
       - type
       title: DatabaseResource
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    DatabaseSchemaResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            status:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - status
+          - created_at
+        relationships:
+          type: object
+          properties:
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            environments:
+              type: object
+              properties:
+                data:
                   type: array
                   items:
-                    type: string
-            required:
-            - message
-            - errors
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: DatabaseSchemaResource
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    DatabaseStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - restarting
+      - upgrading
+      - moving
+      - available
+      - stopped
+      - restoring
+      - restore_failed
+      - disabled
+      - snapshotting_before_archiving
+      - archiving
+      - archived
+      - deleting
+      - deleted
+      - unknown
+      title: DatabaseStatus
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql_84
+      - laravel_mysql_8
+      - aws_rds_mysql_8
+      - aws_rds_postgres_18
+      - neon_serverless_postgres_18
+      - neon_serverless_postgres_17
+      - neon_serverless_postgres_16
+      title: DatabaseType
+    DatabaseResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databases
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+  responses:
     ModelNotFoundException:
       description: Not found
       content:
@@ -534,6 +514,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

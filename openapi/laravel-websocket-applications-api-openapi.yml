@@ -388,28 +388,43 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    MetricPeriod:
+    WebsocketServerStatus:
       type: string
       enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
+      - creating
+      - updating
+      - available
+      - stopped
+      - deleting
+      - deleted
+      - unknown
+      title: WebsocketServerStatus
+    StoreWebsocketApplicationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        allowed_origins:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            maxLength: 255
+        ping_interval:
+          type: integer
+          minimum: 1
+          maximum: 60
+        activity_timeout:
+          type: integer
+          minimum: 1
+          maximum: 60
+      required:
+      - name
+      title: StoreWebsocketApplicationRequest
     WebsocketServerResourceIdentifier:
       type: object
       properties:
@@ -501,17 +516,6 @@ components:
       - id
       - type
       title: WebsocketServerResource
-    WebsocketServerStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - stopped
-      - deleting
-      - deleted
-      - unknown
-      title: WebsocketServerStatus
     CloudRegion:
       type: string
       enum:
@@ -531,6 +535,28 @@ components:
       enum:
       - reverb
       title: WebsocketServerType
+    MetricPeriod:
+      type: string
+      enum:
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
     WebsocketApplicationResource:
       type: object
       properties:
@@ -606,6 +632,12 @@ components:
       - id
       - type
       title: WebsocketApplicationResource
+    WebsocketServerConnectionDistributionStrategy:
+      type: string
+      enum:
+      - evenly
+      - custom
+      title: WebsocketServerConnectionDistributionStrategy
     WebsocketServerMaxConnection:
       type: integer
       enum:
@@ -616,38 +648,6 @@ components:
       - 5000
       - 10000
       title: WebsocketServerMaxConnection
-    WebsocketServerConnectionDistributionStrategy:
-      type: string
-      enum:
-      - evenly
-      - custom
-      title: WebsocketServerConnectionDistributionStrategy
-    StoreWebsocketApplicationRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        allowed_origins:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            maxLength: 255
-        ping_interval:
-          type: integer
-          minimum: 1
-          maximum: 60
-        activity_timeout:
-          type: integer
-          minimum: 1
-          maximum: 60
-      required:
-      - name
-      title: StoreWebsocketApplicationRequest
   responses:
     ValidationException:
       description: Validation error

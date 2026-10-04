@@ -298,57 +298,72 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    FilesystemKeyResource:
+    FilesystemResourceIdentifier:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
-          - filesystemKeys
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            permission:
-              $ref: '#/components/schemas/FilesystemKeyPermission'
-            access_key_id:
-              type:
-              - string
-              - 'null'
-            access_key_secret:
-              type:
-              - string
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - permission
-          - access_key_id
-          - access_key_secret
-          - created_at
-        relationships:
-          type: object
-          properties:
-            filesystem:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/FilesystemResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
+          - filesystems
+        id:
+          type: string
       required:
-      - id
       - type
-      title: FilesystemKeyResource
+      - id
+      title: FilesystemResourceIdentifier
+    UpdateFilesystemRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        visibility:
+          $ref: '#/components/schemas/FilesystemVisibility'
+        allowed_origins:
+          type:
+          - array
+          - 'null'
+          description: This field is deprecated and will be removed May 17th, 2026. Please use `cors_settings.allowed_origins` instead.
+          items:
+            type: string
+            format: uri
+        cors_settings:
+          type: object
+          properties:
+            allowed_origins:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+                format: uri
+            allowed_methods:
+              type:
+              - array
+              - 'null'
+              items:
+                $ref: '#/components/schemas/CorsHttpMethod'
+              minItems: 1
+            allowed_headers:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+            expose_headers:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+            max_age_seconds:
+              type:
+              - integer
+              - 'null'
+              minimum: 1
+      title: UpdateFilesystemRequest
     FilesystemResource:
       type: object
       properties:
@@ -415,70 +430,6 @@ components:
       - id
       - type
       title: FilesystemResource
-    FilesystemType:
-      type: string
-      enum:
-      - cloudflare_r2
-      title: FilesystemType
-    UpdateFilesystemRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        visibility:
-          $ref: '#/components/schemas/FilesystemVisibility'
-        allowed_origins:
-          type:
-          - array
-          - 'null'
-          description: This field is deprecated and will be removed May 17th, 2026. Please use `cors_settings.allowed_origins` instead.
-          items:
-            type: string
-            format: uri
-        cors_settings:
-          type: object
-          properties:
-            allowed_origins:
-              type:
-              - array
-              - 'null'
-              items:
-                type: string
-                format: uri
-            allowed_methods:
-              type:
-              - array
-              - 'null'
-              items:
-                $ref: '#/components/schemas/CorsHttpMethod'
-              minItems: 1
-            allowed_headers:
-              type:
-              - array
-              - 'null'
-              items:
-                type: string
-            expose_headers:
-              type:
-              - array
-              - 'null'
-              items:
-                type: string
-            max_age_seconds:
-              type:
-              - integer
-              - 'null'
-              minimum: 1
-      title: UpdateFilesystemRequest
-    FilesystemVisibility:
-      type: string
-      enum:
-      - private
-      - public
-      title: FilesystemVisibility
     FilesystemKeyPermission:
       type: string
       enum:
@@ -495,38 +446,12 @@ components:
       - deleted
       - unknown
       title: FilesystemStatus
-    FilesystemKeyResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystemKeys
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemKeyResourceIdentifier
     FilesystemJurisdiction:
       type: string
       enum:
       - default
       - eu
       title: FilesystemJurisdiction
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
     StoreFilesystemRequest:
       type: object
       properties:
@@ -603,9 +528,96 @@ components:
       - DELETE
       - HEAD
       title: CorsHttpMethod
+    FilesystemType:
+      type: string
+      enum:
+      - cloudflare_r2
+      title: FilesystemType
+    FilesystemKeyResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystemKeys
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemKeyResourceIdentifier
+    FilesystemKeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - filesystemKeys
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            permission:
+              $ref: '#/components/schemas/FilesystemKeyPermission'
+            access_key_id:
+              type:
+              - string
+              - 'null'
+            access_key_secret:
+              type:
+              - string
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - permission
+          - access_key_id
+          - access_key_secret
+          - created_at
+        relationships:
+          type: object
+          properties:
+            filesystem:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/FilesystemResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: FilesystemKeyResource
+    FilesystemVisibility:
+      type: string
+      enum:
+      - private
+      - public
+      title: FilesystemVisibility
   responses:
     ModelNotFoundException:
       description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:
@@ -636,18 +648,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

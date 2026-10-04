@@ -677,22 +677,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    RestoreBackupRequest:
-      type: object
-      properties:
-        database_id:
-          type: integer
-      required:
-      - database_id
-      title: RestoreBackupRequest
-    BackupFrequency:
-      type: string
-      enum:
-      - hourly
-      - daily
-      - weekly
-      - custom
-      title: BackupFrequency
     BackupConfigurationResource:
       type: object
       properties:
@@ -779,6 +763,70 @@ components:
       - type
       - links
       title: BackupConfigurationResource
+    BackupResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backups
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+            is_partial:
+              type: string
+            size:
+              type: integer
+            finished_at:
+              type:
+              - integer
+              - 'null'
+          required:
+          - status
+          - is_partial
+          - size
+          - finished_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackupResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     CreateBackupConfigurationRequest:
       type: object
       properties:
@@ -884,6 +932,22 @@ components:
       - retention
       - database_ids
       title: CreateBackupConfigurationRequest
+    BackupFrequency:
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - custom
+      title: BackupFrequency
+    RestoreBackupRequest:
+      type: object
+      properties:
+        database_id:
+          type: integer
+      required:
+      - database_id
+      title: RestoreBackupRequest
     UpdateBackupConfigurationRequest:
       type: object
       properties:
@@ -989,71 +1053,31 @@ components:
       - retention
       - database_ids
       title: UpdateBackupConfigurationRequest
-    BackupResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - backups
-        attributes:
-          type: object
-          properties:
-            status:
-              type: string
-            is_partial:
-              type: string
-            size:
-              type: integer
-            finished_at:
-              type:
-              - integer
-              - 'null'
-          required:
-          - status
-          - is_partial
-          - size
-          - finished_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: BackupResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1074,30 +1098,6 @@ components:
             required:
             - message
             - errors
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

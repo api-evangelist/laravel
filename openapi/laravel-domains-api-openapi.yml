@@ -337,96 +337,73 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    CacheResourceIdentifier:
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - caches
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: CacheResourceIdentifier
-    EnvironmentResourceIdentifier:
+      title: BranchResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - environments
+          - databaseSchemas
         id:
           type: string
       required:
       - type
       - id
-      title: EnvironmentResourceIdentifier
-    RateLimitLevel:
+      title: DatabaseSchemaResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    NodeVersion:
       type: string
       enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    DomainVerificationMethod:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    EnvironmentStatus:
       type: string
       enum:
-      - pre_verification
-      - real_time
-      title: DomainVerificationMethod
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
     SimplifiedDomainResource:
       type: object
       properties:
@@ -496,82 +473,32 @@ components:
       - type
       - links
       title: SimplifiedDomainResource
-    ApplicationResourceIdentifier:
+    InstanceResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - applications
+          - instances
         id:
           type: string
       required:
       - type
       - id
-      title: ApplicationResourceIdentifier
-    DomainRedirect:
-      type: string
-      enum:
-      - root_to_www
-      - www_to_root
-      title: DomainRedirect
-    DomainCloudflareStrategy:
-      type: string
-      enum:
-      - dns_proxy
-      - dns
-      - none
-      title: DomainCloudflareStrategy
-    DomainResourceIdentifier:
+      title: InstanceResourceIdentifier
+    DeploymentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - domains
+          - deployments
         id:
           type: string
       required:
       - type
       - id
-      title: DomainResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    DomainType:
-      type: string
-      enum:
-      - root
-      - www
-      - wildcard
-      title: DomainType
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
+      title: DeploymentResourceIdentifier
     BotControlCategory:
       type: string
       enum:
@@ -592,6 +519,81 @@ components:
       - webhooks
       - other
       title: BotControlCategory
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    UpdateDomainRequest:
+      type: object
+      properties:
+        verification_method:
+          description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
+          examples:
+          - real_time
+          $ref: '#/components/schemas/DomainVerificationMethod'
+      required:
+      - verification_method
+      title: UpdateDomainRequest
+    DomainVerificationMethod:
+      type: string
+      enum:
+      - pre_verification
+      - real_time
+      title: DomainVerificationMethod
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    DomainRedirect:
+      type: string
+      enum:
+      - root_to_www
+      - www_to_root
+      title: DomainRedirect
+    DomainCloudflareStrategy:
+      type: string
+      enum:
+      - dns_proxy
+      - dns
+      - none
+      title: DomainCloudflareStrategy
     DomainActionRequired:
       type: string
       enum:
@@ -884,6 +886,111 @@ components:
       - type
       - links
       title: EnvironmentResource
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    DomainStatus:
+      type: string
+      enum:
+      - pending
+      - verified
+      - failed
+      - disabled
+      title: DomainStatus
+    CreateDomainRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 255
+        www_redirect:
+          anyOf:
+          - $ref: '#/components/schemas/DomainRedirect'
+          - type: 'null'
+        wildcard_enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to enable a wildcard subdomain (*.example.com) for this domain.
+          examples:
+          - false
+        allow_downtime:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to allow downtime during domain verification. When true (flexible), the domain can be pointed directly without pre-verification. When false (uninterrupted), TXT-based pre-verification is required to avoid downtime.
+          examples:
+          - true
+        cloudflare_strategy:
+          anyOf:
+          - description: The Cloudflare integration strategy. "none" uses A records with no Cloudflare integration. "dns" uses CNAME records via Cloudflare DNS only. "dns_proxy" uses CNAME records with Cloudflare's proxy enabled (Orange cloud).
+            examples:
+            - none
+            $ref: '#/components/schemas/DomainCloudflareStrategy'
+          - type: 'null'
+        verification_method:
+          anyOf:
+          - description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
+            examples:
+            - real_time
+            $ref: '#/components/schemas/DomainVerificationMethod'
+          - type: 'null'
+      required:
+      - name
+      title: CreateDomainRequest
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    DomainType:
+      type: string
+      enum:
+      - root
+      - www
+      - wildcard
+      title: DomainType
     DomainResource:
       type: object
       properties:
@@ -1123,114 +1230,31 @@ components:
       - type
       - links
       title: DomainResource
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    UpdateDomainRequest:
-      type: object
-      properties:
-        verification_method:
-          description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
-          examples:
-          - real_time
-          $ref: '#/components/schemas/DomainVerificationMethod'
-      required:
-      - verification_method
-      title: UpdateDomainRequest
-    CreateDomainRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 255
-        www_redirect:
-          anyOf:
-          - $ref: '#/components/schemas/DomainRedirect'
-          - type: 'null'
-        wildcard_enabled:
-          type:
-          - boolean
-          - 'null'
-          description: Whether to enable a wildcard subdomain (*.example.com) for this domain.
-          examples:
-          - false
-        allow_downtime:
-          type:
-          - boolean
-          - 'null'
-          description: Whether to allow downtime during domain verification. When true (flexible), the domain can be pointed directly without pre-verification. When false (uninterrupted), TXT-based pre-verification is required to avoid downtime.
-          examples:
-          - true
-        cloudflare_strategy:
-          anyOf:
-          - description: The Cloudflare integration strategy. "none" uses A records with no Cloudflare integration. "dns" uses CNAME records via Cloudflare DNS only. "dns_proxy" uses CNAME records with Cloudflare's proxy enabled (Orange cloud).
-            examples:
-            - none
-            $ref: '#/components/schemas/DomainCloudflareStrategy'
-          - type: 'null'
-        verification_method:
-          anyOf:
-          - description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
-            examples:
-            - real_time
-            $ref: '#/components/schemas/DomainVerificationMethod'
-          - type: 'null'
-      required:
-      - name
-      title: CreateDomainRequest
-    NodeVersion:
-      type: string
-      enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    DomainStatus:
-      type: string
-      enum:
-      - pending
-      - verified
-      - failed
-      - disabled
-      title: DomainStatus
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1251,30 +1275,6 @@ components:
             required:
             - message
             - errors
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

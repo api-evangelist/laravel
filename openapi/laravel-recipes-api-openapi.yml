@@ -885,21 +885,6 @@ paths:
       x-processingMode: async
 components:
   schemas:
-    UpdateRecipeRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 255
-        user:
-          type: string
-          enum:
-          - root
-          - forge
-        script:
-          type: string
-      title: UpdateRecipeRequest
     ShareRecipeRequest:
       type: object
       properties:
@@ -911,6 +896,14 @@ components:
       required:
       - recipe_id
       title: ShareRecipeRequest
+    RecipeStatus:
+      type: string
+      enum:
+      - waiting
+      - running
+      - finished
+      - failed
+      title: RecipeStatus
     RecipeLogResource:
       type: object
       properties:
@@ -967,6 +960,21 @@ components:
       - type
       - links
       title: RecipeLogResource
+    UpdateRecipeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        user:
+          type: string
+          enum:
+          - root
+          - forge
+        script:
+          type: string
+      title: UpdateRecipeRequest
     CreateRecipeRequest:
       type: object
       properties:
@@ -987,72 +995,31 @@ components:
       - user
       - script
       title: CreateRecipeRequest
-    RecipeResource:
+    Link:
       type: object
       properties:
-        id:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
           type: string
         type:
           type: string
-          enum:
-          - recipes
-        attributes:
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
           type: object
-          properties:
-            name:
-              type: string
-              description: The name of the Recipe.
-              examples:
-              - Install Security tooling
-            script:
-              type: string
-              description: The script that should be executed.
-              examples:
-              - apt-get install -y my-custom-tooling
-            user:
-              type: string
-              description: The user that the Recipe should be executed as.
-              examples:
-              - root
-            created_at:
-              type: string
-              format: date-time
-              description: The date the Recipe was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date the Recipe was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
-          required:
-          - name
-          - script
-          - user
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
-      - id
-      - type
-      - links
-      title: RecipeResource
-    RecipeStatus:
-      type: string
-      enum:
-      - waiting
-      - running
-      - finished
-      - failed
-      title: RecipeStatus
+      - href
+      title: Link
     RunRecipeRequest:
       type: object
       properties:
@@ -1123,52 +1090,65 @@ components:
       - type
       - links
       title: ForgeRecipeResource
-    Link:
+    RecipeResource:
       type: object
       properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
+        id:
           type: string
         type:
           type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
+          enum:
+          - recipes
+        attributes:
           type: object
+          properties:
+            name:
+              type: string
+              description: The name of the Recipe.
+              examples:
+              - Install Security tooling
+            script:
+              type: string
+              description: The script that should be executed.
+              examples:
+              - apt-get install -y my-custom-tooling
+            user:
+              type: string
+              description: The user that the Recipe should be executed as.
+              examples:
+              - root
+            created_at:
+              type: string
+              format: date-time
+              description: The date the Recipe was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date the Recipe was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - script
+          - user
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - href
-      title: Link
+      - id
+      - type
+      - links
+      title: RecipeResource
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1193,6 +1173,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

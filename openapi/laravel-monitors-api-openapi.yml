@@ -311,6 +311,62 @@ paths:
       x-processingMode: async
 components:
   schemas:
+    MonitorState:
+      type: string
+      enum:
+      - OK
+      - ALERT
+      - UNKNOWN
+      title: MonitorState
+    ResourceState:
+      type: string
+      enum:
+      - installing
+      - installed
+      - removing
+      - restarting
+      - stopping
+      - stopped
+      - starting
+      - syncing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      - running
+      - restoring
+      - deleting
+      - failed
+      - success
+      - failed-unknown
+      - failed-runner
+      - renewing
+      title: ResourceState
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     MonitorResource:
       type: object
       properties:
@@ -403,30 +459,6 @@ components:
       - type
       - links
       title: MonitorResource
-    ResourceState:
-      type: string
-      enum:
-      - installing
-      - installed
-      - removing
-      - restarting
-      - stopping
-      - stopped
-      - starting
-      - syncing
-      - updating
-      - disabling
-      - disabled
-      - enabling
-      - running
-      - restoring
-      - deleting
-      - failed
-      - success
-      - failed-unknown
-      - failed-runner
-      - renewing
-      title: ResourceState
     CreateMonitorRequest:
       type: object
       properties:
@@ -464,13 +496,6 @@ components:
       - threshold
       - notify
       title: CreateMonitorRequest
-    MonitorState:
-      type: string
-      enum:
-      - OK
-      - ALERT
-      - UNKNOWN
-      title: MonitorState
     MonitorOperator:
       type: string
       enum:
@@ -485,32 +510,19 @@ components:
       - free_memory
       - used_memory
       title: MonitorMetricType
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ModelNotFoundException:
       description: Not found
       content:
@@ -543,18 +555,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

@@ -763,32 +763,32 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    CacheResourceIdentifier:
+    DaemonStrategyType:
+      type: string
+      enum:
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
+    DaemonType:
+      type: string
+      enum:
+      - worker
+      - custom
+      title: DaemonType
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - caches
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: CacheResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
+      title: BranchResourceIdentifier
     UpdateInstanceRequest:
       type: object
       properties:
@@ -865,6 +865,208 @@ components:
           minimum: 1
           maximum: 0
       title: UpdateInstanceRequest
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    ManagedQueueFailedJobResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type:
+              - string
+              - 'null'
+              description: The job's display name (typically its class), or null when it cannot be determined from the payload.
+            queue:
+              type: string
+            failed_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            attempts:
+              type: string
+            exception:
+              type: string
+            retried_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            retry_reserved_until:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - queue
+          - failed_at
+          - started_at
+          - attempts
+          - exception
+          - retried_at
+          - retry_reserved_until
+      required:
+      - id
+      - type
+      title: ManagedQueueFailedJobResource
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
     InstanceType:
       type: string
       enum:
@@ -880,12 +1082,13 @@ components:
       - throttle
       - ban
       title: RateLimitLevel
-    DaemonType:
+    InstanceScalingType:
       type: string
       enum:
-      - worker
+      - none
       - custom
-      title: DaemonType
+      - auto
+      title: InstanceScalingType
     InstanceSize:
       type: string
       enum:
@@ -941,382 +1144,6 @@ components:
       - mq-dedicated-4gb
       - mq-dedicated-8gb
       title: InstanceSize
-    DaemonStrategyType:
-      type: string
-      enum:
-      - none
-      - growth_rate
-      - queue_size
-      title: DaemonStrategyType
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    InstanceResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - instances
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/InstanceType'
-            size:
-              $ref: '#/components/schemas/InstanceSize'
-            scaling_type:
-              $ref: '#/components/schemas/InstanceScalingType'
-            min_replicas:
-              type: integer
-            max_replicas:
-              type: integer
-            queue_status:
-              anyOf:
-              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
-                $ref: '#/components/schemas/SqsQueueStatus'
-              - type: 'null'
-            paused:
-              type:
-              - boolean
-              - 'null'
-              description: Whether the managed queue is currently paused. Null for non-queue instances.
-            is_default:
-              type:
-              - boolean
-              - 'null'
-              description: Whether this is the environment's default managed queue. Null for non-queue instances.
-            visibility_timeout:
-              type:
-              - integer
-              - 'null'
-              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
-            polling_interval:
-              type:
-              - integer
-              - 'null'
-              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
-            shutdown_timeout:
-              type:
-              - integer
-              - 'null'
-            uses_scheduler:
-              type: boolean
-            sleep_with_app:
-              type:
-              - boolean
-              - 'null'
-            scaling_cpu_threshold_percentage:
-              type:
-              - integer
-              - 'null'
-            scaling_memory_threshold_percentage:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - size
-          - scaling_type
-          - min_replicas
-          - max_replicas
-          - queue_status
-          - paused
-          - is_default
-          - visibility_timeout
-          - polling_interval
-          - shutdown_timeout
-          - uses_scheduler
-          - sleep_with_app
-          - scaling_cpu_threshold_percentage
-          - scaling_memory_threshold_percentage
-          - created_at
-        relationships:
-          type: object
-          properties:
-            environment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            backgroundProcesses:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: InstanceResource
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    InstanceScalingType:
-      type: string
-      enum:
-      - none
-      - custom
-      - auto
-      title: InstanceScalingType
-    ManagedQueueFailedJobResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        attributes:
-          type: object
-          properties:
-            name:
-              type:
-              - string
-              - 'null'
-              description: The job's display name (typically its class), or null when it cannot be determined from the payload.
-            queue:
-              type: string
-            failed_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            started_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            attempts:
-              type: string
-            exception:
-              type: string
-            retried_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            retry_reserved_until:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - queue
-          - failed_at
-          - started_at
-          - attempts
-          - exception
-          - retried_at
-          - retry_reserved_until
-      required:
-      - id
-      - type
-      title: ManagedQueueFailedJobResource
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    BackgroundProcessResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - background_processes
-        attributes:
-          type: object
-          properties:
-            type:
-              $ref: '#/components/schemas/DaemonType'
-            processes:
-              type: integer
-            command:
-              type: string
-            config:
-              type: array
-              items: {}
-            strategy_type:
-              $ref: '#/components/schemas/DaemonStrategyType'
-            strategy_threshold:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - type
-          - processes
-          - command
-          - config
-          - strategy_type
-          - strategy_threshold
-          - created_at
-        relationships:
-          type: object
-          properties:
-            instance:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: BackgroundProcessResource
     EnvironmentResource:
       type: object
       properties:
@@ -1602,19 +1429,212 @@ components:
       - type
       - links
       title: EnvironmentResource
-    BranchResourceIdentifier:
+    InstanceResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - instances
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/InstanceType'
+            size:
+              $ref: '#/components/schemas/InstanceSize'
+            scaling_type:
+              $ref: '#/components/schemas/InstanceScalingType'
+            min_replicas:
+              type: integer
+            max_replicas:
+              type: integer
+            queue_status:
+              anyOf:
+              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
+                $ref: '#/components/schemas/SqsQueueStatus'
+              - type: 'null'
+            paused:
+              type:
+              - boolean
+              - 'null'
+              description: Whether the managed queue is currently paused. Null for non-queue instances.
+            is_default:
+              type:
+              - boolean
+              - 'null'
+              description: Whether this is the environment's default managed queue. Null for non-queue instances.
+            visibility_timeout:
+              type:
+              - integer
+              - 'null'
+              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
+            polling_interval:
+              type:
+              - integer
+              - 'null'
+              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
+            shutdown_timeout:
+              type:
+              - integer
+              - 'null'
+            uses_scheduler:
+              type: boolean
+            sleep_with_app:
+              type:
+              - boolean
+              - 'null'
+            scaling_cpu_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            scaling_memory_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - size
+          - scaling_type
+          - min_replicas
+          - max_replicas
+          - queue_status
+          - paused
+          - is_default
+          - visibility_timeout
+          - polling_interval
+          - shutdown_timeout
+          - uses_scheduler
+          - sleep_with_app
+          - scaling_cpu_threshold_percentage
+          - scaling_memory_threshold_percentage
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            backgroundProcesses:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: InstanceResource
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - environments
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
+      title: EnvironmentResourceIdentifier
+    BackgroundProcessResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - background_processes
+        attributes:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/DaemonType'
+            processes:
+              type: integer
+            command:
+              type: string
+            config:
+              type: array
+              items: {}
+            strategy_type:
+              $ref: '#/components/schemas/DaemonStrategyType'
+            strategy_threshold:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - type
+          - processes
+          - command
+          - config
+          - strategy_type
+          - strategy_threshold
+          - created_at
+        relationships:
+          type: object
+          properties:
+            instance:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: BackgroundProcessResource
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
     BackgroundProcessResourceIdentifier:
       type: object
       properties:
@@ -1628,13 +1648,6 @@ components:
       - type
       - id
       title: BackgroundProcessResourceIdentifier
-    NodeVersion:
-      type: string
-      enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
     CreateInstanceRequest:
       type: object
       properties:
@@ -1764,33 +1777,44 @@ components:
       - polling_interval
       - shutdown_timeout
       title: CreateInstanceRequest
-    DeploymentResourceIdentifier:
+    CacheResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - caches
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
+      title: CacheResourceIdentifier
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1811,30 +1835,6 @@ components:
             required:
             - message
             - errors
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

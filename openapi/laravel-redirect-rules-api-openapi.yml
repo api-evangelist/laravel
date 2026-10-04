@@ -321,77 +321,7 @@ paths:
           noindex: true
       x-processingMode: async
 components:
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    CreateRedirectRequest:
-      type: object
-      properties:
-        from:
-          type: string
-          description: The source URL path for the redirect rule.
-          examples:
-          - /old-path
-          maxLength: 1000
-        to:
-          type: string
-          description: The destination URL path for the redirect rule.
-          examples:
-          - /new-path
-          maxLength: 1000
-        type:
-          description: The type of the redirect rule.
-          examples:
-          - permanent
-          $ref: '#/components/schemas/RedirectRuleType'
-      required:
-      - from
-      - to
-      - type
-      title: CreateRedirectRequest
     RedirectRuleResource:
       type: object
       properties:
@@ -459,6 +389,31 @@ components:
       - type
       - links
       title: RedirectRuleResource
+    CreateRedirectRequest:
+      type: object
+      properties:
+        from:
+          type: string
+          description: The source URL path for the redirect rule.
+          examples:
+          - /old-path
+          maxLength: 1000
+        to:
+          type: string
+          description: The destination URL path for the redirect rule.
+          examples:
+          - /new-path
+          maxLength: 1000
+        type:
+          description: The type of the redirect rule.
+          examples:
+          - permanent
+          $ref: '#/components/schemas/RedirectRuleType'
+      required:
+      - from
+      - to
+      - type
+      title: CreateRedirectRequest
     RedirectRuleType:
       type: string
       enum:
@@ -490,6 +445,51 @@ components:
       required:
       - href
       title: Link
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

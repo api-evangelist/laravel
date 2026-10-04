@@ -349,6 +349,19 @@ paths:
       x-processingMode: sync
 components:
   schemas:
+    CreateNginxTemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Nginx template.
+        content:
+          type: string
+          description: The content of the Nginx template.
+      required:
+      - name
+      - content
+      title: CreateNginxTemplateRequest
     NginxTemplateResource:
       type: object
       properties:
@@ -405,19 +418,6 @@ components:
       - name
       - content
       title: UpdateNginxTemplateRequest
-    CreateNginxTemplateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the Nginx template.
-        content:
-          type: string
-          description: The content of the Nginx template.
-      required:
-      - name
-      - content
-      title: CreateNginxTemplateRequest
     Link:
       type: object
       properties:
@@ -456,6 +456,18 @@ components:
                 description: Error overview.
             required:
             - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -476,18 +488,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

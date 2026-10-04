@@ -703,6 +703,93 @@ paths:
       x-processingMode: sync
 components:
   schemas:
+    JobOutputResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - scheduledJobOutputs
+        attributes:
+          type: object
+          properties:
+            output:
+              type: string
+          required:
+          - output
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: JobOutputResource
+    HeartbeatGracePeriod:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 5
+      - 10
+      - 30
+      - 60
+      title: HeartbeatGracePeriod
+    CreateScheduledJobRequest:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the command.
+          examples:
+          - My scheduled job
+        command:
+          type: string
+          description: The command to run.
+          examples:
+          - echo $(whoami)
+        user:
+          type: string
+          description: The user to run the scheduled job as.
+          examples:
+          - root
+        frequency:
+          description: The frequency of the scheduled job.
+          examples:
+          - hourly
+          $ref: '#/components/schemas/CronFrequency'
+        cron:
+          type:
+          - string
+          - 'null'
+          description: The cron expression to use for the scheduled job. Only used if frequency is set to Custom.
+          examples:
+          - 0 * * * *
+        heartbeat:
+          type:
+          - boolean
+          - 'null'
+          description: Whether a heartbeat should be created for the scheduled job.
+          examples:
+          - true
+        grace_period:
+          description: The grace period, in minutes, for the heartbeat.
+          examples:
+          - 5
+          $ref: '#/components/schemas/HeartbeatGracePeriod'
+      required:
+      - command
+      - user
+      - frequency
+      title: CreateScheduledJobRequest
     JobResource:
       type: object
       properties:
@@ -763,104 +850,6 @@ components:
       - type
       - links
       title: JobResource
-    HeartbeatGracePeriod:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 5
-      - 10
-      - 30
-      - 60
-      title: HeartbeatGracePeriod
-    CronFrequency:
-      type: string
-      enum:
-      - minutely
-      - hourly
-      - nightly
-      - weekly
-      - monthly
-      - reboot
-      - custom
-      title: CronFrequency
-    CreateScheduledJobRequest:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the command.
-          examples:
-          - My scheduled job
-        command:
-          type: string
-          description: The command to run.
-          examples:
-          - echo $(whoami)
-        user:
-          type: string
-          description: The user to run the scheduled job as.
-          examples:
-          - root
-        frequency:
-          description: The frequency of the scheduled job.
-          examples:
-          - hourly
-          $ref: '#/components/schemas/CronFrequency'
-        cron:
-          type:
-          - string
-          - 'null'
-          description: The cron expression to use for the scheduled job. Only used if frequency is set to Custom.
-          examples:
-          - 0 * * * *
-        heartbeat:
-          type:
-          - boolean
-          - 'null'
-          description: Whether a heartbeat should be created for the scheduled job.
-          examples:
-          - true
-        grace_period:
-          description: The grace period, in minutes, for the heartbeat.
-          examples:
-          - 5
-          $ref: '#/components/schemas/HeartbeatGracePeriod'
-      required:
-      - command
-      - user
-      - frequency
-      title: CreateScheduledJobRequest
-    JobOutputResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - scheduledJobOutputs
-        attributes:
-          type: object
-          properties:
-            output:
-              type: string
-          required:
-          - output
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: JobOutputResource
     Link:
       type: object
       properties:
@@ -886,27 +875,18 @@ components:
       required:
       - href
       title: Link
+    CronFrequency:
+      type: string
+      enum:
+      - minutely
+      - hourly
+      - nightly
+      - weekly
+      - monthly
+      - reboot
+      - custom
+      title: CronFrequency
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -931,6 +911,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

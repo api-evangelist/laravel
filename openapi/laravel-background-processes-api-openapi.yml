@@ -683,19 +683,69 @@ paths:
     - url: https://forge.laravel.com/api
 components:
   schemas:
-    InstanceResourceIdentifier:
+    BackgroundProcessResource:
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
           enum:
-          - instances
-        id:
-          type: string
+          - background_processes
+        attributes:
+          type: object
+          properties:
+            type:
+              $ref: '#/components/schemas/DaemonType'
+            processes:
+              type: integer
+            command:
+              type: string
+            config:
+              type: array
+              items: {}
+            strategy_type:
+              $ref: '#/components/schemas/DaemonStrategyType'
+            strategy_threshold:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - type
+          - processes
+          - command
+          - config
+          - strategy_type
+          - strategy_threshold
+          - created_at
+        relationships:
+          type: object
+          properties:
+            instance:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
       required:
-      - type
       - id
-      title: InstanceResourceIdentifier
+      - type
+      title: BackgroundProcessResource
+    DaemonStrategyType:
+      type: string
+      enum:
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
     UpdateBackgroundProcessRequest:
       type: object
       properties:
@@ -815,36 +865,6 @@ components:
       - type
       - processes
       title: CreateBackgroundProcessRequest
-    InstanceScalingType:
-      type: string
-      enum:
-      - none
-      - custom
-      - auto
-      title: InstanceScalingType
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
     BackgroundProcessResourceIdentifier:
       type: object
       properties:
@@ -858,6 +878,42 @@ components:
       - type
       - id
       title: BackgroundProcessResourceIdentifier
+    DaemonType:
+      type: string
+      enum:
+      - worker
+      - custom
+      title: DaemonType
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    InstanceScalingType:
+      type: string
+      enum:
+      - none
+      - custom
+      - auto
+      title: InstanceScalingType
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
     InstanceType:
       type: string
       enum:
@@ -866,68 +922,6 @@ components:
       - queue
       - managed_queue
       title: InstanceType
-    DaemonType:
-      type: string
-      enum:
-      - worker
-      - custom
-      title: DaemonType
-    BackgroundProcessResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - background_processes
-        attributes:
-          type: object
-          properties:
-            type:
-              $ref: '#/components/schemas/DaemonType'
-            processes:
-              type: integer
-            command:
-              type: string
-            config:
-              type: array
-              items: {}
-            strategy_type:
-              $ref: '#/components/schemas/DaemonStrategyType'
-            strategy_threshold:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - type
-          - processes
-          - command
-          - config
-          - strategy_type
-          - strategy_threshold
-          - created_at
-        relationships:
-          type: object
-          properties:
-            instance:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/InstanceResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: BackgroundProcessResource
     InstanceSize:
       type: string
       enum:
@@ -983,13 +977,6 @@ components:
       - mq-dedicated-4gb
       - mq-dedicated-8gb
       title: InstanceSize
-    DaemonStrategyType:
-      type: string
-      enum:
-      - none
-      - growth_rate
-      - queue_size
-      title: DaemonStrategyType
     InstanceResource:
       type: object
       properties:
@@ -1105,48 +1092,19 @@ components:
       - id
       - type
       title: InstanceResource
-    UpdateBackgroundProcessRequest_2:
+    EnvironmentResourceIdentifier:
       type: object
       properties:
-        name:
-          type: string
-          description: The name of the background process.
-        config:
-          type: string
-          description: The supervisor configuration of the background process.
-      required:
-      - name
-      title: UpdateBackgroundProcessRequest
-    BackgroundProcessLogResource:
-      type: object
-      properties:
-        id:
-          type: string
         type:
           type: string
           enum:
-          - backgroundProcessLogs
-        attributes:
-          type: object
-          properties:
-            content:
-              type: string
-              description: The content of the log.
-          required:
-          - content
-        links:
-          type: object
-          properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+          - environments
+        id:
+          type: string
       required:
-      - id
       - type
-      - links
-      title: BackgroundProcessLogResource
+      - id
+      title: EnvironmentResourceIdentifier
     BackgroundProcessResource_2:
       type: object
       properties:
@@ -1210,6 +1168,18 @@ components:
       - id
       - type
       title: BackgroundProcessResource
+    UpdateBackgroundProcessRequest_2:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the background process.
+        config:
+          type: string
+          description: The supervisor configuration of the background process.
+      required:
+      - name
+      title: UpdateBackgroundProcessRequest
     CreateBackgroundProcessRequest_2:
       type: object
       properties:
@@ -1299,27 +1269,37 @@ components:
       required:
       - href
       title: Link
+    BackgroundProcessLogResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backgroundProcessLogs
+        attributes:
+          type: object
+          properties:
+            content:
+              type: string
+              description: The content of the log.
+          required:
+          - content
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackgroundProcessLogResource
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1344,6 +1324,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

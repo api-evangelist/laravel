@@ -595,6 +595,83 @@ components:
       - type
       - links
       title: ProviderRegionSizeResource
+    ProviderResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providers
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            simple_name:
+              type:
+              - string
+              - 'null'
+            currency:
+              type: string
+            currency_symbol:
+              type: string
+            default_size_code:
+              type:
+              - string
+              - 'null'
+            default_region_code:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - slug
+          - simple_name
+          - currency
+          - currency_symbol
+          - default_size_code
+          - default_region_code
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     ProviderSizeResource:
       type: object
       properties:
@@ -692,83 +769,6 @@ components:
       - type
       - links
       title: ProviderRegionResource
-    ProviderResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - providers
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            slug:
-              type: string
-            simple_name:
-              type:
-              - string
-              - 'null'
-            currency:
-              type: string
-            currency_symbol:
-              type: string
-            default_size_code:
-              type:
-              - string
-              - 'null'
-            default_region_code:
-              type:
-              - string
-              - 'null'
-          required:
-          - name
-          - slug
-          - simple_name
-          - currency
-          - currency_symbol
-          - default_size_code
-          - default_region_code
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ProviderResource
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
   responses:
     ModelNotFoundException:
       description: Not found

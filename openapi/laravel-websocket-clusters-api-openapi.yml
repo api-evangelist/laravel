@@ -411,28 +411,17 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    MetricPeriod:
+    WebsocketServerStatus:
       type: string
       enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
+      - creating
+      - updating
+      - available
+      - stopped
+      - deleting
+      - deleted
+      - unknown
+      title: WebsocketServerStatus
     WebsocketServerResourceIdentifier:
       type: object
       properties:
@@ -446,6 +435,18 @@ components:
       - type
       - id
       title: WebsocketServerResourceIdentifier
+    UpdateWebsocketServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        max_connections:
+          description: The number of maximum connections allowed for the WebSocket server. If passed, the connection distribution strategy will be set to EVENLY.
+          $ref: '#/components/schemas/WebsocketServerMaxConnection'
+      title: UpdateWebsocketServerRequest
     WebsocketServerResource:
       type: object
       properties:
@@ -502,26 +503,6 @@ components:
       - id
       - type
       title: WebsocketServerResource
-    StoreWebsocketServerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        type:
-          $ref: '#/components/schemas/WebsocketServerType'
-        region:
-          $ref: '#/components/schemas/CloudRegion'
-        max_connections:
-          type: integer
-      required:
-      - name
-      - type
-      - region
-      - max_connections
-      title: StoreWebsocketServerRequest
     CloudRegion:
       type: string
       enum:
@@ -536,11 +517,6 @@ components:
       - ap-southeast-2
       - ap-northeast-1
       title: CloudRegion
-    WebsocketServerType:
-      type: string
-      enum:
-      - reverb
-      title: WebsocketServerType
     WebsocketApplicationResource:
       type: object
       properties:
@@ -616,6 +592,59 @@ components:
       - id
       - type
       title: WebsocketApplicationResource
+    WebsocketServerType:
+      type: string
+      enum:
+      - reverb
+      title: WebsocketServerType
+    MetricPeriod:
+      type: string
+      enum:
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    StoreWebsocketServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        type:
+          $ref: '#/components/schemas/WebsocketServerType'
+        region:
+          $ref: '#/components/schemas/CloudRegion'
+        max_connections:
+          type: integer
+      required:
+      - name
+      - type
+      - region
+      - max_connections
+      title: StoreWebsocketServerRequest
+    WebsocketServerConnectionDistributionStrategy:
+      type: string
+      enum:
+      - evenly
+      - custom
+      title: WebsocketServerConnectionDistributionStrategy
     WebsocketServerMaxConnection:
       type: integer
       enum:
@@ -626,48 +655,7 @@ components:
       - 5000
       - 10000
       title: WebsocketServerMaxConnection
-    UpdateWebsocketServerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        max_connections:
-          description: The number of maximum connections allowed for the WebSocket server. If passed, the connection distribution strategy will be set to EVENLY.
-          $ref: '#/components/schemas/WebsocketServerMaxConnection'
-      title: UpdateWebsocketServerRequest
-    WebsocketServerConnectionDistributionStrategy:
-      type: string
-      enum:
-      - evenly
-      - custom
-      title: WebsocketServerConnectionDistributionStrategy
-    WebsocketServerStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - stopped
-      - deleting
-      - deleted
-      - unknown
-      title: WebsocketServerStatus
   responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -688,6 +676,18 @@ components:
             required:
             - message
             - errors
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     AuthorizationException:
       description: Authorization error
       content:

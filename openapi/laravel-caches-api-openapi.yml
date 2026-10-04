@@ -484,75 +484,263 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    CacheResourceIdentifier:
+    CacheEvictionPolicy:
+      type: string
+      enum:
+      - allkeys-lru
+      - noeviction
+      - volatile-lru
+      - allkeys-random
+      - volatile-random
+      - volatile-ttl
+      - allkeys-lfu
+      - volatile-lfu
+      title: CacheEvictionPolicy
+    BranchResourceIdentifier:
       type: object
       properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    CacheStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - stopped
+      - deleting
+      - deleted
+      - unknown
+      title: CacheStatus
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    CacheResource:
+      type: object
+      properties:
+        id:
+          type: string
         type:
           type: string
           enum:
           - caches
-        id:
-          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/CacheType'
+            status:
+              $ref: '#/components/schemas/CacheStatus'
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            size:
+              $ref: '#/components/schemas/CacheSize'
+            auto_upgrade_enabled:
+              type: boolean
+            is_public:
+              type: boolean
+            uses_hibernation:
+              type: boolean
+            hibernation_timeout:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            connection:
+              type: object
+              properties:
+                hostname:
+                  type:
+                  - string
+                  - 'null'
+                port:
+                  type:
+                  - integer
+                  - 'null'
+                protocol:
+                  type: string
+                  enum:
+                  - redis
+                  - fake
+                ? ''
+                : anyOf:
+                  - type: object
+                    properties:
+                      username:
+                        type:
+                        - string
+                        - 'null'
+                      password:
+                        type:
+                        - string
+                        - 'null'
+                    required:
+                    - username
+                    - password
+                  - type: array
+                    items:
+                      type: string
+                    minItems: 0
+                    maxItems: 0
+                    additionalItems: false
+              required:
+              - hostname
+              - port
+              - protocol
+              - null
+          required:
+          - name
+          - type
+          - status
+          - region
+          - size
+          - auto_upgrade_enabled
+          - is_public
+          - uses_hibernation
+          - hibernation_timeout
+          - created_at
+          - connection
+        relationships:
+          type: object
+          properties:
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
       required:
-      - type
       - id
-      title: CacheResourceIdentifier
-    CacheSize:
+      - type
+      title: CacheResource
+    CloudRegion:
       type: string
       enum:
-      - 250mb
-      - 1gb
-      - 2.5gb
-      - 5gb
-      - 12gb
-      - 50gb
-      - 100gb
-      - 500gb
-      - valkey-flex-250mb
-      - valkey-flex-1gb
-      - valkey-flex-2.5gb
-      - valkey-pro.250mb
-      - valkey-pro.1gb
-      - valkey-pro.2.5gb
-      - valkey-pro.5gb
-      - valkey-pro.12gb
-      - valkey-pro.25gb
-      - valkey-pro.50gb
-      - elasticache.cache.r7g.large
-      - elasticache.cache.r7g.xlarge
-      - elasticache.cache.r7g.2xlarge
-      - elasticache.cache.r7g.4xlarge
-      - elasticache.cache.r7g.8xlarge
-      - elasticache.cache.r7g.12xlarge
-      - elasticache.cache.r7g.16xlarge
-      - elasticache.cache.c7gn.large
-      - elasticache.cache.c7gn.xlarge
-      - elasticache.cache.c7gn.2xlarge
-      - elasticache.cache.c7gn.4xlarge
-      - elasticache.cache.c7gn.8xlarge
-      - elasticache.cache.c7gn.12xlarge
-      - elasticache.cache.c7gn.16xlarge
-      title: CacheSize
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    RateLimitLevel:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    BotControlCategory:
       type: string
       enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
     Link:
       type: object
       properties:
@@ -578,19 +766,6 @@ components:
       required:
       - href
       title: Link
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
     WebsocketApplicationResourceIdentifier:
       type: object
       properties:
@@ -604,37 +779,43 @@ components:
       - type
       - id
       title: WebsocketApplicationResourceIdentifier
-    CacheType:
+    RateLimitLevel:
       type: string
       enum:
-      - upstash_redis
-      - laravel_valkey
-      - aws_elasticache_redis
-      - aws_elasticache_valkey
-      title: CacheType
-    MetricPeriod:
-      type: string
-      enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    UpdateCacheRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        size:
+          $ref: '#/components/schemas/CacheSize'
+        auto_upgrade_enabled:
+          type: boolean
+        is_public:
+          type: boolean
+        eviction_policy:
+          anyOf:
+          - description: Only available for Valkey.
+            $ref: '#/components/schemas/CacheEvictionPolicy'
+          - type: 'null'
+        uses_hibernation:
+          type: boolean
+        hibernation_timeout:
+          anyOf:
+          - type: integer
+            minimum: 1
+            maximum: 60
+          - type:
+            - string
+            - 'null'
+      title: UpdateCacheRequest
     StoreCacheRequest:
       type: object
       properties:
@@ -681,124 +862,42 @@ components:
       - auto_upgrade_enabled
       - is_public
       title: StoreCacheRequest
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    CacheEvictionPolicy:
+    CacheSize:
       type: string
       enum:
-      - allkeys-lru
-      - noeviction
-      - volatile-lru
-      - allkeys-random
-      - volatile-random
-      - volatile-ttl
-      - allkeys-lfu
-      - volatile-lfu
-      title: CacheEvictionPolicy
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    UpdateCacheRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        size:
-          $ref: '#/components/schemas/CacheSize'
-        auto_upgrade_enabled:
-          type: boolean
-        is_public:
-          type: boolean
-        eviction_policy:
-          anyOf:
-          - description: Only available for Valkey.
-            $ref: '#/components/schemas/CacheEvictionPolicy'
-          - type: 'null'
-        uses_hibernation:
-          type: boolean
-        hibernation_timeout:
-          anyOf:
-          - type: integer
-            minimum: 1
-            maximum: 60
-          - type:
-            - string
-            - 'null'
-      title: UpdateCacheRequest
+      - 250mb
+      - 1gb
+      - 2.5gb
+      - 5gb
+      - 12gb
+      - 50gb
+      - 100gb
+      - 500gb
+      - valkey-flex-250mb
+      - valkey-flex-1gb
+      - valkey-flex-2.5gb
+      - valkey-pro.250mb
+      - valkey-pro.1gb
+      - valkey-pro.2.5gb
+      - valkey-pro.5gb
+      - valkey-pro.12gb
+      - valkey-pro.25gb
+      - valkey-pro.50gb
+      - elasticache.cache.r7g.large
+      - elasticache.cache.r7g.xlarge
+      - elasticache.cache.r7g.2xlarge
+      - elasticache.cache.r7g.4xlarge
+      - elasticache.cache.r7g.8xlarge
+      - elasticache.cache.r7g.12xlarge
+      - elasticache.cache.r7g.16xlarge
+      - elasticache.cache.c7gn.large
+      - elasticache.cache.c7gn.xlarge
+      - elasticache.cache.c7gn.2xlarge
+      - elasticache.cache.c7gn.4xlarge
+      - elasticache.cache.c7gn.8xlarge
+      - elasticache.cache.c7gn.12xlarge
+      - elasticache.cache.c7gn.16xlarge
+      title: CacheSize
     EnvironmentResource:
       type: object
       properties:
@@ -1084,171 +1183,84 @@ components:
       - type
       - links
       title: EnvironmentResource
-    BranchResourceIdentifier:
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - environments
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
-    NodeVersion:
+      title: EnvironmentResourceIdentifier
+    CacheType:
       type: string
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    CacheStatus:
-      type: string
+      - upstash_redis
+      - laravel_valkey
+      - aws_elasticache_redis
+      - aws_elasticache_valkey
+      title: CacheType
+    RateLimitPerMinute:
+      type: integer
       enum:
-      - creating
-      - updating
-      - available
-      - stopped
-      - deleting
-      - deleted
-      - unknown
-      title: CacheStatus
-    DeploymentResourceIdentifier:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - domains
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
-    FilesystemResourceIdentifier:
+      title: DomainResourceIdentifier
+    CacheResourceIdentifier:
       type: object
       properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    CacheResource:
-      type: object
-      properties:
-        id:
-          type: string
         type:
           type: string
           enum:
           - caches
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/CacheType'
-            status:
-              $ref: '#/components/schemas/CacheStatus'
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            size:
-              $ref: '#/components/schemas/CacheSize'
-            auto_upgrade_enabled:
-              type: boolean
-            is_public:
-              type: boolean
-            uses_hibernation:
-              type: boolean
-            hibernation_timeout:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            connection:
-              type: object
-              properties:
-                hostname:
-                  type:
-                  - string
-                  - 'null'
-                port:
-                  type:
-                  - integer
-                  - 'null'
-                protocol:
-                  type: string
-                  enum:
-                  - redis
-                  - fake
-                ? ''
-                : anyOf:
-                  - type: object
-                    properties:
-                      username:
-                        type:
-                        - string
-                        - 'null'
-                      password:
-                        type:
-                        - string
-                        - 'null'
-                    required:
-                    - username
-                    - password
-                  - type: array
-                    items:
-                      type: string
-                    minItems: 0
-                    maxItems: 0
-                    additionalItems: false
-              required:
-              - hostname
-              - port
-              - protocol
-              - null
-          required:
-          - name
-          - type
-          - status
-          - region
-          - size
-          - auto_upgrade_enabled
-          - is_public
-          - uses_hibernation
-          - hibernation_timeout
-          - created_at
-          - connection
-        relationships:
-          type: object
-          properties:
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
+        id:
+          type: string
       required:
-      - id
       - type
-      title: CacheResource
+      - id
+      title: CacheResourceIdentifier
+    MetricPeriod:
+      type: string
+      enum:
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ModelNotFoundException:
       description: Not found
       content:
@@ -1281,18 +1293,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

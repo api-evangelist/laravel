@@ -730,6 +730,45 @@ paths:
       x-processingMode: sync
 components:
   schemas:
+    PermissionResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - permissions
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: PermissionResourceIdentifier
+    UpdateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: UpdateRoleRequest
+    CreateRoleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: CreateRoleRequest
     Permission:
       type: string
       enum:
@@ -796,72 +835,6 @@ components:
       - resources:delete-buckets
       - resources:manage-buckets
       title: Permission
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    PermissionResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - permissions
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: PermissionResource
-    UpdateRoleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      title: UpdateRoleRequest
     CustomRoleResource:
       type: object
       properties:
@@ -914,6 +887,31 @@ components:
       - type
       - links
       title: CustomRoleResource
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     PredefinedRoleResource:
       type: object
       properties:
@@ -966,53 +964,35 @@ components:
       - type
       - links
       title: PredefinedRoleResource
-    CreateRoleRequest:
+    PermissionResource:
       type: object
       properties:
-        name:
+        id:
           type: string
-          maxLength: 50
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      title: CreateRoleRequest
-    PermissionResourceIdentifier:
-      type: object
-      properties:
         type:
           type: string
           enum:
           - permissions
-        id:
-          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - type
       - id
-      title: PermissionResourceIdentifier
+      - type
+      - links
+      title: PermissionResource
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -1037,6 +1017,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

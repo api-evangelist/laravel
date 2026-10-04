@@ -622,40 +622,20 @@ paths:
     - url: https://forge.laravel.com/api
 components:
   schemas:
-    CacheResourceIdentifier:
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - caches
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: CacheResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
-    UserResource:
+      title: BranchResourceIdentifier
+    CommandResource:
       type: object
       properties:
         id:
@@ -663,136 +643,92 @@ components:
         type:
           type: string
           enum:
-          - users
+          - commands
         attributes:
           type: object
           properties:
-            name:
+            command:
               type: string
-            email:
-              type: string
-            avatar_url:
-              type: string
+            output:
+              type:
+              - string
+              - 'null'
+            status:
+              $ref: '#/components/schemas/CommandStatus'
+            exit_code:
+              anyOf:
+              - $ref: '#/components/schemas/ExitCode'
+              - type: 'null'
+            failure_reason:
+              type:
+              - string
+              - 'null'
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            finished_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
             created_at:
               type:
               - string
               - 'null'
               format: date-time
           required:
-          - name
-          - email
-          - avatar_url
+          - command
+          - output
+          - status
+          - exit_code
+          - failure_reason
+          - started_at
+          - finished_at
           - created_at
-      required:
-      - id
-      - type
-      title: UserResource
-    UserResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - users
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: UserResourceIdentifier
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
+        relationships:
           type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            deployment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DeploymentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            initiator:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/UserResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - href
-      title: Link
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
       - id
-      title: InstanceResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
       - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    CreateCommandRequest:
-      type: object
-      properties:
-        command:
-          type: string
-          minLength: 1
-          maxLength: 150000
-      required:
-      - command
-      title: CreateCommandRequest
-    ExitCode:
-      type: integer
-      enum:
-      - 0
-      - 1
-      title: ExitCode
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
+      - links
+      title: CommandResource
     DatabaseSchemaResourceIdentifier:
       type: object
       properties:
@@ -913,24 +849,36 @@ components:
       - type
       - links
       title: DeploymentResource
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    CommandStatus:
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    NodeVersion:
       type: string
       enum:
-      - pending
-      - command.created
-      - command.running
-      - command.failure
-      - command.success
-      title: CommandStatus
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    CreateCommandRequest:
+      type: object
+      properties:
+        command:
+          type: string
+          minLength: 1
+          maxLength: 150000
+      required:
+      - command
+      title: CreateCommandRequest
     EnvironmentStatus:
       type: string
       enum:
@@ -939,6 +887,58 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
     BotControlCategory:
       type: string
       enum:
@@ -959,6 +959,66 @@ components:
       - webhooks
       - other
       title: BotControlCategory
+    CommandStatus:
+      type: string
+      enum:
+      - pending
+      - command.created
+      - command.running
+      - command.failure
+      - command.success
+      title: CommandStatus
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    ExitCode:
+      type: integer
+      enum:
+      - 0
+      - 1
+      title: ExitCode
     EnvironmentResource:
       type: object
       properties:
@@ -1244,26 +1304,41 @@ components:
       - type
       - links
       title: EnvironmentResource
-    BranchResourceIdentifier:
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - environments
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
-    NodeVersion:
-      type: string
+      title: EnvironmentResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
     DeploymentStatus:
       type: string
       enum:
@@ -1283,33 +1358,20 @@ components:
       - deployment.succeeded
       - deployment.failed
       title: DeploymentStatus
-    DeploymentResourceIdentifier:
+    CacheResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - caches
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    CommandResource:
+      title: CacheResourceIdentifier
+    UserResource:
       type: object
       properties:
         id:
@@ -1317,101 +1379,41 @@ components:
         type:
           type: string
           enum:
-          - commands
+          - users
         attributes:
           type: object
           properties:
-            command:
+            name:
               type: string
-            output:
-              type:
-              - string
-              - 'null'
-            status:
-              $ref: '#/components/schemas/CommandStatus'
-            exit_code:
-              anyOf:
-              - $ref: '#/components/schemas/ExitCode'
-              - type: 'null'
-            failure_reason:
-              type:
-              - string
-              - 'null'
-            started_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            finished_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
+            email:
+              type: string
+            avatar_url:
+              type: string
             created_at:
               type:
               - string
               - 'null'
               format: date-time
           required:
-          - command
-          - output
-          - status
-          - exit_code
-          - failure_reason
-          - started_at
-          - finished_at
+          - name
+          - email
+          - avatar_url
           - created_at
-        relationships:
-          type: object
-          properties:
-            environment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            deployment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DeploymentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            initiator:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/UserResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
       - id
       - type
-      - links
-      title: CommandResource
-    CommandStatus_2:
-      type: string
-      enum:
-      - waiting
-      - running
-      - finished
-      - timeout
-      - failed
-      title: CommandStatus
+      title: UserResource
+    RunSiteCommandRequest:
+      type: object
+      properties:
+        command:
+          type: string
+          description: The command to run.
+          examples:
+          - nvm use 22
+      required:
+      - command
+      title: RunSiteCommandRequest
     CommandOutputResource:
       type: object
       properties:
@@ -1444,60 +1446,6 @@ components:
       - type
       - links
       title: CommandOutputResource
-    RunSiteCommandRequest:
-      type: object
-      properties:
-        command:
-          type: string
-          description: The command to run.
-          examples:
-          - nvm use 22
-      required:
-      - command
-      title: RunSiteCommandRequest
-    UserResource_2:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - users
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            email:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            updated_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - email
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: UserResource
     CommandResource_2:
       type: object
       properties:
@@ -1591,7 +1539,83 @@ components:
       - type
       - links
       title: CommandResource
+    CommandStatus_2:
+      type: string
+      enum:
+      - waiting
+      - running
+      - finished
+      - timeout
+      - failed
+      title: CommandStatus
+    UserResource_2:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - users
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - email
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: UserResource
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -1612,30 +1636,6 @@ components:
             required:
             - message
             - errors
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

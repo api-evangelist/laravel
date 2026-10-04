@@ -404,287 +404,26 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    CacheResourceIdentifier:
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - caches
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: CacheResourceIdentifier
-    RepositoryResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - repositories
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-      required:
-      - id
-      - type
-      title: RepositoryResource
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    RateLimitLevel:
+      title: BranchResourceIdentifier
+    SourceControlProviderType:
       type: string
       enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
-    UserResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - users
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: UserResourceIdentifier
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    ApplicationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - applications
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            slug:
-              type: string
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            slack_channel:
-              type:
-              - string
-              - 'null'
-            avatar_url:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            repository:
-              type:
-              - object
-              - 'null'
-              properties:
-                full_name:
-                  type: string
-                default_branch:
-                  type: string
-              required:
-              - full_name
-              - default_branch
-          required:
-          - name
-          - slug
-          - region
-          - slack_channel
-          - avatar_url
-          - created_at
-          - repository
-        relationships:
-          type: object
-          properties:
-            repository:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/RepositoryResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            organization:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/OrganizationResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
-            deployments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/DeploymentResourceIdentifier'
-              required:
-              - data
-            defaultEnvironment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: ApplicationResource
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    OrganizationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - organizations
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            slug:
-              type: string
-          required:
-          - name
-          - slug
-      required:
-      - id
-      - type
-      title: OrganizationResource
+      - github
+      - gitlab
+      - bitbucket
+      title: SourceControlProviderType
     DatabaseSchemaResourceIdentifier:
       type: object
       properties:
@@ -805,15 +544,150 @@ components:
       - type
       - links
       title: DeploymentResource
-    RateLimitPerMinute:
-      type: integer
+    ApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - applications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: ApplicationResourceIdentifier
+    NodeVersion:
+      type: string
       enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
+      - '20'
+      - '22'
+      - '24'
+      title: NodeVersion
+    ApplicationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - applications
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            slack_channel:
+              type:
+              - string
+              - 'null'
+            avatar_url:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            repository:
+              type:
+              - object
+              - 'null'
+              properties:
+                full_name:
+                  type: string
+                default_branch:
+                  type: string
+              required:
+              - full_name
+              - default_branch
+          required:
+          - name
+          - slug
+          - region
+          - slack_channel
+          - avatar_url
+          - created_at
+          - repository
+        relationships:
+          type: object
+          properties:
+            repository:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/RepositoryResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            organization:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/OrganizationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
+            deployments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DeploymentResourceIdentifier'
+              required:
+              - data
+            defaultEnvironment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: ApplicationResource
+    UpdateApplicationRequest:
+      type: object
+      properties:
+        source_control_provider_type:
+          description: The source control provider. This parameter will be required starting March 9, 2026.
+          $ref: '#/components/schemas/SourceControlProviderType'
+        name:
+          type: string
+          pattern: ^[\p{Latin}0-9 _.'-]+$
+          minLength: 3
+          maxLength: 40
+        slug:
+          type: string
+          minLength: 3
+        default_environment_id:
+          type: string
+        repository:
+          type: string
+        slack_channel:
+          type:
+          - string
+          - 'null'
+      title: UpdateApplicationRequest
     EnvironmentStatus:
       type: string
       enum:
@@ -822,6 +696,72 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
     BotControlCategory:
       type: string
       enum:
@@ -842,6 +782,51 @@ components:
       - webhooks
       - other
       title: BotControlCategory
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
     RepositoryResourceIdentifier:
       type: object
       properties:
@@ -855,6 +840,31 @@ components:
       - type
       - id
       title: RepositoryResourceIdentifier
+    CreateApplicationRequest:
+      type: object
+      properties:
+        source_control_provider_type:
+          description: The source control provider. This parameter will be required starting March 9, 2026.
+          $ref: '#/components/schemas/SourceControlProviderType'
+        repository:
+          type: string
+        name:
+          type: string
+          pattern: ^[\p{Latin}0-9 _.,'\-&()!#+:@]+$
+          minLength: 3
+          maxLength: 40
+        region:
+          $ref: '#/components/schemas/CloudRegion'
+        cluster_id:
+          type:
+          - string
+          - 'null'
+          description: The identifier of a dedicated cluster to deploy to. Only fill it if your organization has a dedicated cluster and you want to use it for this application.
+      required:
+      - repository
+      - name
+      - region
+      title: CreateApplicationRequest
     EnvironmentResource:
       type: object
       properties:
@@ -1140,94 +1150,61 @@ components:
       - type
       - links
       title: EnvironmentResource
-    UpdateApplicationRequest:
-      type: object
-      properties:
-        source_control_provider_type:
-          description: The source control provider. This parameter will be required starting March 9, 2026.
-          $ref: '#/components/schemas/SourceControlProviderType'
-        name:
-          type: string
-          pattern: ^[\p{Latin}0-9 _.'-]+$
-          minLength: 3
-          maxLength: 40
-        slug:
-          type: string
-          minLength: 3
-        default_environment_id:
-          type: string
-        repository:
-          type: string
-        slack_channel:
-          type:
-          - string
-          - 'null'
-      title: UpdateApplicationRequest
-    BranchResourceIdentifier:
+    EnvironmentResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - environments
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
-    OrganizationResourceIdentifier:
+      title: EnvironmentResourceIdentifier
+    RepositoryResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - repositories
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+      required:
+      - id
+      - type
+      title: RepositoryResource
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - organizations
+          - domains
         id:
           type: string
       required:
       - type
       - id
-      title: OrganizationResourceIdentifier
-    CreateApplicationRequest:
-      type: object
-      properties:
-        source_control_provider_type:
-          description: The source control provider. This parameter will be required starting March 9, 2026.
-          $ref: '#/components/schemas/SourceControlProviderType'
-        repository:
-          type: string
-        name:
-          type: string
-          pattern: ^[\p{Latin}0-9 _.,'\-&()!#+:@]+$
-          minLength: 3
-          maxLength: 40
-        region:
-          $ref: '#/components/schemas/CloudRegion'
-        cluster_id:
-          type:
-          - string
-          - 'null'
-          description: The identifier of a dedicated cluster to deploy to. Only fill it if your organization has a dedicated cluster and you want to use it for this application.
-      required:
-      - repository
-      - name
-      - region
-      title: CreateApplicationRequest
-    NodeVersion:
-      type: string
-      enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    SourceControlProviderType:
-      type: string
-      enum:
-      - github
-      - gitlab
-      - bitbucket
-      title: SourceControlProviderType
+      title: DomainResourceIdentifier
     DeploymentStatus:
       type: string
       enum:
@@ -1247,33 +1224,68 @@ components:
       - deployment.succeeded
       - deployment.failed
       title: DeploymentStatus
-    DeploymentResourceIdentifier:
+    CacheResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - deployments
+          - caches
         id:
           type: string
       required:
       - type
       - id
-      title: DeploymentResourceIdentifier
-    FilesystemResourceIdentifier:
+      title: CacheResourceIdentifier
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - organizations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+          required:
+          - name
+          - slug
+      required:
+      - id
+      - type
+      title: OrganizationResource
+    OrganizationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - filesystems
+          - organizations
         id:
           type: string
       required:
       - type
       - id
-      title: FilesystemResourceIdentifier
+      title: OrganizationResourceIdentifier
   responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ModelNotFoundException:
       description: Not found
       content:
@@ -1306,18 +1318,6 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   securitySchemes:
     http:
       type: http

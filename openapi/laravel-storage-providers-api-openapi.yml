@@ -348,41 +348,6 @@ components:
       - scaleway
       - custom
       title: BackupProvider
-    UpdateStorageConfigurationRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 255
-        provider:
-          $ref: '#/components/schemas/BackupProvider'
-        region:
-          type: string
-        bucket:
-          type:
-          - string
-          - 'null'
-        endpoint:
-          type: string
-          format: uri
-        access_key:
-          type:
-          - string
-          - 'null'
-        secret_key:
-          type:
-          - string
-          - 'null'
-        use_ec2_assumed_role:
-          type: boolean
-        directory:
-          type:
-          - string
-          - 'null'
-      required:
-      - name
-      - provider
-      title: UpdateStorageConfigurationRequest
     CreateStorageConfigurationRequest:
       type: object
       properties:
@@ -524,27 +489,42 @@ components:
       required:
       - href
       title: Link
+    UpdateStorageConfigurationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        provider:
+          $ref: '#/components/schemas/BackupProvider'
+        region:
+          type: string
+        bucket:
+          type:
+          - string
+          - 'null'
+        endpoint:
+          type: string
+          format: uri
+        access_key:
+          type:
+          - string
+          - 'null'
+        secret_key:
+          type:
+          - string
+          - 'null'
+        use_ec2_assumed_role:
+          type: boolean
+        directory:
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      - provider
+      title: UpdateStorageConfigurationRequest
   responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
     ModelNotFoundException:
       description: Not found
       content:
@@ -569,6 +549,26 @@ components:
                 description: Error overview.
             required:
             - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
   securitySchemes:
     http:
       type: http

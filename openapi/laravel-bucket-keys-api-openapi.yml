@@ -276,139 +276,6 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   schemas:
-    UpdateFilesystemKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: UpdateFilesystemKeyRequest
-    FilesystemKeyResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - filesystemKeys
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            permission:
-              $ref: '#/components/schemas/FilesystemKeyPermission'
-            access_key_id:
-              type:
-              - string
-              - 'null'
-            access_key_secret:
-              type:
-              - string
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - permission
-          - access_key_id
-          - access_key_secret
-          - created_at
-        relationships:
-          type: object
-          properties:
-            filesystem:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/FilesystemResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: FilesystemKeyResource
-    FilesystemStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: FilesystemStatus
-    FilesystemVisibility:
-      type: string
-      enum:
-      - private
-      - public
-      title: FilesystemVisibility
-    FilesystemKeyPermission:
-      type: string
-      enum:
-      - read_write
-      - read_only
-      title: FilesystemKeyPermission
-    FilesystemKeyResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystemKeys
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemKeyResourceIdentifier
-    StoreFilesystemKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-        permission:
-          $ref: '#/components/schemas/FilesystemKeyPermission'
-      required:
-      - name
-      - permission
-      title: StoreFilesystemKeyRequest
-    FilesystemJurisdiction:
-      type: string
-      enum:
-      - default
-      - eu
-      title: FilesystemJurisdiction
-    FilesystemType:
-      type: string
-      enum:
-      - cloudflare_r2
-      title: FilesystemType
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
     FilesystemResource:
       type: object
       properties:
@@ -475,6 +342,139 @@ components:
       - id
       - type
       title: FilesystemResource
+    FilesystemStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: FilesystemStatus
+    FilesystemKeyPermission:
+      type: string
+      enum:
+      - read_write
+      - read_only
+      title: FilesystemKeyPermission
+    FilesystemVisibility:
+      type: string
+      enum:
+      - private
+      - public
+      title: FilesystemVisibility
+    FilesystemJurisdiction:
+      type: string
+      enum:
+      - default
+      - eu
+      title: FilesystemJurisdiction
+    StoreFilesystemKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 40
+        permission:
+          $ref: '#/components/schemas/FilesystemKeyPermission'
+      required:
+      - name
+      - permission
+      title: StoreFilesystemKeyRequest
+    FilesystemType:
+      type: string
+      enum:
+      - cloudflare_r2
+      title: FilesystemType
+    FilesystemKeyResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystemKeys
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemKeyResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    FilesystemKeyResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - filesystemKeys
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            permission:
+              $ref: '#/components/schemas/FilesystemKeyPermission'
+            access_key_id:
+              type:
+              - string
+              - 'null'
+            access_key_secret:
+              type:
+              - string
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - permission
+          - access_key_id
+          - access_key_secret
+          - created_at
+        relationships:
+          type: object
+          properties:
+            filesystem:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/FilesystemResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: FilesystemKeyResource
+    UpdateFilesystemKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 40
+      required:
+      - name
+      title: UpdateFilesystemKeyRequest
   responses:
     ValidationException:
       description: Validation error
