@@ -442,31 +442,6 @@ components:
       - type
       - links
       title: ServerKeyResource
-    CreateSshKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the SSH key.
-          examples:
-          - oliver-macbook
-        key:
-          type: string
-          description: The public SSH key.
-          examples:
-          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
-        user:
-          type:
-          - string
-          - 'null'
-          description: The user associated with the SSH key.
-          default: forge
-          examples:
-          - username
-      required:
-      - name
-      - key
-      title: CreateSshKeyRequest
     Link:
       type: object
       properties:
@@ -492,31 +467,32 @@ components:
       required:
       - href
       title: Link
+    CreateSshKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the SSH key.
+          examples:
+          - oliver-macbook
+        key:
+          type: string
+          description: The public SSH key.
+          examples:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
+        user:
+          type:
+          - string
+          - 'null'
+          description: The user associated with the SSH key.
+          default: forge
+          examples:
+          - username
+      required:
+      - name
+      - key
+      title: CreateSshKeyRequest
   responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
     ValidationException:
       description: Validation error
       content:
@@ -537,6 +513,30 @@ components:
             required:
             - message
             - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http

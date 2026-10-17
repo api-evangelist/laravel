@@ -676,6 +676,51 @@ paths:
           noindex: true
       x-processingMode: async
 components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
     BackupConfigurationResource:
       type: object
@@ -763,45 +808,6 @@ components:
       - type
       - links
       title: BackupConfigurationResource
-    BackupResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - backups
-        attributes:
-          type: object
-          properties:
-            status:
-              type: string
-            is_partial:
-              type: string
-            size:
-              type: integer
-            finished_at:
-              type:
-              - integer
-              - 'null'
-          required:
-          - status
-          - is_partial
-          - size
-          - finished_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: BackupResource
     Link:
       type: object
       properties:
@@ -932,14 +938,6 @@ components:
       - retention
       - database_ids
       title: CreateBackupConfigurationRequest
-    BackupFrequency:
-      type: string
-      enum:
-      - hourly
-      - daily
-      - weekly
-      - custom
-      title: BackupFrequency
     RestoreBackupRequest:
       type: object
       properties:
@@ -1053,51 +1051,53 @@ components:
       - retention
       - database_ids
       title: UpdateBackupConfigurationRequest
-  responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
+    BackupFrequency:
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - custom
+      title: BackupFrequency
+    BackupResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backups
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+            is_partial:
+              type: string
+            size:
+              type: integer
+            finished_at:
+              type:
+              - integer
+              - 'null'
+          required:
+          - status
+          - is_partial
+          - size
+          - finished_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackupResource
   securitySchemes:
     http:
       type: http

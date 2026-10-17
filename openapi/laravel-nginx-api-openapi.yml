@@ -348,20 +348,77 @@ paths:
           noindex: true
       x-processingMode: sync
 components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    CreateNginxTemplateRequest:
+    Link:
       type: object
       properties:
-        name:
+        href:
           type: string
-          description: The name of the Nginx template.
-        content:
+          format: uri
+        rel:
           type: string
-          description: The content of the Nginx template.
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
       required:
-      - name
-      - content
-      title: CreateNginxTemplateRequest
+      - href
+      title: Link
     NginxTemplateResource:
       type: object
       properties:
@@ -405,6 +462,19 @@ components:
       - type
       - links
       title: NginxTemplateResource
+    CreateNginxTemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the Nginx template.
+        content:
+          type: string
+          description: The content of the Nginx template.
+      required:
+      - name
+      - content
+      title: CreateNginxTemplateRequest
     UpdateNginxTemplateRequest:
       type: object
       properties:
@@ -418,76 +488,6 @@ components:
       - name
       - content
       title: UpdateNginxTemplateRequest
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-  responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

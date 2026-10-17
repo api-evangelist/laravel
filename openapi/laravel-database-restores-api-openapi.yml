@@ -54,29 +54,65 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationException'
 components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    StoreDatabaseRestoreRequest:
+    DatabaseResourceIdentifier:
       type: object
       properties:
-        name:
+        type:
           type: string
-          description: The name of the new database created from the restore.
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        restore_time:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: The point in time to restore the database to. Must not be used with database_snapshot_id.
-        database_snapshot_id:
-          type:
-          - string
-          - 'null'
+          enum:
+          - databases
+        id:
+          type: string
       required:
-      - name
-      title: StoreDatabaseRestoreRequest
+      - type
+      - id
+      title: DatabaseResourceIdentifier
     DatabaseResource:
       type: object
       properties:
@@ -355,6 +391,26 @@ components:
       - id
       - type
       title: DatabaseResource
+    DatabaseStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - restarting
+      - upgrading
+      - moving
+      - available
+      - stopped
+      - restoring
+      - restore_failed
+      - disabled
+      - snapshotting_before_archiving
+      - archiving
+      - archived
+      - deleting
+      - deleted
+      - unknown
+      title: DatabaseStatus
     DatabaseSchemaResourceIdentifier:
       type: object
       properties:
@@ -368,6 +424,42 @@ components:
       - type
       - id
       title: DatabaseSchemaResourceIdentifier
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-2
+      - us-east-1
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    StoreDatabaseRestoreRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the new database created from the restore.
+          pattern: ^[a-z0-9_-]+$
+          minLength: 3
+          maxLength: 40
+        restore_time:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: The point in time to restore the database to. Must not be used with database_snapshot_id.
+        database_snapshot_id:
+          type:
+          - string
+          - 'null'
+      required:
+      - name
+      title: StoreDatabaseRestoreRequest
     DatabaseSchemaResource:
       type: object
       properties:
@@ -418,40 +510,6 @@ components:
       - id
       - type
       title: DatabaseSchemaResource
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    DatabaseStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - restarting
-      - upgrading
-      - moving
-      - available
-      - stopped
-      - restoring
-      - restore_failed
-      - disabled
-      - snapshotting_before_archiving
-      - archiving
-      - archived
-      - deleting
-      - deleted
-      - unknown
-      title: DatabaseStatus
     DatabaseType:
       type: string
       enum:
@@ -463,19 +521,6 @@ components:
       - neon_serverless_postgres_17
       - neon_serverless_postgres_16
       title: DatabaseType
-    DatabaseResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databases
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
     EnvironmentResourceIdentifier:
       type: object
       properties:
@@ -489,51 +534,6 @@ components:
       - type
       - id
       title: EnvironmentResourceIdentifier
-  responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
   securitySchemes:
     http:
       type: http

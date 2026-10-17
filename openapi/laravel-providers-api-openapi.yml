@@ -647,31 +647,42 @@ components:
       - type
       - links
       title: ProviderResource
-    Link:
+    ProviderRegionResource:
       type: object
       properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
+        id:
           type: string
         type:
           type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
+          enum:
+          - providerRegions
+        attributes:
           type: object
+          properties:
+            name:
+              type: string
+            code:
+              type: string
+            alternate_code:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - code
+          - alternate_code
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - href
-      title: Link
+      - id
+      - type
+      - links
+      title: ProviderRegionResource
     ProviderSizeResource:
       type: object
       properties:
@@ -733,45 +744,34 @@ components:
       - type
       - links
       title: ProviderSizeResource
-    ProviderRegionResource:
+    Link:
       type: object
       properties:
-        id:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
           type: string
         type:
           type: string
-          enum:
-          - providerRegions
-        attributes:
-          type: object
-          properties:
-            name:
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
               type: string
-            code:
-              type: string
-            alternate_code:
-              type:
-              - string
-              - 'null'
-          required:
-          - name
-          - code
-          - alternate_code
-        links:
+        meta:
           type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
-      - id
-      - type
-      - links
-      title: ProviderRegionResource
+      - href
+      title: Link
   responses:
-    ModelNotFoundException:
-      description: Not found
+    AuthorizationException:
+      description: Authorization error
       content:
         application/json:
           schema:
@@ -782,8 +782,8 @@ components:
                 description: Error overview.
             required:
             - message
-    AuthorizationException:
-      description: Authorization error
+    ModelNotFoundException:
+      description: Not found
       content:
         application/json:
           schema:

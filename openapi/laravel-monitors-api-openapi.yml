@@ -310,38 +310,52 @@ paths:
           noindex: true
       x-processingMode: async
 components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    MonitorState:
-      type: string
-      enum:
-      - OK
-      - ALERT
-      - UNKNOWN
-      title: MonitorState
-    ResourceState:
-      type: string
-      enum:
-      - installing
-      - installed
-      - removing
-      - restarting
-      - stopping
-      - stopped
-      - starting
-      - syncing
-      - updating
-      - disabling
-      - disabled
-      - enabling
-      - running
-      - restoring
-      - deleting
-      - failed
-      - success
-      - failed-unknown
-      - failed-runner
-      - renewing
-      title: ResourceState
     Link:
       type: object
       properties:
@@ -459,6 +473,20 @@ components:
       - type
       - links
       title: MonitorResource
+    MonitorMetricType:
+      type: string
+      enum:
+      - cpu_load
+      - disk
+      - free_memory
+      - used_memory
+      title: MonitorMetricType
+    MonitorOperator:
+      type: string
+      enum:
+      - gte
+      - lte
+      title: MonitorOperator
     CreateMonitorRequest:
       type: object
       properties:
@@ -496,65 +524,37 @@ components:
       - threshold
       - notify
       title: CreateMonitorRequest
-    MonitorOperator:
+    ResourceState:
       type: string
       enum:
-      - gte
-      - lte
-      title: MonitorOperator
-    MonitorMetricType:
+      - installing
+      - installed
+      - removing
+      - restarting
+      - stopping
+      - stopped
+      - starting
+      - syncing
+      - updating
+      - disabling
+      - disabled
+      - enabling
+      - running
+      - restoring
+      - deleting
+      - failed
+      - success
+      - failed-unknown
+      - failed-runner
+      - renewing
+      title: ResourceState
+    MonitorState:
       type: string
       enum:
-      - cpu_load
-      - disk
-      - free_memory
-      - used_memory
-      title: MonitorMetricType
-  responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
+      - OK
+      - ALERT
+      - UNKNOWN
+      title: MonitorState
   securitySchemes:
     http:
       type: http

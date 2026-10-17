@@ -308,25 +308,83 @@ paths:
           noindex: true
       x-processingMode: async
 components:
+  responses:
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    CreateFirewallRuleRequest:
+    Link:
       type: object
       properties:
-        name:
+        href:
           type: string
-          maxLength: 50
-        port:
-          type:
-          - string
-          - 'null'
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
         type:
-          $ref: '#/components/schemas/RuleType'
-        ip_address:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
           type: object
       required:
-      - name
-      - type
-      title: CreateFirewallRuleRequest
+      - href
+      title: Link
+    RuleType:
+      type: string
+      enum:
+      - allow
+      - deny
+      title: RuleType
     RuleResource:
       type: object
       properties:
@@ -402,82 +460,24 @@ components:
       - type
       - links
       title: RuleResource
-    Link:
+    CreateFirewallRuleRequest:
       type: object
       properties:
-        href:
+        name:
           type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
+          maxLength: 50
+        port:
+          type:
+          - string
+          - 'null'
         type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
+          $ref: '#/components/schemas/RuleType'
+        ip_address:
           type: object
       required:
-      - href
-      title: Link
-    RuleType:
-      type: string
-      enum:
-      - allow
-      - deny
-      title: RuleType
-  responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
+      - name
+      - type
+      title: CreateFirewallRuleRequest
   securitySchemes:
     http:
       type: http
