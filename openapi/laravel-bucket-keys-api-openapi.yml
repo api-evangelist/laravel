@@ -147,21 +147,12 @@ paths:
             schema:
               $ref: '#/components/schemas/StoreFilesystemKeyRequest'
       responses:
-        '201':
-          description: '`FilesystemKeyResource`'
+        '200':
+          description: ''
           content:
-            application/vnd.api+json:
+            application/json:
               schema:
                 type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/FilesystemKeyResource'
-                  included:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/FilesystemResource'
-                required:
-                - data
         '404':
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
@@ -275,165 +266,21 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationException'
 components:
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    FilesystemType:
+    FilesystemLocationHint:
       type: string
+      description: 'Where Cloudflare should place an R2 bucket''s data. Automatic lets Cloudflare choose, which it does from the caller''s location rather than the customer''s.
+
+        '
       enum:
-      - cloudflare_r2
-      title: FilesystemType
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    UpdateFilesystemKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-      required:
-      - name
-      title: UpdateFilesystemKeyRequest
-    FilesystemJurisdiction:
-      type: string
-      enum:
-      - default
-      - eu
-      title: FilesystemJurisdiction
-    FilesystemResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - filesystems
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/FilesystemType'
-            status:
-              $ref: '#/components/schemas/FilesystemStatus'
-            visibility:
-              $ref: '#/components/schemas/FilesystemVisibility'
-            jurisdiction:
-              $ref: '#/components/schemas/FilesystemJurisdiction'
-            endpoint:
-              type:
-              - string
-              - 'null'
-            url:
-              type:
-              - string
-              - 'null'
-            allowed_origins:
-              type: 'null'
-            cors_settings:
-              type: 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - status
-          - visibility
-          - jurisdiction
-          - endpoint
-          - url
-          - allowed_origins
-          - cors_settings
-          - created_at
-        relationships:
-          type: object
-          properties:
-            keys:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/FilesystemKeyResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: FilesystemResource
-    StoreFilesystemKeyRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 40
-        permission:
-          $ref: '#/components/schemas/FilesystemKeyPermission'
-      required:
-      - name
-      - permission
-      title: StoreFilesystemKeyRequest
+      - automatic
+      - wnam
+      - enam
+      - weur
+      - eeur
+      - apac
+      - oc
+      title: FilesystemLocationHint
     FilesystemKeyResourceIdentifier:
       type: object
       properties:
@@ -447,6 +294,29 @@ components:
       - type
       - id
       title: FilesystemKeyResourceIdentifier
+    FilesystemStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: FilesystemStatus
+    FilesystemKeyPermission:
+      type: string
+      enum:
+      - read_write
+      - read_only
+      title: FilesystemKeyPermission
+    FilesystemJurisdiction:
+      type: string
+      enum:
+      - default
+      - eu
+      - us
+      title: FilesystemJurisdiction
     FilesystemKeyResource:
       type: object
       properties:
@@ -498,28 +368,169 @@ components:
       - id
       - type
       title: FilesystemKeyResource
-    FilesystemStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: FilesystemStatus
-    FilesystemKeyPermission:
-      type: string
-      enum:
-      - read_write
-      - read_only
-      title: FilesystemKeyPermission
     FilesystemVisibility:
       type: string
       enum:
       - private
       - public
       title: FilesystemVisibility
+    FilesystemResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - filesystems
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/FilesystemType'
+            status:
+              $ref: '#/components/schemas/FilesystemStatus'
+            visibility:
+              $ref: '#/components/schemas/FilesystemVisibility'
+            jurisdiction:
+              $ref: '#/components/schemas/FilesystemJurisdiction'
+            location_hint:
+              anyOf:
+              - $ref: '#/components/schemas/FilesystemLocationHint'
+              - type: 'null'
+            endpoint:
+              type:
+              - string
+              - 'null'
+            url:
+              type:
+              - string
+              - 'null'
+            allowed_origins:
+              type: 'null'
+            cors_settings:
+              type: 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - status
+          - visibility
+          - jurisdiction
+          - location_hint
+          - endpoint
+          - url
+          - allowed_origins
+          - cors_settings
+          - created_at
+        relationships:
+          type: object
+          properties:
+            keys:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FilesystemKeyResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: FilesystemResource
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    UpdateFilesystemKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 40
+      required:
+      - name
+      title: UpdateFilesystemKeyRequest
+    FilesystemType:
+      type: string
+      enum:
+      - cloudflare_r2
+      title: FilesystemType
+    StoreFilesystemKeyRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 40
+        permission:
+          $ref: '#/components/schemas/FilesystemKeyPermission'
+      required:
+      - name
+      - permission
+      title: StoreFilesystemKeyRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http

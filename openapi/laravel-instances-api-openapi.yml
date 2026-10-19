@@ -693,6 +693,39 @@ paths:
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
           $ref: '#/components/responses/AuthorizationException'
+    delete:
+      operationId: public.instances.failed-jobs.destroy-many
+      summary: Delete managed queue failed jobs
+      tags:
+      - Instances
+      parameters:
+      - name: instance
+        in: path
+        required: true
+        description: The instance identifier
+        schema:
+          type: string
+      - name: jobIds
+        in: query
+        schema:
+          type: string
+      - name: failedBefore
+        in: query
+        schema:
+          type: string
+      responses:
+        '202':
+          description: The failed jobs will be deleted in the background.
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
   /instances/{instance}/failed-jobs/{jobId}/retry:
     post:
       operationId: public.instances.failed-jobs.retry
@@ -714,22 +747,22 @@ paths:
         schema:
           type: string
       responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
         '202':
           description: The job is being retried.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    const: The job is being retried.
-                required:
-                - message
-        '404':
-          $ref: '#/components/responses/ModelNotFoundException'
-        '403':
-          $ref: '#/components/responses/AuthorizationException'
+                type: string
   /instances/{instance}/failed-jobs/{jobId}:
     delete:
       operationId: public.instances.failed-jobs.destroy
@@ -751,8 +784,8 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: The failed job was deleted.
+        '202':
+          description: The failed job will be deleted in the background.
           content:
             application/json:
               schema:
@@ -763,127 +796,45 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    ApplicationResourceIdentifier:
+    InstanceResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - applications
+          - instances
         id:
           type: string
       required:
       - type
       - id
-      title: ApplicationResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
+      title: InstanceResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - databaseSchemas
+          - websocketApplications
         id:
           type: string
       required:
       - type
       - id
-      title: DatabaseSchemaResourceIdentifier
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
-    UpdateInstanceRequest:
+      title: WebsocketApplicationResourceIdentifier
+    CacheResourceIdentifier:
       type: object
       properties:
-        name:
+        type:
           type: string
-          minLength: 3
-          maxLength: 40
-        size:
-          $ref: '#/components/schemas/InstanceSize'
-        scaling_type:
-          $ref: '#/components/schemas/InstanceScalingType'
-        max_replicas:
-          type: integer
-          description: The maximum number of replicas the instance can scale to. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
-          examples:
-          - 10
-        min_replicas:
-          type: integer
-          description: The minimum number of replicas the instance runs. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
-          examples:
-          - 1
-        hibernation_timeout:
-          type:
-          - integer
-          - 'null'
-          description: 'Number of minutes before the application hibernates. Set to null to disable hibernation, or omit it to avoid changing the hibernation settings.
-
-            Takes precedence over the deprecated uses_sleep_mode and sleep_timeout fields.'
-          examples:
-          - 5
-        uses_sleep_mode:
-          type: boolean
-          description: Use hibernation_timeout instead.
-          deprecated: true
-        sleep_timeout:
-          type: integer
-          description: Use hibernation_timeout instead.
-          deprecated: true
-          minimum: 1
-          maximum: 60
-        uses_scheduler:
-          type: boolean
-        sleep_with_app:
-          type: boolean
-          description: Whether worker replicas scale to zero alongside the app cluster, waking when they receive traffic. Only applicable to worker (service) instances.
-          examples:
-          - true
-        uses_octane:
-          type: boolean
-        uses_inertia_ssr:
-          type: boolean
-        scaling_cpu_threshold_percentage:
-          type:
-          - integer
-          - 'null'
-          minimum: 50
-          maximum: 95
-        scaling_memory_threshold_percentage:
-          type:
-          - integer
-          - 'null'
-          minimum: 50
-          maximum: 95
-        visibility_timeout:
-          type: integer
-          minimum: 0
-          maximum: 43200
-        polling_interval:
-          type: integer
-          minimum: 1
-          maximum: 60
-        shutdown_timeout:
-          type: integer
-          minimum: 1
-          maximum: 0
-      title: UpdateInstanceRequest
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
     BackgroundProcessResource:
       type: object
       properties:
@@ -940,38 +891,66 @@ components:
       - id
       - type
       title: BackgroundProcessResource
-    FilesystemResourceIdentifier:
+    InstanceType:
+      type: string
+      enum:
+      - app
+      - service
+      - queue
+      - managed_queue
+      title: InstanceType
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    ApplicationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - filesystems
+          - applications
         id:
           type: string
       required:
       - type
       - id
-      title: FilesystemResourceIdentifier
-    EnvironmentResourceIdentifier:
+      title: ApplicationResourceIdentifier
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - environments
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: EnvironmentResourceIdentifier
+      title: BranchResourceIdentifier
     CreateInstanceRequest:
       type: object
       properties:
         name:
           type: string
-          minLength: 3
+          minLength: 2
           maxLength: 40
         type:
           type: string
@@ -1012,17 +991,23 @@ components:
           minimum: 50
           maximum: 95
         visibility_timeout:
-          type: integer
-          minimum: 0
-          maximum: 43200
-        polling_interval:
-          type: integer
-          minimum: 1
-          maximum: 60
+          type:
+          - integer
+          - 'null'
+          description: 'How long a message stays hidden from other workers while one is processing it. Only available when the
+
+            organization has the advanced managed queues entitlement; ignored otherwise, and the platform manages it.'
+          examples:
+          - 180
         shutdown_timeout:
-          type: integer
-          minimum: 1
-          maximum: 0
+          type:
+          - integer
+          - 'null'
+          description: 'The time a worker has to finish its current job before being forcefully shut down. Only available when the
+
+            organization has the advanced managed queues entitlement; ignored otherwise, and the platform manages it.'
+          examples:
+          - 90
         background_processes:
           type: array
           items:
@@ -1090,219 +1075,293 @@ components:
       - type
       - size
       - scaling_type
-      - min_replicas
-      - visibility_timeout
-      - polling_interval
-      - shutdown_timeout
       title: CreateInstanceRequest
-    Link:
+    EnvironmentColor:
+      type: string
+      enum:
+      - blue
+      - green
+      - orange
+      - purple
+      - red
+      - yellow
+      - cyan
+      - gray
+      title: EnvironmentColor
+    UpdateInstanceRequest:
       type: object
       properties:
-        href:
+        name:
           type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
-    InstanceResource:
+          minLength: 2
+          maxLength: 40
+        size:
+          $ref: '#/components/schemas/InstanceSize'
+        scaling_type:
+          $ref: '#/components/schemas/InstanceScalingType'
+        max_replicas:
+          type: integer
+          description: The maximum number of replicas the instance can scale to. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
+          examples:
+          - 10
+        min_replicas:
+          type: integer
+          description: The minimum number of replicas the instance runs. Only applicable to the `custom` scaling type, and rejected when used with `auto`.
+          examples:
+          - 1
+        hibernation_timeout:
+          type:
+          - integer
+          - 'null'
+          description: 'Number of minutes before the application hibernates. Set to null to disable hibernation, or omit it to avoid changing the hibernation settings.
+
+            Takes precedence over the deprecated uses_sleep_mode and sleep_timeout fields.'
+          examples:
+          - 5
+        uses_sleep_mode:
+          type: boolean
+          description: Use hibernation_timeout instead.
+          deprecated: true
+        sleep_timeout:
+          type: integer
+          description: Use hibernation_timeout instead.
+          deprecated: true
+          minimum: 1
+          maximum: 60
+        uses_scheduler:
+          type: boolean
+        sleep_with_app:
+          type: boolean
+          description: Whether worker replicas scale to zero alongside the app cluster, waking when they receive traffic. Only applicable to worker (service) instances.
+          examples:
+          - true
+        uses_octane:
+          type: boolean
+        uses_inertia_ssr:
+          type: boolean
+        scaling_cpu_threshold_percentage:
+          type:
+          - integer
+          - 'null'
+          minimum: 50
+          maximum: 95
+        scaling_memory_threshold_percentage:
+          type:
+          - integer
+          - 'null'
+          minimum: 50
+          maximum: 95
+        visibility_timeout:
+          type:
+          - integer
+          - 'null'
+          description: 'How long a message stays hidden from other workers while one is processing it. Only available when the
+
+            organization has the advanced managed queues entitlement; ignored otherwise, and the platform manages it.'
+          examples:
+          - 180
+        shutdown_timeout:
+          type:
+          - integer
+          - 'null'
+          description: 'The time a worker has to finish its current job before being forcefully shut down. Only available when the
+
+            organization has the advanced managed queues entitlement; ignored otherwise, and the platform manages it.'
+          examples:
+          - 90
+        probes:
+          type:
+          - object
+          - 'null'
+          description: 'Custom health checks for the app''s web process, keyed by `startup`, `readiness`, and `liveness`. Each check and each of its
+
+            fields (`path`, `port`, `delay`, `interval`, `timeout`, `tries`) is optional and falls back to the platform default. A path selects HTTP and a port alone selects TCP.
+
+            Timing overrides without a path or port keep the default handler. Only applicable to app instances; ignored otherwise. Replaces all existing checks, set to null to
+
+            remove them, or omit it to keep the current checks. The startup check may take at most 600 seconds (delay + interval × tries).'
+          examples:
+          - startup:
+              path: /up
+              tries: 60
+            readiness:
+              path: /up
+          properties:
+            startup:
+              type:
+              - object
+              - 'null'
+              properties:
+                path:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                port:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 65535
+                delay:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 0
+                  maximum: 600
+                interval:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 300
+                timeout:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 120
+                tries:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 1000
+            readiness:
+              type:
+              - object
+              - 'null'
+              properties:
+                path:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                port:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 65535
+                delay:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 0
+                  maximum: 600
+                interval:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 300
+                timeout:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 120
+                tries:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 1000
+            liveness:
+              type:
+              - object
+              - 'null'
+              properties:
+                path:
+                  type:
+                  - string
+                  - 'null'
+                  maxLength: 255
+                port:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 65535
+                delay:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 0
+                  maximum: 600
+                interval:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 300
+                timeout:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 120
+                tries:
+                  type:
+                  - integer
+                  - 'null'
+                  minimum: 1
+                  maximum: 1000
+      title: UpdateInstanceRequest
+    ManagedQueueFailedJobResource:
       type: object
       properties:
         id:
           type: string
         type:
           type: string
-          enum:
-          - instances
         attributes:
           type: object
           properties:
             name:
+              type:
+              - string
+              - 'null'
+              description: The job's display name (typically its class), or null when it cannot be determined from the payload.
+            queue:
               type: string
-            type:
-              $ref: '#/components/schemas/InstanceType'
-            size:
-              $ref: '#/components/schemas/InstanceSize'
-            scaling_type:
-              $ref: '#/components/schemas/InstanceScalingType'
-            min_replicas:
-              type: integer
-            max_replicas:
-              type: integer
-            queue_status:
-              anyOf:
-              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
-                $ref: '#/components/schemas/SqsQueueStatus'
-              - type: 'null'
-            paused:
+            failed_at:
               type:
-              - boolean
+              - string
               - 'null'
-              description: Whether the managed queue is currently paused. Null for non-queue instances.
-            is_default:
+              format: date-time
+            started_at:
               type:
-              - boolean
+              - string
               - 'null'
-              description: Whether this is the environment's default managed queue. Null for non-queue instances.
-            visibility_timeout:
+              format: date-time
+            attempts:
+              type: string
+            exception:
+              type: string
+            retried_at:
               type:
-              - integer
+              - string
               - 'null'
-              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
-            polling_interval:
-              type:
-              - integer
-              - 'null'
-              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
-            shutdown_timeout:
-              type:
-              - integer
-              - 'null'
-            uses_scheduler:
-              type: boolean
-            sleep_with_app:
-              type:
-              - boolean
-              - 'null'
-            scaling_cpu_threshold_percentage:
-              type:
-              - integer
-              - 'null'
-            scaling_memory_threshold_percentage:
-              type:
-              - integer
-              - 'null'
-            created_at:
+              format: date-time
+            retry_reserved_until:
               type:
               - string
               - 'null'
               format: date-time
           required:
           - name
-          - type
-          - size
-          - scaling_type
-          - min_replicas
-          - max_replicas
-          - queue_status
-          - paused
-          - is_default
-          - visibility_timeout
-          - polling_interval
-          - shutdown_timeout
-          - uses_scheduler
-          - sleep_with_app
-          - scaling_cpu_threshold_percentage
-          - scaling_memory_threshold_percentage
-          - created_at
-        relationships:
-          type: object
-          properties:
-            environment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            backgroundProcesses:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
-              required:
-              - data
+          - queue
+          - failed_at
+          - started_at
+          - attempts
+          - exception
+          - retried_at
+          - retry_reserved_until
       required:
       - id
       - type
-      title: InstanceResource
-    DaemonStrategyType:
-      type: string
-      enum:
-      - none
-      - growth_rate
-      - queue_size
-      title: DaemonStrategyType
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
-    InstanceType:
-      type: string
-      enum:
-      - app
-      - service
-      - queue
-      - managed_queue
-      title: InstanceType
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
+      title: ManagedQueueFailedJobResource
     InstanceScalingType:
       type: string
       enum:
@@ -1310,32 +1369,6 @@ components:
       - custom
       - auto
       title: InstanceScalingType
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    BackgroundProcessResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - background_processes
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BackgroundProcessResourceIdentifier
     EnvironmentResource:
       type: object
       properties:
@@ -1354,17 +1387,20 @@ components:
               type: string
             status:
               $ref: '#/components/schemas/EnvironmentStatus'
+            color:
+              $ref: '#/components/schemas/EnvironmentColor'
             created_from_automation:
               type: boolean
             vanity_domain:
               type: string
+            framework:
+              $ref: '#/components/schemas/Framework'
+            language:
+              $ref: '#/components/schemas/Language'
             php_major_version:
               type: string
-              enum:
-              - '8.2'
-              - '8.3'
-              - '8.4'
-              - '8.5'
+            serving:
+              type: string
             build_command:
               type:
               - string
@@ -1372,6 +1408,10 @@ components:
             node_version:
               $ref: '#/components/schemas/NodeVersion'
             deploy_command:
+              type:
+              - string
+              - 'null'
+            start_command:
               type:
               - string
               - 'null'
@@ -1383,10 +1423,31 @@ components:
               type:
               - integer
               - 'null'
+            timeout:
+              type: integer
+              description: The number of seconds the environment will wait for your application to respond before timing out. Changes take effect on the next deployment.
+            shutdown_timeout:
+              type: integer
+              description: The number of seconds to wait before stopping the previous deployment's compute instances, allowing it to finish processing requests and jobs after a new deployment becomes active. Changes take effect on the next deployment.
             uses_push_to_deploy:
               type: boolean
             uses_deploy_hook:
               type: boolean
+            resend:
+              type:
+              - object
+              - 'null'
+              properties:
+                from_address:
+                  type: string
+                from_name:
+                  type: string
+                key_name:
+                  type: string
+              required:
+              - from_address
+              - from_name
+              - key_name
             ? ''
             : anyOf:
               - type: object
@@ -1493,17 +1554,24 @@ components:
           - name
           - slug
           - status
+          - color
           - created_from_automation
           - vanity_domain
+          - framework
+          - language
           - php_major_version
           - build_command
           - node_version
           - deploy_command
+          - start_command
           - uses_octane
           - uses_hibernation
           - hibernation_wake_up_interval
+          - timeout
+          - shutdown_timeout
           - uses_push_to_deploy
           - uses_deploy_hook
+          - resend
           - null
           - network_settings
           - created_at
@@ -1609,6 +1677,15 @@ components:
                   - type: 'null'
               required:
               - data
+            secrets:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SecretResourceIdentifier'
+              required:
+              - data
         links:
           type: object
           properties:
@@ -1621,112 +1698,52 @@ components:
       - type
       - links
       title: EnvironmentResource
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    ManagedQueueFailedJobResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        attributes:
-          type: object
-          properties:
-            name:
-              type:
-              - string
-              - 'null'
-              description: The job's display name (typically its class), or null when it cannot be determined from the payload.
-            queue:
-              type: string
-            failed_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            started_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            attempts:
-              type: string
-            exception:
-              type: string
-            retried_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            retry_reserved_until:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - queue
-          - failed_at
-          - started_at
-          - attempts
-          - exception
-          - retried_at
-          - retry_reserved_until
-      required:
-      - id
-      - type
-      title: ManagedQueueFailedJobResource
-    DaemonType:
+    Framework:
       type: string
       enum:
-      - worker
-      - custom
-      title: DaemonType
-    CacheResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - caches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    NodeVersion:
+      - laravel
+      - symfony
+      - jigsaw
+      - html
+      - php
+      - express
+      - hono
+      - nuxt
+      - next
+      - tanstack
+      - elysia
+      - nestjs
+      - astro
+      - javascript
+      - go
+      - ruby
+      - rails
+      - django
+      - fastapi
+      - flask
+      - python
+      - java
+      - spring
+      - rust
+      - axum
+      - rocket
+      - actix
+      - warp
+      title: Framework
+    DaemonStrategyType:
       type: string
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
+      - none
+      - growth_rate
+      - queue_size
+      title: DaemonStrategyType
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
     EnvironmentStatus:
       type: string
       enum:
@@ -1735,6 +1752,307 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DaemonType:
+      type: string
+      enum:
+      - worker
+      - custom
+      title: DaemonType
+    SqsQueueStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: SqsQueueStatus
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    InstanceResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - instances
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/InstanceType'
+            size:
+              $ref: '#/components/schemas/InstanceSize'
+            scaling_type:
+              $ref: '#/components/schemas/InstanceScalingType'
+            min_replicas:
+              type: integer
+            max_replicas:
+              type: integer
+            queue_status:
+              anyOf:
+              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
+                $ref: '#/components/schemas/SqsQueueStatus'
+              - type: 'null'
+            paused:
+              type:
+              - boolean
+              - 'null'
+              description: Whether the managed queue is currently paused. Null for non-queue instances.
+            retire_at:
+              type:
+              - string
+              - 'null'
+              description: When the instance is scheduled to be retired because its size is being discontinued.
+            retired_at:
+              type:
+              - string
+              - 'null'
+              description: When the instance was retired because its size is no longer supported. Retired instances stop processing jobs until you upgrade.
+            is_default:
+              type:
+              - boolean
+              - 'null'
+              description: Whether this is the environment's default managed queue. Null for non-queue instances.
+            visibility_timeout:
+              type:
+              - integer
+              - 'null'
+              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
+            polling_interval:
+              type:
+              - integer
+              - 'null'
+              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
+            shutdown_timeout:
+              type:
+              - integer
+              - 'null'
+            uses_scheduler:
+              type: boolean
+            sleep_with_app:
+              type:
+              - boolean
+              - 'null'
+            hibernation_timeout:
+              type:
+              - integer
+              - 'null'
+              description: Minutes of inactivity before the app hibernates. Null when hibernation is off, and for non-app instances.
+            probes:
+              type:
+              - object
+              - 'null'
+              description: 'Custom health checks for the app''s web process, keyed by `startup`, `readiness`, and `liveness`. Unset checks and
+
+                fields use the platform defaults. A path selects HTTP and a port alone selects TCP. Timing overrides without a path or port keep the default handler. Null when no custom checks are set, and for non-app instances.'
+              properties:
+                startup:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    port:
+                      type: integer
+                    delay:
+                      type: integer
+                    interval:
+                      type: integer
+                    timeout:
+                      type: integer
+                    tries:
+                      type: integer
+                readiness:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    port:
+                      type: integer
+                    delay:
+                      type: integer
+                    interval:
+                      type: integer
+                    timeout:
+                      type: integer
+                    tries:
+                      type: integer
+                liveness:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    port:
+                      type: integer
+                    delay:
+                      type: integer
+                    interval:
+                      type: integer
+                    timeout:
+                      type: integer
+                    tries:
+                      type: integer
+            scaling_cpu_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            scaling_memory_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - size
+          - scaling_type
+          - min_replicas
+          - max_replicas
+          - queue_status
+          - paused
+          - retire_at
+          - retired_at
+          - is_default
+          - visibility_timeout
+          - polling_interval
+          - shutdown_timeout
+          - uses_scheduler
+          - sleep_with_app
+          - hibernation_timeout
+          - scaling_cpu_threshold_percentage
+          - scaling_memory_threshold_percentage
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            backgroundProcesses:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: InstanceResource
     InstanceSize:
       type: string
       enum:
@@ -1765,6 +2083,8 @@ components:
       - pro.c-8vcpu-8gb
       - pro.g-8vcpu-16gb
       - pro.m-8vcpu-32gb
+      - dedicated.c-0.25vcpu-512mb
+      - dedicated.c-0.5vcpu-1gb
       - dedicated.c-1vcpu-2gb
       - dedicated.g-1vcpu-4gb
       - dedicated.m-1vcpu-8gb
@@ -1789,7 +2109,75 @@ components:
       - mq-dedicated-2gb
       - mq-dedicated-4gb
       - mq-dedicated-8gb
+      - mq-dedicated-16gb
+      - mq.flex.256mb
+      - mq.flex.512mb
+      - mq.flex.1gb
+      - mq.flex.2gb
+      - mq.pro.256mb
+      - mq.pro.512mb
+      - mq.pro.1gb
+      - mq.pro.2gb
+      - mq.pro.4gb
+      - mq.pro.8gb
+      - mq.dedicated.flex.256mb
+      - mq.dedicated.flex.512mb
+      - mq.dedicated.flex.1gb
+      - mq.dedicated.flex.2gb
+      - mq.dedicated.pro.256mb
+      - mq.dedicated.pro.512mb
+      - mq.dedicated.pro.1gb
+      - mq.dedicated.pro.2gb
+      - mq.dedicated.pro.4gb
+      - mq.dedicated.pro.8gb
+      - mq.dedicated.pro.16gb
       title: InstanceSize
+    SecretResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - secrets
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: SecretResourceIdentifier
+    Language:
+      type: string
+      enum:
+      - html
+      - php
+      - javascript
+      - python
+      - go
+      - ruby
+      - java
+      - rust
+      title: Language
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      - '26'
+      title: NodeVersion
+    BackgroundProcessResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - background_processes
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BackgroundProcessResourceIdentifier
   responses:
     ModelNotFoundException:
       description: Not found

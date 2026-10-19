@@ -2,277 +2,13 @@ openapi: 3.2.0
 info:
   title: Laravel Databases API
   version: 0.0.1
-  description: 'Operations tagged Databases across 2 of this provider''s published API definitions: laravel-cloud-openapi.json, laravel-forge-openapi.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Databases across 2 of this provider''s published API definitions: laravel-forge-openapi.json, laravel-openapi.json. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://cloud.laravel.com/api
 - url: https://forge.laravel.com/api
+- url: https://cloud.laravel.com/api
 tags:
 - name: Databases
 paths:
-  /databases/clusters/{database}/databases:
-    get:
-      operationId: public.databases.clusters.databases.index
-      description: Get a list of all databases for a specific database cluster.
-      summary: List databases
-      tags:
-      - Databases
-      parameters:
-      - name: database
-        in: path
-        required: true
-        description: The database identifier
-        schema:
-          type:
-          - string
-          - 'null'
-      - name: include
-        in: query
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - database
-            - environments
-        explode: false
-      responses:
-        '200':
-          description: Paginated set of `DatabaseSchemaResource`
-          content:
-            application/vnd.api+json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/DatabaseSchemaResource'
-                  links:
-                    type: object
-                    properties:
-                      first:
-                        type: string
-                      last:
-                        type: string
-                      prev:
-                        type: string
-                      next:
-                        type: string
-                  meta:
-                    type: object
-                    properties:
-                      current_page:
-                        type: integer
-                        minimum: 1
-                      from:
-                        type:
-                        - integer
-                        - 'null'
-                        minimum: 1
-                      last_page:
-                        type: integer
-                        minimum: 1
-                      links:
-                        type: array
-                        description: Generated paginator links.
-                        items:
-                          type: object
-                          properties:
-                            url:
-                              type:
-                              - string
-                              - 'null'
-                            label:
-                              type: string
-                            active:
-                              type: boolean
-                          required:
-                          - url
-                          - label
-                          - active
-                      path:
-                        type:
-                        - string
-                        - 'null'
-                        description: Base path for paginator generated URLs.
-                      per_page:
-                        type: integer
-                        description: Number of items shown per page.
-                        minimum: 0
-                      to:
-                        type:
-                        - integer
-                        - 'null'
-                        description: Number of the last item in the slice.
-                        minimum: 1
-                      total:
-                        type: integer
-                        description: Total number of items being paginated.
-                        minimum: 0
-                    required:
-                    - current_page
-                    - from
-                    - last_page
-                    - links
-                    - path
-                    - per_page
-                    - to
-                    - total
-                  included:
-                    type: array
-                    items:
-                      anyOf:
-                      - $ref: '#/components/schemas/DatabaseResource'
-                      - $ref: '#/components/schemas/EnvironmentResource'
-                required:
-                - data
-                - links
-                - meta
-        '404':
-          $ref: '#/components/responses/ModelNotFoundException'
-        '403':
-          $ref: '#/components/responses/AuthorizationException'
-      security:
-      - http: []
-    post:
-      operationId: public.databases.clusters.databases.store
-      description: Create a new database in a database cluster.
-      summary: Create a database
-      tags:
-      - Databases
-      parameters:
-      - name: database
-        in: path
-        required: true
-        description: The database identifier
-        schema:
-          type:
-          - string
-          - 'null'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/StoreDatabaseSchemaRequest'
-      responses:
-        '201':
-          description: '`DatabaseSchemaResource`'
-          content:
-            application/vnd.api+json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/DatabaseSchemaResource'
-                  included:
-                    type: array
-                    items:
-                      anyOf:
-                      - $ref: '#/components/schemas/DatabaseResource'
-                      - $ref: '#/components/schemas/EnvironmentResource'
-                required:
-                - data
-        '404':
-          $ref: '#/components/responses/ModelNotFoundException'
-        '403':
-          $ref: '#/components/responses/AuthorizationException'
-        '422':
-          $ref: '#/components/responses/ValidationException'
-      security:
-      - http: []
-    servers:
-    - url: https://cloud.laravel.com/api
-  /databases/clusters/{database}/databases/{schema}:
-    get:
-      operationId: public.databases.clusters.databases.show
-      description: Get a specific database.
-      summary: Get a database
-      tags:
-      - Databases
-      parameters:
-      - name: database
-        in: path
-        required: true
-        description: The database identifier
-        schema:
-          type:
-          - string
-          - 'null'
-      - name: schema
-        in: path
-        required: true
-        description: The schema identifier
-        schema:
-          type: string
-      - name: include
-        in: query
-        schema:
-          type: array
-          items:
-            type: string
-            enum:
-            - database
-            - environments
-        explode: false
-      responses:
-        '200':
-          description: '`DatabaseSchemaResource`'
-          content:
-            application/vnd.api+json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/DatabaseSchemaResource'
-                  included:
-                    type: array
-                    items:
-                      anyOf:
-                      - $ref: '#/components/schemas/DatabaseResource'
-                      - $ref: '#/components/schemas/EnvironmentResource'
-                required:
-                - data
-        '404':
-          $ref: '#/components/responses/ModelNotFoundException'
-        '403':
-          $ref: '#/components/responses/AuthorizationException'
-      security:
-      - http: []
-    delete:
-      operationId: public.databases.clusters.databases.destroy
-      description: Delete a database from a database cluster.
-      summary: Delete a database
-      tags:
-      - Databases
-      parameters:
-      - name: database
-        in: path
-        required: true
-        description: The database identifier
-        schema:
-          type:
-          - string
-          - 'null'
-      - name: schema
-        in: path
-        required: true
-        description: The schema identifier
-        schema:
-          type: string
-      responses:
-        '204':
-          description: No content
-        '404':
-          $ref: '#/components/responses/ModelNotFoundException'
-        '403':
-          $ref: '#/components/responses/AuthorizationException'
-        '422':
-          $ref: '#/components/responses/ValidationException'
-      security:
-      - http: []
-    servers:
-    - url: https://cloud.laravel.com/api
   /orgs/{organization}/servers/{server}/database/schemas:
     get:
       operationId: organizations.servers.database.schemas.index
@@ -346,7 +82,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/DatabaseResource_2'
+                      $ref: '#/components/schemas/DatabaseResource'
                   links:
                     type: object
                     properties:
@@ -439,7 +175,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/DatabaseResource_2'
+                    $ref: '#/components/schemas/DatabaseResource'
                 required:
                 - data
         '404':
@@ -497,7 +233,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/DatabaseResource_2'
+                    $ref: '#/components/schemas/DatabaseResource'
                 required:
                 - data
         '404':
@@ -990,372 +726,338 @@ paths:
       x-processingMode: sync
     servers:
     - url: https://forge.laravel.com/api
-components:
-  schemas:
-    ApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - applications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: ApplicationResourceIdentifier
-    DatabaseResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - databases
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/DatabaseType'
-            status:
-              $ref: '#/components/schemas/DatabaseStatus'
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            config:
-              description: Configuration object. Fields vary based on database type.
-              oneOf:
-              - title: Neon Serverless Postgres
+  /databases/clusters/{database}/databases:
+    get:
+      operationId: public.databases.clusters.databases.index
+      description: Get a list of all databases for a specific database cluster.
+      summary: List databases
+      tags:
+      - Databases
+      parameters:
+      - name: database
+        in: path
+        required: true
+        description: The database identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - database
+            - environments
+        explode: false
+      responses:
+        '200':
+          description: Paginated set of `DatabaseSchemaResource`
+          content:
+            application/vnd.api+json:
+              schema:
                 type: object
-                description: Configuration for Neon Serverless Postgres databases
                 properties:
-                  cu_min:
-                    type: number
-                    description: Minimum compute units for auto-scaling
-                    enum:
-                    - 0.25
-                    - 0.5
-                    - 1
-                    - 2
-                    - 4
-                    - 8
-                    - 10
-                  cu_max:
-                    type: number
-                    description: Maximum compute units for auto-scaling
-                    enum:
-                    - 0.25
-                    - 0.5
-                    - 1
-                    - 2
-                    - 4
-                    - 8
-                    - 10
-                  suspend_seconds:
-                    type: integer
-                    description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
-                  retention_days:
-                    type: integer
-                    description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
-                required:
-                - cu_min
-                - cu_max
-                - suspend_seconds
-                - retention_days
-              - title: Laravel MySQL
-                type: object
-                description: Configuration for Laravel MySQL databases
-                properties:
-                  size:
-                    type: string
-                    description: Instance size for the database cluster
-                    enum:
-                    - mysql-flex-512mb
-                    - mysql-flex-1gb
-                    - mysql-flex-2gb
-                    - db-flex.m-1vcpu-512mb
-                    - db-flex.m-1vcpu-1gb
-                    - db-flex.m-1vcpu-2gb
-                    - db-flex.m-1vcpu-4gb
-                    - db-pro.m-1vcpu-4gb
-                    - db-pro.m-2vcpu-8gb
-                    - db-pro.m-4vcpu-16gb
-                    - db-pro.m-8vcpu-32gb
-                    - mysql-pro-4gb
-                    - mysql-pro-8gb
-                    - mysql-pro-16gb
-                    - mysql-pro-32gb
-                  storage:
-                    type: integer
-                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-                  is_public:
-                    type: boolean
-                    description: Whether the database is publicly accessible
-                  uses_scheduled_snapshots:
-                    type: boolean
-                    description: Whether scheduled backups are enabled
-                  retention_days:
-                    type: integer
-                    description: 'Days to retain backup data (min: 0, max: 30)'
-                  maintenance_window:
-                    type:
-                    - string
-                    - 'null'
-                    description: UTC maintenance window for automated updates
-                    examples:
-                    - sun:06:00-sun:06:30
-                  suspend_seconds:
-                    type: integer
-                    description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
-                required:
-                - size
-                - storage
-                - is_public
-                - uses_scheduled_snapshots
-                - retention_days
-              - title: AWS RDS
-                type: object
-                description: Configuration for AWS RDS MySQL databases
-                properties:
-                  size:
-                    type: string
-                    description: Instance size for the database cluster
-                    enum:
-                    - db.m8g.large
-                    - db.m8g.xlarge
-                    - db.m8g.2xlarge
-                    - db.m8g.4xlarge
-                    - db.m8g.8xlarge
-                    - db.m8g.12xlarge
-                    - db.m8g.16xlarge
-                    - db.m8g.24xlarge
-                    - db.m8g.48xlarge
-                    - db.m7g.large
-                    - db.m7g.xlarge
-                    - db.m7g.2xlarge
-                    - db.m7g.4xlarge
-                    - db.m7g.8xlarge
-                    - db.m7g.12xlarge
-                    - db.m7g.16xlarge
-                    - db.t4g.micro
-                    - db.t4g.small
-                    - db.t4g.medium
-                    - db.t4g.large
-                    - db.t4g.xlarge
-                    - db.t4g.2xlarge
-                    - db.r8g.large
-                    - db.r8g.xlarge
-                    - db.r8g.2xlarge
-                    - db.r8g.4xlarge
-                    - db.r8g.8xlarge
-                    - db.r8g.12xlarge
-                    - db.r8g.16xlarge
-                  storage:
-                    type: integer
-                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-                  is_public:
-                    type: boolean
-                    description: Whether the database is publicly accessible
-                  uses_pitr:
-                    type: boolean
-                    description: Whether point-in-time recovery is enabled
-                  retention_days:
-                    type: integer
-                    description: 'Days to retain backup data (min: 0, max: 30)'
-                  maintenance_window:
-                    type:
-                    - string
-                    - 'null'
-                    description: UTC maintenance window for automated updates
-                    examples:
-                    - sun:06:00-sun:06:30
-                  deployment_option:
-                    type: string
-                    description: Deployment configuration (single-az or multi-az)
-                    enum:
-                    - single-az
-                    - single-az-with-read-replicas
-                    - multi-az
-                  read_replicas:
-                    type:
-                    - integer
-                    - 'null'
-                    description: The number of configured read replicas
-                required:
-                - size
-                - storage
-                - is_public
-                - uses_pitr
-                - retention_days
-                - deployment_option
-              discriminator:
-                propertyName: type
-                mapping:
-                  laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
-                  laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
-                  aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
-                  aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
-                  neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
-                  neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
-                  neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
-            connection:
-              type: object
-              properties:
-                hostname:
-                  type: string
-                port:
-                  type: integer
-                  enum:
-                  - 3306
-                  - 5432
-                protocol:
-                  type: string
-                  enum:
-                  - mysql
-                  - postgres
-                driver:
-                  type: string
-                  enum:
-                  - mysql
-                  - pgsql
-                ? ''
-                : anyOf:
-                  - type: object
-                    properties:
-                      username:
-                        type: string
-                      password:
-                        type: string
-                    required:
-                    - username
-                    - password
-                  - type: array
+                  data:
+                    type: array
                     items:
-                      type: string
-                    minItems: 0
-                    maxItems: 0
-                    additionalItems: false
-              required:
-              - hostname
-              - port
-              - protocol
-              - driver
-              - null
-          required:
-          - name
-          - type
-          - status
-          - region
-          - created_at
-          - config
-          - connection
-        relationships:
-          type: object
-          properties:
-            schemas:
-              type: object
-              description: 'TODO: Remove the schemas relationship by March 2026.'
-              properties:
-                data:
+                      $ref: '#/components/schemas/DatabaseSchemaResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      last_page:
+                        type: integer
+                        minimum: 1
+                      links:
+                        type: array
+                        description: Generated paginator links.
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type:
+                              - string
+                              - 'null'
+                            label:
+                              type: string
+                            active:
+                              type: boolean
+                          required:
+                          - url
+                          - label
+                          - active
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                      total:
+                        type: integer
+                        description: Total number of items being paginated.
+                        minimum: 0
+                    required:
+                    - current_page
+                    - from
+                    - last_page
+                    - links
+                    - path
+                    - per_page
+                    - to
+                    - total
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/DatabaseResource_2'
+                      - $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+                - links
+                - meta
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - http: []
+    post:
+      operationId: public.databases.clusters.databases.store
+      description: Create a new database in a database cluster.
+      summary: Create a database
+      tags:
+      - Databases
+      parameters:
+      - name: database
+        in: path
+        required: true
+        description: The database identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreDatabaseSchemaRequest'
+      responses:
+        '201':
+          description: '`DatabaseSchemaResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DatabaseSchemaResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/DatabaseResource_2'
+                      - $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
+    servers:
+    - url: https://cloud.laravel.com/api
+  /databases/clusters/{database}/databases/{schema}:
+    get:
+      operationId: public.databases.clusters.databases.show
+      description: Get a specific database.
+      summary: Get a database
+      tags:
+      - Databases
+      parameters:
+      - name: database
+        in: path
+        required: true
+        description: The database identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: schema
+        in: path
+        required: true
+        description: The schema identifier
+        schema:
+          type: string
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - database
+            - environments
+        explode: false
+      responses:
+        '200':
+          description: '`DatabaseSchemaResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DatabaseSchemaResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/DatabaseResource_2'
+                      - $ref: '#/components/schemas/EnvironmentResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+      security:
+      - http: []
+    delete:
+      operationId: public.databases.clusters.databases.destroy
+      description: Delete a database from a database cluster.
+      summary: Delete a database
+      tags:
+      - Databases
+      parameters:
+      - name: database
+        in: path
+        required: true
+        description: The database identifier
+        schema:
+          type:
+          - string
+          - 'null'
+      - name: schema
+        in: path
+        required: true
+        description: The schema identifier
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No content
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+      security:
+      - http: []
+    servers:
+    - url: https://cloud.laravel.com/api
+components:
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
                   type: array
                   items:
-                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
-              required:
-              - data
-            databases:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: DatabaseResource
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    DatabaseSchemaResourceIdentifier:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  schemas:
+    UpdateDatabaseUserRequest:
       type: object
       properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
+        password:
+          type:
+          - string
+          - 'null'
+          description: The password for the database user.
+          examples:
+          - password
+          maxLength: 255
+        database_ids:
+          type: array
+          description: The IDs of the databases to assign the user to.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
+      title: UpdateDatabaseUserRequest
     Link:
       type: object
       properties:
@@ -1381,7 +1083,74 @@ components:
       required:
       - href
       title: Link
-    DatabaseSchemaResource:
+    CreateDatabaseRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the database to create.
+          examples:
+          - forge
+          maxLength: 63
+        user:
+          type:
+          - string
+          - 'null'
+          description: The name of the database user to create. Only needed if a new user should be created alongside the database.
+          examples:
+          - james
+        password:
+          type:
+          - string
+          - 'null'
+          description: The password for the database user. Only used if the user is provided.
+          examples:
+          - password
+          maxLength: 255
+        backup_configuration_ids:
+          type: array
+          description: The backup configurations the database should be added to.
+          examples:
+          - - 1
+            - 2
+          items:
+            type: integer
+      required:
+      - name
+      title: CreateDatabaseRequest
+    CreateDatabaseUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the database user to create.
+          examples:
+          - james
+        password:
+          type: string
+          description: The password for the database user.
+          examples:
+          - password
+          maxLength: 255
+        read_only:
+          type: boolean
+          description: Whether the user should have read-only access to the databases.
+          examples:
+          - true
+        database_ids:
+          type: array
+          description: The IDs of the databases to assign the user to.
+          examples:
+          - - 1
+            - 2
+            - 3
+          items:
+            type: integer
+      required:
+      - name
+      - password
+      title: CreateDatabaseUserRequest
+    DatabaseUserResource:
       type: object
       properties:
         id:
@@ -1389,92 +1158,120 @@ components:
         type:
           type: string
           enum:
-          - databaseSchemas
+          - databaseUsers
         attributes:
           type: object
           properties:
             name:
               type: string
+              description: The name of the database user.
+              examples:
+              - forge
             status:
               type: string
+              description: The status of the database user.
+              enum:
+              - installed
+              - updating
+              - installing
+              - removing
+              examples:
+              - installed
             created_at:
-              type:
-              - string
-              - 'null'
+              type: string
               format: date-time
+              description: The date and time the database user was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the database user was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
           required:
           - name
           - status
           - created_at
-        relationships:
+          - updated_at
+        links:
           type: object
           properties:
-            database:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
       - id
       - type
-      title: DatabaseSchemaResource
-    StoreDatabaseSchemaRequest:
+      - links
+      title: DatabaseUserResource
+    UpdateDatabasePasswordRequest:
       type: object
       properties:
-        name:
+        password:
           type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
+          maxLength: 255
       required:
-      - name
-      title: StoreDatabaseSchemaRequest
-    DeploymentResourceIdentifier:
+      - password
+      title: UpdateDatabasePasswordRequest
+    DatabaseResource:
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
           enum:
-          - deployments
-        id:
-          type: string
+          - databases
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the database schema.
+              examples:
+              - forge
+            status:
+              type: string
+              description: The status of the database schema.
+              enum:
+              - installing
+              - installed
+              - removing
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the database schema was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the database schema was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              description: A link to the resource itself
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - type
       - id
-      title: DeploymentResourceIdentifier
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
       - type
-      - id
-      title: DomainResourceIdentifier
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
+      - links
+      title: DatabaseResource
     DatabaseStatus:
       type: string
       enum:
@@ -1495,6 +1292,45 @@ components:
       - deleted
       - unknown
       title: DatabaseStatus
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
     BotControlCategory:
       type: string
       enum:
@@ -1515,19 +1351,44 @@ components:
       - webhooks
       - other
       title: BotControlCategory
-    InstanceResourceIdentifier:
+    ApplicationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - instances
+          - applications
         id:
           type: string
       required:
       - type
       - id
-      title: InstanceResourceIdentifier
+      title: ApplicationResourceIdentifier
+    BranchResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    EnvironmentColor:
+      type: string
+      enum:
+      - blue
+      - green
+      - orange
+      - purple
+      - red
+      - yellow
+      - cyan
+      - gray
+      title: EnvironmentColor
     EnvironmentResource:
       type: object
       properties:
@@ -1546,17 +1407,20 @@ components:
               type: string
             status:
               $ref: '#/components/schemas/EnvironmentStatus'
+            color:
+              $ref: '#/components/schemas/EnvironmentColor'
             created_from_automation:
               type: boolean
             vanity_domain:
               type: string
+            framework:
+              $ref: '#/components/schemas/Framework'
+            language:
+              $ref: '#/components/schemas/Language'
             php_major_version:
               type: string
-              enum:
-              - '8.2'
-              - '8.3'
-              - '8.4'
-              - '8.5'
+            serving:
+              type: string
             build_command:
               type:
               - string
@@ -1564,6 +1428,10 @@ components:
             node_version:
               $ref: '#/components/schemas/NodeVersion'
             deploy_command:
+              type:
+              - string
+              - 'null'
+            start_command:
               type:
               - string
               - 'null'
@@ -1575,10 +1443,31 @@ components:
               type:
               - integer
               - 'null'
+            timeout:
+              type: integer
+              description: The number of seconds the environment will wait for your application to respond before timing out. Changes take effect on the next deployment.
+            shutdown_timeout:
+              type: integer
+              description: The number of seconds to wait before stopping the previous deployment's compute instances, allowing it to finish processing requests and jobs after a new deployment becomes active. Changes take effect on the next deployment.
             uses_push_to_deploy:
               type: boolean
             uses_deploy_hook:
               type: boolean
+            resend:
+              type:
+              - object
+              - 'null'
+              properties:
+                from_address:
+                  type: string
+                from_name:
+                  type: string
+                key_name:
+                  type: string
+              required:
+              - from_address
+              - from_name
+              - key_name
             ? ''
             : anyOf:
               - type: object
@@ -1685,17 +1574,24 @@ components:
           - name
           - slug
           - status
+          - color
           - created_from_automation
           - vanity_domain
+          - framework
+          - language
           - php_major_version
           - build_command
           - node_version
           - deploy_command
+          - start_command
           - uses_octane
           - uses_hibernation
           - hibernation_wake_up_interval
+          - timeout
+          - shutdown_timeout
           - uses_push_to_deploy
           - uses_deploy_hook
+          - resend
           - null
           - network_settings
           - created_at
@@ -1801,6 +1697,15 @@ components:
                   - type: 'null'
               required:
               - data
+            secrets:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SecretResourceIdentifier'
+              required:
+              - data
         links:
           type: object
           properties:
@@ -1813,82 +1718,38 @@ components:
       - type
       - links
       title: EnvironmentResource
-    DatabaseResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databases
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    CacheResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - caches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    NodeVersion:
+    Framework:
       type: string
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    UpdateDatabasePasswordRequest:
-      type: object
-      properties:
-        password:
-          type: string
-          maxLength: 255
-      required:
-      - password
-      title: UpdateDatabasePasswordRequest
+      - laravel
+      - symfony
+      - jigsaw
+      - html
+      - php
+      - express
+      - hono
+      - nuxt
+      - next
+      - tanstack
+      - elysia
+      - nestjs
+      - astro
+      - javascript
+      - go
+      - ruby
+      - rails
+      - django
+      - fastapi
+      - flask
+      - python
+      - java
+      - spring
+      - rust
+      - axum
+      - rocket
+      - actix
+      - warp
+      title: Framework
     DatabaseResource_2:
       type: object
       properties:
@@ -1903,84 +1764,437 @@ components:
           properties:
             name:
               type: string
-              description: The name of the database schema.
-              examples:
-              - forge
+            type:
+              $ref: '#/components/schemas/DatabaseType'
             status:
-              type: string
-              description: The status of the database schema.
-              enum:
-              - installing
-              - installed
-              - removing
-              examples:
-              - installed
+              $ref: '#/components/schemas/DatabaseStatus'
+            region:
+              $ref: '#/components/schemas/CloudRegion'
             created_at:
-              type: string
+              type:
+              - string
+              - 'null'
               format: date-time
-              description: The date and time the database schema was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
+            config:
+              description: Configuration object. Fields vary based on database type.
+              oneOf:
+              - title: Neon Serverless Postgres
+                type: object
+                description: Configuration for Neon Serverless Postgres databases
+                properties:
+                  cu_min:
+                    type: number
+                    description: Minimum compute units for auto-scaling
+                    enum:
+                    - 0.25
+                    - 0.5
+                    - 1
+                    - 2
+                    - 4
+                    - 8
+                    - 10
+                  cu_max:
+                    type: number
+                    description: Maximum compute units for auto-scaling
+                    enum:
+                    - 0.25
+                    - 0.5
+                    - 1
+                    - 2
+                    - 4
+                    - 8
+                    - 10
+                  suspend_seconds:
+                    type: integer
+                    description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
+                  retention_days:
+                    type: integer
+                    description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
+                required:
+                - cu_min
+                - cu_max
+                - suspend_seconds
+                - retention_days
+              - title: Laravel MySQL
+                type: object
+                description: Configuration for Laravel MySQL databases
+                properties:
+                  size:
+                    type: string
+                    description: Instance size for the database cluster
+                    enum:
+                    - mysql-flex-512mb
+                    - mysql-flex-1gb
+                    - mysql-flex-2gb
+                    - mysql-pro-4gb
+                    - mysql-pro-8gb
+                    - mysql-pro-16gb
+                    - mysql-pro-32gb
+                  storage:
+                    type: integer
+                    description: 'Storage allocation in GiB (min: 5, max: 1000)'
+                  is_public:
+                    type: boolean
+                    description: Whether the database is publicly accessible
+                  uses_scheduled_snapshots:
+                    type: boolean
+                    description: Whether scheduled backups are enabled
+                  retention_days:
+                    type: integer
+                    description: 'Days to retain backup data (min: 0, max: 30)'
+                  maintenance_window:
+                    type:
+                    - string
+                    - 'null'
+                    description: UTC maintenance window for automated updates
+                    examples:
+                    - sun:06:00-sun:06:30
+                  suspend_seconds:
+                    type: integer
+                    description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
+                  storage_autoscale_max_gb:
+                    type:
+                    - integer
+                    - 'null'
+                    description: 'Largest storage the cluster may grow to on its own, in GiB. Null turns the automatically upsize setting off. (min: 5, max: 1000)'
+                required:
+                - size
+                - storage
+                - is_public
+                - uses_scheduled_snapshots
+                - retention_days
+              - title: AWS RDS
+                type: object
+                description: Configuration for AWS RDS MySQL databases
+                properties:
+                  size:
+                    type: string
+                    description: Instance size for the database cluster
+                    enum:
+                    - db.m8g.large
+                    - db.m8g.xlarge
+                    - db.m8g.2xlarge
+                    - db.m8g.4xlarge
+                    - db.m8g.8xlarge
+                    - db.m8g.12xlarge
+                    - db.m8g.16xlarge
+                    - db.m7g.large
+                    - db.m7g.xlarge
+                    - db.m7g.2xlarge
+                    - db.m7g.4xlarge
+                    - db.m7g.8xlarge
+                    - db.m7g.12xlarge
+                    - db.m7g.16xlarge
+                    - db.t4g.micro
+                    - db.t4g.small
+                    - db.t4g.medium
+                    - db.t4g.large
+                    - db.t4g.xlarge
+                    - db.t4g.2xlarge
+                    - db.r8g.large
+                    - db.r8g.xlarge
+                    - db.r8g.2xlarge
+                    - db.r8g.4xlarge
+                    - db.r8g.8xlarge
+                    - db.r8g.12xlarge
+                    - db.r8g.16xlarge
+                  storage:
+                    type: integer
+                    description: 'Storage allocation in GiB (min: 20, max: 65536)'
+                  is_public:
+                    type: boolean
+                    description: Whether the database is publicly accessible
+                  uses_pitr:
+                    type: boolean
+                    description: Whether point-in-time recovery is enabled
+                  retention_days:
+                    type: integer
+                    description: 'Days to retain backup data (min: 0, max: 30)'
+                  maintenance_window:
+                    type:
+                    - string
+                    - 'null'
+                    description: UTC maintenance window for automated updates
+                    examples:
+                    - sun:06:00-sun:06:30
+                  deployment_option:
+                    type: string
+                    description: Deployment configuration (single-az or multi-az)
+                    enum:
+                    - single-az
+                    - single-az-with-read-replicas
+                    - multi-az
+                  read_replicas:
+                    type:
+                    - integer
+                    - 'null'
+                    description: The number of configured read replicas
+                required:
+                - size
+                - storage
+                - is_public
+                - uses_pitr
+                - retention_days
+                - deployment_option
+              discriminator:
+                propertyName: type
+                mapping:
+                  laravel_mysql: '#/components/schemas/LaravelMysqlConfig'
+                  aws_rds_mysql: '#/components/schemas/AwsRdsConfig'
+                  aws_rds_postgres: '#/components/schemas/AwsRdsConfig'
+                  neon_serverless_postgres: '#/components/schemas/NeonServerlessConfig'
+                  laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
+                  laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
+                  aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
+                  aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
+                  neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
+                  neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
+                  neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
+            supports_pitr:
               type: string
-              format: date-time
-              description: The date and time the database schema was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
+            earliest_restore_time:
+              type:
+              - string
+              - 'null'
+            connection:
+              type: object
+              properties:
+                hostname:
+                  type: string
+                port:
+                  type: integer
+                  enum:
+                  - 3306
+                  - 5432
+                protocol:
+                  type: string
+                  enum:
+                  - mysql
+                  - postgres
+                driver:
+                  type: string
+                  enum:
+                  - mysql
+                  - pgsql
+                ? ''
+                : anyOf:
+                  - type: object
+                    properties:
+                      username:
+                        type: string
+                      password:
+                        type: string
+                    required:
+                    - username
+                    - password
+                  - type: array
+                    items:
+                      type: string
+                    minItems: 0
+                    maxItems: 0
+                    additionalItems: false
+              required:
+              - hostname
+              - port
+              - protocol
+              - driver
+              - null
           required:
           - name
+          - type
           - status
+          - region
           - created_at
-          - updated_at
-        links:
+          - config
+          - supports_pitr
+          - earliest_restore_time
+          - connection
+        relationships:
           type: object
           properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+            databases:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
+              required:
+              - data
       required:
       - id
       - type
-      - links
       title: DatabaseResource
-    CreateDatabaseRequest:
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-1
+      - us-east-2
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    StoreDatabaseSchemaRequest:
       type: object
       properties:
         name:
           type: string
-          description: The name of the database to create.
-          examples:
-          - forge
-          maxLength: 63
-        user:
-          type:
-          - string
-          - 'null'
-          description: The name of the database user to create. Only needed if a new user should be created alongside the database.
-          examples:
-          - james
-        password:
-          type:
-          - string
-          - 'null'
-          description: The password for the database user. Only used if the user is provided.
-          examples:
-          - password
-          maxLength: 255
-        backup_configuration_ids:
-          type: array
-          description: The backup configurations the database should be added to.
-          examples:
-          - - 1
-            - 2
-          items:
-            type: integer
+          pattern: ^[a-z0-9_-]+$
+          minLength: 2
+          maxLength: 40
       required:
       - name
-      title: CreateDatabaseRequest
-    DatabaseUserResource:
+      title: StoreDatabaseSchemaRequest
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
+    DatabaseResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databases
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseResourceIdentifier
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql
+      - aws_rds_mysql
+      - aws_rds_postgres
+      - neon_serverless_postgres
+      title: DatabaseType
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    SecretResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - secrets
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: SecretResourceIdentifier
+    Language:
+      type: string
+      enum:
+      - html
+      - php
+      - javascript
+      - python
+      - go
+      - ruby
+      - java
+      - rust
+      title: Language
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      - '26'
+      title: NodeVersion
+    DatabaseSchemaResource:
       type: object
       properties:
         id:
@@ -1988,159 +2202,52 @@ components:
         type:
           type: string
           enum:
-          - databaseUsers
+          - databaseSchemas
         attributes:
           type: object
           properties:
             name:
               type: string
-              description: The name of the database user.
-              examples:
-              - forge
             status:
               type: string
-              description: The status of the database user.
-              enum:
-              - installed
-              - updating
-              - installing
-              - removing
-              examples:
-              - installed
             created_at:
-              type: string
+              type:
+              - string
+              - 'null'
               format: date-time
-              description: The date and time the database user was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date and time the database user was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
           required:
           - name
           - status
           - created_at
-          - updated_at
-        links:
+        relationships:
           type: object
           properties:
-            self:
-              description: A link to the resource itself
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
       required:
       - id
       - type
-      - links
-      title: DatabaseUserResource
-    CreateDatabaseUserRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the database user to create.
-          examples:
-          - james
-        password:
-          type: string
-          description: The password for the database user.
-          examples:
-          - password
-          maxLength: 255
-        read_only:
-          type: boolean
-          description: Whether the user should have read-only access to the databases.
-          examples:
-          - true
-        database_ids:
-          type: array
-          description: The IDs of the databases to assign the user to.
-          examples:
-          - - 1
-            - 2
-            - 3
-          items:
-            type: integer
-      required:
-      - name
-      - password
-      title: CreateDatabaseUserRequest
-    UpdateDatabaseUserRequest:
-      type: object
-      properties:
-        password:
-          type:
-          - string
-          - 'null'
-          description: The password for the database user.
-          examples:
-          - password
-          maxLength: 255
-        database_ids:
-          type: array
-          description: The IDs of the databases to assign the user to.
-          examples:
-          - - 1
-            - 2
-            - 3
-          items:
-            type: integer
-      title: UpdateDatabaseUserRequest
-  responses:
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
+      title: DatabaseSchemaResource
   securitySchemes:
     http:
       type: http
-      description: The Bearer Token generated on the Cloud UI.
       scheme: bearer
-      bearerFormat: bearer
     oauth2:
       type: oauth2
       flows:
@@ -2211,5 +2318,5 @@ components:
             resources:delete-buckets: Allow members to delete object storage buckets
             resources:manage-buckets: Allow members to manage object storage buckets and their access keys
 x-refined-from:
-- laravel-cloud-openapi.json
 - laravel-forge-openapi.json
+- laravel-openapi.json

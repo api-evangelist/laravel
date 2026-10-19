@@ -1,0 +1,208 @@
+openapi: 3.2.0
+info:
+  title: Laravel Cloud Edge Networks API
+  version: 0.0.1
+servers:
+- url: https://cloud.laravel.com/api
+security:
+- http: []
+tags:
+- name: Edge Networks
+paths:
+  /edge-networks:
+    get:
+      operationId: public.edge-networks.index
+      description: 'Get a list of the edge networks available to the authenticated organization,
+
+        including the shared edge network.'
+      summary: List edge networks
+      tags:
+      - Edge Networks
+      parameters:
+      - name: filter[name]
+        in: query
+        schema:
+          type: string
+      - name: filter[domain]
+        in: query
+        schema:
+          type: string
+      - name: filter[status]
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated set of `EdgeNetworkResource`
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EdgeNetworkResource'
+                  links:
+                    type: object
+                    properties:
+                      first:
+                        type: string
+                      last:
+                        type: string
+                      prev:
+                        type: string
+                      next:
+                        type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        minimum: 1
+                      from:
+                        type:
+                        - integer
+                        - 'null'
+                        minimum: 1
+                      last_page:
+                        type: integer
+                        minimum: 1
+                      links:
+                        type: array
+                        description: Generated paginator links.
+                        items:
+                          type: object
+                          properties:
+                            url:
+                              type:
+                              - string
+                              - 'null'
+                            label:
+                              type: string
+                            active:
+                              type: boolean
+                          required:
+                          - url
+                          - label
+                          - active
+                      path:
+                        type:
+                        - string
+                        - 'null'
+                        description: Base path for paginator generated URLs.
+                      per_page:
+                        type: integer
+                        description: Number of items shown per page.
+                        minimum: 0
+                      to:
+                        type:
+                        - integer
+                        - 'null'
+                        description: Number of the last item in the slice.
+                        minimum: 1
+                      total:
+                        type: integer
+                        description: Total number of items being paginated.
+                        minimum: 0
+                    required:
+                    - current_page
+                    - from
+                    - last_page
+                    - links
+                    - path
+                    - per_page
+                    - to
+                    - total
+                required:
+                - data
+                - links
+                - meta
+        '401':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - ''
+                required:
+                - message
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+components:
+  responses:
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+  schemas:
+    ZoneStatus:
+      type: string
+      enum:
+      - requesting
+      - creating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: ZoneStatus
+    EdgeNetworkResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - edge_networks
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            domain:
+              type: string
+            tenancy_type:
+              $ref: '#/components/schemas/TenancyType'
+            status:
+              $ref: '#/components/schemas/ZoneStatus'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - domain
+          - tenancy_type
+          - status
+          - created_at
+      required:
+      - id
+      - type
+      title: EdgeNetworkResource
+    TenancyType:
+      type: string
+      enum:
+      - shared
+      - dedicated
+      title: TenancyType
+  securitySchemes:
+    http:
+      type: http
+      description: The Bearer Token generated on the Cloud UI.
+      scheme: bearer
+      bearerFormat: bearer

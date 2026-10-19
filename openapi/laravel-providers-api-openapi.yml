@@ -566,35 +566,32 @@ paths:
           noindex: true
       x-processingMode: sync
 components:
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    ProviderRegionSizeResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - providerSizes
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ProviderRegionSizeResource
     ProviderResource:
       type: object
       properties:
@@ -647,42 +644,6 @@ components:
       - type
       - links
       title: ProviderResource
-    ProviderRegionResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - providerRegions
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            code:
-              type: string
-            alternate_code:
-              type:
-              - string
-              - 'null'
-          required:
-          - name
-          - code
-          - alternate_code
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ProviderRegionResource
     ProviderSizeResource:
       type: object
       properties:
@@ -744,6 +705,34 @@ components:
       - type
       - links
       title: ProviderSizeResource
+    ProviderRegionSizeResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providerSizes
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderRegionSizeResource
     Link:
       type: object
       properties:
@@ -769,31 +758,42 @@ components:
       required:
       - href
       title: Link
-  responses:
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
+    ProviderRegionResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - providerRegions
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            code:
+              type: string
+            alternate_code:
+              type:
+              - string
+              - 'null'
+          required:
+          - name
+          - code
+          - alternate_code
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ProviderRegionResource
   securitySchemes:
     http:
       type: http

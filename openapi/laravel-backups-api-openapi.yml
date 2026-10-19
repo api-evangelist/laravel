@@ -677,6 +677,18 @@ paths:
       x-processingMode: async
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -709,105 +721,7 @@ components:
                 description: Error overview.
             required:
             - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    BackupConfigurationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - backupConfigurations
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            storage_provider_id:
-              type:
-              - integer
-              - 'null'
-            provider:
-              type: string
-            bucket:
-              type:
-              - string
-              - 'null'
-            directory:
-              type: string
-            schedule:
-              type: string
-            displayable_schedule:
-              type: string
-            next_run_time:
-              type: string
-            status:
-              type: string
-            day_of_week:
-              type:
-              - integer
-              - 'null'
-            time:
-              type:
-              - string
-              - 'null'
-            cron_schedule:
-              type:
-              - string
-              - 'null'
-            database_ids:
-              type: array
-              items: {}
-            include_new_databases:
-              type: boolean
-            retention:
-              type: integer
-            notify_email:
-              type:
-              - string
-              - 'null'
-          required:
-          - name
-          - storage_provider_id
-          - provider
-          - bucket
-          - directory
-          - schedule
-          - displayable_schedule
-          - next_run_time
-          - status
-          - day_of_week
-          - time
-          - cron_schedule
-          - database_ids
-          - include_new_databases
-          - retention
-          - notify_email
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: BackupConfigurationResource
     Link:
       type: object
       properties:
@@ -938,6 +852,45 @@ components:
       - retention
       - database_ids
       title: CreateBackupConfigurationRequest
+    BackupResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - backups
+        attributes:
+          type: object
+          properties:
+            status:
+              type: string
+            is_partial:
+              type: string
+            size:
+              type: integer
+            finished_at:
+              type:
+              - integer
+              - 'null'
+          required:
+          - status
+          - is_partial
+          - size
+          - finished_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: BackupResource
     RestoreBackupRequest:
       type: object
       properties:
@@ -946,6 +899,14 @@ components:
       required:
       - database_id
       title: RestoreBackupRequest
+    BackupFrequency:
+      type: string
+      enum:
+      - hourly
+      - daily
+      - weekly
+      - custom
+      title: BackupFrequency
     UpdateBackupConfigurationRequest:
       type: object
       properties:
@@ -1051,15 +1012,7 @@ components:
       - retention
       - database_ids
       title: UpdateBackupConfigurationRequest
-    BackupFrequency:
-      type: string
-      enum:
-      - hourly
-      - daily
-      - weekly
-      - custom
-      title: BackupFrequency
-    BackupResource:
+    BackupConfigurationResource:
       type: object
       properties:
         id:
@@ -1067,25 +1020,72 @@ components:
         type:
           type: string
           enum:
-          - backups
+          - backupConfigurations
         attributes:
           type: object
           properties:
-            status:
+            name:
               type: string
-            is_partial:
-              type: string
-            size:
-              type: integer
-            finished_at:
+            storage_provider_id:
               type:
               - integer
               - 'null'
+            provider:
+              type: string
+            bucket:
+              type:
+              - string
+              - 'null'
+            directory:
+              type: string
+            schedule:
+              type: string
+            displayable_schedule:
+              type: string
+            next_run_time:
+              type: string
+            status:
+              type: string
+            day_of_week:
+              type:
+              - integer
+              - 'null'
+            time:
+              type:
+              - string
+              - 'null'
+            cron_schedule:
+              type:
+              - string
+              - 'null'
+            database_ids:
+              type: array
+              items: {}
+            include_new_databases:
+              type: boolean
+            retention:
+              type: integer
+            notify_email:
+              type:
+              - string
+              - 'null'
           required:
+          - name
+          - storage_provider_id
+          - provider
+          - bucket
+          - directory
+          - schedule
+          - displayable_schedule
+          - next_run_time
           - status
-          - is_partial
-          - size
-          - finished_at
+          - day_of_week
+          - time
+          - cron_schedule
+          - database_ids
+          - include_new_databases
+          - retention
+          - notify_email
         links:
           type: object
           properties:
@@ -1097,7 +1097,7 @@ components:
       - id
       - type
       - links
-      title: BackupResource
+      title: BackupConfigurationResource
   securitySchemes:
     http:
       type: http

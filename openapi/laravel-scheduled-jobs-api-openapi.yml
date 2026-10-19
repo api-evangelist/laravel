@@ -703,6 +703,30 @@ paths:
       x-processingMode: sync
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -723,31 +747,17 @@ components:
             required:
             - message
             - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
+    HeartbeatGracePeriod:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 5
+      - 10
+      - 30
+      - 60
+      title: HeartbeatGracePeriod
     Link:
       type: object
       properties:
@@ -801,16 +811,17 @@ components:
       - type
       - links
       title: JobOutputResource
-    HeartbeatGracePeriod:
-      type: integer
+    CronFrequency:
+      type: string
       enum:
-      - 1
-      - 2
-      - 5
-      - 10
-      - 30
-      - 60
-      title: HeartbeatGracePeriod
+      - minutely
+      - hourly
+      - nightly
+      - weekly
+      - monthly
+      - reboot
+      - custom
+      title: CronFrequency
     CreateScheduledJobRequest:
       type: object
       properties:
@@ -920,17 +931,6 @@ components:
       - type
       - links
       title: JobResource
-    CronFrequency:
-      type: string
-      enum:
-      - minutely
-      - hourly
-      - nightly
-      - weekly
-      - monthly
-      - reboot
-      - custom
-      title: CronFrequency
   securitySchemes:
     http:
       type: http

@@ -52,6 +52,7 @@ paths:
             - cache
             - buckets
             - websocketApplication
+            - secrets
         explode: false
       responses:
         '200':
@@ -149,6 +150,7 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
                 - links
@@ -177,30 +179,12 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateEnvironmentRequest'
       responses:
-        '201':
-          description: '`EnvironmentResource`'
+        '200':
+          description: ''
           content:
-            application/vnd.api+json:
+            application/json:
               schema:
                 type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/EnvironmentResource'
-                  included:
-                    type: array
-                    items:
-                      anyOf:
-                      - $ref: '#/components/schemas/ApplicationResource'
-                      - $ref: '#/components/schemas/BranchResource'
-                      - $ref: '#/components/schemas/DeploymentResource'
-                      - $ref: '#/components/schemas/DomainResource'
-                      - $ref: '#/components/schemas/InstanceResource'
-                      - $ref: '#/components/schemas/DatabaseSchemaResource'
-                      - $ref: '#/components/schemas/CacheResource'
-                      - $ref: '#/components/schemas/FilesystemResource'
-                      - $ref: '#/components/schemas/WebsocketApplicationResource'
-                required:
-                - data
         '404':
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
@@ -293,7 +277,11 @@ paths:
                       cursor:
                         type: string
                       type:
-                        type: string
+                        anyOf:
+                        - type: string
+                        - type: string
+                          enum:
+                          - all
                       from:
                         type: string
                       to:
@@ -343,6 +331,7 @@ paths:
             - cache
             - buckets
             - websocketApplication
+            - secrets
         explode: false
       responses:
         '200':
@@ -367,6 +356,7 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
         '404':
@@ -414,6 +404,7 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
         '404':
@@ -436,8 +427,12 @@ paths:
         schema:
           type: string
       responses:
-        '204':
-          description: No content
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
         '404':
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
@@ -524,6 +519,7 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
         '404':
@@ -535,7 +531,14 @@ paths:
   /environments/{environment}/purge-edge-cache:
     post:
       operationId: public.environments.purge-edge-cache
-      description: Purge the edge cache for all domains associated with the environment.
+      description: 'Purge the edge cache for all domains associated with the environment.
+
+
+        By default everything cached for the environment is purged. Optionally provide
+
+        a `path`, `prefix`, or `tag` to purge a subset of the cache. Only one of
+
+        these may be provided per request.'
       summary: Purge edge cache
       tags:
       - Environments
@@ -546,6 +549,11 @@ paths:
         description: The environment identifier
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurgeEnvironmentEdgeCacheRequest'
       responses:
         '200':
           description: '`EnvironmentResource`'
@@ -569,8 +577,75 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+  /environments/{environment}/vanity-domain:
+    put:
+      operationId: public.environments.vanity-domain.update
+      description: Update the vanity domain for the environment. May only be done once every 30 minutes.
+      summary: Update vanity domain
+      tags:
+      - Environments
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVanityDomainRequest'
+      responses:
+        '200':
+          description: '`EnvironmentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EnvironmentResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/ApplicationResource'
+                      - $ref: '#/components/schemas/BranchResource'
+                      - $ref: '#/components/schemas/DeploymentResource'
+                      - $ref: '#/components/schemas/DomainResource'
+                      - $ref: '#/components/schemas/InstanceResource'
+                      - $ref: '#/components/schemas/DatabaseSchemaResource'
+                      - $ref: '#/components/schemas/CacheResource'
+                      - $ref: '#/components/schemas/FilesystemResource'
+                      - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
+                required:
+                - data
+        '429':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - The vanity domain may only be updated once every 30 minutes.
+                required:
+                - message
         '404':
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
@@ -620,6 +695,7 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
         '404':
@@ -671,6 +747,7 @@ paths:
                       - $ref: '#/components/schemas/CacheResource'
                       - $ref: '#/components/schemas/FilesystemResource'
                       - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
                 required:
                 - data
         '404':
@@ -682,7 +759,14 @@ paths:
   /environments/{environment}/metrics:
     get:
       operationId: public.environments.metrics
-      description: Get metrics for a specific environment.
+      description: 'Get metrics for a specific environment.
+
+
+        Each metric is read separately; one that could not be read is `{"error": true}` while the rest are
+
+        returned. For `http_response_count`, `average` holds each series'' sum over the period and `total` the
+
+        sum of all of them. `min` and `max` are bounds for charting the series.'
       summary: Get environment metrics
       tags:
       - Environments
@@ -711,150 +795,218 @@ paths:
                     type: object
                     properties:
                       cpu_usage:
-                        type: object
-                        properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
+                        anyOf:
+                        - type: object
+                          properties:
+                            labels:
+                              type: array
+                              items:
+                                type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  x:
+                                    type: string
+                                  y:
+                                    type: array
+                                    items:
+                                      type: number
+                                required:
+                                - x
+                                - y
+                            average:
+                              type: array
+                              items:
+                                type: number
+                            min:
                               type: number
-                          data:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                x:
-                                  type: string
-                                y:
-                                  type: array
-                                  items:
-                                    type: number
-                              required:
-                              - x
-                              - y
-                        required:
-                        - labels
-                        - average
-                        - data
+                            max:
+                              type: number
+                          required:
+                          - labels
+                          - data
+                          - average
+                          - min
+                          - max
+                        - type: object
+                          properties:
+                            error:
+                              type: boolean
+                          required:
+                          - error
                       memory_usage:
-                        type: object
-                        properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
+                        anyOf:
+                        - type: object
+                          properties:
+                            labels:
+                              type: array
+                              items:
+                                type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  x:
+                                    type: string
+                                  y:
+                                    type: array
+                                    items:
+                                      type: number
+                                required:
+                                - x
+                                - y
+                            average:
+                              type: array
+                              items:
+                                type: number
+                            min:
                               type: number
-                          data:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                x:
-                                  type: string
-                                y:
-                                  type: array
-                                  items:
-                                    type: number
-                              required:
-                              - x
-                              - y
-                        required:
-                        - labels
-                        - average
-                        - data
+                            max:
+                              type: number
+                          required:
+                          - labels
+                          - data
+                          - average
+                          - min
+                          - max
+                        - type: object
+                          properties:
+                            error:
+                              type: boolean
+                          required:
+                          - error
                       http_response_count:
-                        type: object
-                        properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
-                          data:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                x:
-                                  type: string
-                                y:
-                                  type: array
-                                  items:
-                                    type: number
-                              required:
-                              - x
-                              - y
-                        required:
-                        - labels
-                        - average
-                        - data
+                        anyOf:
+                        - type: object
+                          properties:
+                            labels:
+                              type: array
+                              items:
+                                type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  x:
+                                    type: string
+                                  y:
+                                    type: array
+                                    items:
+                                      type: number
+                                required:
+                                - x
+                                - y
+                            total:
+                              type: integer
+                            average:
+                              type: array
+                              items:
+                                type: integer
+                            min:
+                              type: integer
+                            max:
+                              type: integer
+                          required:
+                          - labels
+                          - data
+                          - total
+                          - average
+                          - min
+                          - max
+                        - type: object
+                          properties:
+                            error:
+                              type: boolean
+                          required:
+                          - error
                       replica_count:
-                        type: object
-                        properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
-                          data:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                x:
-                                  type: string
-                                y:
-                                  type: array
-                                  items:
-                                    type: number
-                              required:
-                              - x
-                              - y
-                        required:
-                        - labels
-                        - average
-                        - data
+                        anyOf:
+                        - type: object
+                          properties:
+                            labels:
+                              type: array
+                              items:
+                                type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  x:
+                                    type: string
+                                  y:
+                                    type: array
+                                    items:
+                                      type: integer
+                                required:
+                                - x
+                                - y
+                            average:
+                              type: array
+                              items:
+                                type: integer
+                            min:
+                              type: integer
+                            max:
+                              type: integer
+                          required:
+                          - labels
+                          - data
+                          - average
+                          - min
+                          - max
+                        - type: object
+                          properties:
+                            error:
+                              type: boolean
+                          required:
+                          - error
                       web_workers_count:
-                        type: object
-                        properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
+                        anyOf:
+                        - type: object
+                          properties:
+                            labels:
+                              type: array
+                              items:
+                                type: string
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  x:
+                                    type: string
+                                  y:
+                                    type: array
+                                    items:
+                                      type: number
+                                required:
+                                - x
+                                - y
+                            average:
+                              type: array
+                              items:
+                                type: number
+                            min:
                               type: number
-                          data:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                x:
-                                  type: string
-                                y:
-                                  type: array
-                                  items:
-                                    type: number
-                              required:
-                              - x
-                              - y
-                        required:
-                        - labels
-                        - average
-                        - data
+                            max:
+                              type: number
+                          required:
+                          - labels
+                          - data
+                          - average
+                          - min
+                          - max
+                        - type: object
+                          properties:
+                            error:
+                              type: boolean
+                          required:
+                          - error
                     required:
                     - cpu_usage
                     - memory_usage
@@ -882,219 +1034,261 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
         '422':
           $ref: '#/components/responses/ValidationException'
+  /environments/{environment}/secrets:
+    post:
+      operationId: public.environments.secrets.store
+      description: 'Attach one or more of the organization''s secrets to an environment. Secrets that are already
+
+        attached to the environment are ignored.'
+      summary: Attach secrets to environment
+      tags:
+      - Environments
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreEnvironmentSecretsRequest'
+      responses:
+        '200':
+          description: '`EnvironmentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EnvironmentResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/ApplicationResource'
+                      - $ref: '#/components/schemas/BranchResource'
+                      - $ref: '#/components/schemas/DeploymentResource'
+                      - $ref: '#/components/schemas/DomainResource'
+                      - $ref: '#/components/schemas/InstanceResource'
+                      - $ref: '#/components/schemas/DatabaseSchemaResource'
+                      - $ref: '#/components/schemas/CacheResource'
+                      - $ref: '#/components/schemas/FilesystemResource'
+                      - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
+        '422':
+          $ref: '#/components/responses/ValidationException'
+  /environments/{environment}/secrets/{secret}:
+    delete:
+      operationId: public.environments.secrets.destroy
+      description: Detach one of the organization's secrets from an environment. The secret itself is not deleted.
+      summary: Detach secret from environment
+      tags:
+      - Environments
+      parameters:
+      - name: environment
+        in: path
+        required: true
+        description: The environment identifier
+        schema:
+          type: string
+      - name: secret
+        in: path
+        required: true
+        description: The secret identifier
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '`EnvironmentResource`'
+          content:
+            application/vnd.api+json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EnvironmentResource'
+                  included:
+                    type: array
+                    items:
+                      anyOf:
+                      - $ref: '#/components/schemas/ApplicationResource'
+                      - $ref: '#/components/schemas/BranchResource'
+                      - $ref: '#/components/schemas/DeploymentResource'
+                      - $ref: '#/components/schemas/DomainResource'
+                      - $ref: '#/components/schemas/InstanceResource'
+                      - $ref: '#/components/schemas/DatabaseSchemaResource'
+                      - $ref: '#/components/schemas/CacheResource'
+                      - $ref: '#/components/schemas/FilesystemResource'
+                      - $ref: '#/components/schemas/WebsocketApplicationResource'
+                      - $ref: '#/components/schemas/SecretResource'
+                required:
+                - data
+        '404':
+          $ref: '#/components/responses/ModelNotFoundException'
+        '403':
+          $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
-    DeploymentStatus:
+    NormalizedLogResource:
+      type: object
+      properties:
+        message:
+          type: string
+        level:
+          type: string
+          enum:
+          - info
+          - warning
+          - error
+          - debug
+        type:
+          type: string
+          enum:
+          - access
+          - application
+          - exception
+          - system
+        logged_at:
+          type: string
+        data:
+          anyOf:
+          - type: object
+            properties:
+              status:
+                type: integer
+              method:
+                type: string
+              path:
+                type: string
+              duration_ms:
+                type:
+                - number
+                - 'null'
+              bytes_sent:
+                type:
+                - integer
+                - 'null'
+              ip:
+                type:
+                - string
+                - 'null'
+              user_agent:
+                type:
+                - string
+                - 'null'
+              country:
+                type:
+                - string
+                - 'null'
+            required:
+            - status
+            - method
+            - path
+            - duration_ms
+            - bytes_sent
+            - ip
+            - user_agent
+            - country
+          - type: object
+            properties:
+              channel:
+                type:
+                - string
+                - 'null'
+              context:
+                type:
+                - object
+                - 'null'
+                additionalProperties: {}
+              extra:
+                type:
+                - object
+                - 'null'
+                additionalProperties: {}
+            required:
+            - channel
+            - context
+            - extra
+          - type: object
+            properties:
+              class:
+                type:
+                - string
+                - 'null'
+              code:
+                type:
+                - integer
+                - 'null'
+              file:
+                type:
+                - string
+                - 'null'
+              trace:
+                type:
+                - array
+                - 'null'
+                items:
+                  type: string
+            required:
+            - class
+            - code
+            - file
+            - trace
+          - type: object
+            additionalProperties: {}
+          - type: 'null'
+      required:
+      - message
+      - level
+      - type
+      - logged_at
+      - data
+      title: NormalizedLogResource
+    BranchResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - branches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: BranchResourceIdentifier
+    DomainStatus:
       type: string
       enum:
       - pending
-      - build.pending
-      - build.created
-      - build.queued
-      - build.running
-      - build.succeeded
-      - build.failed
-      - cancelled
+      - verified
       - failed
-      - deployment.pending
-      - deployment.created
-      - deployment.queued
-      - deployment.running
-      - deployment.succeeded
-      - deployment.failed
-      title: DeploymentStatus
-    ApplicationResourceIdentifier:
+      - disabled
+      title: DomainStatus
+    OrganizationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - applications
+          - organizations
         id:
           type: string
       required:
       - type
       - id
-      title: ApplicationResourceIdentifier
-    DeleteEnvironmentVariablesRequest:
-      type: object
-      properties:
-        keys:
-          type: array
-          items:
-            type: string
-            pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
-          minItems: 1
-      required:
-      - keys
-      title: DeleteEnvironmentVariablesRequest
-    CloudRegion:
-      type: string
-      enum:
-      - us-east-2
-      - us-east-1
-      - ca-central-1
-      - eu-central-1
-      - eu-west-1
-      - eu-west-2
-      - me-central-1
-      - ap-southeast-1
-      - ap-southeast-2
-      - ap-northeast-1
-      title: CloudRegion
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
-    SqsQueueStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: SqsQueueStatus
-    WebsocketApplicationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            app_id:
-              type: string
-            allowed_origins:
-              type: array
-              items: {}
-            ping_interval:
-              type: integer
-            activity_timeout:
-              type: integer
-            max_message_size:
-              type: integer
-            max_connections:
-              type: integer
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            ? ''
-            : anyOf:
-              - type: object
-                properties:
-                  key:
-                    type: string
-                  secret:
-                    type: string
-                required:
-                - key
-                - secret
-              - type: array
-                items:
-                  type: string
-                minItems: 0
-                maxItems: 0
-                additionalItems: false
-          required:
-          - name
-          - app_id
-          - allowed_origins
-          - ping_interval
-          - activity_timeout
-          - max_message_size
-          - max_connections
-          - created_at
-          - null
-        relationships:
-          type: object
-          properties:
-            server:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/WebsocketServerResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: WebsocketApplicationResource
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    FilesystemKeyResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystemKeys
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemKeyResourceIdentifier
-    UserResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - users
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: UserResourceIdentifier
-    Frame:
-      type: string
-      enum:
-      - deny
-      - sameorigin
-      - all
-      title: Frame
-    RepositoryResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - repositories
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: RepositoryResourceIdentifier
+      title: OrganizationResourceIdentifier
     DomainResource:
       type: object
       properties:
@@ -1111,6 +1305,8 @@ components:
               type: string
             type:
               $ref: '#/components/schemas/DomainType'
+            stage:
+              $ref: '#/components/schemas/DomainStage'
             hostname_status:
               $ref: '#/components/schemas/DomainStatus'
             ssl_status:
@@ -1297,6 +1493,7 @@ components:
           required:
           - name
           - type
+          - stage
           - hostname_status
           - ssl_status
           - origin_status
@@ -1334,154 +1531,27 @@ components:
       - type
       - links
       title: DomainResource
-    ApplicationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - applications
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            slug:
-              type: string
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            slack_channel:
-              type:
-              - string
-              - 'null'
-            avatar_url:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            repository:
-              type:
-              - object
-              - 'null'
-              properties:
-                full_name:
-                  type: string
-                default_branch:
-                  type: string
-              required:
-              - full_name
-              - default_branch
-          required:
-          - name
-          - slug
-          - region
-          - slack_channel
-          - avatar_url
-          - created_at
-          - repository
-        relationships:
-          type: object
-          properties:
-            repository:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/RepositoryResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            organization:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/OrganizationResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
-            deployments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/DeploymentResourceIdentifier'
-              required:
-              - data
-            defaultEnvironment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: ApplicationResource
-    DomainStatus:
+    ContentType:
       type: string
       enum:
-      - pending
-      - verified
-      - failed
-      - disabled
-      title: DomainStatus
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    RobotsTag:
-      type: string
-      enum:
-      - index, follow
-      - noindex, nofollow
-      title: RobotsTag
-    DomainCloudflareStrategy:
-      type: string
-      enum:
-      - dns_proxy
-      - dns
+      - nosniff
       - none
-      title: DomainCloudflareStrategy
+      title: ContentType
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
+    EnvironmentStatus:
+      type: string
+      enum:
+      - deploying
+      - running
+      - hibernating
+      - stopped
+      title: EnvironmentStatus
     Link:
       type: object
       properties:
@@ -1507,184 +1577,37 @@ components:
       required:
       - href
       title: Link
-    FilesystemJurisdiction:
-      type: string
-      enum:
-      - default
-      - eu
-      title: FilesystemJurisdiction
-    InstanceResource:
+    DatabaseResourceIdentifier:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
-          - instances
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/InstanceType'
-            size:
-              $ref: '#/components/schemas/InstanceSize'
-            scaling_type:
-              $ref: '#/components/schemas/InstanceScalingType'
-            min_replicas:
-              type: integer
-            max_replicas:
-              type: integer
-            queue_status:
-              anyOf:
-              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
-                $ref: '#/components/schemas/SqsQueueStatus'
-              - type: 'null'
-            paused:
-              type:
-              - boolean
-              - 'null'
-              description: Whether the managed queue is currently paused. Null for non-queue instances.
-            is_default:
-              type:
-              - boolean
-              - 'null'
-              description: Whether this is the environment's default managed queue. Null for non-queue instances.
-            visibility_timeout:
-              type:
-              - integer
-              - 'null'
-              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
-            polling_interval:
-              type:
-              - integer
-              - 'null'
-              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
-            shutdown_timeout:
-              type:
-              - integer
-              - 'null'
-            uses_scheduler:
-              type: boolean
-            sleep_with_app:
-              type:
-              - boolean
-              - 'null'
-            scaling_cpu_threshold_percentage:
-              type:
-              - integer
-              - 'null'
-            scaling_memory_threshold_percentage:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - size
-          - scaling_type
-          - min_replicas
-          - max_replicas
-          - queue_status
-          - paused
-          - is_default
-          - visibility_timeout
-          - polling_interval
-          - shutdown_timeout
-          - uses_scheduler
-          - sleep_with_app
-          - scaling_cpu_threshold_percentage
-          - scaling_memory_threshold_percentage
-          - created_at
-        relationships:
-          type: object
-          properties:
-            environment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            backgroundProcesses:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: InstanceResource
-    DatabaseSchemaResource:
-      type: object
-      properties:
+          - databases
         id:
           type: string
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            status:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - status
-          - created_at
-        relationships:
-          type: object
-          properties:
-            database:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
       required:
-      - id
       - type
-      title: DatabaseSchemaResource
-    DomainActionRequired:
+      - id
+      title: DatabaseResourceIdentifier
+    CacheEvictionPolicy:
       type: string
       enum:
-      - add_txt_records
-      - add_dns_records
-      - failed
-      title: DomainActionRequired
+      - allkeys-lru
+      - noeviction
+      - volatile-lru
+      - allkeys-random
+      - volatile-random
+      - volatile-ttl
+      - allkeys-lfu
+      - volatile-lfu
+      title: CacheEvictionPolicy
+    EnvironmentVariablesInsertMethod:
+      type: string
+      enum:
+      - append
+      - set
+      title: EnvironmentVariablesInsertMethod
     DeploymentResourceIdentifier:
       type: object
       properties:
@@ -1698,9 +1621,370 @@ components:
       - type
       - id
       title: DeploymentResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    FilesystemJurisdiction:
+      type: string
+      enum:
+      - default
+      - eu
+      - us
+      title: FilesystemJurisdiction
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    CacheStrategy:
+      type: string
+      enum:
+      - default
+      - bypass
+      title: CacheStrategy
+    PurgeEnvironmentEdgeCacheRequest:
+      type: object
+      properties:
+        path:
+          type:
+          - string
+          - 'null'
+          description: A single path to purge, resolved against every hostname the environment is served from.
+          examples:
+          - /blog/hello-world
+          maxLength: 2048
+        prefix:
+          type:
+          - string
+          - 'null'
+          description: A path prefix to purge, resolved against every hostname the environment is served from.
+          examples:
+          - /blog/
+          maxLength: 2048
+        tag:
+          type:
+          - string
+          - 'null'
+          description: A `Cache-Tag` value to purge. Requires the environment to use a dedicated edge network.
+          examples:
+          - blog-posts
+          maxLength: 1024
+      title: PurgeEnvironmentEdgeCacheRequest
+    StoreEnvironmentVariablesRequest:
+      type: object
+      properties:
+        method:
+          description: 'When set to ''append'', variables are added to the end without checking for duplicates.
+
+            When set to ''set'', variables with matching keys are updated; otherwise they are added.'
+          $ref: '#/components/schemas/EnvironmentVariablesInsertMethod'
+        variables:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
+              value:
+                type: string
+            required:
+            - key
+            - value
+          minItems: 1
+          maxItems: 200
+      required:
+      - method
+      - variables
+      title: StoreEnvironmentVariablesRequest
+    Language:
+      type: string
+      enum:
+      - html
+      - php
+      - javascript
+      - python
+      - go
+      - ruby
+      - java
+      - rust
+      title: Language
+    DeleteEnvironmentVariablesRequest:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
+          minItems: 1
+      required:
+      - keys
+      title: DeleteEnvironmentVariablesRequest
+    InstanceType:
+      type: string
+      enum:
+      - app
+      - service
+      - queue
+      - managed_queue
+      title: InstanceType
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      - '26'
+      title: NodeVersion
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    CacheResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - caches
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/CacheType'
+            status:
+              $ref: '#/components/schemas/CacheStatus'
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            size:
+              $ref: '#/components/schemas/CacheSize'
+            auto_upgrade_enabled:
+              type: boolean
+            is_public:
+              type: boolean
+            eviction_policy:
+              anyOf:
+              - description: Null for cache types without eviction policy settings.
+                $ref: '#/components/schemas/CacheEvictionPolicy'
+              - type: 'null'
+            uses_hibernation:
+              type: boolean
+            hibernation_timeout:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            connection:
+              type: object
+              properties:
+                hostname:
+                  type:
+                  - string
+                  - 'null'
+                port:
+                  type:
+                  - integer
+                  - 'null'
+                protocol:
+                  type: string
+                  const: redis
+                ? ''
+                : anyOf:
+                  - type: object
+                    properties:
+                      username:
+                        type:
+                        - string
+                        - 'null'
+                      password:
+                        type:
+                        - string
+                        - 'null'
+                    required:
+                    - username
+                    - password
+                  - type: array
+                    items:
+                      type: string
+                    minItems: 0
+                    maxItems: 0
+                    additionalItems: false
+              required:
+              - hostname
+              - port
+              - protocol
+              - null
+          required:
+          - name
+          - type
+          - status
+          - region
+          - size
+          - auto_upgrade_enabled
+          - is_public
+          - eviction_policy
+          - uses_hibernation
+          - hibernation_timeout
+          - created_at
+          - connection
+        relationships:
+          type: object
+          properties:
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: CacheResource
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    MetricPeriod:
+      type: string
+      enum:
+      - 1h
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    FilesystemType:
+      type: string
+      enum:
+      - cloudflare_r2
+      title: FilesystemType
+    EnvironmentColor:
+      type: string
+      enum:
+      - blue
+      - green
+      - orange
+      - purple
+      - red
+      - yellow
+      - cyan
+      - gray
+      title: EnvironmentColor
+    StoreEnvironmentSecretsRequest:
+      type: object
+      properties:
+        secrets:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          maxItems: 0
+      required:
+      - secrets
+      title: StoreEnvironmentSecretsRequest
+    CloudRegion:
+      type: string
+      enum:
+      - us-east-1
+      - us-east-2
+      - ca-central-1
+      - eu-central-1
+      - eu-west-1
+      - eu-west-2
+      - eu-west-3
+      - me-central-1
+      - ap-southeast-1
+      - ap-southeast-2
+      - ap-northeast-1
+      title: CloudRegion
+    DomainActionRequired:
+      type: string
+      enum:
+      - add_txt_records
+      - add_dns_records
+      - failed
+      title: DomainActionRequired
+    FilesystemLocationHint:
+      type: string
+      description: 'Where Cloudflare should place an R2 bucket''s data. Automatic lets Cloudflare choose, which it does from the caller''s location rather than the customer''s.
+
+        '
+      enum:
+      - automatic
+      - wnam
+      - enam
+      - weur
+      - eeur
+      - apac
+      - oc
+      title: FilesystemLocationHint
     UpdateEnvironmentRequest:
       type: object
       properties:
+        serving:
+          type: object
+          properties:
+            mode:
+              type: string
+              enum:
+              - process
+            root:
+              type:
+              - string
+              - 'null'
+              maxLength: 255
+          required:
+          - mode
+          - root
         name:
           type: string
           pattern: ^[A-Za-z0-9 _-]+$
@@ -1719,6 +2003,9 @@ components:
           type: boolean
         timeout:
           type: integer
+          description: The number of seconds the environment will wait for your application to respond before timing out. Applies on the next deployment.
+          examples:
+          - 30
           minimum: 5
           maximum: 60
         php_version:
@@ -1735,6 +2022,12 @@ components:
           - string
           - 'null'
           maxLength: 2000
+        start_command:
+          type:
+          - string
+          - 'null'
+          description: The command that starts a dynamic application, e.g. `gunicorn myproject.wsgi`. Required for dynamic JavaScript, Python, Ruby, Go, Rust and Java apps; prohibited for PHP apps and static websites.
+          maxLength: 255
         uses_vanity_domain:
           type: boolean
         database_schema_id:
@@ -1786,6 +2079,9 @@ components:
           maximum: 10080
         shutdown_timeout:
           type: integer
+          description: The number of seconds to wait before stopping the previous deployment's compute instances, allowing it to finish processing requests and jobs after a new deployment becomes active. Applies on the next deployment.
+          examples:
+          - 30
           minimum: 1
           maximum: 600
         uses_purge_edge_cache_on_deploy:
@@ -1825,187 +2121,16 @@ components:
         firewall_browser_integrity_check:
           type: boolean
       title: UpdateEnvironmentRequest
-    CacheResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - caches
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/CacheType'
-            status:
-              $ref: '#/components/schemas/CacheStatus'
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            size:
-              $ref: '#/components/schemas/CacheSize'
-            auto_upgrade_enabled:
-              type: boolean
-            is_public:
-              type: boolean
-            uses_hibernation:
-              type: boolean
-            hibernation_timeout:
-              type:
-              - integer
-              - 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            connection:
-              type: object
-              properties:
-                hostname:
-                  type:
-                  - string
-                  - 'null'
-                port:
-                  type:
-                  - integer
-                  - 'null'
-                protocol:
-                  type: string
-                  enum:
-                  - redis
-                  - fake
-                ? ''
-                : anyOf:
-                  - type: object
-                    properties:
-                      username:
-                        type:
-                        - string
-                        - 'null'
-                      password:
-                        type:
-                        - string
-                        - 'null'
-                    required:
-                    - username
-                    - password
-                  - type: array
-                    items:
-                      type: string
-                    minItems: 0
-                    maxItems: 0
-                    additionalItems: false
-              required:
-              - hostname
-              - port
-              - protocol
-              - null
-          required:
-          - name
-          - type
-          - status
-          - region
-          - size
-          - auto_upgrade_enabled
-          - is_public
-          - uses_hibernation
-          - hibernation_timeout
-          - created_at
-          - connection
-        relationships:
-          type: object
-          properties:
-            environments:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: CacheResource
-    CacheStatus:
+    SqsQueueStatus:
       type: string
       enum:
       - creating
       - updating
       - available
-      - stopped
       - deleting
       - deleted
       - unknown
-      title: CacheStatus
-    BranchResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - branches
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-        relationships:
-          type: object
-          properties:
-            repository:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/RepositoryResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: BranchResource
-    CacheStrategy:
-      type: string
-      enum:
-      - default
-      - bypass
-      title: CacheStrategy
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    FilesystemType:
-      type: string
-      enum:
-      - cloudflare_r2
-      title: FilesystemType
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
+      title: SqsQueueStatus
     UserResource:
       type: object
       properties:
@@ -2038,107 +2163,114 @@ components:
       - id
       - type
       title: UserResource
-    DomainType:
+    StartEnvironmentRequest:
+      type: object
+      properties:
+        redeploy:
+          type:
+          - boolean
+          - 'null'
+          description: Pass true to redeploy the environment with the same commit as the latest deployment. Otherwise, the latest commit will be used.
+      title: StartEnvironmentRequest
+    RepositoryResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - repositories
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: RepositoryResourceIdentifier
+    InstanceSize:
       type: string
       enum:
-      - root
-      - www
-      - wildcard
-      title: DomainType
-    InstanceType:
-      type: string
-      enum:
-      - app
-      - service
-      - queue
-      - managed_queue
-      title: InstanceType
-    ContentType:
-      type: string
-      enum:
-      - nosniff
-      - none
-      title: ContentType
-    CacheSize:
-      type: string
-      enum:
-      - 250mb
-      - 1gb
-      - 2.5gb
-      - 5gb
-      - 12gb
-      - 50gb
-      - 100gb
-      - 500gb
-      - valkey-flex-250mb
-      - valkey-flex-1gb
-      - valkey-flex-2.5gb
-      - valkey-pro.250mb
-      - valkey-pro.1gb
-      - valkey-pro.2.5gb
-      - valkey-pro.5gb
-      - valkey-pro.12gb
-      - valkey-pro.25gb
-      - valkey-pro.50gb
-      - elasticache.cache.r7g.large
-      - elasticache.cache.r7g.xlarge
-      - elasticache.cache.r7g.2xlarge
-      - elasticache.cache.r7g.4xlarge
-      - elasticache.cache.r7g.8xlarge
-      - elasticache.cache.r7g.12xlarge
-      - elasticache.cache.r7g.16xlarge
-      - elasticache.cache.c7gn.large
-      - elasticache.cache.c7gn.xlarge
-      - elasticache.cache.c7gn.2xlarge
-      - elasticache.cache.c7gn.4xlarge
-      - elasticache.cache.c7gn.8xlarge
-      - elasticache.cache.c7gn.12xlarge
-      - elasticache.cache.c7gn.16xlarge
-      title: CacheSize
+      - flex-512mb
+      - flex-1gb
+      - flex-2gb
+      - flex.c-1vcpu-256mb
+      - flex.g-1vcpu-512mb
+      - flex.m-1vcpu-1gb
+      - flex.c-2vcpu-512mb
+      - flex.g-2vcpu-1gb
+      - flex.m-2vcpu-2gb
+      - flex.c-4vcpu-1gb
+      - flex.g-4vcpu-2gb
+      - flex.m-4vcpu-4gb
+      - flex.c-8vcpu-2gb
+      - flex.g-8vcpu-4gb
+      - flex.m-8vcpu-8gb
+      - pro.c-1vcpu-1gb
+      - pro.g-1vcpu-2gb
+      - pro.m-1vcpu-4gb
+      - pro.c-2vcpu-2gb
+      - pro.g-2vcpu-4gb
+      - pro.m-2vcpu-8gb
+      - pro.c-4vcpu-4gb
+      - pro.g-4vcpu-8gb
+      - pro.m-4vcpu-16gb
+      - pro.c-8vcpu-8gb
+      - pro.g-8vcpu-16gb
+      - pro.m-8vcpu-32gb
+      - dedicated.c-0.25vcpu-512mb
+      - dedicated.c-0.5vcpu-1gb
+      - dedicated.c-1vcpu-2gb
+      - dedicated.g-1vcpu-4gb
+      - dedicated.m-1vcpu-8gb
+      - dedicated.c-2vcpu-4gb
+      - dedicated.g-2vcpu-8gb
+      - dedicated.m-2vcpu-16gb
+      - dedicated.c-4vcpu-8gb
+      - dedicated.g-4vcpu-16gb
+      - dedicated.m-4vcpu-32gb
+      - dedicated.c-8vcpu-16gb
+      - dedicated.g-8vcpu-32gb
+      - dedicated.m-8vcpu-64gb
+      - mq-pro-256mb
+      - mq-pro-512mb
+      - mq-pro-1gb
+      - mq-pro-2gb
+      - mq-pro-4gb
+      - mq-pro-8gb
+      - mq-dedicated-256mb
+      - mq-dedicated-512mb
+      - mq-dedicated-1gb
+      - mq-dedicated-2gb
+      - mq-dedicated-4gb
+      - mq-dedicated-8gb
+      - mq-dedicated-16gb
+      - mq.flex.256mb
+      - mq.flex.512mb
+      - mq.flex.1gb
+      - mq.flex.2gb
+      - mq.pro.256mb
+      - mq.pro.512mb
+      - mq.pro.1gb
+      - mq.pro.2gb
+      - mq.pro.4gb
+      - mq.pro.8gb
+      - mq.dedicated.flex.256mb
+      - mq.dedicated.flex.512mb
+      - mq.dedicated.flex.1gb
+      - mq.dedicated.flex.2gb
+      - mq.dedicated.pro.256mb
+      - mq.dedicated.pro.512mb
+      - mq.dedicated.pro.1gb
+      - mq.dedicated.pro.2gb
+      - mq.dedicated.pro.4gb
+      - mq.dedicated.pro.8gb
+      - mq.dedicated.pro.16gb
+      title: InstanceSize
     DomainRedirect:
       type: string
       enum:
       - root_to_www
       - www_to_root
       title: DomainRedirect
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    MetricPeriod:
-      type: string
-      enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
-    CacheType:
-      type: string
-      enum:
-      - upstash_redis
-      - laravel_valkey
-      - aws_elasticache_redis
-      - aws_elasticache_valkey
-      title: CacheType
-    DeploymentResource:
+    BranchResource:
       type: object
       properties:
         id:
@@ -2146,143 +2278,30 @@ components:
         type:
           type: string
           enum:
-          - deployments
+          - branches
         attributes:
           type: object
           properties:
-            status:
-              $ref: '#/components/schemas/DeploymentStatus'
-            branch_name:
+            name:
               type: string
-            commit_hash:
-              type: string
-            commit_message:
-              type: string
-            commit_author:
-              type:
-              - string
-              - 'null'
-            failure_reason:
-              type:
-              - string
-              - 'null'
-            php_major_version:
-              type: string
-              enum:
-              - '8.2'
-              - '8.3'
-              - '8.4'
-              - '8.5'
-            build_command:
-              type:
-              - string
-              - 'null'
-            node_version:
-              $ref: '#/components/schemas/NodeVersion'
-            uses_octane:
-              type: boolean
-            uses_hibernation:
-              type: boolean
-            hibernation_wake_up_interval:
-              type:
-              - integer
-              - 'null'
-            started_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            finished_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
           required:
-          - status
-          - branch_name
-          - commit_hash
-          - commit_message
-          - commit_author
-          - failure_reason
-          - php_major_version
-          - build_command
-          - node_version
-          - uses_octane
-          - uses_hibernation
-          - hibernation_wake_up_interval
-          - started_at
-          - finished_at
+          - name
         relationships:
           type: object
           properties:
-            environment:
+            repository:
               type: object
               properties:
                 data:
                   anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - $ref: '#/components/schemas/RepositoryResourceIdentifier'
                   - type: 'null'
               required:
               - data
-            initiator:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/UserResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
       required:
       - id
       - type
-      - links
-      title: DeploymentResource
-    InstanceScalingType:
-      type: string
-      enum:
-      - none
-      - custom
-      - auto
-      title: InstanceScalingType
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
-    PhpVersion:
-      type: string
-      enum:
-      - 8.2:1
-      - 8.3:1
-      - 8.4:1
-      - 8.5:1
-      title: PhpVersion
-    FilesystemStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: FilesystemStatus
+      title: BranchResource
     BackgroundProcessResourceIdentifier:
       type: object
       properties:
@@ -2296,159 +2315,105 @@ components:
       - type
       - id
       title: BackgroundProcessResourceIdentifier
-    OrganizationResourceIdentifier:
+    DatabaseSchemaResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            status:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - status
+          - created_at
+        relationships:
+          type: object
+          properties:
+            database:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/DatabaseResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: DatabaseSchemaResource
+    DeploymentStatus:
+      type: string
+      enum:
+      - pending
+      - build.pending
+      - build.created
+      - build.queued
+      - build.running
+      - build.succeeded
+      - build.failed
+      - cancelled
+      - failed
+      - deployment.pending
+      - deployment.created
+      - deployment.queued
+      - deployment.running
+      - deployment.succeeded
+      - deployment.failed
+      title: DeploymentStatus
+    FilesystemStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: FilesystemStatus
+    ApplicationResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - organizations
+          - applications
         id:
           type: string
       required:
       - type
       - id
-      title: OrganizationResourceIdentifier
-    WebsocketServerResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketServers
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketServerResourceIdentifier
-    FilesystemVisibility:
+      title: ApplicationResourceIdentifier
+    InstanceScalingType:
       type: string
       enum:
-      - private
-      - public
-      title: FilesystemVisibility
-    NormalizedLogResource:
-      type: object
-      properties:
-        message:
-          type: string
-        level:
-          type: string
-          enum:
-          - info
-          - warning
-          - error
-          - debug
-        type:
-          type: string
-          enum:
-          - access
-          - application
-          - exception
-          - system
-        logged_at:
-          type: string
-        data:
-          anyOf:
-          - type: object
-            properties:
-              status:
-                type: integer
-              method:
-                type: string
-              path:
-                type: string
-              duration_ms:
-                type:
-                - number
-                - 'null'
-              bytes_sent:
-                type:
-                - integer
-                - 'null'
-              ip:
-                type:
-                - string
-                - 'null'
-              user_agent:
-                type:
-                - string
-                - 'null'
-              country:
-                type:
-                - string
-                - 'null'
-            required:
-            - status
-            - method
-            - path
-            - duration_ms
-            - bytes_sent
-            - ip
-            - user_agent
-            - country
-          - type: object
-            properties:
-              channel:
-                type:
-                - string
-                - 'null'
-              context:
-                type:
-                - object
-                - 'null'
-                additionalProperties: {}
-              extra:
-                type:
-                - object
-                - 'null'
-                additionalProperties: {}
-            required:
-            - channel
-            - context
-            - extra
-          - type: object
-            properties:
-              class:
-                type:
-                - string
-                - 'null'
-              code:
-                type:
-                - integer
-                - 'null'
-              file:
-                type:
-                - string
-                - 'null'
-              trace:
-                type:
-                - array
-                - 'null'
-                items:
-                  type: string
-            required:
-            - class
-            - code
-            - file
-            - trace
-          - type: object
-            additionalProperties: {}
-          - type: 'null'
-      required:
-      - message
-      - level
-      - type
-      - logged_at
-      - data
-      title: NormalizedLogResource
-    EnvironmentVariablesInsertMethod:
-      type: string
-      enum:
-      - append
-      - set
-      title: EnvironmentVariablesInsertMethod
+      - none
+      - custom
+      - auto
+      title: InstanceScalingType
     EnvironmentResource:
       type: object
       properties:
@@ -2467,17 +2432,20 @@ components:
               type: string
             status:
               $ref: '#/components/schemas/EnvironmentStatus'
+            color:
+              $ref: '#/components/schemas/EnvironmentColor'
             created_from_automation:
               type: boolean
             vanity_domain:
               type: string
+            framework:
+              $ref: '#/components/schemas/Framework'
+            language:
+              $ref: '#/components/schemas/Language'
             php_major_version:
               type: string
-              enum:
-              - '8.2'
-              - '8.3'
-              - '8.4'
-              - '8.5'
+            serving:
+              type: string
             build_command:
               type:
               - string
@@ -2485,6 +2453,10 @@ components:
             node_version:
               $ref: '#/components/schemas/NodeVersion'
             deploy_command:
+              type:
+              - string
+              - 'null'
+            start_command:
               type:
               - string
               - 'null'
@@ -2496,10 +2468,31 @@ components:
               type:
               - integer
               - 'null'
+            timeout:
+              type: integer
+              description: The number of seconds the environment will wait for your application to respond before timing out. Changes take effect on the next deployment.
+            shutdown_timeout:
+              type: integer
+              description: The number of seconds to wait before stopping the previous deployment's compute instances, allowing it to finish processing requests and jobs after a new deployment becomes active. Changes take effect on the next deployment.
             uses_push_to_deploy:
               type: boolean
             uses_deploy_hook:
               type: boolean
+            resend:
+              type:
+              - object
+              - 'null'
+              properties:
+                from_address:
+                  type: string
+                from_name:
+                  type: string
+                key_name:
+                  type: string
+              required:
+              - from_address
+              - from_name
+              - key_name
             ? ''
             : anyOf:
               - type: object
@@ -2606,17 +2599,24 @@ components:
           - name
           - slug
           - status
+          - color
           - created_from_automation
           - vanity_domain
+          - framework
+          - language
           - php_major_version
           - build_command
           - node_version
           - deploy_command
+          - start_command
           - uses_octane
           - uses_hibernation
           - hibernation_wake_up_interval
+          - timeout
+          - shutdown_timeout
           - uses_push_to_deploy
           - uses_deploy_hook
+          - resend
           - null
           - network_settings
           - created_at
@@ -2722,6 +2722,15 @@ components:
                   - type: 'null'
               required:
               - data
+            secrets:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SecretResourceIdentifier'
+              required:
+              - data
         links:
           type: object
           properties:
@@ -2734,60 +2743,489 @@ components:
       - type
       - links
       title: EnvironmentResource
-    DatabaseResourceIdentifier:
+    Frame:
+      type: string
+      enum:
+      - deny
+      - sameorigin
+      - all
+      title: Frame
+    CacheStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - stopped
+      - deleting
+      - deleted
+      - unknown
+      title: CacheStatus
+    DomainStage:
+      type: string
+      description: 'The stage of onboarding a domain is in.
+
+        | |
+
+        |---|
+
+        | `pre_verification` <br/> Ownership is being proven with temporary DNS records. |
+
+        | `origin` <br/> The domain is ready for its origin A/CNAME records. |'
+      enum:
+      - pre_verification
+      - origin
+      title: DomainStage
+    DatabaseSchemaResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - databases
+          - databaseSchemas
         id:
           type: string
       required:
       - type
       - id
-      title: DatabaseResourceIdentifier
-    BranchResourceIdentifier:
+      title: DatabaseSchemaResourceIdentifier
+    DomainResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - branches
+          - domains
         id:
           type: string
       required:
       - type
       - id
-      title: BranchResourceIdentifier
-    StartEnvironmentRequest:
+      title: DomainResourceIdentifier
+    InstanceResource:
       type: object
       properties:
-        redeploy:
-          type:
-          - boolean
-          - 'null'
-          description: Pass true to redeploy the environment with the same commit as the latest deployment. Otherwise, the latest commit will be used.
-      title: StartEnvironmentRequest
-    CreateEnvironmentRequest:
-      type: object
-      properties:
-        branch:
+        id:
           type: string
+        type:
+          type: string
+          enum:
+          - instances
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/InstanceType'
+            size:
+              $ref: '#/components/schemas/InstanceSize'
+            scaling_type:
+              $ref: '#/components/schemas/InstanceScalingType'
+            min_replicas:
+              type: integer
+            max_replicas:
+              type: integer
+            queue_status:
+              anyOf:
+              - description: Current lifecycle status of the managed queue. Null for non-queue instances.
+                $ref: '#/components/schemas/SqsQueueStatus'
+              - type: 'null'
+            paused:
+              type:
+              - boolean
+              - 'null'
+              description: Whether the managed queue is currently paused. Null for non-queue instances.
+            retire_at:
+              type:
+              - string
+              - 'null'
+              description: When the instance is scheduled to be retired because its size is being discontinued.
+            retired_at:
+              type:
+              - string
+              - 'null'
+              description: When the instance was retired because its size is no longer supported. Retired instances stop processing jobs until you upgrade.
+            is_default:
+              type:
+              - boolean
+              - 'null'
+              description: Whether this is the environment's default managed queue. Null for non-queue instances.
+            visibility_timeout:
+              type:
+              - integer
+              - 'null'
+              description: How long, in seconds (0–43200), a received job stays hidden from other workers before it becomes available again. Null for non-queue instances.
+            polling_interval:
+              type:
+              - integer
+              - 'null'
+              description: How often, in seconds (1–60), the queue is polled for new jobs. Null for non-queue instances.
+            shutdown_timeout:
+              type:
+              - integer
+              - 'null'
+            uses_scheduler:
+              type: boolean
+            sleep_with_app:
+              type:
+              - boolean
+              - 'null'
+            hibernation_timeout:
+              type:
+              - integer
+              - 'null'
+              description: Minutes of inactivity before the app hibernates. Null when hibernation is off, and for non-app instances.
+            probes:
+              type:
+              - object
+              - 'null'
+              description: 'Custom health checks for the app''s web process, keyed by `startup`, `readiness`, and `liveness`. Unset checks and
+
+                fields use the platform defaults. A path selects HTTP and a port alone selects TCP. Timing overrides without a path or port keep the default handler. Null when no custom checks are set, and for non-app instances.'
+              properties:
+                startup:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    port:
+                      type: integer
+                    delay:
+                      type: integer
+                    interval:
+                      type: integer
+                    timeout:
+                      type: integer
+                    tries:
+                      type: integer
+                readiness:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    port:
+                      type: integer
+                    delay:
+                      type: integer
+                    interval:
+                      type: integer
+                    timeout:
+                      type: integer
+                    tries:
+                      type: integer
+                liveness:
+                  type: object
+                  properties:
+                    path:
+                      type: string
+                    port:
+                      type: integer
+                    delay:
+                      type: integer
+                    interval:
+                      type: integer
+                    timeout:
+                      type: integer
+                    tries:
+                      type: integer
+            scaling_cpu_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            scaling_memory_threshold_percentage:
+              type:
+              - integer
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - size
+          - scaling_type
+          - min_replicas
+          - max_replicas
+          - queue_status
+          - paused
+          - retire_at
+          - retired_at
+          - is_default
+          - visibility_timeout
+          - polling_interval
+          - shutdown_timeout
+          - uses_scheduler
+          - sleep_with_app
+          - hibernation_timeout
+          - scaling_cpu_threshold_percentage
+          - scaling_memory_threshold_percentage
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            backgroundProcesses:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/BackgroundProcessResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: InstanceResource
+    RobotsTag:
+      type: string
+      enum:
+      - index, follow
+      - noindex, nofollow
+      title: RobotsTag
+    UpdateVanityDomainRequest:
+      type: object
+      properties:
         name:
           type: string
-          pattern: ^[A-Za-z0-9 _-]+$
-          minLength: 1
-          maxLength: 40
-        cluster_id:
-          type:
-          - string
-          - 'null'
-          description: The identifier of a dedicated cluster to deploy to. Only fill it if your organization has a dedicated cluster and you want to use it for this environment.
+          minLength: 3
+          maxLength: 100
       required:
-      - branch
       - name
-      title: CreateEnvironmentRequest
+      title: UpdateVanityDomainRequest
+    SecretResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - secrets
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: SecretResourceIdentifier
+    UserResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - users
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: UserResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    FilesystemKeyResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystemKeys
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemKeyResourceIdentifier
+    FilesystemVisibility:
+      type: string
+      enum:
+      - private
+      - public
+      title: FilesystemVisibility
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
+    CacheType:
+      type: string
+      enum:
+      - upstash_redis
+      - laravel_valkey
+      - aws_elasticache_redis
+      - aws_elasticache_valkey
+      title: CacheType
+    WebsocketServerResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketServers
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketServerResourceIdentifier
+    DomainCloudflareStrategy:
+      type: string
+      enum:
+      - dns_proxy
+      - dns
+      - none
+      title: DomainCloudflareStrategy
+    WebsocketApplicationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            app_id:
+              type: string
+            allowed_origins:
+              type: array
+              items: {}
+            ping_interval:
+              type: integer
+            activity_timeout:
+              type: integer
+            max_message_size:
+              type: integer
+            max_connections:
+              type: integer
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            ? ''
+            : anyOf:
+              - type: object
+                properties:
+                  key:
+                    type: string
+                  secret:
+                    type: string
+                required:
+                - key
+                - secret
+              - type: array
+                items:
+                  type: string
+                minItems: 0
+                maxItems: 0
+                additionalItems: false
+          required:
+          - name
+          - app_id
+          - allowed_origins
+          - ping_interval
+          - activity_timeout
+          - max_message_size
+          - max_connections
+          - created_at
+          - null
+        relationships:
+          type: object
+          properties:
+            server:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/WebsocketServerResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: WebsocketApplicationResource
+    Framework:
+      type: string
+      enum:
+      - laravel
+      - symfony
+      - jigsaw
+      - html
+      - php
+      - express
+      - hono
+      - nuxt
+      - next
+      - tanstack
+      - elysia
+      - nestjs
+      - astro
+      - javascript
+      - go
+      - ruby
+      - rails
+      - django
+      - fastapi
+      - flask
+      - python
+      - java
+      - spring
+      - rust
+      - axum
+      - rocket
+      - actix
+      - warp
+      title: Framework
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
     FilesystemResource:
       type: object
       properties:
@@ -2810,6 +3248,10 @@ components:
               $ref: '#/components/schemas/FilesystemVisibility'
             jurisdiction:
               $ref: '#/components/schemas/FilesystemJurisdiction'
+            location_hint:
+              anyOf:
+              - $ref: '#/components/schemas/FilesystemLocationHint'
+              - type: 'null'
             endpoint:
               type:
               - string
@@ -2833,6 +3275,7 @@ components:
           - status
           - visibility
           - jurisdiction
+          - location_hint
           - endpoint
           - url
           - allowed_origins
@@ -2854,141 +3297,389 @@ components:
       - id
       - type
       title: FilesystemResource
-    WebsocketApplicationResourceIdentifier:
+    ApplicationResource:
       type: object
       properties:
+        id:
+          type: string
         type:
           type: string
           enum:
-          - websocketApplications
+          - applications
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            root_directory:
+              type:
+              - string
+              - 'null'
+            slack_channel:
+              type:
+              - string
+              - 'null'
+            avatar_url:
+              type: string
+            notes:
+              type:
+              - string
+              - 'null'
+            framework:
+              $ref: '#/components/schemas/Framework'
+            language:
+              $ref: '#/components/schemas/Language'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            repository:
+              type:
+              - object
+              - 'null'
+              properties:
+                full_name:
+                  type: string
+                default_branch:
+                  type: string
+              required:
+              - full_name
+              - default_branch
+          required:
+          - name
+          - slug
+          - region
+          - root_directory
+          - slack_channel
+          - avatar_url
+          - framework
+          - language
+          - created_at
+          - repository
+        relationships:
+          type: object
+          properties:
+            repository:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/RepositoryResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            organization:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/OrganizationResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
+            deployments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/DeploymentResourceIdentifier'
+              required:
+              - data
+            defaultEnvironment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: ApplicationResource
+    DeploymentResource:
+      type: object
+      properties:
         id:
           type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    EnvironmentColor:
-      type: string
-      enum:
-      - blue
-      - green
-      - orange
-      - purple
-      - red
-      - yellow
-      - cyan
-      - gray
-      title: EnvironmentColor
-    StoreEnvironmentVariablesRequest:
-      type: object
-      properties:
-        method:
-          description: 'When set to ''append'', variables are added to the end without checking for duplicates.
-
-            When set to ''set'', variables with matching keys are updated; otherwise they are added.'
-          $ref: '#/components/schemas/EnvironmentVariablesInsertMethod'
-        variables:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-                pattern: ^[a-zA-Z_][a-zA-Z0-9_]*$
-              value:
-                type: string
-            required:
-            - key
-            - value
-          minItems: 1
-          maxItems: 200
-      required:
-      - method
-      - variables
-      title: StoreEnvironmentVariablesRequest
-    CacheResourceIdentifier:
-      type: object
-      properties:
         type:
           type: string
           enum:
-          - caches
+          - deployments
+        attributes:
+          type: object
+          properties:
+            slug:
+              type: string
+            status:
+              $ref: '#/components/schemas/DeploymentStatus'
+            branch_name:
+              type: string
+            commit_hash:
+              type: string
+            commit_message:
+              type: string
+            commit_author:
+              type:
+              - string
+              - 'null'
+            failure_reason:
+              type:
+              - string
+              - 'null'
+              description: Why the deployment did not finish. For `build.failed` and `deployment.failed`, the get deployment endpoint returns the output of the failed step, or a description when no failed step is found. The list endpoint returns the stored reason as is.
+            php_major_version:
+              type: string
+            build_command:
+              type:
+              - string
+              - 'null'
+            node_version:
+              $ref: '#/components/schemas/NodeVersion'
+            uses_octane:
+              type: boolean
+            uses_hibernation:
+              type: boolean
+            hibernation_wake_up_interval:
+              type:
+              - integer
+              - 'null'
+            started_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            finished_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - slug
+          - status
+          - branch_name
+          - commit_hash
+          - commit_message
+          - commit_author
+          - failure_reason
+          - php_major_version
+          - build_command
+          - node_version
+          - uses_octane
+          - uses_hibernation
+          - hibernation_wake_up_interval
+          - started_at
+          - finished_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+            initiator:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/UserResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: DeploymentResource
+    DomainType:
+      type: string
+      enum:
+      - root
+      - www
+      - wildcard
+      title: DomainType
+    PhpVersion:
+      type: string
+      enum:
+      - 8.2:1
+      - 8.3:1
+      - 8.4:1
+      - 8.5:1
+      title: PhpVersion
+    CreateEnvironmentRequest:
+      type: object
+      properties:
+        build_command:
+          type:
+          - string
+          - 'null'
+          description: Optional build command. Omit it or send null to skip the build command for a static website.
+          maxLength: 2000
+        branch:
+          type: string
+        name:
+          type: string
+          pattern: ^[A-Za-z0-9 _-]+$
+          minLength: 1
+          maxLength: 40
+        cluster_id:
+          type:
+          - string
+          - 'null'
+          description: The identifier of a dedicated cluster to deploy to. Only fill it if your organization has a dedicated cluster and you want to use it for this environment.
+        edge_network_id:
+          type:
+          - string
+          - 'null'
+          description: The identifier of the edge network the environment should be created in. Only fill it if your organization has a dedicated edge network and you want to use it for this environment. Defaults to the edge network preferred by your organization.
+      required:
+      - branch
+      - name
+      title: CreateEnvironmentRequest
+    SecretResource:
+      type: object
+      properties:
         id:
           type: string
+        type:
+          type: string
+          enum:
+          - secrets
+        attributes:
+          type: object
+          properties:
+            key:
+              type: string
+            notes:
+              type:
+              - string
+              - 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - key
+          - notes
+          - created_at
+          - updated_at
+        relationships:
+          type: object
+          properties:
+            environments:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+              required:
+              - data
       required:
-      - type
       - id
-      title: CacheResourceIdentifier
-    NodeVersion:
+      - type
+      title: SecretResource
+    CacheSize:
       type: string
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
-    EnvironmentStatus:
-      type: string
-      enum:
-      - deploying
-      - running
-      - hibernating
-      - stopped
-      title: EnvironmentStatus
-    InstanceSize:
-      type: string
-      enum:
-      - flex-512mb
-      - flex-1gb
-      - flex-2gb
-      - flex.c-1vcpu-256mb
-      - flex.g-1vcpu-512mb
-      - flex.m-1vcpu-1gb
-      - flex.c-2vcpu-512mb
-      - flex.g-2vcpu-1gb
-      - flex.m-2vcpu-2gb
-      - flex.c-4vcpu-1gb
-      - flex.g-4vcpu-2gb
-      - flex.m-4vcpu-4gb
-      - flex.c-8vcpu-2gb
-      - flex.g-8vcpu-4gb
-      - flex.m-8vcpu-8gb
-      - pro.c-1vcpu-1gb
-      - pro.g-1vcpu-2gb
-      - pro.m-1vcpu-4gb
-      - pro.c-2vcpu-2gb
-      - pro.g-2vcpu-4gb
-      - pro.m-2vcpu-8gb
-      - pro.c-4vcpu-4gb
-      - pro.g-4vcpu-8gb
-      - pro.m-4vcpu-16gb
-      - pro.c-8vcpu-8gb
-      - pro.g-8vcpu-16gb
-      - pro.m-8vcpu-32gb
-      - dedicated.c-1vcpu-2gb
-      - dedicated.g-1vcpu-4gb
-      - dedicated.m-1vcpu-8gb
-      - dedicated.c-2vcpu-4gb
-      - dedicated.g-2vcpu-8gb
-      - dedicated.m-2vcpu-16gb
-      - dedicated.c-4vcpu-8gb
-      - dedicated.g-4vcpu-16gb
-      - dedicated.m-4vcpu-32gb
-      - dedicated.c-8vcpu-16gb
-      - dedicated.g-8vcpu-32gb
-      - dedicated.m-8vcpu-64gb
-      - mq-pro-256mb
-      - mq-pro-512mb
-      - mq-pro-1gb
-      - mq-pro-2gb
-      - mq-pro-4gb
-      - mq-pro-8gb
-      - mq-dedicated-256mb
-      - mq-dedicated-512mb
-      - mq-dedicated-1gb
-      - mq-dedicated-2gb
-      - mq-dedicated-4gb
-      - mq-dedicated-8gb
-      title: InstanceSize
+      - 250mb
+      - 1gb
+      - 2.5gb
+      - 5gb
+      - 12gb
+      - 50gb
+      - 100gb
+      - 500gb
+      - valkey-flex-250mb
+      - valkey-flex-1gb
+      - valkey-flex-2.5gb
+      - valkey-pro.250mb
+      - valkey-pro.1gb
+      - valkey-pro.2.5gb
+      - valkey-pro.5gb
+      - valkey-pro.12gb
+      - valkey-pro.25gb
+      - valkey-pro.50gb
+      - elasticache.cache.r7g.large
+      - elasticache.cache.r7g.xlarge
+      - elasticache.cache.r7g.2xlarge
+      - elasticache.cache.r7g.4xlarge
+      - elasticache.cache.r7g.8xlarge
+      - elasticache.cache.r7g.12xlarge
+      - elasticache.cache.r7g.16xlarge
+      - elasticache.cache.c7gn.large
+      - elasticache.cache.c7gn.xlarge
+      - elasticache.cache.c7gn.2xlarge
+      - elasticache.cache.c7gn.4xlarge
+      - elasticache.cache.c7gn.8xlarge
+      - elasticache.cache.c7gn.12xlarge
+      - elasticache.cache.c7gn.16xlarge
+      - elasticache.cache.t4g.micro
+      - elasticache.cache.t4g.small
+      - elasticache.cache.t4g.medium
+      - elasticache.cache.m7g.large
+      - elasticache.cache.m7g.xlarge
+      - elasticache.cache.m7g.2xlarge
+      - elasticache.cache.m7g.4xlarge
+      - elasticache.cache.m7g.8xlarge
+      - elasticache.cache.m7g.12xlarge
+      - elasticache.cache.m7g.16xlarge
+      - elasticache.cache.m8g.large
+      - elasticache.cache.m8g.xlarge
+      - elasticache.cache.m8g.2xlarge
+      - elasticache.cache.m8g.4xlarge
+      - elasticache.cache.m8g.8xlarge
+      - elasticache.cache.m8g.12xlarge
+      - elasticache.cache.m8g.16xlarge
+      - elasticache.cache.r8g.large
+      - elasticache.cache.r8g.xlarge
+      - elasticache.cache.r8g.2xlarge
+      - elasticache.cache.r8g.4xlarge
+      - elasticache.cache.r8g.8xlarge
+      - elasticache.cache.r8g.12xlarge
+      - elasticache.cache.r8g.16xlarge
+      - elasticache.cache.c8gn.large
+      - elasticache.cache.c8gn.xlarge
+      - elasticache.cache.c8gn.2xlarge
+      - elasticache.cache.c8gn.4xlarge
+      - elasticache.cache.c8gn.8xlarge
+      - elasticache.cache.c8gn.12xlarge
+      - elasticache.cache.c8gn.16xlarge
+      title: CacheSize
   responses:
     ModelNotFoundException:
       description: Not found

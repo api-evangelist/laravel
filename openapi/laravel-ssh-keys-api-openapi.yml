@@ -360,57 +360,77 @@ paths:
           noindex: true
       x-processingMode: sync
 components:
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   schemas:
-    KeyResource:
+    CreateSshKeyRequest:
       type: object
       properties:
-        id:
+        name:
           type: string
-        type:
+          description: The name of the SSH key.
+          examples:
+          - oliver-macbook
+        key:
           type: string
-          enum:
-          - keys
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            user:
-              type: string
-            status:
-              type: string
-            created_by:
-              type:
-              - integer
-              - 'null'
-              description: The user that created the key.
-            created_at:
-              type: string
-              format: date-time
-              description: The date the key was created.
-            updated_at:
-              type: string
-              format: date-time
-              description: The date the key was last updated.
-          required:
-          - name
-          - user
-          - status
-          - created_by
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+          description: The public SSH key.
+          examples:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
+        user:
+          type:
+          - string
+          - 'null'
+          description: The user associated with the SSH key.
+          default: forge
+          examples:
+          - username
       required:
-      - id
-      - type
-      - links
-      title: KeyResource
+      - name
+      - key
+      title: CreateSshKeyRequest
     ServerKeyResource:
       type: object
       properties:
@@ -467,76 +487,56 @@ components:
       required:
       - href
       title: Link
-    CreateSshKeyRequest:
+    KeyResource:
       type: object
       properties:
-        name:
+        id:
           type: string
-          description: The name of the SSH key.
-          examples:
-          - oliver-macbook
-        key:
+        type:
           type: string
-          description: The public SSH key.
-          examples:
-          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5A... user@example.com
-        user:
-          type:
-          - string
-          - 'null'
-          description: The user associated with the SSH key.
-          default: forge
-          examples:
-          - username
+          enum:
+          - keys
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            user:
+              type: string
+            status:
+              type: string
+            created_by:
+              type:
+              - integer
+              - 'null'
+              description: The user that created the key.
+            created_at:
+              type: string
+              format: date-time
+              description: The date the key was created.
+            updated_at:
+              type: string
+              format: date-time
+              description: The date the key was last updated.
+          required:
+          - name
+          - user
+          - status
+          - created_by
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - name
-      - key
-      title: CreateSshKeyRequest
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
+      - id
+      - type
+      - links
+      title: KeyResource
   securitySchemes:
     http:
       type: http

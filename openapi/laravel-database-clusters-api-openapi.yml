@@ -12,7 +12,16 @@ paths:
   /databases/types:
     get:
       operationId: public.databases.types
-      description: List all available database types with their configuration schemas.
+      description: 'List all available database types with their configuration schemas.
+
+
+        Each type lists the versions a database may be created with; pass one of
+
+        them as `version` when creating a database. The retired types that baked
+
+        the version into the type are listed after them with no versions and
+
+        remain accepted when creating a database, for backwards compatibility.'
       summary: List database types
       tags:
       - Database Clusters
@@ -33,6 +42,10 @@ paths:
                           type: string
                         label:
                           type: string
+                        versions:
+                          type: array
+                          items:
+                            type: string
                         regions:
                           type: array
                           items:
@@ -59,7 +72,9 @@ paths:
                               enum:
                                 type: array
                                 items:
-                                  type: string
+                                  anyOf:
+                                  - type: string
+                                  - type: number
                               example:
                                 type: string
                             required:
@@ -69,14 +84,90 @@ paths:
                       required:
                       - type
                       - label
+                      - versions
                       - regions
                       - config_schema
                 required:
                 - data
+  /databases/presets:
+    get:
+      operationId: public.databases.presets
+      description: 'List the presets the organization can use to create a database of the given
+
+        type in the given region. Each preset''s `config` can be sent as `config` when
+
+        creating a database with the same type and region.
+
+
+        Sizes are resolved for the region, so the same preset may carry a different
+
+        size in another region. Presets with no size available in the region, or that
+
+        the organization''s plan doesn''t include, are left out.'
+      summary: List database presets
+      tags:
+      - Database Clusters
+      parameters:
+      - name: type
+        in: query
+        required: true
+        description: The database type to list presets for.
+        schema:
+          $ref: '#/components/schemas/DatabaseType'
+        example: laravel_mysql
+      - name: region
+        in: query
+        required: true
+        description: The region the database will be created in.
+        schema:
+          $ref: '#/components/schemas/CloudRegion'
+        example: us-east-2
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        label:
+                          type: string
+                        config:
+                          type: object
+                          additionalProperties: {}
+                      required:
+                      - key
+                      - label
+                      - config
+                required:
+                - data
+        '401':
+          description: An error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Error overview.
+                    examples:
+                    - ''
+                required:
+                - message
+        '422':
+          $ref: '#/components/responses/ValidationException'
   /databases/clusters:
     get:
       operationId: public.databases.clusters.index
-      description: Get a list of all database clusters for the authenticated organization. The `schemas` relationship is deprecated.
+      description: Get a list of all database clusters for the authenticated organization.
       summary: List database clusters
       tags:
       - Database Clusters
@@ -100,7 +191,6 @@ paths:
           items:
             type: string
             enum:
-            - schemas
             - databases
         explode: false
       responses:
@@ -212,7 +302,7 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
     post:
       operationId: public.databases.clusters.store
-      description: Create a new database cluster. A default database will also be created and returned on the `databases` relationship. `schemas` is deprecated.
+      description: Create a new database cluster. Unless `create_default_database` is `false`, a default database will also be created and returned on the `databases` relationship.
       summary: Create database cluster
       tags:
       - Database Clusters
@@ -259,7 +349,7 @@ paths:
   /databases/clusters/{database}:
     get:
       operationId: public.databases.clusters.show
-      description: Get a specific database cluster. The `schemas` relationship is deprecated.
+      description: Get a specific database cluster.
       summary: Get database cluster
       tags:
       - Database Clusters
@@ -279,7 +369,6 @@ paths:
           items:
             type: string
             enum:
-            - schemas
             - databases
         explode: false
       responses:
@@ -372,7 +461,10 @@ paths:
   /databases/clusters/{database}/metrics:
     get:
       operationId: public.databases.clusters.metrics
-      description: Get metrics for a specific database cluster.
+      description: 'Get metrics for a specific database cluster.
+
+
+        `replica_lag` is always empty on this endpoint, and `connections` is only populated for AWS RDS clusters.'
       summary: Get database cluster metrics
       tags:
       - Database Clusters
@@ -405,14 +497,6 @@ paths:
                       cpu_usage:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -421,27 +505,21 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          average:
+                            type: number
+                          max:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - average
+                        - max
                       compute_hours:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -450,27 +528,18 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          total:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - total
                       memory_usage:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -479,27 +548,24 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          current:
+                            type: number
+                          min:
+                            type: number
+                          max:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - current
+                        - min
+                        - max
                       writes:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -508,27 +574,18 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          total:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - total
                       storage_usage:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -537,45 +594,52 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          current:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - current
                       replica_lag:
-                        type: object
-                        properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
-                          data:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                x:
-                                  type: string
-                                y:
-                                  type: array
-                                  items:
+                        type: array
+                        items:
+                          type: string
+                        minItems: 0
+                        maxItems: 0
+                        additionalItems: false
+                      connections:
+                        anyOf:
+                        - type: object
+                          properties:
+                            data:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  x:
+                                    type: string
+                                  y:
                                     type: number
-                              required:
-                              - x
-                              - y
-                        required:
-                        - labels
-                        - average
-                        - data
+                                required:
+                                - x
+                                - y
+                            current:
+                              type: number
+                            max:
+                              type: number
+                          required:
+                          - data
+                          - current
+                          - max
+                        - type: array
+                          items:
+                            type: string
+                          minItems: 0
+                          maxItems: 0
+                          additionalItems: false
                     required:
                     - cpu_usage
                     - compute_hours
@@ -583,6 +647,7 @@ paths:
                     - writes
                     - storage_usage
                     - replica_lag
+                    - connections
                   meta:
                     type: object
                     properties:
@@ -606,6 +671,18 @@ paths:
           $ref: '#/components/responses/ValidationException'
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -638,19 +715,471 @@ components:
                 description: Error overview.
             required:
             - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
+    DatabaseStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - restarting
+      - upgrading
+      - moving
+      - available
+      - stopped
+      - restoring
+      - restore_failed
+      - disabled
+      - snapshotting_before_archiving
+      - archiving
+      - archived
+      - deleting
+      - deleted
+      - unknown
+      title: DatabaseStatus
+    DatabaseResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databases
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseResourceIdentifier
+    MetricPeriod:
+      type: string
+      enum:
+      - 1h
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DatabaseType:
+      type: string
+      enum:
+      - laravel_mysql
+      - aws_rds_mysql
+      - aws_rds_postgres
+      - neon_serverless_postgres
+      title: DatabaseType
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    StoreDatabaseRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/DatabaseType'
+        version:
+          type: string
+          enum:
+          - ''
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 2
+          maxLength: 40
+        region:
+          $ref: '#/components/schemas/CloudRegion'
+        config:
+          description: Configuration object. Fields vary based on database type.
+          oneOf:
+          - title: Neon Serverless Postgres
+            type: object
+            description: Configuration for Neon Serverless Postgres databases
+            properties:
+              cu_min:
+                type: number
+                description: Minimum compute units for auto-scaling
+                enum:
+                - 0.25
+                - 0.5
+                - 1
+                - 2
+                - 4
+                - 8
+                - 10
+              cu_max:
+                type: number
+                description: Maximum compute units for auto-scaling
+                enum:
+                - 0.25
+                - 0.5
+                - 1
+                - 2
+                - 4
+                - 8
+                - 10
+              suspend_seconds:
+                type: integer
+                description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
+              retention_days:
+                type: integer
+                description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
+            required:
+            - cu_min
+            - cu_max
+            - suspend_seconds
+            - retention_days
+          - title: Laravel MySQL
+            type: object
+            description: Configuration for Laravel MySQL databases
+            properties:
+              size:
+                type: string
+                description: Instance size for the database cluster
+                enum:
+                - mysql-flex-512mb
+                - mysql-flex-1gb
+                - mysql-flex-2gb
+                - mysql-pro-4gb
+                - mysql-pro-8gb
+                - mysql-pro-16gb
+                - mysql-pro-32gb
+              storage:
+                type: integer
+                description: 'Storage allocation in GiB (min: 5, max: 1000)'
+              is_public:
+                type: boolean
+                description: Whether the database is publicly accessible
+              uses_scheduled_snapshots:
+                type: boolean
+                description: Whether scheduled backups are enabled
+              retention_days:
+                type: integer
+                description: 'Days to retain backup data (min: 0, max: 30)'
+              maintenance_window:
+                type:
+                - string
+                - 'null'
+                description: UTC maintenance window for automated updates
+                examples:
+                - sun:06:00-sun:06:30
+              suspend_seconds:
+                type: integer
+                description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
+              storage_autoscale_max_gb:
+                type:
+                - integer
+                - 'null'
+                description: 'Largest storage the cluster may grow to on its own, in GiB. Null turns the automatically upsize setting off. (min: 5, max: 1000)'
+            required:
+            - size
+            - storage
+            - is_public
+            - uses_scheduled_snapshots
+            - retention_days
+          - title: AWS RDS
+            type: object
+            description: Configuration for AWS RDS MySQL databases
+            properties:
+              size:
+                type: string
+                description: Instance size for the database cluster
+                enum:
+                - db.m8g.large
+                - db.m8g.xlarge
+                - db.m8g.2xlarge
+                - db.m8g.4xlarge
+                - db.m8g.8xlarge
+                - db.m8g.12xlarge
+                - db.m8g.16xlarge
+                - db.m7g.large
+                - db.m7g.xlarge
+                - db.m7g.2xlarge
+                - db.m7g.4xlarge
+                - db.m7g.8xlarge
+                - db.m7g.12xlarge
+                - db.m7g.16xlarge
+                - db.t4g.micro
+                - db.t4g.small
+                - db.t4g.medium
+                - db.t4g.large
+                - db.t4g.xlarge
+                - db.t4g.2xlarge
+                - db.r8g.large
+                - db.r8g.xlarge
+                - db.r8g.2xlarge
+                - db.r8g.4xlarge
+                - db.r8g.8xlarge
+                - db.r8g.12xlarge
+                - db.r8g.16xlarge
+              storage:
+                type: integer
+                description: 'Storage allocation in GiB (min: 20, max: 65536)'
+              is_public:
+                type: boolean
+                description: Whether the database is publicly accessible
+              uses_pitr:
+                type: boolean
+                description: Whether point-in-time recovery is enabled
+              retention_days:
+                type: integer
+                description: 'Days to retain backup data (min: 0, max: 30)'
+              maintenance_window:
+                type:
+                - string
+                - 'null'
+                description: UTC maintenance window for automated updates
+                examples:
+                - sun:06:00-sun:06:30
+              deployment_option:
+                type: string
+                description: Deployment configuration (single-az or multi-az)
+                enum:
+                - single-az
+                - single-az-with-read-replicas
+                - multi-az
+              read_replicas:
+                type:
+                - integer
+                - 'null'
+                description: The number of configured read replicas
+            required:
+            - size
+            - storage
+            - is_public
+            - uses_pitr
+            - retention_days
+            - deployment_option
+          discriminator:
+            propertyName: type
+            mapping:
+              laravel_mysql: '#/components/schemas/LaravelMysqlConfig'
+              aws_rds_mysql: '#/components/schemas/AwsRdsConfig'
+              aws_rds_postgres: '#/components/schemas/AwsRdsConfig'
+              neon_serverless_postgres: '#/components/schemas/NeonServerlessConfig'
+              laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
+              laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
+              aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
+              aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
+              neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
+              neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
+              neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
+        create_default_database:
+          type: boolean
+          description: Whether to create a default database on the cluster. Neon Serverless Postgres clusters cannot skip it.
+          default: true
+        cluster_id:
+          type:
+          - string
+          - 'null'
+      required:
+      - type
+      - version
+      - name
+      - region
+      - config
+      title: StoreDatabaseRequest
+    UpdateDatabaseRequest:
+      type: object
+      properties:
+        config:
+          description: Configuration object. Fields vary based on database type.
+          oneOf:
+          - title: Neon Serverless Postgres
+            type: object
+            description: Configuration for Neon Serverless Postgres databases
+            properties:
+              cu_min:
+                type: number
+                description: Minimum compute units for auto-scaling
+                enum:
+                - 0.25
+                - 0.5
+                - 1
+                - 2
+                - 4
+                - 8
+                - 10
+              cu_max:
+                type: number
+                description: Maximum compute units for auto-scaling
+                enum:
+                - 0.25
+                - 0.5
+                - 1
+                - 2
+                - 4
+                - 8
+                - 10
+              suspend_seconds:
+                type: integer
+                description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
+              retention_days:
+                type: integer
+                description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
+            required:
+            - cu_min
+            - cu_max
+            - suspend_seconds
+            - retention_days
+          - title: Laravel MySQL
+            type: object
+            description: Configuration for Laravel MySQL databases
+            properties:
+              size:
+                type: string
+                description: Instance size for the database cluster
+                enum:
+                - mysql-flex-512mb
+                - mysql-flex-1gb
+                - mysql-flex-2gb
+                - mysql-pro-4gb
+                - mysql-pro-8gb
+                - mysql-pro-16gb
+                - mysql-pro-32gb
+              storage:
+                type: integer
+                description: 'Storage allocation in GiB (min: 5, max: 1000)'
+              is_public:
+                type: boolean
+                description: Whether the database is publicly accessible
+              uses_scheduled_snapshots:
+                type: boolean
+                description: Whether scheduled backups are enabled
+              retention_days:
+                type: integer
+                description: 'Days to retain backup data (min: 0, max: 30)'
+              maintenance_window:
+                type:
+                - string
+                - 'null'
+                description: UTC maintenance window for automated updates
+                examples:
+                - sun:06:00-sun:06:30
+              suspend_seconds:
+                type: integer
+                description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
+              storage_autoscale_max_gb:
+                type:
+                - integer
+                - 'null'
+                description: 'Largest storage the cluster may grow to on its own, in GiB. Null turns the automatically upsize setting off. (min: 5, max: 1000)'
+            required:
+            - size
+            - storage
+            - is_public
+            - uses_scheduled_snapshots
+            - retention_days
+          - title: AWS RDS
+            type: object
+            description: Configuration for AWS RDS MySQL databases
+            properties:
+              size:
+                type: string
+                description: Instance size for the database cluster
+                enum:
+                - db.m8g.large
+                - db.m8g.xlarge
+                - db.m8g.2xlarge
+                - db.m8g.4xlarge
+                - db.m8g.8xlarge
+                - db.m8g.12xlarge
+                - db.m8g.16xlarge
+                - db.m7g.large
+                - db.m7g.xlarge
+                - db.m7g.2xlarge
+                - db.m7g.4xlarge
+                - db.m7g.8xlarge
+                - db.m7g.12xlarge
+                - db.m7g.16xlarge
+                - db.t4g.micro
+                - db.t4g.small
+                - db.t4g.medium
+                - db.t4g.large
+                - db.t4g.xlarge
+                - db.t4g.2xlarge
+                - db.r8g.large
+                - db.r8g.xlarge
+                - db.r8g.2xlarge
+                - db.r8g.4xlarge
+                - db.r8g.8xlarge
+                - db.r8g.12xlarge
+                - db.r8g.16xlarge
+              storage:
+                type: integer
+                description: 'Storage allocation in GiB (min: 20, max: 65536)'
+              is_public:
+                type: boolean
+                description: Whether the database is publicly accessible
+              uses_pitr:
+                type: boolean
+                description: Whether point-in-time recovery is enabled
+              retention_days:
+                type: integer
+                description: 'Days to retain backup data (min: 0, max: 30)'
+              maintenance_window:
+                type:
+                - string
+                - 'null'
+                description: UTC maintenance window for automated updates
+                examples:
+                - sun:06:00-sun:06:30
+              deployment_option:
+                type: string
+                description: Deployment configuration (single-az or multi-az)
+                enum:
+                - single-az
+                - single-az-with-read-replicas
+                - multi-az
+              read_replicas:
+                type:
+                - integer
+                - 'null'
+                description: The number of configured read replicas
+            required:
+            - size
+            - storage
+            - is_public
+            - uses_pitr
+            - retention_days
+            - deployment_option
+          discriminator:
+            propertyName: type
+            mapping:
+              laravel_mysql: '#/components/schemas/LaravelMysqlConfig'
+              aws_rds_mysql: '#/components/schemas/AwsRdsConfig'
+              aws_rds_postgres: '#/components/schemas/AwsRdsConfig'
+              neon_serverless_postgres: '#/components/schemas/NeonServerlessConfig'
+              laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
+              laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
+              aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
+              aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
+              neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
+              neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
+              neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
+      required:
+      - config
+      title: UpdateDatabaseRequest
     DatabaseResource:
       type: object
       properties:
@@ -727,21 +1256,13 @@ components:
                     - mysql-flex-512mb
                     - mysql-flex-1gb
                     - mysql-flex-2gb
-                    - db-flex.m-1vcpu-512mb
-                    - db-flex.m-1vcpu-1gb
-                    - db-flex.m-1vcpu-2gb
-                    - db-flex.m-1vcpu-4gb
-                    - db-pro.m-1vcpu-4gb
-                    - db-pro.m-2vcpu-8gb
-                    - db-pro.m-4vcpu-16gb
-                    - db-pro.m-8vcpu-32gb
                     - mysql-pro-4gb
                     - mysql-pro-8gb
                     - mysql-pro-16gb
                     - mysql-pro-32gb
                   storage:
                     type: integer
-                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
+                    description: 'Storage allocation in GiB (min: 5, max: 1000)'
                   is_public:
                     type: boolean
                     description: Whether the database is publicly accessible
@@ -761,6 +1282,11 @@ components:
                   suspend_seconds:
                     type: integer
                     description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
+                  storage_autoscale_max_gb:
+                    type:
+                    - integer
+                    - 'null'
+                    description: 'Largest storage the cluster may grow to on its own, in GiB. Null turns the automatically upsize setting off. (min: 5, max: 1000)'
                 required:
                 - size
                 - storage
@@ -782,8 +1308,6 @@ components:
                     - db.m8g.8xlarge
                     - db.m8g.12xlarge
                     - db.m8g.16xlarge
-                    - db.m8g.24xlarge
-                    - db.m8g.48xlarge
                     - db.m7g.large
                     - db.m7g.xlarge
                     - db.m7g.2xlarge
@@ -806,7 +1330,7 @@ components:
                     - db.r8g.16xlarge
                   storage:
                     type: integer
-                    description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
+                    description: 'Storage allocation in GiB (min: 20, max: 65536)'
                   is_public:
                     type: boolean
                     description: Whether the database is publicly accessible
@@ -845,6 +1369,10 @@ components:
               discriminator:
                 propertyName: type
                 mapping:
+                  laravel_mysql: '#/components/schemas/LaravelMysqlConfig'
+                  aws_rds_mysql: '#/components/schemas/AwsRdsConfig'
+                  aws_rds_postgres: '#/components/schemas/AwsRdsConfig'
+                  neon_serverless_postgres: '#/components/schemas/NeonServerlessConfig'
                   laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
                   laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
                   aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
@@ -852,6 +1380,12 @@ components:
                   neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
                   neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
                   neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
+            supports_pitr:
+              type: string
+            earliest_restore_time:
+              type:
+              - string
+              - 'null'
             connection:
               type: object
               properties:
@@ -902,20 +1436,12 @@ components:
           - region
           - created_at
           - config
+          - supports_pitr
+          - earliest_restore_time
           - connection
         relationships:
           type: object
           properties:
-            schemas:
-              type: object
-              description: 'TODO: Remove the schemas relationship by March 2026.'
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/DatabaseSchemaResourceIdentifier'
-              required:
-              - data
             databases:
               type: object
               properties:
@@ -929,66 +1455,21 @@ components:
       - id
       - type
       title: DatabaseResource
-    DatabaseResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databases
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseResourceIdentifier
-    DatabaseStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - restarting
-      - upgrading
-      - moving
-      - available
-      - stopped
-      - restoring
-      - restore_failed
-      - disabled
-      - snapshotting_before_archiving
-      - archiving
-      - archived
-      - deleting
-      - deleted
-      - unknown
-      title: DatabaseStatus
     CloudRegion:
       type: string
       enum:
-      - us-east-2
       - us-east-1
+      - us-east-2
       - ca-central-1
       - eu-central-1
       - eu-west-1
       - eu-west-2
+      - eu-west-3
       - me-central-1
       - ap-southeast-1
       - ap-southeast-2
       - ap-northeast-1
       title: CloudRegion
-    DatabaseSchemaResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - databaseSchemas
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DatabaseSchemaResourceIdentifier
     DatabaseSchemaResource:
       type: object
       properties:
@@ -1039,419 +1520,6 @@ components:
       - id
       - type
       title: DatabaseSchemaResource
-    DatabaseType:
-      type: string
-      enum:
-      - laravel_mysql_84
-      - laravel_mysql_8
-      - aws_rds_mysql_8
-      - aws_rds_postgres_18
-      - neon_serverless_postgres_18
-      - neon_serverless_postgres_17
-      - neon_serverless_postgres_16
-      title: DatabaseType
-    MetricPeriod:
-      type: string
-      enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
-    StoreDatabaseRequest:
-      type: object
-      properties:
-        type:
-          $ref: '#/components/schemas/DatabaseType'
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        region:
-          $ref: '#/components/schemas/CloudRegion'
-        config:
-          description: Configuration object. Fields vary based on database type.
-          oneOf:
-          - title: Neon Serverless Postgres
-            type: object
-            description: Configuration for Neon Serverless Postgres databases
-            properties:
-              cu_min:
-                type: number
-                description: Minimum compute units for auto-scaling
-                enum:
-                - 0.25
-                - 0.5
-                - 1
-                - 2
-                - 4
-                - 8
-                - 10
-              cu_max:
-                type: number
-                description: Maximum compute units for auto-scaling
-                enum:
-                - 0.25
-                - 0.5
-                - 1
-                - 2
-                - 4
-                - 8
-                - 10
-              suspend_seconds:
-                type: integer
-                description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
-              retention_days:
-                type: integer
-                description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
-            required:
-            - cu_min
-            - cu_max
-            - suspend_seconds
-            - retention_days
-          - title: Laravel MySQL
-            type: object
-            description: Configuration for Laravel MySQL databases
-            properties:
-              size:
-                type: string
-                description: Instance size for the database cluster
-                enum:
-                - mysql-flex-512mb
-                - mysql-flex-1gb
-                - mysql-flex-2gb
-                - db-flex.m-1vcpu-512mb
-                - db-flex.m-1vcpu-1gb
-                - db-flex.m-1vcpu-2gb
-                - db-flex.m-1vcpu-4gb
-                - db-pro.m-1vcpu-4gb
-                - db-pro.m-2vcpu-8gb
-                - db-pro.m-4vcpu-16gb
-                - db-pro.m-8vcpu-32gb
-                - mysql-pro-4gb
-                - mysql-pro-8gb
-                - mysql-pro-16gb
-                - mysql-pro-32gb
-              storage:
-                type: integer
-                description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-              is_public:
-                type: boolean
-                description: Whether the database is publicly accessible
-              uses_scheduled_snapshots:
-                type: boolean
-                description: Whether scheduled backups are enabled
-              retention_days:
-                type: integer
-                description: 'Days to retain backup data (min: 0, max: 30)'
-              maintenance_window:
-                type:
-                - string
-                - 'null'
-                description: UTC maintenance window for automated updates
-                examples:
-                - sun:06:00-sun:06:30
-              suspend_seconds:
-                type: integer
-                description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
-            required:
-            - size
-            - storage
-            - is_public
-            - uses_scheduled_snapshots
-            - retention_days
-          - title: AWS RDS
-            type: object
-            description: Configuration for AWS RDS MySQL databases
-            properties:
-              size:
-                type: string
-                description: Instance size for the database cluster
-                enum:
-                - db.m8g.large
-                - db.m8g.xlarge
-                - db.m8g.2xlarge
-                - db.m8g.4xlarge
-                - db.m8g.8xlarge
-                - db.m8g.12xlarge
-                - db.m8g.16xlarge
-                - db.m8g.24xlarge
-                - db.m8g.48xlarge
-                - db.m7g.large
-                - db.m7g.xlarge
-                - db.m7g.2xlarge
-                - db.m7g.4xlarge
-                - db.m7g.8xlarge
-                - db.m7g.12xlarge
-                - db.m7g.16xlarge
-                - db.t4g.micro
-                - db.t4g.small
-                - db.t4g.medium
-                - db.t4g.large
-                - db.t4g.xlarge
-                - db.t4g.2xlarge
-                - db.r8g.large
-                - db.r8g.xlarge
-                - db.r8g.2xlarge
-                - db.r8g.4xlarge
-                - db.r8g.8xlarge
-                - db.r8g.12xlarge
-                - db.r8g.16xlarge
-              storage:
-                type: integer
-                description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-              is_public:
-                type: boolean
-                description: Whether the database is publicly accessible
-              uses_pitr:
-                type: boolean
-                description: Whether point-in-time recovery is enabled
-              retention_days:
-                type: integer
-                description: 'Days to retain backup data (min: 0, max: 30)'
-              maintenance_window:
-                type:
-                - string
-                - 'null'
-                description: UTC maintenance window for automated updates
-                examples:
-                - sun:06:00-sun:06:30
-              deployment_option:
-                type: string
-                description: Deployment configuration (single-az or multi-az)
-                enum:
-                - single-az
-                - single-az-with-read-replicas
-                - multi-az
-              read_replicas:
-                type:
-                - integer
-                - 'null'
-                description: The number of configured read replicas
-            required:
-            - size
-            - storage
-            - is_public
-            - uses_pitr
-            - retention_days
-            - deployment_option
-          discriminator:
-            propertyName: type
-            mapping:
-              laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
-              laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
-              aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
-              aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
-              neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
-              neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
-              neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
-        cluster_id:
-          type:
-          - integer
-          - 'null'
-      required:
-      - type
-      - name
-      - region
-      - config
-      title: StoreDatabaseRequest
-    UpdateDatabaseRequest:
-      type: object
-      properties:
-        config:
-          description: Configuration object. Fields vary based on database type.
-          oneOf:
-          - title: Neon Serverless Postgres
-            type: object
-            description: Configuration for Neon Serverless Postgres databases
-            properties:
-              cu_min:
-                type: number
-                description: Minimum compute units for auto-scaling
-                enum:
-                - 0.25
-                - 0.5
-                - 1
-                - 2
-                - 4
-                - 8
-                - 10
-              cu_max:
-                type: number
-                description: Maximum compute units for auto-scaling
-                enum:
-                - 0.25
-                - 0.5
-                - 1
-                - 2
-                - 4
-                - 8
-                - 10
-              suspend_seconds:
-                type: integer
-                description: 'Seconds of inactivity before hibernation (0 = never, otherwise 60–604800) (min: 0, max: 604800)'
-              retention_days:
-                type: integer
-                description: 'Days to retain point-in-time recovery data (min: 0, max: 30)'
-            required:
-            - cu_min
-            - cu_max
-            - suspend_seconds
-            - retention_days
-          - title: Laravel MySQL
-            type: object
-            description: Configuration for Laravel MySQL databases
-            properties:
-              size:
-                type: string
-                description: Instance size for the database cluster
-                enum:
-                - mysql-flex-512mb
-                - mysql-flex-1gb
-                - mysql-flex-2gb
-                - db-flex.m-1vcpu-512mb
-                - db-flex.m-1vcpu-1gb
-                - db-flex.m-1vcpu-2gb
-                - db-flex.m-1vcpu-4gb
-                - db-pro.m-1vcpu-4gb
-                - db-pro.m-2vcpu-8gb
-                - db-pro.m-4vcpu-16gb
-                - db-pro.m-8vcpu-32gb
-                - mysql-pro-4gb
-                - mysql-pro-8gb
-                - mysql-pro-16gb
-                - mysql-pro-32gb
-              storage:
-                type: integer
-                description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-              is_public:
-                type: boolean
-                description: Whether the database is publicly accessible
-              uses_scheduled_snapshots:
-                type: boolean
-                description: Whether scheduled backups are enabled
-              retention_days:
-                type: integer
-                description: 'Days to retain backup data (min: 0, max: 30)'
-              maintenance_window:
-                type:
-                - string
-                - 'null'
-                description: UTC maintenance window for automated updates
-                examples:
-                - sun:06:00-sun:06:30
-              suspend_seconds:
-                type: integer
-                description: 'Seconds of inactivity before scaling to zero (0 = never). Requires an eligible size and the scale-to-zero feature. (min: 0, max: 3600)'
-            required:
-            - size
-            - storage
-            - is_public
-            - uses_scheduled_snapshots
-            - retention_days
-          - title: AWS RDS
-            type: object
-            description: Configuration for AWS RDS MySQL databases
-            properties:
-              size:
-                type: string
-                description: Instance size for the database cluster
-                enum:
-                - db.m8g.large
-                - db.m8g.xlarge
-                - db.m8g.2xlarge
-                - db.m8g.4xlarge
-                - db.m8g.8xlarge
-                - db.m8g.12xlarge
-                - db.m8g.16xlarge
-                - db.m8g.24xlarge
-                - db.m8g.48xlarge
-                - db.m7g.large
-                - db.m7g.xlarge
-                - db.m7g.2xlarge
-                - db.m7g.4xlarge
-                - db.m7g.8xlarge
-                - db.m7g.12xlarge
-                - db.m7g.16xlarge
-                - db.t4g.micro
-                - db.t4g.small
-                - db.t4g.medium
-                - db.t4g.large
-                - db.t4g.xlarge
-                - db.t4g.2xlarge
-                - db.r8g.large
-                - db.r8g.xlarge
-                - db.r8g.2xlarge
-                - db.r8g.4xlarge
-                - db.r8g.8xlarge
-                - db.r8g.12xlarge
-                - db.r8g.16xlarge
-              storage:
-                type: integer
-                description: 'Storage allocation in gigabytes (min: 5, max: 1000)'
-              is_public:
-                type: boolean
-                description: Whether the database is publicly accessible
-              uses_pitr:
-                type: boolean
-                description: Whether point-in-time recovery is enabled
-              retention_days:
-                type: integer
-                description: 'Days to retain backup data (min: 0, max: 30)'
-              maintenance_window:
-                type:
-                - string
-                - 'null'
-                description: UTC maintenance window for automated updates
-                examples:
-                - sun:06:00-sun:06:30
-              deployment_option:
-                type: string
-                description: Deployment configuration (single-az or multi-az)
-                enum:
-                - single-az
-                - single-az-with-read-replicas
-                - multi-az
-              read_replicas:
-                type:
-                - integer
-                - 'null'
-                description: The number of configured read replicas
-            required:
-            - size
-            - storage
-            - is_public
-            - uses_pitr
-            - retention_days
-            - deployment_option
-          discriminator:
-            propertyName: type
-            mapping:
-              laravel_mysql_84: '#/components/schemas/LaravelMysqlConfig'
-              laravel_mysql_8: '#/components/schemas/LaravelMysqlConfig'
-              aws_rds_mysql_8: '#/components/schemas/AwsRdsConfig'
-              aws_rds_postgres_18: '#/components/schemas/AwsRdsConfig'
-              neon_serverless_postgres_18: '#/components/schemas/NeonServerlessConfig'
-              neon_serverless_postgres_17: '#/components/schemas/NeonServerlessConfig'
-              neon_serverless_postgres_16: '#/components/schemas/NeonServerlessConfig'
-      required:
-      - config
-      title: UpdateDatabaseRequest
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
   securitySchemes:
     http:
       type: http

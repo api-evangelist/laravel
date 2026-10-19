@@ -9,6 +9,66 @@ security:
 tags:
 - name: WebSocket Clusters
 paths:
+  /websocket-servers/types:
+    get:
+      operationId: public.websocket-servers.types
+      description: 'List the WebSocket cluster types with the regions and max connection tiers each supports.
+
+
+        `available` on a type says whether the organization can create clusters of that type,
+
+        and `available` on a tier says whether the organization''s plan includes it. Pass a
+
+        tier''s `value` as `max_connections` when creating or updating a cluster.'
+      summary: List WebSocket cluster types
+      tags:
+      - WebSocket Clusters
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        label:
+                          type: string
+                        available:
+                          type: boolean
+                        regions:
+                          type: array
+                          items:
+                            type: string
+                        max_connections:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: integer
+                              label:
+                                type: string
+                              available:
+                                type: boolean
+                            required:
+                            - value
+                            - label
+                            - available
+                      required:
+                      - type
+                      - label
+                      - available
+                      - regions
+                      - max_connections
+                required:
+                - data
   /websocket-servers:
     get:
       operationId: public.websocket-servers.index
@@ -330,14 +390,6 @@ paths:
                       connection_count:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -346,27 +398,24 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          current:
+                            type: number
+                          max:
+                            type: number
+                          average:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - current
+                        - max
+                        - average
                       message_rate:
                         type: object
                         properties:
-                          labels:
-                            type: array
-                            items:
-                              type: string
-                          average:
-                            type: array
-                            items:
-                              type: number
                           data:
                             type: array
                             items:
@@ -375,16 +424,18 @@ paths:
                                 x:
                                   type: string
                                 y:
-                                  type: array
-                                  items:
-                                    type: number
+                                  type: number
                               required:
                               - x
                               - y
+                          average:
+                            type: number
+                          max:
+                            type: number
                         required:
-                        - labels
-                        - average
                         - data
+                        - average
+                        - max
                     required:
                     - connection_count
                     - message_rate
@@ -410,61 +461,173 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationException'
 components:
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
+  schemas:
+    WebsocketServerStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - stopped
+      - deleting
+      - deleted
+      - unknown
+      title: WebsocketServerStatus
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    WebsocketServerMaxConnection:
+      type: integer
+      enum:
+      - 100
+      - 200
+      - 500
+      - 2000
+      - 5000
+      - 10000
+      title: WebsocketServerMaxConnection
+    MetricPeriod:
+      type: string
+      enum:
+      - 1h
+      - 6h
+      - 24h
+      - 3d
+      - 7d
+      - 30d
+      title: MetricPeriod
+    WebsocketServerConnectionDistributionStrategy:
+      type: string
+      enum:
+      - evenly
+      - custom
+      title: WebsocketServerConnectionDistributionStrategy
+    WebsocketServerType:
+      type: string
+      enum:
+      - reverb
+      title: WebsocketServerType
+    StoreWebsocketServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 2
+          maxLength: 40
+        type:
+          $ref: '#/components/schemas/WebsocketServerType'
+        region:
+          $ref: '#/components/schemas/CloudRegion'
+        max_connections:
+          type: integer
+      required:
+      - name
+      - type
+      - region
+      - max_connections
+      title: StoreWebsocketServerRequest
+    WebsocketServerResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - websocketServers
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/WebsocketServerType'
+            region:
+              $ref: '#/components/schemas/CloudRegion'
+            status:
+              $ref: '#/components/schemas/WebsocketServerStatus'
+            max_connections:
+              $ref: '#/components/schemas/WebsocketServerMaxConnection'
+            connection_distribution_strategy:
+              $ref: '#/components/schemas/WebsocketServerConnectionDistributionStrategy'
+            hostname:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - region
+          - status
+          - max_connections
+          - connection_distribution_strategy
+          - hostname
+          - created_at
+        relationships:
+          type: object
+          properties:
+            applications:
+              type: object
+              properties:
+                data:
                   type: array
                   items:
-                    type: string
-            required:
-            - message
-            - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-  schemas:
+                    $ref: '#/components/schemas/WebsocketApplicationResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: WebsocketServerResource
+    UpdateWebsocketServerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          pattern: ^[a-z0-9_-]+$
+          minLength: 2
+          maxLength: 40
+        max_connections:
+          description: The number of maximum connections allowed for the WebSocket server. If passed, the connection distribution strategy will be set to EVENLY.
+          $ref: '#/components/schemas/WebsocketServerMaxConnection'
+      title: UpdateWebsocketServerRequest
+    WebsocketServerResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketServers
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketServerResourceIdentifier
     CloudRegion:
       type: string
       enum:
-      - us-east-2
       - us-east-1
+      - us-east-2
       - ca-central-1
       - eu-central-1
       - eu-west-1
       - eu-west-2
+      - eu-west-3
       - me-central-1
       - ap-southeast-1
       - ap-southeast-2
@@ -545,161 +708,51 @@ components:
       - id
       - type
       title: WebsocketApplicationResource
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    WebsocketServerType:
-      type: string
-      enum:
-      - reverb
-      title: WebsocketServerType
-    MetricPeriod:
-      type: string
-      enum:
-      - 6h
-      - 24h
-      - 3d
-      - 7d
-      - 30d
-      title: MetricPeriod
-    StoreWebsocketServerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        type:
-          $ref: '#/components/schemas/WebsocketServerType'
-        region:
-          $ref: '#/components/schemas/CloudRegion'
-        max_connections:
-          type: integer
-      required:
-      - name
-      - type
-      - region
-      - max_connections
-      title: StoreWebsocketServerRequest
-    WebsocketServerResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - websocketServers
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/WebsocketServerType'
-            region:
-              $ref: '#/components/schemas/CloudRegion'
-            status:
-              $ref: '#/components/schemas/WebsocketServerStatus'
-            max_connections:
-              $ref: '#/components/schemas/WebsocketServerMaxConnection'
-            connection_distribution_strategy:
-              $ref: '#/components/schemas/WebsocketServerConnectionDistributionStrategy'
-            hostname:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - region
-          - status
-          - max_connections
-          - connection_distribution_strategy
-          - hostname
-          - created_at
-        relationships:
-          type: object
-          properties:
-            applications:
-              type: object
-              properties:
-                data:
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
                   type: array
                   items:
-                    $ref: '#/components/schemas/WebsocketApplicationResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: WebsocketServerResource
-    WebsocketServerConnectionDistributionStrategy:
-      type: string
-      enum:
-      - evenly
-      - custom
-      title: WebsocketServerConnectionDistributionStrategy
-    WebsocketServerResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketServers
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketServerResourceIdentifier
-    UpdateWebsocketServerRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          pattern: ^[a-z0-9_-]+$
-          minLength: 3
-          maxLength: 40
-        max_connections:
-          description: The number of maximum connections allowed for the WebSocket server. If passed, the connection distribution strategy will be set to EVENLY.
-          $ref: '#/components/schemas/WebsocketServerMaxConnection'
-      title: UpdateWebsocketServerRequest
-    WebsocketServerMaxConnection:
-      type: integer
-      enum:
-      - 100
-      - 200
-      - 500
-      - 2000
-      - 5000
-      - 10000
-      title: WebsocketServerMaxConnection
-    WebsocketServerStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - stopped
-      - deleting
-      - deleted
-      - unknown
-      title: WebsocketServerStatus
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http

@@ -349,6 +349,18 @@ paths:
       x-processingMode: sync
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -371,18 +383,6 @@ components:
             - errors
     AuthorizationException:
       description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
       content:
         application/json:
           schema:
@@ -419,6 +419,19 @@ components:
       required:
       - href
       title: Link
+    UpdateNginxTemplateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the nginx template.
+        content:
+          type: string
+          description: The content of the nginx template.
+      required:
+      - name
+      - content
+      title: UpdateNginxTemplateRequest
     NginxTemplateResource:
       type: object
       properties:
@@ -475,19 +488,6 @@ components:
       - name
       - content
       title: CreateNginxTemplateRequest
-    UpdateNginxTemplateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the nginx template.
-        content:
-          type: string
-          description: The content of the nginx template.
-      required:
-      - name
-      - content
-      title: UpdateNginxTemplateRequest
   securitySchemes:
     http:
       type: http

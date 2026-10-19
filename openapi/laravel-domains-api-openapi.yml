@@ -293,8 +293,12 @@ paths:
           - string
           - 'null'
       responses:
-        '204':
-          description: No content
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
         '404':
           $ref: '#/components/responses/ModelNotFoundException'
         '403':
@@ -337,6 +341,71 @@ paths:
           $ref: '#/components/responses/AuthorizationException'
 components:
   schemas:
+    InstanceResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - instances
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: InstanceResourceIdentifier
+    WebsocketApplicationResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - websocketApplications
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: WebsocketApplicationResourceIdentifier
+    DomainVerificationMethod:
+      type: string
+      enum:
+      - pre_verification
+      - real_time
+      title: DomainVerificationMethod
+    CacheResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - caches
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: CacheResourceIdentifier
+    BotControlCategory:
+      type: string
+      enum:
+      - academic_research
+      - accessibility
+      - advertising_and_marketing
+      - aggregator
+      - ai_assistant
+      - ai_crawler
+      - ai_search
+      - feed_fetcher
+      - monitoring_and_analytics
+      - page_preview
+      - search_engine_crawler
+      - search_engine_optimization
+      - security
+      - social_media_marketing
+      - webhooks
+      - other
+      title: BotControlCategory
     ApplicationResourceIdentifier:
       type: object
       properties:
@@ -350,61 +419,34 @@ components:
       - type
       - id
       title: ApplicationResourceIdentifier
-    DatabaseSchemaResourceIdentifier:
+    BranchResourceIdentifier:
       type: object
       properties:
         type:
           type: string
           enum:
-          - databaseSchemas
+          - branches
         id:
           type: string
       required:
       - type
       - id
-      title: DatabaseSchemaResourceIdentifier
-    CreateDomainRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 3
-          maxLength: 255
-        www_redirect:
-          anyOf:
-          - $ref: '#/components/schemas/DomainRedirect'
-          - type: 'null'
-        wildcard_enabled:
-          type:
-          - boolean
-          - 'null'
-          description: Whether to enable a wildcard subdomain (*.example.com) for this domain.
-          examples:
-          - false
-        allow_downtime:
-          type:
-          - boolean
-          - 'null'
-          description: Whether to allow downtime during domain verification. When true (flexible), the domain can be pointed directly without pre-verification. When false (uninterrupted), TXT-based pre-verification is required to avoid downtime.
-          examples:
-          - true
-        cloudflare_strategy:
-          anyOf:
-          - description: The Cloudflare integration strategy. "none" uses A records with no Cloudflare integration. "dns" uses CNAME records via Cloudflare DNS only. "dns_proxy" uses CNAME records with Cloudflare's proxy enabled (Orange cloud).
-            examples:
-            - none
-            $ref: '#/components/schemas/DomainCloudflareStrategy'
-          - type: 'null'
-        verification_method:
-          anyOf:
-          - description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
-            examples:
-            - real_time
-            $ref: '#/components/schemas/DomainVerificationMethod'
-          - type: 'null'
-      required:
-      - name
-      title: CreateDomainRequest
+      title: BranchResourceIdentifier
+    DomainStatus:
+      type: string
+      enum:
+      - pending
+      - verified
+      - failed
+      - disabled
+      title: DomainStatus
+    DomainCloudflareStrategy:
+      type: string
+      enum:
+      - dns_proxy
+      - dns
+      - none
+      title: DomainCloudflareStrategy
     DomainResource:
       type: object
       properties:
@@ -421,6 +463,8 @@ components:
               type: string
             type:
               $ref: '#/components/schemas/DomainType'
+            stage:
+              $ref: '#/components/schemas/DomainStage'
             hostname_status:
               $ref: '#/components/schemas/DomainStatus'
             ssl_status:
@@ -607,6 +651,7 @@ components:
           required:
           - name
           - type
+          - stage
           - hostname_status
           - ssl_status
           - origin_status
@@ -644,101 +689,60 @@ components:
       - type
       - links
       title: DomainResource
-    RateLimitPerMinute:
-      type: integer
-      enum:
-      - 100
-      - 300
-      - 500
-      - 750
-      - 1000
-      title: RateLimitPerMinute
-    DomainStatus:
+    EnvironmentColor:
       type: string
       enum:
-      - pending
-      - verified
-      - failed
-      - disabled
-      title: DomainStatus
-    FilesystemResourceIdentifier:
+      - blue
+      - green
+      - orange
+      - purple
+      - red
+      - yellow
+      - cyan
+      - gray
+      title: EnvironmentColor
+    CreateDomainRequest:
       type: object
       properties:
-        type:
+        name:
           type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    EnvironmentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - environments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: EnvironmentResourceIdentifier
-    DomainCloudflareStrategy:
-      type: string
-      enum:
-      - dns_proxy
-      - dns
-      - none
-      title: DomainCloudflareStrategy
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
+          minLength: 3
+          maxLength: 255
+        www_redirect:
           anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
+          - $ref: '#/components/schemas/DomainRedirect'
+          - type: 'null'
+        wildcard_enabled:
+          type:
+          - boolean
+          - 'null'
+          description: Whether to enable a wildcard subdomain (*.example.com) for this domain. Not supported on environments using a load balancer.
+          examples:
+          - false
+        allow_downtime:
+          type:
+          - boolean
+          - 'null'
+          description: 'Whether to allow downtime during domain verification. When true (flexible), the domain can be pointed directly without pre-verification. When false (uninterrupted), the domain is pre-verified before traffic moves: TXT-based ownership pre-verification for "none" and "dns" strategies, certificate pre-issuance via DCV CNAMEs for "dns_proxy" (Cloudflare does not accept ownership tokens for proxied hostnames).'
+          examples:
+          - true
+        cloudflare_strategy:
+          anyOf:
+          - description: The Cloudflare integration strategy. "none" uses A records with no Cloudflare integration. "dns" uses CNAME records via Cloudflare DNS only. "dns_proxy" uses CNAME records with Cloudflare's proxy enabled (Orange cloud).
+            examples:
+            - none
+            $ref: '#/components/schemas/DomainCloudflareStrategy'
+          - type: 'null'
+        verification_method:
+          anyOf:
+          - description: The domain verification method to use. Pre-verification allows domain verification via TXT record before the domain is pointed to the environment. Real-time verification requires the domain to already be pointing to the environment.
+            examples:
+            - real_time
+            $ref: '#/components/schemas/DomainVerificationMethod'
+          - type: 'null'
       required:
-      - href
-      title: Link
-    DomainActionRequired:
-      type: string
-      enum:
-      - add_txt_records
-      - add_dns_records
-      - failed
-      title: DomainActionRequired
-    DeploymentResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - deployments
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DeploymentResourceIdentifier
+      - name
+      title: CreateDomainRequest
     UpdateDomainRequest:
       type: object
       properties:
@@ -750,147 +754,6 @@ components:
       required:
       - verification_method
       title: UpdateDomainRequest
-    DomainResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - domains
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: DomainResourceIdentifier
-    RateLimitLevel:
-      type: string
-      enum:
-      - challenge
-      - throttle
-      - ban
-      title: RateLimitLevel
-    DomainType:
-      type: string
-      enum:
-      - root
-      - www
-      - wildcard
-      title: DomainType
-    DomainRedirect:
-      type: string
-      enum:
-      - root_to_www
-      - www_to_root
-      title: DomainRedirect
-    BotControlCategory:
-      type: string
-      enum:
-      - academic_research
-      - accessibility
-      - advertising_and_marketing
-      - aggregator
-      - ai_assistant
-      - ai_crawler
-      - ai_search
-      - feed_fetcher
-      - monitoring_and_analytics
-      - page_preview
-      - search_engine_crawler
-      - search_engine_optimization
-      - security
-      - social_media_marketing
-      - webhooks
-      - other
-      title: BotControlCategory
-    SimplifiedDomainResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - domains
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/DomainType'
-            hostname_status:
-              $ref: '#/components/schemas/DomainStatus'
-            ssl_status:
-              $ref: '#/components/schemas/DomainStatus'
-            origin_status:
-              $ref: '#/components/schemas/DomainStatus'
-            redirect:
-              anyOf:
-              - $ref: '#/components/schemas/DomainRedirect'
-              - type: 'null'
-            last_verified_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - hostname_status
-          - ssl_status
-          - origin_status
-          - redirect
-          - last_verified_at
-          - created_at
-        relationships:
-          type: object
-          properties:
-            environment:
-              type: object
-              properties:
-                data:
-                  anyOf:
-                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
-                  - type: 'null'
-              required:
-              - data
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: SimplifiedDomainResource
-    DomainVerificationMethod:
-      type: string
-      enum:
-      - pre_verification
-      - real_time
-      title: DomainVerificationMethod
-    InstanceResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - instances
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: InstanceResourceIdentifier
     EnvironmentResource:
       type: object
       properties:
@@ -909,17 +772,20 @@ components:
               type: string
             status:
               $ref: '#/components/schemas/EnvironmentStatus'
+            color:
+              $ref: '#/components/schemas/EnvironmentColor'
             created_from_automation:
               type: boolean
             vanity_domain:
               type: string
+            framework:
+              $ref: '#/components/schemas/Framework'
+            language:
+              $ref: '#/components/schemas/Language'
             php_major_version:
               type: string
-              enum:
-              - '8.2'
-              - '8.3'
-              - '8.4'
-              - '8.5'
+            serving:
+              type: string
             build_command:
               type:
               - string
@@ -927,6 +793,10 @@ components:
             node_version:
               $ref: '#/components/schemas/NodeVersion'
             deploy_command:
+              type:
+              - string
+              - 'null'
+            start_command:
               type:
               - string
               - 'null'
@@ -938,10 +808,31 @@ components:
               type:
               - integer
               - 'null'
+            timeout:
+              type: integer
+              description: The number of seconds the environment will wait for your application to respond before timing out. Changes take effect on the next deployment.
+            shutdown_timeout:
+              type: integer
+              description: The number of seconds to wait before stopping the previous deployment's compute instances, allowing it to finish processing requests and jobs after a new deployment becomes active. Changes take effect on the next deployment.
             uses_push_to_deploy:
               type: boolean
             uses_deploy_hook:
               type: boolean
+            resend:
+              type:
+              - object
+              - 'null'
+              properties:
+                from_address:
+                  type: string
+                from_name:
+                  type: string
+                key_name:
+                  type: string
+              required:
+              - from_address
+              - from_name
+              - key_name
             ? ''
             : anyOf:
               - type: object
@@ -1048,17 +939,24 @@ components:
           - name
           - slug
           - status
+          - color
           - created_from_automation
           - vanity_domain
+          - framework
+          - language
           - php_major_version
           - build_command
           - node_version
           - deploy_command
+          - start_command
           - uses_octane
           - uses_hibernation
           - hibernation_wake_up_interval
+          - timeout
+          - shutdown_timeout
           - uses_push_to_deploy
           - uses_deploy_hook
+          - resend
           - null
           - network_settings
           - created_at
@@ -1164,6 +1062,15 @@ components:
                   - type: 'null'
               required:
               - data
+            secrets:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/SecretResourceIdentifier'
+              required:
+              - data
         links:
           type: object
           properties:
@@ -1176,52 +1083,52 @@ components:
       - type
       - links
       title: EnvironmentResource
-    BranchResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - branches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: BranchResourceIdentifier
-    WebsocketApplicationResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - websocketApplications
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: WebsocketApplicationResourceIdentifier
-    CacheResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - caches
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: CacheResourceIdentifier
-    NodeVersion:
+    Framework:
       type: string
       enum:
-      - '20'
-      - '22'
-      - '24'
-      title: NodeVersion
+      - laravel
+      - symfony
+      - jigsaw
+      - html
+      - php
+      - express
+      - hono
+      - nuxt
+      - next
+      - tanstack
+      - elysia
+      - nestjs
+      - astro
+      - javascript
+      - go
+      - ruby
+      - rails
+      - django
+      - fastapi
+      - flask
+      - python
+      - java
+      - spring
+      - rust
+      - axum
+      - rocket
+      - actix
+      - warp
+      title: Framework
+    DomainActionRequired:
+      type: string
+      enum:
+      - add_txt_records
+      - add_dns_records
+      - failed
+      title: DomainActionRequired
+    RateLimitLevel:
+      type: string
+      enum:
+      - challenge
+      - throttle
+      - ban
+      title: RateLimitLevel
     EnvironmentStatus:
       type: string
       enum:
@@ -1230,6 +1137,235 @@ components:
       - hibernating
       - stopped
       title: EnvironmentStatus
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    RateLimitPerMinute:
+      type: integer
+      enum:
+      - 100
+      - 300
+      - 500
+      - 750
+      - 1000
+      title: RateLimitPerMinute
+    DomainStage:
+      type: string
+      description: 'The stage of onboarding a domain is in.
+
+        | |
+
+        |---|
+
+        | `pre_verification` <br/> Ownership is being proven with temporary DNS records. |
+
+        | `origin` <br/> The domain is ready for its origin A/CNAME records. |'
+      enum:
+      - pre_verification
+      - origin
+      title: DomainStage
+    DeploymentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - deployments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DeploymentResourceIdentifier
+    EnvironmentResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - environments
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: EnvironmentResourceIdentifier
+    DatabaseSchemaResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - databaseSchemas
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DatabaseSchemaResourceIdentifier
+    DomainResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - domains
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: DomainResourceIdentifier
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
+    DomainType:
+      type: string
+      enum:
+      - root
+      - www
+      - wildcard
+      title: DomainType
+    SecretResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - secrets
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: SecretResourceIdentifier
+    DomainRedirect:
+      type: string
+      enum:
+      - root_to_www
+      - www_to_root
+      title: DomainRedirect
+    Language:
+      type: string
+      enum:
+      - html
+      - php
+      - javascript
+      - python
+      - go
+      - ruby
+      - java
+      - rust
+      title: Language
+    SimplifiedDomainResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - domains
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/DomainType'
+            hostname_status:
+              $ref: '#/components/schemas/DomainStatus'
+            ssl_status:
+              $ref: '#/components/schemas/DomainStatus'
+            origin_status:
+              $ref: '#/components/schemas/DomainStatus'
+            redirect:
+              anyOf:
+              - $ref: '#/components/schemas/DomainRedirect'
+              - type: 'null'
+            last_verified_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - hostname_status
+          - ssl_status
+          - origin_status
+          - redirect
+          - last_verified_at
+          - created_at
+        relationships:
+          type: object
+          properties:
+            environment:
+              type: object
+              properties:
+                data:
+                  anyOf:
+                  - $ref: '#/components/schemas/EnvironmentResourceIdentifier'
+                  - type: 'null'
+              required:
+              - data
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: SimplifiedDomainResource
+    NodeVersion:
+      type: string
+      enum:
+      - '20'
+      - '22'
+      - '24'
+      - '26'
+      title: NodeVersion
   responses:
     ModelNotFoundException:
       description: Not found

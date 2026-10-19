@@ -322,6 +322,18 @@ paths:
       x-processingMode: async
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -354,44 +366,7 @@ components:
                 description: Error overview.
             required:
             - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
     CreateRedirectRequest:
       type: object
       properties:
@@ -417,6 +392,37 @@ components:
       - to
       - type
       title: CreateRedirectRequest
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
+    RedirectRuleType:
+      type: string
+      enum:
+      - redirect
+      - permanent
+      title: RedirectRuleType
     RedirectRuleResource:
       type: object
       properties:
@@ -484,12 +490,6 @@ components:
       - type
       - links
       title: RedirectRuleResource
-    RedirectRuleType:
-      type: string
-      enum:
-      - redirect
-      - permanent
-      title: RedirectRuleType
   securitySchemes:
     http:
       type: http

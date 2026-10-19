@@ -509,6 +509,18 @@ paths:
       x-processingMode: sync
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -541,19 +553,50 @@ components:
                 description: Error overview.
             required:
             - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
+    OrganizationResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - organizations
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            slug:
+              type: string
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - slug
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: OrganizationResource
     Link:
       type: object
       properties:
@@ -579,6 +622,52 @@ components:
       required:
       - href
       title: Link
+    ServerCredentialResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - serverCredentials
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            provider:
+              type: string
+            in_use:
+              type: boolean
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+            updated_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - provider
+          - in_use
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
+      required:
+      - id
+      - type
+      - links
+      title: ServerCredentialResource
     VpcResource:
       type: object
       properties:
@@ -631,95 +720,6 @@ components:
       - type
       - links
       title: VpcResource
-    ServerCredentialResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - serverCredentials
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            provider:
-              type: string
-            in_use:
-              type: boolean
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            updated_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - provider
-          - in_use
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: ServerCredentialResource
-    OrganizationResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - organizations
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            slug:
-              type: string
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-            updated_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - slug
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
-      required:
-      - id
-      - type
-      - links
-      title: OrganizationResource
     CreateServerProviderNetworkRequest:
       type: object
       properties:

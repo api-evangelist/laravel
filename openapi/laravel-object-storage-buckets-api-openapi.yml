@@ -297,142 +297,21 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationException'
 components:
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    FilesystemType:
+    FilesystemLocationHint:
       type: string
+      description: 'Where Cloudflare should place an R2 bucket''s data. Automatic lets Cloudflare choose, which it does from the caller''s location rather than the customer''s.
+
+        '
       enum:
-      - cloudflare_r2
-      title: FilesystemType
-    FilesystemResourceIdentifier:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - filesystems
-        id:
-          type: string
-      required:
-      - type
-      - id
-      title: FilesystemResourceIdentifier
-    FilesystemJurisdiction:
-      type: string
-      enum:
-      - default
-      - eu
-      title: FilesystemJurisdiction
-    FilesystemResource:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - filesystems
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-            type:
-              $ref: '#/components/schemas/FilesystemType'
-            status:
-              $ref: '#/components/schemas/FilesystemStatus'
-            visibility:
-              $ref: '#/components/schemas/FilesystemVisibility'
-            jurisdiction:
-              $ref: '#/components/schemas/FilesystemJurisdiction'
-            endpoint:
-              type:
-              - string
-              - 'null'
-            url:
-              type:
-              - string
-              - 'null'
-            allowed_origins:
-              type: 'null'
-            cors_settings:
-              type: 'null'
-            created_at:
-              type:
-              - string
-              - 'null'
-              format: date-time
-          required:
-          - name
-          - type
-          - status
-          - visibility
-          - jurisdiction
-          - endpoint
-          - url
-          - allowed_origins
-          - cors_settings
-          - created_at
-        relationships:
-          type: object
-          properties:
-            keys:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/FilesystemKeyResourceIdentifier'
-              required:
-              - data
-      required:
-      - id
-      - type
-      title: FilesystemResource
+      - automatic
+      - wnam
+      - enam
+      - weur
+      - eeur
+      - apac
+      - oc
+      title: FilesystemLocationHint
     FilesystemKeyResourceIdentifier:
       type: object
       properties:
@@ -446,6 +325,34 @@ components:
       - type
       - id
       title: FilesystemKeyResourceIdentifier
+    FilesystemStatus:
+      type: string
+      enum:
+      - creating
+      - updating
+      - available
+      - deleting
+      - deleted
+      - unknown
+      title: FilesystemStatus
+    FilesystemType:
+      type: string
+      enum:
+      - cloudflare_r2
+      title: FilesystemType
+    FilesystemKeyPermission:
+      type: string
+      enum:
+      - read_write
+      - read_only
+      title: FilesystemKeyPermission
+    FilesystemJurisdiction:
+      type: string
+      enum:
+      - default
+      - eu
+      - us
+      title: FilesystemJurisdiction
     FilesystemKeyResource:
       type: object
       properties:
@@ -497,18 +404,115 @@ components:
       - id
       - type
       title: FilesystemKeyResource
+    FilesystemVisibility:
+      type: string
+      enum:
+      - private
+      - public
+      title: FilesystemVisibility
+    FilesystemResource:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - filesystems
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+            type:
+              $ref: '#/components/schemas/FilesystemType'
+            status:
+              $ref: '#/components/schemas/FilesystemStatus'
+            visibility:
+              $ref: '#/components/schemas/FilesystemVisibility'
+            jurisdiction:
+              $ref: '#/components/schemas/FilesystemJurisdiction'
+            location_hint:
+              anyOf:
+              - $ref: '#/components/schemas/FilesystemLocationHint'
+              - type: 'null'
+            endpoint:
+              type:
+              - string
+              - 'null'
+            url:
+              type:
+              - string
+              - 'null'
+            allowed_origins:
+              type: 'null'
+            cors_settings:
+              type: 'null'
+            created_at:
+              type:
+              - string
+              - 'null'
+              format: date-time
+          required:
+          - name
+          - type
+          - status
+          - visibility
+          - jurisdiction
+          - location_hint
+          - endpoint
+          - url
+          - allowed_origins
+          - cors_settings
+          - created_at
+        relationships:
+          type: object
+          properties:
+            keys:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/FilesystemKeyResourceIdentifier'
+              required:
+              - data
+      required:
+      - id
+      - type
+      title: FilesystemResource
+    FilesystemResourceIdentifier:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - filesystems
+        id:
+          type: string
+      required:
+      - type
+      - id
+      title: FilesystemResourceIdentifier
     StoreFilesystemRequest:
       type: object
       properties:
         name:
           type: string
           pattern: ^[a-z0-9_-]+$
-          minLength: 3
+          minLength: 2
           maxLength: 40
         visibility:
           $ref: '#/components/schemas/FilesystemVisibility'
         jurisdiction:
           $ref: '#/components/schemas/FilesystemJurisdiction'
+        location_hint:
+          anyOf:
+          - description: Where the bucket's data should be placed. Defaults to `automatic`. Only `automatic` is allowed when a jurisdiction is set.
+            enum:
+            - automatic
+            $ref: '#/components/schemas/FilesystemLocationHint'
+          - type: 'null'
         allowed_origins:
           type:
           - array
@@ -516,7 +520,6 @@ components:
           description: This field is deprecated and will be removed May 17th, 2026. Please use `cors_settings.allowed_origins` instead.
           items:
             type: string
-            format: uri
         cors_settings:
           type: object
           properties:
@@ -526,7 +529,6 @@ components:
               - 'null'
               items:
                 type: string
-                format: uri
             allowed_methods:
               type:
               - array
@@ -553,7 +555,7 @@ components:
               minimum: 1
         key_name:
           type: string
-          minLength: 3
+          minLength: 2
           maxLength: 40
         key_permission:
           $ref: '#/components/schemas/FilesystemKeyPermission'
@@ -570,7 +572,7 @@ components:
         name:
           type: string
           pattern: ^[a-z0-9_-]+$
-          minLength: 3
+          minLength: 2
           maxLength: 40
         visibility:
           $ref: '#/components/schemas/FilesystemVisibility'
@@ -581,7 +583,6 @@ components:
           description: This field is deprecated and will be removed May 17th, 2026. Please use `cors_settings.allowed_origins` instead.
           items:
             type: string
-            format: uri
         cors_settings:
           type: object
           properties:
@@ -591,7 +592,6 @@ components:
               - 'null'
               items:
                 type: string
-                format: uri
             allowed_methods:
               type:
               - array
@@ -617,28 +617,6 @@ components:
               - 'null'
               minimum: 1
       title: UpdateFilesystemRequest
-    FilesystemStatus:
-      type: string
-      enum:
-      - creating
-      - updating
-      - available
-      - deleting
-      - deleted
-      - unknown
-      title: FilesystemStatus
-    FilesystemKeyPermission:
-      type: string
-      enum:
-      - read_write
-      - read_only
-      title: FilesystemKeyPermission
-    FilesystemVisibility:
-      type: string
-      enum:
-      - private
-      - public
-      title: FilesystemVisibility
     CorsHttpMethod:
       type: string
       enum:
@@ -648,6 +626,51 @@ components:
       - DELETE
       - HEAD
       title: CorsHttpMethod
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http

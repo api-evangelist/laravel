@@ -379,6 +379,18 @@ paths:
       x-processingMode: async
 components:
   responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
     ValidationException:
       description: Validation error
       content:
@@ -411,80 +423,47 @@ components:
                 description: Error overview.
             required:
             - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    SecurityRuleResource:
+    CreateSecurityRuleRequest:
       type: object
       properties:
-        id:
+        name:
           type: string
-        type:
+          description: The name of the security rule.
+          examples:
+          - Restricted Access
+          maxLength: 255
+        path:
           type: string
-          enum:
-          - securityRules
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-              description: The name of the security rule.
-              examples:
-              - Restricted Access
-            path:
-              type:
-              - string
-              - 'null'
-              description: The path for the security rule.
-              examples:
-              - /admin
-            status:
-              type:
-              - string
-              - 'null'
-              description: The status of the security rule.
-              examples:
-              - installed
-            created_at:
-              type: string
-              format: date-time
-              description: The date and time the security rule was created.
-              examples:
-              - '2025-07-29T09:00:00Z'
-            updated_at:
-              type: string
-              format: date-time
-              description: The date and time the security rule was last updated.
-              examples:
-              - '2025-07-30T09:00:00Z'
-          required:
-          - name
-          - path
-          - status
-          - created_at
-          - updated_at
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+          description: The path for the security rule.
+          examples:
+          - /admin
+          maxLength: 255
+        credentials:
+          type: array
+          description: The credentials for the security rule.
+          items:
+            type: object
+            properties:
+              username:
+                type: string
+                description: The usernames for the credential.
+                examples:
+                - admin
+                maxLength: 50
+              password:
+                type: string
+                description: The passwords for the credential.
+                examples:
+                - secret123
+            required:
+            - username
+            - password
+          minItems: 1
       required:
-      - id
-      - type
-      - links
-      title: SecurityRuleResource
+      - name
+      - credentials
+      title: CreateSecurityRuleRequest
     Link:
       type: object
       properties:
@@ -551,46 +530,67 @@ components:
       - name
       - credentials
       title: UpdateSecurityRuleRequest
-    CreateSecurityRuleRequest:
+    SecurityRuleResource:
       type: object
       properties:
-        name:
+        id:
           type: string
-          description: The name of the security rule.
-          examples:
-          - Restricted Access
-          maxLength: 255
-        path:
+        type:
           type: string
-          description: The path for the security rule.
-          examples:
-          - /admin
-          maxLength: 255
-        credentials:
-          type: array
-          description: The credentials for the security rule.
-          items:
-            type: object
-            properties:
-              username:
-                type: string
-                description: The usernames for the credential.
-                examples:
-                - admin
-                maxLength: 50
-              password:
-                type: string
-                description: The passwords for the credential.
-                examples:
-                - secret123
-            required:
-            - username
-            - password
-          minItems: 1
+          enum:
+          - securityRules
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name of the security rule.
+              examples:
+              - Restricted Access
+            path:
+              type:
+              - string
+              - 'null'
+              description: The path for the security rule.
+              examples:
+              - /admin
+            status:
+              type:
+              - string
+              - 'null'
+              description: The status of the security rule.
+              examples:
+              - installed
+            created_at:
+              type: string
+              format: date-time
+              description: The date and time the security rule was created.
+              examples:
+              - '2025-07-29T09:00:00Z'
+            updated_at:
+              type: string
+              format: date-time
+              description: The date and time the security rule was last updated.
+              examples:
+              - '2025-07-30T09:00:00Z'
+          required:
+          - name
+          - path
+          - status
+          - created_at
+          - updated_at
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - name
-      - credentials
-      title: CreateSecurityRuleRequest
+      - id
+      - type
+      - links
+      title: SecurityRuleResource
   securitySchemes:
     http:
       type: http

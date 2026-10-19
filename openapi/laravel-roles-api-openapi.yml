@@ -729,77 +729,7 @@ paths:
           noindex: true
       x-processingMode: sync
 components:
-  responses:
-    ValidationException:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Errors overview.
-              errors:
-                type: object
-                description: A detailed description of each field that failed validation.
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - message
-            - errors
-    AuthorizationException:
-      description: Authorization error
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
-    ModelNotFoundException:
-      description: Not found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                description: Error overview.
-            required:
-            - message
   schemas:
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        describedby:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        hreflang:
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        meta:
-          type: object
-      required:
-      - href
-      title: Link
     Permission:
       type: string
       enum:
@@ -866,19 +796,6 @@ components:
       - resources:delete-buckets
       - resources:manage-buckets
       title: Permission
-    UpdateRoleRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 50
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      title: UpdateRoleRequest
     PredefinedRoleResource:
       type: object
       properties:
@@ -931,34 +848,44 @@ components:
       - type
       - links
       title: PredefinedRoleResource
-    PermissionResource:
+    PermissionResourceIdentifier:
       type: object
       properties:
-        id:
-          type: string
         type:
           type: string
           enum:
           - permissions
-        attributes:
-          type: object
-          properties:
-            name:
-              type: string
-          required:
-          - name
-        links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-          required:
-          - self
+        id:
+          type: string
       required:
-      - id
       - type
-      - links
-      title: PermissionResource
+      - id
+      title: PermissionResourceIdentifier
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+          format: uri
+        rel:
+          type: string
+        describedby:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+        hreflang:
+          anyOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        meta:
+          type: object
+      required:
+      - href
+      title: Link
     CustomRoleResource:
       type: object
       properties:
@@ -1011,19 +938,47 @@ components:
       - type
       - links
       title: CustomRoleResource
-    PermissionResourceIdentifier:
+    UpdateRoleRequest:
       type: object
       properties:
+        name:
+          type: string
+          maxLength: 50
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      title: UpdateRoleRequest
+    PermissionResource:
+      type: object
+      properties:
+        id:
+          type: string
         type:
           type: string
           enum:
           - permissions
-        id:
-          type: string
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+          required:
+          - name
+        links:
+          type: object
+          properties:
+            self:
+              $ref: '#/components/schemas/Link'
+          required:
+          - self
       required:
-      - type
       - id
-      title: PermissionResourceIdentifier
+      - type
+      - links
+      title: PermissionResource
     CreateRoleRequest:
       type: object
       properties:
@@ -1037,6 +992,51 @@ components:
       required:
       - name
       title: CreateRoleRequest
+  responses:
+    ModelNotFoundException:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
+    ValidationException:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Errors overview.
+              errors:
+                type: object
+                description: A detailed description of each field that failed validation.
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - message
+            - errors
+    AuthorizationException:
+      description: Authorization error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Error overview.
+            required:
+            - message
   securitySchemes:
     http:
       type: http
