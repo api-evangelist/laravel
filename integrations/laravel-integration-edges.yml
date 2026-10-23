@@ -20,6 +20,9 @@ checked:
 - terraform/integrations/terraform-integration-edges.yml
 - https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions
 - https://www.raycast.com/api/v1/store_listings
+- https://hex.pm/api
+- https://packagist.org/packages
+- https://pub.dev/api
 marketplace_apps: []
 edges:
 - partner_name: Visual Studio Code Marketplace
@@ -317,5 +320,35 @@ edges:
   - Laravel Vapor
   - Laravel Cloud
   direction: partner-built
+- partner_name: Packagist
+  partner: packagist
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (PHP)
+  evidence: https://packagist.org/packages/laravel/forge-sdk
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Packagist (public registry JSON)
+    spec_file: null
+    language: PHP
+    packages:
+    - name: laravel/forge-sdk
+      version: v4.1.1
+      released: '2026-10-07'
+      released_field: time
+      lapsed: false
+      page: https://packagist.org/packages/laravel/forge-sdk
+      repo_leg: github-org:laravel
+      publisher_leg: email:laravel.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
+  detected_by: sweep-php-dart-elixir-package-registries.py
+  first_seen: '2026-10-22'
 source:
 - https://marketplace.visualstudio.com/vscode
